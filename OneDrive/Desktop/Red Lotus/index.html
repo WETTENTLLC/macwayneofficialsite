@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" href="/favicon.ico" />
+    <meta name="theme-color" content="#45080A" />
+    <meta property="og:title" content="Red Lotus | Official Site" />
+    <meta property="og:description" content="Red Lotus - Official music collective. Explore albums, join the tribe, and experience exclusive content." />
+    <meta property="og:image" content="/og-image.png" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Red Lotus Music</title>
+    <!-- Add Tailwind CSS via CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              'red-lotus': '#45080A',
+              'yellow-lotus': '#C17505',
+              'blue-lotus': '#405769',
+              'green-lotus': '#384A50',
+              'brown-lotus': '#7F371E',
+              'pink-lotus': '#966B73',
+              'blue-lotus-accent': '#C17505',
+            }
+          }
+        }
+      }
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
