@@ -1,4 +1,4 @@
-import { handleUpload, type HandleUploadBody } from '@vercel/blob/server'; // Use @vercel/blob/server for handleUpload
+import { handleUpload, type HandleUploadBody } from '@vercel/blob'; // Use @vercel/blob for handleUpload
 
 export const config = {
   runtime: 'edge',
@@ -20,7 +20,7 @@ export default async function handler(request: Request) {
           }),
         };
       },
-      onUploadCompleted: async ({ blob, tokenPayload }) => {
+      onUploadCompleted: async ({ blob, tokenPayload }: any) => {
         console.log('blob upload completed', blob, tokenPayload);
       },
     });

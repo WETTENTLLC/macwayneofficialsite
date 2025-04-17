@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import BandAuditionForm from './components/BandAuditionForm';
 // Keep type import static
-import type { UploadResult, UploadOptions } from '@vercel/blob/client';
+import type { UploadOptions } from '@vercel/blob/client';
 
 // Import all image assets properly
 import lotusForEachAlbum from './assets/lotus-for-each-album.png';
@@ -21,7 +21,6 @@ import artistImage1 from './assets/aritst-image1.jpeg';
 import artistImage2 from './assets/artist-image2.jpeg';
 import artistImage3 from './assets/artist-image3.jpeg';
 import artistImage4 from './assets/artist-image4.jpeg';
-import artistSecondaryLogo from './assets/artist-secondary-logo-image.jpeg';
 
 // Define the possible theme names as a type
 type ThemeName = 'red' | 'yellow' | 'blue' | 'green' | 'brown' | 'pink';
@@ -575,12 +574,12 @@ function MusicUploadForm({ onUpload }: { onUpload: (music: Omit<UploadedMusic, '
       };
 
       // Upload music file
-      const musicBlob: UploadResult = await upload(musicFile.name, musicFile, options);
+      const musicBlob = await upload(musicFile.name, musicFile, options);
       musicBlobUrl = musicBlob.url;
       
       // Upload album art if present
       if (albumArtFile) {
-        const albumArtBlob: UploadResult = await upload(albumArtFile.name, albumArtFile, options);
+        const albumArtBlob = await upload(albumArtFile.name, albumArtFile, options);
         albumArtUrl = albumArtBlob.url;
       }
       
