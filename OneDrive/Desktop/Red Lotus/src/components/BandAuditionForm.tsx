@@ -1,122 +1,93 @@
-import { useState } from 'react';
+import React, { FormEvent, useState } from 'react';
 
 interface BandAuditionFormProps {
-  onSubmit: () => void;
+  onSubmit: (form: { name: string; email: string; instrument: string; message: string }) => void;
 }
 
-export default function BandAuditionForm({ onSubmit }: BandAuditionFormProps) {
+const BandAuditionForm: React.FC<BandAuditionFormProps> = ({ onSubmit }) => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [instrument, setInstrument] = useState('');
-  const [experience, setExperience] = useState('');
   const [message, setMessage] = useState('');
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
-    
-    if (!name || !email || !instrument) {
-      alert('Please fill in all required fields.');
-      return;
-    }
-    
-    // Call the onSubmit function passed as prop
-    onSubmit();
-    
-    // Reset form
+    onSubmit({ name, email, instrument, message });
+    // Reset form 
     setName('');
     setEmail('');
     setInstrument('');
-    setExperience('');
     setMessage('');
   };
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-4">
+    <form onSubmit={handleSubmit} className="flex flex-col space-y-4">
       <div>
-        <label htmlFor="name" className="block text-sm font-medium text-gray-700">
-          Name*
-        </label>
+        <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-1">Name</label>
         <input
-          type="text"
           id="name"
-          className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-red-500 focus:ring-red-500"
+          type="text"
+          className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-lotus"
+          placeholder="Your name"
           value={name}
-          onChange={(e) => setName(e.target.value)}
+          onChange={(e: React.ChangeEvent<HTMLInputElement>) => setName(e.target.value)}
           required
         />
       </div>
       
       <div>
-        <label htmlFor="email" className="block text-sm font-medium text-gray-700">
-          Email*
-        </label>
+        <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">Email</label>
         <input
-          type="email"
           id="email"
-          className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-red-500 focus:ring-red-500"
+          type="email"
+          className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-lotus"
+          placeholder="Your email address"
           value={email}
-          onChange={(e) => setEmail(e.target.value)}
+          onChange={(e: React.ChangeEvent<HTMLInputElement>) => setEmail(e.target.value)}
           required
         />
       </div>
       
       <div>
-        <label htmlFor="instrument" className="block text-sm font-medium text-gray-700">
-          Instrument/Skill*
-        </label>
+        <label htmlFor="instrument" className="block text-sm font-medium text-gray-700 mb-1">Instrument</label>
         <select
           id="instrument"
-          className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-red-500 focus:ring-red-500"
+          className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-lotus"
           value={instrument}
-          onChange={(e) => setInstrument(e.target.value)}
+          onChange={(e: React.ChangeEvent<HTMLSelectElement>) => setInstrument(e.target.value)}
           required
         >
-          <option value="">Select your primary skill</option>
-          <option value="vocals">Vocals</option>
-          <option value="guitar">Guitar</option>
-          <option value="bass">Bass</option>
-          <option value="drums">Drums</option>
-          <option value="keys">Keys/Piano</option>
-          <option value="production">Production</option>
-          <option value="other">Other</option>
+          <option value="">Select your instrument</option>
+          <option value="Vocals">Vocals</option>
+          <option value="Guitar">Guitar</option>
+          <option value="Bass">Bass</option>
+          <option value="Drums">Drums</option>
+          <option value="Keyboard">Keyboard</option>
+          <option value="Other">Other</option>
         </select>
       </div>
       
       <div>
-        <label htmlFor="experience" className="block text-sm font-medium text-gray-700">
-          Years of Experience
-        </label>
-        <input
-          type="number"
-          id="experience"
-          min="0"
-          className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-red-500 focus:ring-red-500"
-          value={experience}
-          onChange={(e) => setExperience(e.target.value)}
-        />
-      </div>
-      
-      <div>
-        <label htmlFor="message" className="block text-sm font-medium text-gray-700">
-          Why do you want to join Red Lotus?
-        </label>
+        <label htmlFor="message" className="block text-sm font-medium text-gray-700 mb-1">Your Message</label>
         <textarea
           id="message"
-          rows={4}
-          className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-red-500 focus:ring-red-500"
+          className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-lotus"
+          placeholder="Tell us about your music experience and why you'd like to join Red Lotus"
           value={message}
-          onChange={(e) => setMessage(e.target.value)}
+          onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => setMessage(e.target.value)}
+          rows={4}
+          required
         />
       </div>
       
-      <div className="flex justify-center">
-        <button
-          type="submit"
-          className="px-6 py-2 bg-red-600 text-white font-medium rounded-md hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2"
-        >
-          Submit Audition
-        </button>
-      </div>
+      <button
+        type="submit"
+        className="w-full px-6 py-3 bg-red-lotus text-white font-bold rounded-md hover:bg-red-800 transition-colors duration-300"
+      >
+        Submit Audition
+      </button>
     </form>
   );
-}
+};
+
+export default BandAuditionForm;

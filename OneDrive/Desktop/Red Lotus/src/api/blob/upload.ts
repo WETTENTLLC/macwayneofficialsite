@@ -1,33 +1,34 @@
-import { handleUpload, type HandleUploadBody } from '@vercel/blob'; // Use @vercel/blob for handleUpload
+// Force Vercel to use the latest version - build cache bust
+import { put } from '@vercel/blob';
 
-export const config = {
-  runtime: 'edge',
-};
-
-export default async function handler(request: Request) {
-  const body = (await request.json()) as HandleUploadBody;
-
+export async function POST(request: Request) {
   try {
-    const jsonResponse = await handleUpload({
-      body,
-      request,
-      token: process.env.BLOB_READ_WRITE_TOKEN,
-      onBeforeGenerateToken: async (pathname: string) => {
-        return {
-          allowedContentTypes: ['image/jpeg', 'image/png', 'image/gif', 'audio/mpeg', 'audio/wav'],
-          tokenPayload: JSON.stringify({
-            userId: 'user-id-placeholder',
-          }),
-        };
-      },
-      onUploadCompleted: async ({ blob, tokenPayload }: any) => {
-        console.log('blob upload completed', blob, tokenPayload);
-      },
+    const formData = await request.formData();
+    const file = formData.get('file') as File;
+    
+    if (!file) {
+      return new Response('No file found', { status: 400 });
+    }
+    
+    // Get file data
+    const buffer = await file.arrayBuffer();
+    
+    const blob = await put(file.name, buffer, {
+      access: 'public',
+      contentType: file.type,
     });
-
-    return new Response(JSON.stringify(jsonResponse), { status: 200 });
+    
+    return new Response(JSON.stringify({
+      url: blob.url,
+    }), { 
+      status: 200,
+      headers: {
+        'Content-Type': 'application/json' 
+      }
+    });
+    
   } catch (error) {
-    console.error("Error in blob upload handler:", error);
-    return new Response(JSON.stringify({ error: (error as Error).message }), { status: 400 });
+    console.error('Error uploading file:', error);
+    return new Response('Error uploading file', { status: 500 });
   }
 }

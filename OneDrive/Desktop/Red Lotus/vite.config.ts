@@ -35,7 +35,7 @@ export default defineConfig({
       brotliSize: true,
     })
   ],
-  assetsInclude: ['**/*.JPEG'],
+  assetsInclude: ['**/*.JPEG', '**/*.jpeg'],
   build: {
     cssCodeSplit: true,
     reportCompressedSize: true,

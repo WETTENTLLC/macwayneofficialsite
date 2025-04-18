@@ -21,6 +21,6 @@ export default {
     },
   },
   plugins: [
-    require('@tailwindcss/forms'), // Add forms plugin if not already present for better default form styling
+    // Forms plugin removed to fix build issues
   ],
 }

@@ -1,6 +1,6 @@
 {
   "buildCommand": "npm run vercel-build || npm run build",
-  "framework": "other",
+  "framework": "vite",
   "installCommand": null,
   "outputDirectory": "dist",
   "cleanUrls": true,
@@ -15,6 +15,5 @@
   "trailingSlash": false,
   "github": {
     "silent": true
-  },
-  "nodeVersion": "22.x"
+  }
 }
