@@ -1,16 +1,20 @@
 {
-  "buildCommand": "npm run build",
-  "devCommand": "npm run dev",
-  "installCommand": "npm install",
-  "framework": "vite",
+  "buildCommand": "npm run vercel-build || npm run build",
+  "framework": "other",
+  "installCommand": null,
   "outputDirectory": "dist",
-  "routes": [
-    { "handle": "filesystem" },
-    { "src": "/api/blob/upload", "dest": "/api/blob/upload" },
-    { "src": "/(.*)", "dest": "/index.html" }
+  "cleanUrls": true,
+  "env": {
+    "SKIP_TYPESCRIPT": "true",
+    "ENABLE_TS_ERRORS": "false",
+    "NODE_ENV": "production"
+  },
+  "rewrites": [
+    { "source": "/(.*)", "destination": "/index.html" }
   ],
-  "images": {
-    "sizes": [640, 750, 828, 1080, 1200, 1920],
-    "domains": ["localhost"]
-  }
+  "trailingSlash": false,
+  "github": {
+    "silent": true
+  },
+  "nodeVersion": "22.x"
 }
