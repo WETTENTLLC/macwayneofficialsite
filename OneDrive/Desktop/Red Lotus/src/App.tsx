@@ -173,12 +173,42 @@ function App() {
     brown: 'Autumn grounding and earthy connection. For stability and natural harmony.',
     pink: 'Love energy and emotional connection. For romantic and heartfelt expression.',
   });
+
+  // Replace demo analytics data with real-time placeholders
   const [analytics, setAnalytics] = useState({
-    visitors: 1234,
-    signups: 56,
-    tribeSelections: { red: 20, yellow: 18, blue: 18 },
-    musicStreams: 789,
+    visitors: 0,
+    signups: 0,
+    musicStreams: 0,
+    tribeSelections: {
+      red: 0,
+      yellow: 0,
+      blue: 0
+    }
   });
+
+  useEffect(() => {
+    // Placeholder for real-time analytics fetching logic
+    const fetchAnalytics = async () => {
+      try {
+        // Replace with actual API or database call
+        const realTimeData = {
+          visitors: await getRealTimeVisitors(),
+          signups: await getRealTimeSignups(),
+          musicStreams: await getRealTimeMusicStreams(),
+          tribeSelections: {
+            red: await getRealTimeTribeSelections('red'),
+            yellow: await getRealTimeTribeSelections('yellow'),
+            blue: await getRealTimeTribeSelections('blue')
+          }
+        };
+        setAnalytics(realTimeData);
+      } catch (error) {
+        console.error('Error fetching analytics:', error);
+      }
+    };
+
+    fetchAnalytics();
+  }, []);
 
   // Add state for community chat/messages per tribe
   const [tribeMessages, setTribeMessages] = useState<Record<ThemeName, { user: string; text: string; time: string }[]>>({
