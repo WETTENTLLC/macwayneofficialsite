@@ -191,16 +191,15 @@ img {
 /* Hero Section */
 .hero {
   position: relative;
-  height: 100vh;
+  min-height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
   text-align: center;
   color: var(--light-text);
   margin-top: 80px; /* Account for fixed header */
-  padding: 0;
+  padding: 50px 0;
   overflow: hidden;
-  min-height: 500px; /* Add a minimum height to ensure content is visible even if layout breaks */
 }
 
 .video-background {
@@ -627,13 +626,85 @@ social-icons {
   }
 }
 
+/* Mobile Navigation */
+.nav-toggle {
+  display: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  z-index: 1001;
+}
+
+.hamburger {
+  display: block;
+  position: relative;
+  width: 30px;
+  height: 3px;
+  background: var(--primary-color);
+  transition: var(--transition);
+}
+
+.hamburger::before,
+.hamburger::after {
+  content: '';
+  position: absolute;
+  width: 30px;
+  height: 3px;
+  background: var(--primary-color);
+  transition: var(--transition);
+}
+
+.hamburger::before {
+  top: -8px;
+}
+
+.hamburger::after {
+  bottom: -8px;
+}
+
+.nav-toggle[aria-expanded="true"] .hamburger {
+  transform: rotate(45deg);
+}
+
+.nav-toggle[aria-expanded="true"] .hamburger::before {
+  top: 0;
+  opacity: 0;
+}
+
+.nav-toggle[aria-expanded="true"] .hamburger::after {
+  bottom: 0;
+  transform: rotate(-90deg);
+}
+
 @media screen and (max-width: 768px) {
-  .main-nav {
-    display: none;
+  .nav-toggle {
+    display: block;
   }
   
-  .mobile-menu-toggle {
-    display: block;
+  .nav-links {
+    position: fixed;
+    top: 0;
+    right: -100%;
+    width: 80%;
+    max-width: 300px;
+    height: 100vh;
+    background-color: var(--background-color);
+    box-shadow: -5px 0 15px rgba(0, 0, 0, 0.1);
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 80px 0;
+    transition: var(--transition);
+    z-index: 1000;
+  }
+  
+  .nav-links.active {
+    right: 0;
+  }
+  
+  .nav-links li {
+    margin: 15px 0;
   }
   
   h1 {
@@ -689,6 +760,12 @@ social-icons {
   }
   
   .hero {
-    height: 80vh;
+    min-height: 80vh;
+    padding: 100px 0 60px;
+  }
+  
+  .hero-content img {
+    max-height: 200px;
+    width: auto;
   }
 }

@@ -23,12 +23,12 @@
                 <span style="vertical-align: middle; font-size: 1.5em; font-weight: bold;">Leafy Libations</span>
             </a>
             <button class="nav-toggle" aria-label="toggle navigation" aria-expanded="false">
-                <span class="hamburger"></span> <!-- Needs CSS for hamburger icon and JS for toggle -->
+                <span class="hamburger"></span>
             </button>
-            <ul class="nav-links">
+            <ul class="nav-links" id="nav-links">
                 <li><a href="index.html">Home</a></li>
                 <li><a href="shop.html">Shop</a></li>
-                <li><a href="wholesale.html">Wholesale</a></li>
+                <li><a href="wholesale.html">Wholesale Portal</a></li>
                 <li><a href="store-locator.html">Find a Store</a></li>
                 <li><a href="about.html">About Us</a></li>
                 <li><a href="contact.html">Contact</a></li>
@@ -69,7 +69,7 @@
         <div class="container">
             <h2 class="text-center">Our Signature Infusions</h2>
             <div class="product-grid">
-                <!-- Example Product Card (Repeat 2-3 times for features) -->
+                <!-- Product Cards - 13 total -->
                 <div class="product-card">
                     <img src="images/product-placeholder-1.jpg" alt="Signature Beverage 1">
                     <div class="product-card-content">
@@ -92,6 +92,86 @@
                         <h3>Minty Marvel</h3>
                         <p>Cooling mint meets a hint of lime in this invigorating beverage.</p>
                         <a href="shop.html#minty-marvel" class="btn btn-tertiary">Details</a>
+                    </div>
+                </div>
+                <div class="product-card">
+                    <img src="images/product-placeholder-1.jpg" alt="Signature Beverage 4">
+                    <div class="product-card-content">
+                        <h3>Citrus Serenity</h3>
+                        <p>A bright and zesty blend of citrus flavors for a refreshing experience.</p>
+                        <a href="shop.html#citrus-serenity" class="btn btn-tertiary">Details</a>
+                    </div>
+                </div>
+                <div class="product-card">
+                    <img src="images/product-placeholder-2.jpg" alt="Signature Beverage 5">
+                    <div class="product-card-content">
+                        <h3>Tropical Tranquility</h3>
+                        <p>A tropical paradise in a bottle with notes of pineapple and coconut.</p>
+                        <a href="shop.html#tropical-tranquility" class="btn btn-tertiary">Details</a>
+                    </div>
+                </div>
+                <div class="product-card">
+                    <img src="images/product-placeholder-3.jpg" alt="Signature Beverage 6">
+                    <div class="product-card-content">
+                        <h3>Herbal Harmony</h3>
+                        <p>A balanced blend of herbs creating a harmonious and soothing experience.</p>
+                        <a href="shop.html#herbal-harmony" class="btn btn-tertiary">Details</a>
+                    </div>
+                </div>
+                <div class="product-card">
+                    <img src="images/product-placeholder-1.jpg" alt="Signature Beverage 7">
+                    <div class="product-card-content">
+                        <h3>Floral Fusion</h3>
+                        <p>A delicate fusion of floral notes creating an elegant and refined taste.</p>
+                        <a href="shop.html#floral-fusion" class="btn btn-tertiary">Details</a>
+                    </div>
+                </div>
+                <div class="product-card">
+                    <img src="images/product-placeholder-2.jpg" alt="Signature Beverage 8">
+                    <div class="product-card-content">
+                        <h3>Spiced Serenity</h3>
+                        <p>A warm blend of spices that creates a comforting and calming experience.</p>
+                        <a href="shop.html#spiced-serenity" class="btn btn-tertiary">Details</a>
+                    </div>
+                </div>
+                <div class="product-card">
+                    <img src="images/product-placeholder-3.jpg" alt="Signature Beverage 9">
+                    <div class="product-card-content">
+                        <h3>Vanilla Vitality</h3>
+                        <p>A smooth vanilla infusion that provides a gentle energy boost.</p>
+                        <a href="shop.html#vanilla-vitality" class="btn btn-tertiary">Details</a>
+                    </div>
+                </div>
+                <div class="product-card">
+                    <img src="images/product-placeholder-1.jpg" alt="Signature Beverage 10">
+                    <div class="product-card-content">
+                        <h3>Chocolate Chill</h3>
+                        <p>A rich chocolate flavor with a cooling finish for a luxurious experience.</p>
+                        <a href="shop.html#chocolate-chill" class="btn btn-tertiary">Details</a>
+                    </div>
+                </div>
+                <div class="product-card">
+                    <img src="images/product-placeholder-2.jpg" alt="Signature Beverage 11">
+                    <div class="product-card-content">
+                        <h3>Caramel Calm</h3>
+                        <p>A sweet caramel infusion that brings a sense of peace and relaxation.</p>
+                        <a href="shop.html#caramel-calm" class="btn btn-tertiary">Details</a>
+                    </div>
+                </div>
+                <div class="product-card">
+                    <img src="images/product-placeholder-3.jpg" alt="Signature Beverage 12">
+                    <div class="product-card-content">
+                        <h3>Honey Harmony</h3>
+                        <p>A natural honey blend that creates a balanced and harmonious taste.</p>
+                        <a href="shop.html#honey-harmony" class="btn btn-tertiary">Details</a>
+                    </div>
+                </div>
+                <div class="product-card">
+                    <img src="images/product-placeholder-1.jpg" alt="Signature Beverage 13">
+                    <div class="product-card-content">
+                        <h3>Lavender Lullaby</h3>
+                        <p>A soothing lavender infusion perfect for unwinding at the end of the day.</p>
+                        <a href="shop.html#lavender-lullaby" class="btn btn-tertiary">Details</a>
                     </div>
                 </div>
             </div>
@@ -158,6 +238,18 @@
     </footer>
 
     <script>
+        // Mobile Navigation Toggle
+        document.addEventListener('DOMContentLoaded', function() {
+            const navToggle = document.querySelector('.nav-toggle');
+            const navLinks = document.getElementById('nav-links');
+            
+            navToggle.addEventListener('click', function() {
+                const expanded = this.getAttribute('aria-expanded') === 'true';
+                this.setAttribute('aria-expanded', !expanded);
+                navLinks.classList.toggle('active');
+            });
+        });
+        
         // Store Locator JS
         const mapApiKey = 'YOUR_GOOGLE_MAPS_API_KEY'; // ### IMPORTANT: Replace with your actual API key ###
         let map;
