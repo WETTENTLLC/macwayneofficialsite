@@ -2,16 +2,8 @@
   "version": 3,
   "pages404": true,
   "caseSensitive": false,
-  "basePath": "/leafylivation-repository",
+  "basePath": "",
   "redirects": [
-    {
-      "source": "/leafylivation-repository/",
-      "destination": "/leafylivation-repository",
-      "basePath": false,
-      "internal": true,
-      "statusCode": 308,
-      "regex": "^/leafylivation-repository/$"
-    },
     {
       "source": "/:path+/",
       "destination": "/:path+",
@@ -53,15 +45,5 @@
     "pathHeader": "x-nextjs-rewritten-path",
     "queryHeader": "x-nextjs-rewritten-query"
   },
-  "rewrites": {
-    "beforeFiles": [
-      {
-        "source": "/leafylivation-repository//_next/:path+",
-        "destination": "/leafylivation-repository/_next/:path+",
-        "regex": "^/leafylivation-repository//_next(?:/((?:[^/]+?)(?:/(?:[^/]+?))*))(?:/)?$"
-      }
-    ],
-    "afterFiles": [],
-    "fallback": []
-  }
+  "rewrites": []
 }
