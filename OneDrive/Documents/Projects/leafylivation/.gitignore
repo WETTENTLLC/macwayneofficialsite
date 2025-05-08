@@ -1,0 +1,9 @@
+node_modules/
+.next/
+dist/
+.env
+.DS_Store
+*.log
+# Do NOT ignore _next/ (static export) or out/ for GitHub Pages
+# _next/
+# out/
