@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Red Lotus Music - Experience the Vibe</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap');
+    
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: 'Bebas Neue', Impact, sans-serif;
+      background: #000;
+      color: white;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      height: 100vh;
+      overflow: hidden;
+      perspective: 1000px;
+    }
+    
+    .preview-container {
+      position: relative;
+      height: 100vh;
+      width: 100%;
+      overflow: hidden;
+      transform-style: preserve-3d;
+    }
+    
+    .page {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      opacity: 0;
+      transform: translateY(100%) rotateX(10deg);
+      transition: transform 1.2s ease-in-out, opacity 0.8s ease-in-out;
+      background-size: cover !important;
+      background-position: center center !important;
+      text-align: center;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    .page.active {
+      opacity: 1;
+      transform: translateY(0) rotateX(0);
+      z-index: 1;
+    }
+    
+    .page.previous {
+      opacity: 0;
+      transform: translateY(-100%) rotateX(-10deg);
+      transition: transform 1.2s ease-in-out, opacity 0.8s ease-in-out;
+    }
+    
+    .overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.5);
+      z-index: 0;
+    }
+    
+    .content {
+      position: relative;
+      z-index: 1;
+      max-width: 800px;
+      padding: 40px;
+      background: rgba(0, 0, 0, 0.6);
+      border-radius: 20px;
+      animation: fadeIn 2s;
+      box-shadow: 0 5px 25px rgba(0,0,0,0.5);
+    }
+    
+    h1 {
+      font-size: 60px;
+      margin-bottom: 20px;
+    }
+    
+    h2 {
+      font-size: 36px;
+      margin-bottom: 20px;
+    }
+    
+    p {
+      font-size: 24px;
+      margin-bottom: 30px;
+      opacity: 0.8;
+    }
+    
+    .cta {
+      display: inline-block;
+      padding: 12px 30px;
+      background: #45080A;
+      color: white;
+      text-decoration: none;
+      border-radius: 50px;
+      font-size: 20px;
+      transition: all 0.3s;
+      margin-top: 20px;
+    }
+    
+    .cta:hover {
+      background: #6d0b10;
+      transform: translateY(-3px);
+      box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+    }
+    
+    .logo {
+      width: 100px;
+      height: 100px;
+      margin-bottom: 20px;
+    }
+    
+    .red {
+      color: #45080A;
+    }
+    
+    .yellow {
+      color: #C17505;
+    }
+    
+    .blue { 
+      color: #405769;
+    }
+    
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    
+    .nav-header {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      z-index: 10;
+      padding: 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: rgba(0,0,0,0.7);
+      box-shadow: 0 2px 15px rgba(0,0,0,0.3);
+    }
+    
+    .nav-logo {
+      height: 40px;
+      width: auto;
+    }
+    
+    .nav-links {
+      display: flex;
+      gap: 20px;
+    }
+    
+    .nav-link {
+      opacity: 0.7;
+      cursor: pointer;
+      transition: opacity 0.3s, transform 0.3s;
+      position: relative;
+    }
+    
+    .nav-link.active {
+      opacity: 1;
+    }
+    
+    .nav-link.active:after {
+      content: '';
+      position: absolute;
+      bottom: -5px;
+      left: 0;
+      width: 100%;
+      height: 2px;
+      background-color: white;
+      animation: linkHighlight 0.5s forwards;
+    }
+    
+    @keyframes linkHighlight {
+      from { transform: scaleX(0); }
+      to { transform: scaleX(1); }
+    }
+
+    .mouse-cursor {
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background-color: rgba(255,255,255,0.5);
+      border: 2px solid white;
+      z-index: 1000;
+      transform: translate(-50%, -50%);
+      pointer-events: none;
+      transition: transform 0.1s;
+      box-shadow: 0 0 10px rgba(255,255,255,0.5);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    .mouse-cursor.active {
+      transform: translate(-50%, -50%) scale(0.8);
+      background-color: rgba(255,255,255,0.8);
+    }
+    
+    .progress-bar {
+      position: fixed;
+      right: 20px;
+      top: 50%;
+      transform: translateY(-50%);
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      z-index: 100;
+    }
+    
+    .progress-dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.3);
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+    
+    .progress-dot:hover {
+      transform: scale(1.2);
+    }
+    
+    .progress-dot.active {
+      background: white;
+      box-shadow: 0 0 10px rgba(255,255,255,0.7);
+    }
+    
+    @keyframes scrollHint {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(10px); }
+    }
+    
+    .scroll-hint {
+      position: absolute;
+      bottom: 30px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 100;
+      animation: scrollHint 2s infinite;
+      opacity: 0.7;
+      font-size: 14px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+    }
+    
+    .scroll-icon {
+      width: 30px;
+      height: 50px;
+      border: 2px solid white;
+      border-radius: 25px;
+      display: flex;
+      justify-content: center;
+    }
+    
+    .scroll-icon:after {
+      content: '';
+      width: 4px;
+      height: 10px;
+      background: white;
+      margin-top: 8px;
+      border-radius: 2px;
+    }
+
+    /* Fallback backgrounds in case images don't load */
+    .page.home-bg {
+      background-color: #1a1a1a;
+    }
+    
+    .page.red-bg {
+      background-color: #45080A;
+    }
+    
+    .page.yellow-bg {
+      background-color: #C17505;
+    }
+    
+    .page.blue-bg {
+      background-color: #405769;
+    }
+    
+    .page.bts-bg {
+      background-color: #333333;
+    }
+
+    /* Image preloading */
+    .preload-images {
+      position: absolute;
+      width: 0;
+      height: 0;
+      overflow: hidden;
+      z-index: -1;
+    }
+    
+    /* Placeholder logo style */
+    .placeholder-logo {
+      width: 100px;
+      height: 100px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: #45080A;
+      border-radius: 50%;
+      margin-bottom: 20px;
+      font-size: 24px;
+    }
+  </style>
+</head>
+<body>
+  <!-- Preload images to ensure they're in browser cache -->
+  <div class="preload-images">
+    <img src="https://source.unsplash.com/random/800x600/?music" alt="Preload">
+    <img src="https://source.unsplash.com/random/800x600/?rap" alt="Preload">
+    <img src="https://source.unsplash.com/random/800x600/?pop" alt="Preload">
+    <img src="https://source.unsplash.com/random/800x600/?rnb" alt="Preload">
+    <img src="https://source.unsplash.com/random/800x600/?studio" alt="Preload">
+  </div>
+
+  <div class="mouse-cursor"></div>
+  
+  <div class="nav-header">
+    <!-- Using text-based logo as fallback -->
+    <div class="nav-logo">RED LOTUS</div>
+    <div class="nav-links">
+      <div class="nav-link active" data-page="0">HUT</div>
+      <div class="nav-link" data-page="1">MUSIC</div>
+      <div class="nav-link" data-page="2">VIBRATE</div>
+      <div class="nav-link" data-page="3">TRIBE</div>
+      <div class="nav-link" data-page="4">BTS</div>
+    </div>
+  </div>
+  
+  <div class="preview-container">
+    <!-- Page 1 - Home Page -->
+    <div class="page active home-bg" style="background-image: url('https://source.unsplash.com/random/1600x900/?music')">
+      <div class="overlay"></div>
+      <div class="content">
+        <!-- Placeholder logo if image doesn't load -->
+        <div class="placeholder-logo">RL</div>
+        <h1>Red Lotus Music</h1>
+        <p>Experience music through the seasons of life</p>
+        <a href="https://redlotusmusic.com" class="cta">Explore The Experience</a>
+      </div>
+    </div>
+    
+    <!-- Page 2 - Music/Red Lotus -->
+    <div class="page red-bg" style="background-image: url('https://source.unsplash.com/random/1600x900/?rap')">
+      <div class="overlay"></div>
+      <div class="content">
+        <h2><span class="red">Red</span> Lotus | Winter Season</h2>
+        <p>Hard-hitting rap tracks that cut through the coldest days</p>
+        <a href="https://distrokid.com/hyperfollow/redlotus/lotus-the-red-album/" class="cta">Stream Now</a>
+      </div>
+    </div>
+    
+    <!-- Page 3 - Vibrate Page -->
+    <div class="page yellow-bg" style="background-image: url('https://source.unsplash.com/random/1600x900/?pop')">
+      <div class="overlay"></div>
+      <div class="content">
+        <h2>Find Your <span class="yellow">Vibe</span></h2>
+        <p>Explore music for every mood and season</p>
+        <a href="#" class="cta">Discover More</a>
+      </div>
+    </div>
+    
+    <!-- Page 4 - Community/Tribe -->
+    <div class="page blue-bg" style="background-image: url('https://source.unsplash.com/random/1600x900/?rnb')">
+      <div class="overlay"></div>
+      <div class="content">
+        <h2>Join The <span class="blue">Tribe</span></h2>
+        <p>Connect with like-minded fans and get exclusive content</p>
+        <a href="#" class="cta">Join Now</a>
+      </div>
+    </div>
+    
+    <!-- Page 5 - Behind The Scenes -->
+    <div class="page bts-bg" style="background-image: url('https://source.unsplash.com/random/1600x900/?studio')">
+      <div class="overlay"></div>
+      <div class="content">
+        <h2>Behind The Scenes</h2>
+        <p>Get an exclusive look at the creative process</p>
+        <a href="#" class="cta">Explore BTS</a>
+      </div>
+    </div>
+  </div>
+  
+  <div class="progress-bar">
+    <div class="progress-dot active" data-page="0"></div>
+    <div class="progress-dot" data-page="1"></div>
+    <div class="progress-dot" data-page="2"></div>
+    <div class="progress-dot" data-page="3"></div>
+    <div class="progress-dot" data-page="4"></div>
+  </div>
+  
+  <div class="scroll-hint">
+    <div class="scroll-icon"></div>
+    <span>Scroll or click dots to navigate</span>
+  </div>
+  
+  <script>
+    const pages = document.querySelectorAll('.page');
+    const dots = document.querySelectorAll('.progress-dot');
+    const navLinks = document.querySelectorAll('.nav-link');
+    const mouseCursor = document.querySelector('.mouse-cursor');
+    let currentPage = 0;
+    let autoScrollInterval;
+    let isTransitioning = false;
+    let mouseX = 0, mouseY = 0;
+    
+    // Mouse cursor animation
+    document.addEventListener('mousemove', (e) => {
+      mouseX = e.clientX;
+      mouseY = e.clientY;
+      moveMouse();
+    });
+    
+    function moveMouse() {
+      mouseCursor.style.left = mouseX + 'px';
+      mouseCursor.style.top = mouseY + 'px';
+      requestAnimationFrame(moveMouse);
+    }
+    
+    function simulateClick(x, y, element) {
+      mouseCursor.style.left = x + 'px';
+      mouseCursor.style.top = y + 'px';
+      mouseCursor.classList.add('active');
+      
+      setTimeout(() => {
+        element.click();
+        setTimeout(() => {
+          mouseCursor.classList.remove('active');
+        }, 200);
+      }, 500);
+    }
+    
+    function showPage(index) {
+      if (isTransitioning || index === currentPage) return;
+      isTransitioning = true;
+      
+      pages.forEach(page => page.classList.remove('previous', 'active'));
+      dots.forEach(dot => dot.classList.remove('active'));
+      navLinks.forEach(link => link.classList.remove('active'));
+      
+      pages[currentPage].classList.add('previous');
+      pages[index].classList.add('active');
+      dots[index].classList.add('active');
+      navLinks[index].classList.add('active');
+      
+      setTimeout(() => {
+        isTransitioning = false;
+        currentPage = index;
+      }, 1200); // Match the CSS transition duration
+    }
+    
+    function nextPage() {
+      let next = currentPage + 1;
+      if (next >= pages.length) next = 0;
+      showPage(next);
+    }
+    
+    function startAutoScroll() {
+      clearInterval(autoScrollInterval);
+      autoScrollInterval = setInterval(() => {
+        nextPage();
+      }, 7000); // Change page every 7 seconds
+    }
+    
+    // Initialize click events for dots
+    dots.forEach((dot, index) => {
+      dot.addEventListener('click', () => {
+        clearInterval(autoScrollInterval);
+        showPage(index);
+        startAutoScroll();
+      });
+    });
+    
+    // Initialize click events for nav links
+    navLinks.forEach((link, index) => {
+      link.addEventListener('click', () => {
+        clearInterval(autoScrollInterval);
+        showPage(index);
+        startAutoScroll();
+      });
+    });
+    
+    // Handle mouse wheel scrolling
+    document.addEventListener('wheel', (e) => {
+      clearInterval(autoScrollInterval);
+      if (isTransitioning) return;
+      
+      if (e.deltaY > 0) {
+        // Scroll down - go to next page
+        let next = currentPage + 1;
+        if (next < pages.length) showPage(next);
+      } else {
+        // Scroll up - go to previous page
+        let prev = currentPage - 1;
+        if (prev >= 0) showPage(prev);
+      }
+      startAutoScroll();
+    });
+    
+    // Function to check if images are loading and apply fallbacks if needed
+    function checkImages() {
+      // Create image objects for each background
+      const images = [
+        { url: 'https://source.unsplash.com/random/1600x900/?music', element: pages[0] },
+        { url: 'https://source.unsplash.com/random/1600x900/?rap', element: pages[1] },
+        { url: 'https://source.unsplash.com/random/1600x900/?pop', element: pages[2] },
+        { url: 'https://source.unsplash.com/random/1600x900/?rnb', element: pages[3] },
+        { url: 'https://source.unsplash.com/random/1600x900/?studio', element: pages[4] }
+      ];
+      
+      images.forEach(item => {
+        const img = new Image();
+        img.onload = () => {
+          item.element.style.backgroundImage = `url('${item.url}')`;
+        };
+        img.onerror = () => {
+          console.log('Failed to load image:', item.url);
+        };
+        img.src = item.url;
+      });
+    }
+    
+    // Check images after page loads
+    window.addEventListener('load', checkImages);
+    
+    // Start auto-scrolling after a short delay
+    setTimeout(startAutoScroll, 1000);
+    
+    // Simulate interaction after a delay
+    setTimeout(() => {
+      // Get position of the second nav link
+      const secondNavLink = navLinks[1];
+      const rect = secondNavLink.getBoundingClientRect();
+      const x = rect.left + rect.width / 2;
+      const y = rect.top + rect.height / 2;
+      
+      simulateClick(x, y, secondNavLink);
+    }, 5000);
+  </script>
+</body>
+</html>
