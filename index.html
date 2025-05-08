@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Leafy Libations - Premium Infused Beverages</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <meta name="description" content="Florida's most reliable supply of specialty infused beverages. Quality, consistency, and rigorous testing for retailers and distributors alike.">
+    <!-- Preload video metadata for better performance -->
+    <link rel="preload" href="video/IMG_0348 (1).mp4" as="video" type="video/mp4">
+</head>
+<body>
+    <!-- Placeholder for Cookie Consent Banner - Implement as per GDPR requirements -->
+    <!-- <div id="cookieConsentBanner" style="display:none; position:fixed; bottom:0; width:100%; background:#333; color:white; padding:15px; text-align:center; z-index:1000;">
+        This site uses cookies. By continuing to use this site, you consent to our use of cookies. <button onclick="document.getElementById('cookieConsentBanner').style.display='none'">Accept</button>
+    </div> -->
+
+    <header class="site-header">
+        <nav class="container main-nav">
+            <a href="index.html" class="logo">
+                <img src="images/main-logo.png" alt="Leafy Libations Icon" style="height: 60px; margin-right: 10px; vertical-align: middle;">
+                <span style="vertical-align: middle; font-size: 1.5em; font-weight: bold;">Leafy Libations</span>
+            </a>
+            <button class="nav-toggle" aria-label="toggle navigation" aria-expanded="false">
+                <span class="hamburger"></span> <!-- Needs CSS for hamburger icon and JS for toggle -->
+            </button>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="shop.html">Shop</a></li>
+                <li><a href="wholesale.html">Wholesale</a></li>
+                <li><a href="store-locator.html">Find a Store</a></li>
+                <li><a href="about.html">About Us</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section class="hero">
+        <div class="video-background">
+            <div class="overlay"></div>
+            <video autoplay muted loop playsinline id="productionVideo">
+                <source src="video/IMG_0348 (1).mp4" type="video/mp4">
+                <!-- You can add other video formats here for broader compatibility if needed -->
+                <img src="images/production-fallback.jpg" alt="Production process">
+            </video>
+        </div>
+        <div class="hero-content container">
+            <h1>Florida's Premier Infused Beverages</h1>
+            <p>Quality, consistency, and rigorous testing for all your beverage needs</p>
+            <div class="hero-ctas">
+                <a href="shop.html" class="btn btn-primary">Shop Now</a>
+                <a href="store-locator.html" class="btn btn-secondary">Find a Store</a>
+            </div>
+        </div>
+    </section>
+
+    <section id="about" class="about-us-snippet section-padding">
+        <div class="container">
+            <h2>Welcome to Leafy Libations</h2>
+            <p class="lead">Discover Florida's hidden gem for premium infused beverages. We're passionate about crafting unique drinks with unparalleled quality and consistency.</p>
+            <p>Our meticulous process, from sourcing the finest ingredients to rigorous testing, ensures every bottle meets the highest standards. We proudly serve both individual connoisseurs and discerning retailers and distributors.</p>
+            <a href="about.html" class="btn btn-outline">Learn More About Our Story</a>
+        </div>
+    </section>
+
+    <section id="featured-products" class="featured-products section-padding bg-light">
+        <div class="container">
+            <h2 class="text-center">Our Signature Infusions</h2>
+            <div class="product-grid">
+                <!-- Example Product Card (Repeat 2-3 times for features) -->
+                <div class="product-card">
+                    <img src="images/product-placeholder-1.jpg" alt="Signature Beverage 1">
+                    <div class="product-card-content">
+                        <h3>Zen Zingiber</h3>
+                        <p>A refreshing ginger and citrus infusion, perfect for a calm uplift.</p>
+                        <a href="shop.html#zen-zingiber" class="btn btn-tertiary">Details</a>
+                    </div>
+                </div>
+                <div class="product-card">
+                    <img src="images/product-placeholder-2.jpg" alt="Signature Beverage 2">
+                    <div class="product-card-content">
+                        <h3>Berry Bliss</h3>
+                        <p>A vibrant mix of wild berries, subtly infused for a delightful taste.</p>
+                        <a href="shop.html#berry-bliss" class="btn btn-tertiary">Details</a>
+                    </div>
+                </div>
+                <div class="product-card">
+                    <img src="images/product-placeholder-3.jpg" alt="Signature Beverage 3">
+                    <div class="product-card-content">
+                        <h3>Minty Marvel</h3>
+                        <p>Cooling mint meets a hint of lime in this invigorating beverage.</p>
+                        <a href="shop.html#minty-marvel" class="btn btn-tertiary">Details</a>
+                    </div>
+                </div>
+            </div>
+            <div class="text-center top-spacing">
+                <a href="shop.html" class="btn btn-primary">Explore All Beverages</a>
+            </div>
+        </div>
+    </section>
+
+    <section id="store-locator" class="store-locator-section container section-padding" style="padding-top: 40px; padding-bottom: 40px; text-align: center;">
+        <h2>Find Leafy Libations Near You</h2>
+        <input type="text" id="locationSearch" placeholder="Enter your city, zip code, or address" style="width: 80%; max-width: 400px; padding: 10px; margin-bottom: 20px; border: 1px solid #ccc; border-radius: 4px;">
+        <div id="map" style="height: 500px; width: 100%; margin: 0 auto; border: 1px solid #ddd;">
+            <!-- Map will be rendered here by Google Maps API -->
+        </div>
+    </section>
+
+    <footer class="site-footer section-padding">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-column about-column">
+                    <img src="images/secondary-logo.jpeg" alt="Leafy Libations Secondary Logo" style="max-width: 150px; margin-bottom: 15px; display: block;">
+                    <h4>Leafy Libations</h4>
+                    <p>Florida's most reliable supply of specialty infused beverages. Committed to quality, consistency, and rigorous testing.</p>
+                </div>
+                <div class="footer-column links-column">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="shop.html">Shop</a></li>
+                        <li><a href="wholesale.html">Wholesale</a></li>
+                        <li><a href="store-locator.html">Find a Store</a></li>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="contact.html">Contact Us</a></li>
+                        <li><a href="faq.html">FAQ</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column links-column">
+                    <h4>Legal</h4>
+                    <ul>
+                        <li><a href="privacy-policy.html">Privacy Policy</a></li>
+                        <li><a href="terms-of-service.html">Terms of Service</a></li>
+                        <li><a href="shipping-returns.html">Shipping & Returns</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column connect-column">
+                    <h4>Connect With Us</h4>
+                    <div class="social-icons">
+                        <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                        <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                    </div>
+                     <p class="top-spacing-sm">Subscribe to our newsletter for updates and offers!</p>
+                     <form class="newsletter-form">
+                        <input type="email" placeholder="Enter your email" aria-label="Email for newsletter">
+                        <button type="submit" class="btn btn-secondary">Subscribe</button>
+                     </form>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; <script>document.write(new Date().getFullYear())</script> Leafy Libations. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Store Locator JS
+        const mapApiKey = 'YOUR_GOOGLE_MAPS_API_KEY'; // ### IMPORTANT: Replace with your actual API key ###
+        let map;
+
+        function initMap() {
+            if (typeof google === 'undefined' || typeof google.maps === 'undefined') {
+                console.error("Google Maps API not loaded yet. Ensure the API script is loaded before this function is called.");
+                return;
+            }
+            map = new google.maps.Map(document.getElementById('map'), {
+                center: { lat: 27.994402, lng: -81.760254 }, // Default center: Florida
+                zoom: 7
+            });
+            const locationSearchInput = document.getElementById('locationSearch');
+            const searchBox = new google.maps.places.SearchBox(locationSearchInput);
+            map.addListener('bounds_changed', () => { searchBox.setBounds(map.getBounds()); });
+            searchBox.addListener('places_changed', () => {
+                const places = searchBox.getPlaces();
+                if (!places || places.length == 0) return;
+                const bounds = new google.maps.LatLngBounds();
+                places.forEach(place => {
+                    if (!place.geometry || !place.geometry.location) return;
+                    // TODO: Create markers for stores based on search/API response
+                    if (place.geometry.viewport) bounds.union(place.geometry.viewport); else bounds.extend(place.geometry.location);
+                });
+                map.fitBounds(bounds);
+                // TODO: Fetch stores from your API using place.geometry.location or map.getCenter()
+                // fetchStoresFromAPI(map.getCenter().lat(), map.getCenter().lng(), locationSearchInput.value);
+            });
+        }
+        // TODO: Implement fetchStoresFromAPI(lat, lng, query) to call your backend
+        // and updateMap(stores) to populate markers.
+
+        // Load Google Maps API
+        const googleMapsScript = document.createElement('script');
+        googleMapsScript.src = `https://maps.googleapis.com/maps/api/js?key=${mapApiKey}&libraries=places&callback=initMap&loading=async`;
+        googleMapsScript.defer = true;
+        document.head.appendChild(googleMapsScript);
+
+        // You might have a main.js for navigation toggle, etc.
+        // <script src="js/main.js" defer><\/script>
+    </script>
+</body>
+</html>
