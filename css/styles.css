@@ -524,7 +524,7 @@ contact-info {
 /* Footer */
 .site-footer {
   background-color: #222;
-  color: #ccc;
+  color: var(--light-text); /* Changed from #ccc to white */
   padding: 80px 0 20px;
 }
 
@@ -557,12 +557,21 @@ contact-info {
 
 .footer-links a,
 .footer-legal a {
-  color: #ccc;
+  color: var(--accent-color); /* Changed from #ccc to green */
+  transition: var(--transition);
 }
 
 .footer-links a:hover,
 .footer-legal a:hover {
-  color: var(--light-text);
+  color: var(--primary-color); /* Changed to blue on hover */
+}
+
+.footer-column p {
+  color: var(--light-text); /* Ensure all paragraph text is white */
+}
+
+.footer-bottom p {
+  color: var(--light-text); /* Ensure copyright text is white */
 }
 
 social-icons {
