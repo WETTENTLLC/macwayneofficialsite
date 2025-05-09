@@ -67,115 +67,202 @@
 
     <section id="featured-products" class="featured-products section-padding bg-light">
         <div class="container">
-            <h2 class="text-center">Our Signature Infusions</h2>
-            <div class="product-grid">
-                <!-- Product Cards - 13 total -->
-                <div class="product-card">
-                    <img src="images/product-placeholder-1.jpg" alt="Signature Beverage 1">
-                    <div class="product-card-content">
-                        <h3>Zen Zingiber</h3>
-                        <p>A refreshing ginger and citrus infusion, perfect for a calm uplift.</p>
-                        <a href="#" class="btn btn-tertiary product-details-btn" data-product="zen-zingiber">Details</a>
-                    </div>
+            <h2 class="text-center">Our Premium Products</h2>
+            
+            <!-- Product Categories -->
+            <div class="product-categories" style="margin-bottom: 50px;">
+                <div class="category-tabs" style="display: flex; justify-content: center; margin-bottom: 30px;">
+                    <button class="category-tab active" data-category="gummies" style="padding: 10px 20px; margin: 0 5px; background: #4CAF50; color: white; border: none; border-radius: 5px; cursor: pointer;">Gummies</button>
+                    <button class="category-tab" data-category="drinks" style="padding: 10px 20px; margin: 0 5px; background: #f5f5f5; color: #333; border: none; border-radius: 5px; cursor: pointer;">Canned Drinks</button>
+                    <button class="category-tab" data-category="pumps" style="padding: 10px 20px; margin: 0 5px; background: #f5f5f5; color: #333; border: none; border-radius: 5px; cursor: pointer;">THC Pump Bottles</button>
                 </div>
-                <div class="product-card">
-                    <img src="images/product-placeholder-2.jpg" alt="Signature Beverage 2">
-                    <div class="product-card-content">
-                        <h3>Berry Bliss</h3>
-                        <p>A vibrant mix of wild berries, subtly infused for a delightful taste.</p>
-                        <a href="#" class="btn btn-tertiary product-details-btn" data-product="berry-bliss">Details</a>
-                    </div>
+            </div>
+            
+            <!-- Gummies Category -->
+            <div class="product-category-content" id="gummies-category">
+                <div class="category-description" style="text-align: center; max-width: 800px; margin: 0 auto 40px;">
+                    <h3>Premium Cannabis Gummies</h3>
+                    <p>Good flavor and great effects! Our gummies are fast-acting and have been in production for years across the nation. We are thrilled to bring this treat to the Southeast where we know it will be appreciated and loved.</p>
                 </div>
-                <div class="product-card">
-                    <img src="images/product-placeholder-3.jpg" alt="Signature Beverage 3">
-                    <div class="product-card-content">
-                        <h3>Minty Marvel</h3>
-                        <p>Cooling mint meets a hint of lime in this invigorating beverage.</p>
-                        <a href="#" class="btn btn-tertiary product-details-btn" data-product="minty-marvel">Details</a>
+                
+                <div class="product-grid">
+                    <div class="product-card">
+                        <img src="images/product-placeholder-1.jpg" alt="Fruit Fusion Gummies">
+                        <div class="product-card-content">
+                            <h3>Fruit Fusion Gummies</h3>
+                            <p>A delicious mix of fruit flavors with 10mg THC per piece. Perfect for relaxation.</p>
+                            <a href="#" class="btn btn-tertiary product-details-btn" data-product="fruit-fusion">Details</a>
+                        </div>
                     </div>
-                </div>
-                <div class="product-card">
-                    <img src="images/product-placeholder-1.jpg" alt="Signature Beverage 4">
-                    <div class="product-card-content">
-                        <h3>Citrus Serenity</h3>
-                        <p>A bright and zesty blend of citrus flavors for a refreshing experience.</p>
-                        <a href="#" class="btn btn-tertiary product-details-btn" data-product="citrus-serenity">Details</a>
+                    <div class="product-card">
+                        <img src="images/product-placeholder-2.jpg" alt="Sour Berry Gummies">
+                        <div class="product-card-content">
+                            <h3>Sour Berry Gummies</h3>
+                            <p>Tangy and sweet sour berry flavor with 20mg THC per piece for a stronger effect.</p>
+                            <a href="#" class="btn btn-tertiary product-details-btn" data-product="sour-berry">Details</a>
+                        </div>
                     </div>
-                </div>
-                <div class="product-card">
-                    <img src="images/product-placeholder-2.jpg" alt="Signature Beverage 5">
-                    <div class="product-card-content">
-                        <h3>Tropical Tranquility</h3>
-                        <p>A tropical paradise in a bottle with notes of pineapple and coconut.</p>
-                        <a href="#" class="btn btn-tertiary product-details-btn" data-product="tropical-tranquility">Details</a>
+                    <div class="product-card">
+                        <img src="images/product-placeholder-3.jpg" alt="Tropical Paradise Gummies">
+                        <div class="product-card-content">
+                            <h3>Tropical Paradise Gummies</h3>
+                            <p>Exotic tropical flavors with 15mg THC and 5mg CBD for a balanced experience.</p>
+                            <a href="#" class="btn btn-tertiary product-details-btn" data-product="tropical-paradise">Details</a>
+                        </div>
                     </div>
-                </div>
-                <div class="product-card">
-                    <img src="images/product-placeholder-3.jpg" alt="Signature Beverage 6">
-                    <div class="product-card-content">
-                        <h3>Herbal Harmony</h3>
-                        <p>A balanced blend of herbs creating a harmonious and soothing experience.</p>
-                        <a href="#" class="btn btn-tertiary product-details-btn" data-product="herbal-harmony">Details</a>
-                    </div>
-                </div>
-                <div class="product-card">
-                    <img src="images/product-placeholder-1.jpg" alt="Signature Beverage 7">
-                    <div class="product-card-content">
-                        <h3>Floral Fusion</h3>
-                        <p>A delicate fusion of floral notes creating an elegant and refined taste.</p>
-                        <a href="#" class="btn btn-tertiary product-details-btn" data-product="floral-fusion">Details</a>
-                    </div>
-                </div>
-                <div class="product-card">
-                    <img src="images/product-placeholder-2.jpg" alt="Signature Beverage 8">
-                    <div class="product-card-content">
-                        <h3>Spiced Serenity</h3>
-                        <p>A warm blend of spices that creates a comforting and calming experience.</p>
-                        <a href="#" class="btn btn-tertiary product-details-btn" data-product="spiced-serenity">Details</a>
-                    </div>
-                </div>
-                <div class="product-card">
-                    <img src="images/product-placeholder-3.jpg" alt="Signature Beverage 9">
-                    <div class="product-card-content">
-                        <h3>Vanilla Vitality</h3>
-                        <p>A smooth vanilla infusion that provides a gentle energy boost.</p>
-                        <a href="#" class="btn btn-tertiary product-details-btn" data-product="vanilla-vitality">Details</a>
-                    </div>
-                </div>
-                <div class="product-card">
-                    <img src="images/product-placeholder-1.jpg" alt="Signature Beverage 10">
-                    <div class="product-card-content">
-                        <h3>Chocolate Chill</h3>
-                        <p>A rich chocolate flavor with a cooling finish for a luxurious experience.</p>
-                        <a href="#" class="btn btn-tertiary product-details-btn" data-product="chocolate-chill">Details</a>
-                    </div>
-                </div>
-                <div class="product-card">
-                    <img src="images/product-placeholder-2.jpg" alt="Signature Beverage 11">
-                    <div class="product-card-content">
-                        <h3>Caramel Calm</h3>
-                        <p>A sweet caramel infusion that brings a sense of peace and relaxation.</p>
-                        <a href="#" class="btn btn-tertiary product-details-btn" data-product="caramel-calm">Details</a>
-                    </div>
-                </div>
-                <div class="product-card">
-                    <img src="images/product-placeholder-3.jpg" alt="Signature Beverage 12">
-                    <div class="product-card-content">
-                        <h3>Honey Harmony</h3>
-                        <p>A natural honey blend that creates a balanced and harmonious taste.</p>
-                        <a href="#" class="btn btn-tertiary product-details-btn" data-product="honey-harmony">Details</a>
-                    </div>
-                </div>
-                <div class="product-card">
-                    <img src="images/product-placeholder-1.jpg" alt="Signature Beverage 13">
-                    <div class="product-card-content">
-                        <h3>Lavender Lullaby</h3>
-                        <p>A soothing lavender infusion perfect for unwinding at the end of the day.</p>
-                        <a href="#" class="btn btn-tertiary product-details-btn" data-product="lavender-lullaby">Details</a>
+                    <div class="product-card">
+                        <img src="images/product-placeholder-1.jpg" alt="Sleep Aid Gummies">
+                        <div class="product-card-content">
+                            <h3>Sleep Aid Gummies</h3>
+                            <p>Specially formulated with 10mg THC, 5mg CBD, and melatonin for better sleep.</p>
+                            <a href="#" class="btn btn-tertiary product-details-btn" data-product="sleep-aid">Details</a>
+                        </div>
                     </div>
                 </div>
             </div>
-            <!-- Removed "Explore All Beverages" button since all products are on this page -->
+            
+            <!-- Canned Drinks Category (initially hidden) -->
+            <div class="product-category-content" id="drinks-category" style="display: none;">
+                <div class="category-description" style="text-align: center; max-width: 800px; margin: 0 auto 40px;">
+                    <h3>Premium Cannabis Drinks</h3>
+                    <p>As we like to say at Leafy Libations – "Don't smoke, drink your cannabis!" Our canned THC drinks are made fresh weekly before deliveries and come in a wide variety of dosages, flavors, brands and product types! From caffeinated and infused colas that are great for a night out dancing to relaxing teas and tonics for the end of the day, we have what consumers want – quality and variety at the right price.</p>
+                </div>
+                
+                <div class="product-grid">
+                    <div class="product-card">
+                        <img src="images/product-placeholder-2.jpg" alt="Energize Cola">
+                        <div class="product-card-content">
+                            <h3>Energize Cola</h3>
+                            <p>Caffeinated cola with 10mg THC, perfect for a night out or social gatherings.</p>
+                            <a href="#" class="btn btn-tertiary product-details-btn" data-product="energize-cola">Details</a>
+                        </div>
+                    </div>
+                    <div class="product-card">
+                        <img src="images/product-placeholder-3.jpg" alt="Calm Tea">
+                        <div class="product-card-content">
+                            <h3>Calm Tea</h3>
+                            <p>Relaxing herbal tea with 15mg THC and 5mg CBD for unwinding at the end of the day.</p>
+                            <a href="#" class="btn btn-tertiary product-details-btn" data-product="calm-tea">Details</a>
+                        </div>
+                    </div>
+                    <div class="product-card">
+                        <img src="images/product-placeholder-1.jpg" alt="Citrus Splash">
+                        <div class="product-card-content">
+                            <h3>Citrus Splash</h3>
+                            <p>Refreshing citrus soda with 5mg THC, ideal for a light and uplifting experience.</p>
+                            <a href="#" class="btn btn-tertiary product-details-btn" data-product="citrus-splash">Details</a>
+                        </div>
+                    </div>
+                    <div class="product-card">
+                        <img src="images/product-placeholder-2.jpg" alt="Berry Fizz">
+                        <div class="product-card-content">
+                            <h3>Berry Fizz</h3>
+                            <p>Mixed berry sparkling water with 10mg THC for a fruity and refreshing option.</p>
+                            <a href="#" class="btn btn-tertiary product-details-btn" data-product="berry-fizz">Details</a>
+                        </div>
+                    </div>
+                    <div class="product-card">
+                        <img src="images/product-placeholder-3.jpg" alt="Tropical Tonic">
+                        <div class="product-card-content">
+                            <h3>Tropical Tonic</h3>
+                            <p>Exotic tropical flavors with 20mg THC for a stronger and more immersive experience.</p>
+                            <a href="#" class="btn btn-tertiary product-details-btn" data-product="tropical-tonic">Details</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- THC Pump Bottles Category (initially hidden) -->
+            <div class="product-category-content" id="pumps-category" style="display: none;">
+                <div class="category-description" style="text-align: center; max-width: 800px; margin: 0 auto 40px;">
+                    <h3>THC Pump Bottles for Bars & Restaurants</h3>
+                    <p>Bars and restaurants are going crazy for our 1000+ MG THC pump bottles. What?! Yes, you heard right, THC pump bottles for bars and restaurants are now in production! You can now make mixed drinks with cannabis instead of alcohol and earn a 300-500% mark-up! This new product line is very profitable and will take Florida by storm. We are very thankful for this state allowing restaurants and bars to sell these drinks. Unlike other states that over-regulate, Florida has done it right and we are blessed to be here!</p>
+                </div>
+                
+                <div class="product-grid">
+                    <div class="product-card">
+                        <img src="images/product-placeholder-1.jpg" alt="Standard Pump 1000mg">
+                        <div class="product-card-content">
+                            <h3>Standard Pump 1000mg</h3>
+                            <p>Our standard 1000mg THC pump bottle, perfect for bars starting with cannabis drinks.</p>
+                            <a href="#" class="btn btn-tertiary product-details-btn" data-product="standard-pump">Details</a>
+                        </div>
+                    </div>
+                    <div class="product-card">
+                        <img src="images/product-placeholder-2.jpg" alt="Premium Pump 2000mg">
+                        <div class="product-card-content">
+                            <h3>Premium Pump 2000mg</h3>
+                            <p>Double-strength 2000mg THC pump bottle for high-volume establishments.</p>
+                            <a href="#" class="btn btn-tertiary product-details-btn" data-product="premium-pump">Details</a>
+                        </div>
+                    </div>
+                    <div class="product-card">
+                        <img src="images/product-placeholder-3.jpg" alt="Flavor Infused Pump 1500mg">
+                        <div class="product-card-content">
+                            <h3>Flavor Infused Pump 1500mg</h3>
+                            <p>1500mg THC pump with added flavor profiles to enhance your signature drinks.</p>
+                            <a href="#" class="btn btn-tertiary product-details-btn" data-product="flavor-pump">Details</a>
+                        </div>
+                    </div>
+                    <div class="product-card">
+                        <img src="images/product-placeholder-1.jpg" alt="Starter Kit Bundle">
+                        <div class="product-card-content">
+                            <h3>Starter Kit Bundle</h3>
+                            <p>Complete starter kit with pump bottles, recipe guide, and staff training materials.</p>
+                            <a href="#" class="btn btn-tertiary product-details-btn" data-product="starter-kit">Details</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- COA Section -->
+    <section id="coa" class="coa-section section-padding">
+        <div class="container">
+            <h2 class="text-center">Certificate of Analysis (COA)</h2>
+            <div class="coa-content" style="text-align: center; max-width: 800px; margin: 0 auto;">
+                <p>You can check here anytime to see real test results for each batch of drinks we produce. If you have any questions about results or how to read the reports, reach out anytime and one of our experts will be happy to walk you through the process!</p>
+                <a href="#" class="btn btn-primary" style="margin-top: 20px;">View Latest COA Reports</a>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Sales Section -->
+    <section id="sales" class="sales-section section-padding bg-light">
+        <div class="container">
+            <h2 class="text-center">Sales Information</h2>
+            <div class="sales-content" style="text-align: center; max-width: 800px; margin: 0 auto;">
+                <p>Our relationship begins with earning your trust. We pride ourselves in providing top shelf service to our customers. Contact us anytime and let's work together to determine which product lines will serve you best in your market.</p>
+                <p>Once you become a customer, we will offer a unique, password-protected online sales portal so you can track your history as well as place orders 24/7 when it's convenient for you. This feature will be added to our website in the coming weeks.</p>
+                
+                <div class="sales-team" style="margin-top: 40px;">
+                    <h3>Contact Our Sales Team</h3>
+                    <div class="sales-team-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 30px; margin-top: 20px;">
+                        <div class="sales-person">
+                            <img src="images/product-placeholder-1.jpg" alt="Sales Rep 1" style="width: 150px; height: 150px; border-radius: 50%; margin: 0 auto 15px; display: block;">
+                            <h4>John Smith</h4>
+                            <p>Regional Sales Manager</p>
+                            <p>Phone: (555) 123-4567</p>
+                            <p>Email: john@leafylibations.com</p>
+                        </div>
+                        <div class="sales-person">
+                            <img src="images/product-placeholder-2.jpg" alt="Sales Rep 2" style="width: 150px; height: 150px; border-radius: 50%; margin: 0 auto 15px; display: block;">
+                            <h4>Sarah Johnson</h4>
+                            <p>Account Executive</p>
+                            <p>Phone: (555) 987-6543</p>
+                            <p>Email: sarah@leafylibations.com</p>
+                        </div>
+                        <div class="sales-person">
+                            <img src="images/product-placeholder-3.jpg" alt="Sales Rep 3" style="width: 150px; height: 150px; border-radius: 50%; margin: 0 auto 15px; display: block;">
+                            <h4>Michael Davis</h4>
+                            <p>Business Development</p>
+                            <p>Phone: (555) 456-7890</p>
+                            <p>Email: michael@leafylibations.com</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </section>
 
@@ -356,164 +443,53 @@
                 contactForm.reset();
             });
             
+            // Category Tabs
+            const categoryTabs = document.querySelectorAll('.category-tab');
+            const categoryContents = document.querySelectorAll('.product-category-content');
+            
+            categoryTabs.forEach(tab => {
+                tab.addEventListener('click', function() {
+                    // Remove active class from all tabs
+                    categoryTabs.forEach(t => {
+                        t.classList.remove('active');
+                        t.style.background = '#f5f5f5';
+                        t.style.color = '#333';
+                    });
+                    
+                    // Add active class to clicked tab
+                    this.classList.add('active');
+                    this.style.background = '#4CAF50';
+                    this.style.color = 'white';
+                    
+                    // Hide all category contents
+                    categoryContents.forEach(content => {
+                        content.style.display = 'none';
+                    });
+                    
+                    // Show the selected category content
+                    const category = this.getAttribute('data-category');
+                    document.getElementById(category + '-category').style.display = 'block';
+                });
+            });
+            
             // Product Detail Modal
+            const productDetailBtns = document.querySelectorAll('.product-details-btn');
             const productDetailModal = document.getElementById('product-detail-modal');
             const productModalClose = document.querySelector('.product-modal-close');
-            const productDetailBtns = document.querySelectorAll('.product-details-btn');
-            
-            // Product data (in a real app, this would come from a database)
-            const productData = {
-                'zen-zingiber': {
-                    title: 'Zen Zingiber',
-                    description: 'A refreshing ginger and citrus infusion, perfect for a calm uplift. Our signature blend combines organic ginger root with a hint of lemon and lime for a balanced, invigorating experience.',
-                    image: 'images/product-placeholder-1.jpg',
-                    price: '3.99',
-                    size: '12 oz',
-                    ingredients: 'Purified water, organic ginger extract, natural citrus flavors, organic cane sugar',
-                    serving: '1 can',
-                    calories: '45'
-                },
-                'berry-bliss': {
-                    title: 'Berry Bliss',
-                    description: 'A vibrant mix of wild berries, subtly infused for a delightful taste. This blend features strawberry, blueberry, and raspberry notes for a fruity, refreshing experience.',
-                    image: 'images/product-placeholder-2.jpg',
-                    price: '3.99',
-                    size: '12 oz',
-                    ingredients: 'Purified water, organic berry blend extract, natural flavors, organic cane sugar',
-                    serving: '1 can',
-                    calories: '50'
-                },
-                'minty-marvel': {
-                    title: 'Minty Marvel',
-                    description: 'Cooling mint meets a hint of lime in this invigorating beverage. Perfect for hot days or whenever you need a refreshing pick-me-up.',
-                    image: 'images/product-placeholder-3.jpg',
-                    price: '3.99',
-                    size: '12 oz',
-                    ingredients: 'Purified water, organic mint extract, natural lime flavor, organic cane sugar',
-                    serving: '1 can',
-                    calories: '40'
-                },
-                'citrus-serenity': {
-                    title: 'Citrus Serenity',
-                    description: 'A bright and zesty blend of citrus flavors for a refreshing experience. Features orange, lemon, and grapefruit notes for a tangy, uplifting taste.',
-                    image: 'images/product-placeholder-1.jpg',
-                    price: '3.99',
-                    size: '12 oz',
-                    ingredients: 'Purified water, organic citrus blend extract, natural flavors, organic cane sugar',
-                    serving: '1 can',
-                    calories: '45'
-                },
-                'tropical-tranquility': {
-                    title: 'Tropical Tranquility',
-                    description: 'A tropical paradise in a bottle with notes of pineapple and coconut. This exotic blend transports you to a beachside retreat with every sip.',
-                    image: 'images/product-placeholder-2.jpg',
-                    price: '4.29',
-                    size: '12 oz',
-                    ingredients: 'Purified water, organic pineapple extract, natural coconut flavor, organic cane sugar',
-                    serving: '1 can',
-                    calories: '55'
-                },
-                'herbal-harmony': {
-                    title: 'Herbal Harmony',
-                    description: 'A balanced blend of herbs creating a harmonious and soothing experience. Combines chamomile, lavender, and lemongrass for a calming effect.',
-                    image: 'images/product-placeholder-3.jpg',
-                    price: '4.29',
-                    size: '12 oz',
-                    ingredients: 'Purified water, organic herbal blend extract, natural flavors, organic honey',
-                    serving: '1 can',
-                    calories: '35'
-                },
-                'floral-fusion': {
-                    title: 'Floral Fusion',
-                    description: 'A delicate fusion of floral notes creating an elegant and refined taste. Features rose, hibiscus, and elderflower for a sophisticated flavor profile.',
-                    image: 'images/product-placeholder-1.jpg',
-                    price: '4.29',
-                    size: '12 oz',
-                    ingredients: 'Purified water, organic floral blend extract, natural flavors, organic cane sugar',
-                    serving: '1 can',
-                    calories: '40'
-                },
-                'spiced-serenity': {
-                    title: 'Spiced Serenity',
-                    description: 'A warm blend of spices that creates a comforting and calming experience. Cinnamon, nutmeg, and cardamom combine for a cozy, soothing beverage.',
-                    image: 'images/product-placeholder-2.jpg',
-                    price: '4.29',
-                    size: '12 oz',
-                    ingredients: 'Purified water, organic spice blend extract, natural flavors, organic maple syrup',
-                    serving: '1 can',
-                    calories: '50'
-                },
-                'vanilla-vitality': {
-                    title: 'Vanilla Vitality',
-                    description: 'A smooth vanilla infusion that provides a gentle energy boost. Made with premium Madagascar vanilla for a rich, authentic flavor.',
-                    image: 'images/product-placeholder-3.jpg',
-                    price: '4.29',
-                    size: '12 oz',
-                    ingredients: 'Purified water, organic vanilla bean extract, natural flavors, organic cane sugar',
-                    serving: '1 can',
-                    calories: '45'
-                },
-                'chocolate-chill': {
-                    title: 'Chocolate Chill',
-                    description: 'A rich chocolate flavor with a cooling finish for a luxurious experience. Premium cocoa creates a decadent yet refreshing beverage.',
-                    image: 'images/product-placeholder-1.jpg',
-                    price: '4.49',
-                    size: '12 oz',
-                    ingredients: 'Purified water, organic cocoa extract, natural mint flavor, organic cane sugar',
-                    serving: '1 can',
-                    calories: '60'
-                },
-                'caramel-calm': {
-                    title: 'Caramel Calm',
-                    description: 'A sweet caramel infusion that brings a sense of peace and relaxation. Buttery caramel notes create a comforting, dessert-like experience.',
-                    image: 'images/product-placeholder-2.jpg',
-                    price: '4.49',
-                    size: '12 oz',
-                    ingredients: 'Purified water, organic caramel extract, natural flavors, organic cane sugar',
-                    serving: '1 can',
-                    calories: '65'
-                },
-                'honey-harmony': {
-                    title: 'Honey Harmony',
-                    description: 'A natural honey blend that creates a balanced and harmonious taste. Made with organic wildflower honey for a subtle sweetness.',
-                    image: 'images/product-placeholder-3.jpg',
-                    price: '4.49',
-                    size: '12 oz',
-                    ingredients: 'Purified water, organic honey, natural flavors, organic lemon extract',
-                    serving: '1 can',
-                    calories: '55'
-                },
-                'lavender-lullaby': {
-                    title: 'Lavender Lullaby',
-                    description: 'A soothing lavender infusion perfect for unwinding at the end of the day. Calming lavender is complemented by chamomile for ultimate relaxation.',
-                    image: 'images/product-placeholder-1.jpg',
-                    price: '4.49',
-                    size: '12 oz',
-                    ingredients: 'Purified water, organic lavender extract, organic chamomile extract, organic honey',
-                    serving: '1 can',
-                    calories: '40'
-                }
-            };
             
             productDetailBtns.forEach(btn => {
                 btn.addEventListener('click', function(e) {
                     e.preventDefault();
-                    const productId = this.getAttribute('data-product');
-                    const product = productData[productId];
+                    const product = this.getAttribute('data-product');
                     
-                    if (product) {
-                        document.getElementById('product-modal-title').textContent = product.title;
-                        document.getElementById('product-modal-description').textContent = product.description;
-                        document.getElementById('product-modal-image').src = product.image;
-                        document.getElementById('product-modal-image').alt = product.title;
-                        document.getElementById('product-modal-price').textContent = product.price;
-                        document.getElementById('product-modal-size').textContent = product.size;
-                        document.getElementById('product-modal-ingredients').textContent = product.ingredients;
-                        document.getElementById('product-modal-serving').textContent = product.serving;
-                        document.getElementById('product-modal-calories').textContent = product.calories;
-                        
-                        productDetailModal.style.display = 'block';
-                    }
+                    // Set modal content based on product
+                    // This would typically come from a database or API
+                    document.getElementById('product-modal-image').src = this.closest('.product-card').querySelector('img').src;
+                    document.getElementById('product-modal-title').textContent = this.closest('.product-card').querySelector('h3').textContent;
+                    document.getElementById('product-modal-description').textContent = this.closest('.product-card').querySelector('p').textContent;
+                    
+                    // Show modal
+                    productDetailModal.style.display = 'block';
                 });
             });
             
@@ -526,62 +502,5 @@
                     productDetailModal.style.display = 'none';
                 }
             });
-            
-            // Smooth scrolling for navigation links
-            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-                anchor.addEventListener('click', function (e) {
-                    if (this.getAttribute('href') === '#') return;
-                    
-                    e.preventDefault();
-                    
-                    document.querySelector(this.getAttribute('href')).scrollIntoView({
-                        behavior: 'smooth'
-                    });
-                });
-            });
         });
-        
-        // Store Locator JS
-        const mapApiKey = 'YOUR_GOOGLE_MAPS_API_KEY'; // ### IMPORTANT: Replace with your actual API key ###
-        let map;
-
-        function initMap() {
-            if (typeof google === 'undefined' || typeof google.maps === 'undefined') {
-                console.error("Google Maps API not loaded yet. Ensure the API script is loaded before this function is called.");
-                return;
-            }
-            map = new google.maps.Map(document.getElementById('map'), {
-                center: { lat: 27.994402, lng: -81.760254 }, // Default center: Florida
-                zoom: 7
-            });
-            const locationSearchInput = document.getElementById('locationSearch');
-            const searchBox = new google.maps.places.SearchBox(locationSearchInput);
-            map.addListener('bounds_changed', () => { searchBox.setBounds(map.getBounds()); });
-            searchBox.addListener('places_changed', () => {
-                const places = searchBox.getPlaces();
-                if (!places || places.length == 0) return;
-                const bounds = new google.maps.LatLngBounds();
-                places.forEach(place => {
-                    if (!place.geometry || !place.geometry.location) return;
-                    // TODO: Create markers for stores based on search/API response
-                    if (place.geometry.viewport) bounds.union(place.geometry.viewport); else bounds.extend(place.geometry.location);
-                });
-                map.fitBounds(bounds);
-                // TODO: Fetch stores from your API using place.geometry.location or map.getCenter()
-                // fetchStoresFromAPI(map.getCenter().lat(), map.getCenter().lng(), locationSearchInput.value);
-            });
-        }
-        // TODO: Implement fetchStoresFromAPI(lat, lng, query) to call your backend
-        // and updateMap(stores) to populate markers.
-
-        // Load Google Maps API
-        const googleMapsScript = document.createElement('script');
-        googleMapsScript.src = `https://maps.googleapis.com/maps/api/js?key=${mapApiKey}&libraries=places&callback=initMap&loading=async`;
-        googleMapsScript.defer = true;
-        document.head.appendChild(googleMapsScript);
-
-        // You might have a main.js for navigation toggle, etc.
-        // <script src="js/main.js" defer><\/script>
     </script>
-</body>
-</html>
