@@ -6,6 +6,8 @@
     <title>Wholesale Portal - Leafy Libations</title>
     <link rel="stylesheet" href="css/styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <!-- Favicon -->
+    <script src="js/favicon.js"></script>
     <style>
         /* Additional styles for wholesale portal */
         .portal-section {
@@ -325,6 +327,14 @@
             font-weight: 600;
         }
         
+        .top-spacing {
+            margin-top: 40px;
+        }
+        
+        .top-spacing-sm {
+            margin-top: 20px;
+        }
+        
         @media screen and (max-width: 768px) {
             .login-register {
                 flex-direction: column;
@@ -349,11 +359,11 @@
             </button>
             <ul class="nav-links" id="nav-links">
                 <li><a href="index.html">Home</a></li>
-                <li><a href="shop.html">Shop</a></li>
+                <li><a href="index.html#featured-products">Shop</a></li>
                 <li><a href="wholesale.html" class="active">Wholesale Portal</a></li>
-                <li><a href="store-locator.html">Find a Store</a></li>
-                <li><a href="about.html">About Us</a></li>
-                <li><a href="contact.html">Contact</a></li>
+                <li><a href="index.html#store-locator">Find a Store</a></li>
+                <li><a href="index.html#about">About Us</a></li>
+                <li><a href="#" id="contact-link">Contact</a></li>
             </ul>
         </nav>
     </header>
@@ -512,77 +522,175 @@
                 <p>Browse our catalog of premium infused beverages available for wholesale purchase. Minimum order quantities apply.</p>
                 
                 <div class="product-catalog">
-                    <h3>Signature Infusions</h3>
+                    <h3>Botanical Refreshers - 25mg</h3>
                     <div class="wholesale-products">
                         <div class="wholesale-product">
-                            <img src="images/product-placeholder-1.jpg" alt="Zen Zingiber">
+                            <img src="images/image-of-drink-cans.jpeg" alt="Root Beer">
                             <div class="wholesale-product-info">
-                                <h3>Zen Zingiber</h3>
-                                <p>A refreshing ginger and citrus infusion, perfect for a calm uplift.</p>
+                                <h3>Root Beer</h3>
+                                <p>A classic root beer flavor with a modern twist, perfect for any occasion.</p>
                                 <div class="wholesale-price">
-                                    <span class="retail">Retail: $8.99</span>
-                                    <span class="wholesale">Wholesale: $5.40</span>
+                                    <span class="retail">Retail: $6.25 per can</span>
+                                    <span class="wholesale">Wholesale: $5.00 per unit</span>
                                 </div>
                                 <div class="quantity-input">
                                     <button type="button">-</button>
                                     <input type="number" value="0" min="0">
                                     <button type="button">+</button>
                                 </div>
-                                <p class="min-order">Min. Order: 24 units</p>
+                                <p class="min-order">Min. Order: 10 cases (240 units)</p>
                                 <button class="btn btn-primary btn-small">Add to Cart</button>
                             </div>
                         </div>
                         <div class="wholesale-product">
-                            <img src="images/product-placeholder-2.jpg" alt="Berry Bliss">
+                            <img src="images/image-of-drink-cans.jpeg" alt="Spicy Mango Lime">
                             <div class="wholesale-product-info">
-                                <h3>Berry Bliss</h3>
-                                <p>A vibrant mix of wild berries, subtly infused for a delightful taste.</p>
+                                <h3>Spicy Mango Lime</h3>
+                                <p>A vibrant blend of mango and lime with a hint of spice for an exciting flavor experience.</p>
                                 <div class="wholesale-price">
-                                    <span class="retail">Retail: $8.99</span>
-                                    <span class="wholesale">Wholesale: $5.40</span>
+                                    <span class="retail">Retail: $6.25 per can</span>
+                                    <span class="wholesale">Wholesale: $5.00 per unit</span>
                                 </div>
                                 <div class="quantity-input">
                                     <button type="button">-</button>
                                     <input type="number" value="0" min="0">
                                     <button type="button">+</button>
                                 </div>
-                                <p class="min-order">Min. Order: 24 units</p>
+                                <p class="min-order">Min. Order: 10 cases (240 units)</p>
                                 <button class="btn btn-primary btn-small">Add to Cart</button>
                             </div>
                         </div>
                         <div class="wholesale-product">
-                            <img src="images/product-placeholder-3.jpg" alt="Minty Marvel">
+                            <img src="images/image-of-drink-cans.jpeg" alt="Fruit Punch">
                             <div class="wholesale-product-info">
-                                <h3>Minty Marvel</h3>
-                                <p>Cooling mint meets a hint of lime in this invigorating beverage.</p>
+                                <h3>Fruit Punch</h3>
+                                <p>A delicious blend of tropical fruits creating a refreshing punch flavor.</p>
                                 <div class="wholesale-price">
-                                    <span class="retail">Retail: $8.99</span>
-                                    <span class="wholesale">Wholesale: $5.40</span>
+                                    <span class="retail">Retail: $6.25 per can</span>
+                                    <span class="wholesale">Wholesale: $5.00 per unit</span>
                                 </div>
                                 <div class="quantity-input">
                                     <button type="button">-</button>
                                     <input type="number" value="0" min="0">
                                     <button type="button">+</button>
                                 </div>
-                                <p class="min-order">Min. Order: 24 units</p>
+                                <p class="min-order">Min. Order: 10 cases (240 units)</p>
                                 <button class="btn btn-primary btn-small">Add to Cart</button>
                             </div>
                         </div>
                         <div class="wholesale-product">
-                            <img src="images/product-placeholder-1.jpg" alt="Citrus Serenity">
+                            <img src="images/image-of-drink-cans.jpeg" alt="Grape Lime">
                             <div class="wholesale-product-info">
-                                <h3>Citrus Serenity</h3>
-                                <p>A bright and zesty blend of citrus flavors for a refreshing experience.</p>
+                                <h3>Grape Lime</h3>
+                                <p>A unique combination of grape and lime for a tangy and sweet flavor profile.</p>
                                 <div class="wholesale-price">
-                                    <span class="retail">Retail: $8.99</span>
-                                    <span class="wholesale">Wholesale: $5.40</span>
+                                    <span class="retail">Retail: $6.25 per can</span>
+                                    <span class="wholesale">Wholesale: $5.00 per unit</span>
                                 </div>
                                 <div class="quantity-input">
                                     <button type="button">-</button>
                                     <input type="number" value="0" min="0">
                                     <button type="button">+</button>
                                 </div>
-                                <p class="min-order">Min. Order: 24 units</p>
+                                <p class="min-order">Min. Order: 10 cases (240 units)</p>
+                                <button class="btn btn-primary btn-small">Add to Cart</button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <h3 class="top-spacing">Botanical Refreshers - 50mg</h3>
+                    <div class="wholesale-products">
+                        <div class="wholesale-product">
+                            <img src="images/image-of-drink-cans.jpeg" alt="Passion Fruit">
+                            <div class="wholesale-product-info">
+                                <h3>Passion Fruit</h3>
+                                <p>An exotic passion fruit flavor that delivers a tropical escape in every sip.</p>
+                                <div class="wholesale-price">
+                                    <span class="retail">Retail: $7.50 per can</span>
+                                    <span class="wholesale">Wholesale: $7.50 per unit</span>
+                                </div>
+                                <div class="quantity-input">
+                                    <button type="button">-</button>
+                                    <input type="number" value="0" min="0">
+                                    <button type="button">+</button>
+                                </div>
+                                <p class="min-order">Min. Order: 10 cases (240 units)</p>
+                                <button class="btn btn-primary btn-small">Add to Cart</button>
+                            </div>
+                        </div>
+                        <div class="wholesale-product">
+                            <img src="images/image-of-drink-cans.jpeg" alt="Watermelon Lemonade">
+                            <div class="wholesale-product-info">
+                                <h3>Watermelon Lemonade</h3>
+                                <p>A refreshing blend of sweet watermelon and tangy lemonade, perfect for hot summer days.</p>
+                                <div class="wholesale-price">
+                                    <span class="retail">Retail: $7.50 per can</span>
+                                    <span class="wholesale">Wholesale: $7.50 per unit</span>
+                                </div>
+                                <div class="quantity-input">
+                                    <button type="button">-</button>
+                                    <input type="number" value="0" min="0">
+                                    <button type="button">+</button>
+                                </div>
+                                <p class="min-order">Min. Order: 10 cases (240 units)</p>
+                                <button class="btn btn-primary btn-small">Add to Cart</button>
+                            </div>
+                        </div>
+                        <div class="wholesale-product">
+                            <img src="images/image-of-drink-cans.jpeg" alt="50/50 Iced Tea Lemonade">
+                            <div class="wholesale-product-info">
+                                <h3>50/50 Iced Tea Lemonade</h3>
+                                <p>A classic blend of iced tea and lemonade, delivering a perfectly balanced sweet-tart flavor that's both invigorating and satisfying.</p>
+                                <div class="wholesale-price">
+                                    <span class="retail">Retail: $7.50 per can</span>
+                                    <span class="wholesale">Wholesale: $7.50 per unit</span>
+                                </div>
+                                <div class="quantity-input">
+                                    <button type="button">-</button>
+                                    <input type="number" value="0" min="0">
+                                    <button type="button">+</button>
+                                </div>
+                                <p class="min-order">Min. Order: 10 cases (240 units)</p>
+                                <button class="btn btn-primary btn-small">Add to Cart</button>
+                            </div>
+                        </div>
+                        <div class="wholesale-product">
+                            <img src="images/image-of-drink-cans.jpeg" alt="OG Sweet Tea">
+                            <div class="wholesale-product-info">
+                                <h3>OG Sweet Tea</h3>
+                                <p>Embrace the charm of traditional Southern hospitality with this smooth and sweet black iced tea, a timeless favorite for all ages.</p>
+                                <div class="wholesale-price">
+                                    <span class="retail">Retail: $7.50 per can</span>
+                                    <span class="wholesale">Wholesale: $7.50 per unit</span>
+                                </div>
+                                <div class="quantity-input">
+                                    <button type="button">-</button>
+                                    <input type="number" value="0" min="0">
+                                    <button type="button">+</button>
+                                </div>
+                                <p class="min-order">Min. Order: 10 cases (240 units)</p>
+                                <button class="btn btn-primary btn-small">Add to Cart</button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <h3 class="top-spacing">Botanical Refreshers - 100mg</h3>
+                    <div class="wholesale-products">
+                        <div class="wholesale-product">
+                            <img src="images/image-of-drink-cans.jpeg" alt="Peach Iced Tea">
+                            <div class="wholesale-product-info">
+                                <h3>Peach Iced Tea</h3>
+                                <p>Add a fruity twist to your tea time with this luscious peach-infused iced tea, bursting with the taste of sun-ripened peaches.</p>
+                                <div class="wholesale-price">
+                                    <span class="retail">Retail: $10.00 per can</span>
+                                    <span class="wholesale">Wholesale: $10.00 per unit</span>
+                                </div>
+                                <div class="quantity-input">
+                                    <button type="button">-</button>
+                                    <input type="number" value="0" min="0">
+                                    <button type="button">+</button>
+                                </div>
+                                <p class="min-order">Min. Order: 10 cases (240 units)</p>
                                 <button class="btn btn-primary btn-small">Add to Cart</button>
                             </div>
                         </div>
@@ -592,6 +700,8 @@
                 <div style="margin-top: 40px; text-align: center;">
                     <a href="#" class="btn btn-primary">View Full Catalog</a>
                     <a href="#" class="btn btn-secondary">View Cart (0)</a>
+                    <p style="margin-top: 20px; font-size: 0.9rem;">All products are packaged in recyclable aluminum cans. 4-pack of 12 oz cans featuring vibrant colors reflecting each flavor.</p>
+                    <p style="font-size: 0.9rem;">Manufactured in Florida, adhering to USDA and state regulations. Premium teas and natural sweeteners, batch tested for consistency and flavor integrity.</p>
                 </div>
             </div>
 
@@ -670,12 +780,12 @@
                     <h4>Quick Links</h4>
                     <ul>
                         <li><a href="index.html">Home</a></li>
-                        <li><a href="shop.html">Shop</a></li>
+                        <li><a href="index.html#featured-products">Shop</a></li>
                         <li><a href="wholesale.html">Wholesale</a></li>
-                        <li><a href="store-locator.html">Find a Store</a></li>
-                        <li><a href="about.html">About Us</a></li>
-                        <li><a href="contact.html">Contact Us</a></li>
-                        <li><a href="faq.html">FAQ</a></li>
+                        <li><a href="index.html#store-locator">Find a Store</a></li>
+                        <li><a href="index.html#about">About Us</a></li>
+                        <li><a href="#" id="footer-contact-link">Contact Us</a></li>
+                        <li><a href="index.html#faq">FAQ</a></li>
                     </ul>
                 </div>
                 <div class="footer-column links-column">
@@ -716,6 +826,40 @@
                 const expanded = this.getAttribute('aria-expanded') === 'true';
                 this.setAttribute('aria-expanded', !expanded);
                 navLinks.classList.toggle('active');
+            });
+            
+            // Contact Modal
+            const contactLink = document.getElementById('contact-link');
+            const footerContactLink = document.getElementById('footer-contact-link');
+            const contactModal = document.getElementById('contact-modal');
+            const closeModal = document.querySelector('.close-modal');
+            const contactForm = document.getElementById('contact-form');
+            
+            contactLink.addEventListener('click', function(e) {
+                e.preventDefault();
+                contactModal.style.display = 'block';
+            });
+            
+            footerContactLink.addEventListener('click', function(e) {
+                e.preventDefault();
+                contactModal.style.display = 'block';
+            });
+            
+            closeModal.addEventListener('click', function() {
+                contactModal.style.display = 'none';
+            });
+            
+            window.addEventListener('click', function(e) {
+                if (e.target === contactModal) {
+                    contactModal.style.display = 'none';
+                }
+            });
+            
+            contactForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                alert('Thank you for your message! A representative will contact you shortly.');
+                contactModal.style.display = 'none';
+                contactForm.reset();
             });
             
             // Tab functionality
@@ -760,5 +904,47 @@
             });
         });
     </script>
+    <!-- Contact Form Modal -->
+    <div id="contact-modal" class="modal" style="display: none; position: fixed; z-index: 2000; left: 0; top: 0; width: 100%; height: 100%; overflow: auto; background-color: rgba(0,0,0,0.7);">
+        <div class="modal-content" style="background-color: white; margin: 10% auto; padding: 30px; width: 80%; max-width: 600px; border-radius: 10px; box-shadow: 0 5px 15px rgba(0,0,0,0.3);">
+            <span class="close-modal" style="color: #aaa; float: right; font-size: 28px; font-weight: bold; cursor: pointer;">&times;</span>
+            <h2 style="margin-top: 0;">Contact Us</h2>
+            <p>Fill out the form below and a representative will contact you shortly.</p>
+            
+            <form id="contact-form" style="margin-top: 20px;">
+                <div style="margin-bottom: 15px;">
+                    <label for="contact-name" style="display: block; margin-bottom: 5px; font-weight: 600;">Name</label>
+                    <input type="text" id="contact-name" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 5px;" required>
+                </div>
+                <div style="margin-bottom: 15px;">
+                    <label for="contact-email" style="display: block; margin-bottom: 5px; font-weight: 600;">Email Address</label>
+                    <input type="email" id="contact-email" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 5px;" required>
+                </div>
+                <div style="margin-bottom: 15px;">
+                    <label for="contact-category" style="display: block; margin-bottom: 5px; font-weight: 600;">Category</label>
+                    <select id="contact-category" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 5px;" required>
+                        <option value="">Select a category</option>
+                        <option value="general">General Inquiry</option>
+                        <option value="wholesale">Wholesale Information</option>
+                        <option value="product">Product Question</option>
+                        <option value="support">Customer Support</option>
+                        <option value="other">Other</option>
+                    </select>
+                </div>
+                <div style="margin-bottom: 15px;">
+                    <label for="contact-message" style="display: block; margin-bottom: 5px; font-weight: 600;">Message</label>
+                    <textarea id="contact-message" rows="5" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 5px;" required></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary" style="width: 100%;">Send Message</button>
+            </form>
+            
+            <div style="margin-top: 30px; padding-top: 20px; border-top: 1px solid #eee;">
+                <h3>Company Information</h3>
+                <p><strong>Address:</strong> 123 Beverage Blvd, Tampa, FL 33601</p>
+                <p><strong>Email:</strong> info@leafylibations.com</p>
+                <p><strong>Hours:</strong> Monday-Friday, 9am-5pm EST</p>
+            </div>
+        </div>
+    </div>
 </body>
 </html>

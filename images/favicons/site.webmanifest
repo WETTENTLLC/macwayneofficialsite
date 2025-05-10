@@ -1,0 +1,8 @@
+{
+    "name": "Leafy Libations",
+    "short_name": "Leafy",
+    "icons": [],
+    "theme_color": "#4CAF50",
+    "background_color": "#ffffff",
+    "display": "standalone"
+}
