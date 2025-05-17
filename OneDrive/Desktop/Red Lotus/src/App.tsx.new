@@ -1,6 +1,7 @@
 import React, { useState, useEffect, ChangeEvent, FormEvent } from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
 import { useAuth } from './context/AuthContext';
+import Home from './pages/Home';
 import Login from './pages/Login';
 import AdminDashboard from './pages/AdminDashboard';
 import BandAuditionForm from './components/BandAuditionForm';
@@ -178,43 +179,24 @@ function App() {
     brown: 'Autumn grounding and earthy connection. For stability and natural harmony.',
     pink: 'Love energy and emotional connection. For romantic and heartfelt expression.',
   });
-
-  // Replace demo analytics data with real-time placeholders
-  const [analytics, setAnalytics] = useState({
-    visitors: 0,
-    signups: 0,
-    musicStreams: 0,
-    tribeSelections: {
-      red: 0,
-      yellow: 0,
-      blue: 0
-    }
-  });
-
-  // Continue with the rest of your existing code...
+  
+  // Additional state and functionality as in the original App.tsx
   // ...
 
-  // Code at the end of your App component
   if (loading) {
     return <div className="flex items-center justify-center h-screen">Loading...</div>;
   }
 
-  // If we're on paths that should use the router instead of the original content
-  if (window.location.pathname === '/login' || window.location.pathname === '/admin') {
-    return (
-      <Routes>
-        <Route path="/login" element={<Login />} />
-        <Route path="/admin" element={currentUser ? <AdminDashboard /> : <Navigate to="/login" />} />
-      </Routes>
-    );
-  }
-
-  // For all other paths, show the original content with the original layout
+  // Return the router for the application
   return (
-    <div className="App">
-      {/* Your original layout code here */}
-      {/* ... */}
-    </div>
+    <Routes>
+      <Route path="/" element={<Home />} />
+      <Route path="/login" element={<Login />} />
+      <Route 
+        path="/admin" 
+        element={currentUser ? <AdminDashboard /> : <Navigate to="/login" />} 
+      />
+    </Routes>
   );
 }
 

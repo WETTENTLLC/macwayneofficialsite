@@ -1,19 +1,13 @@
 {
-  "buildCommand": "npm run vercel-build || npm run build",
-  "framework": "vite",
-  "installCommand": null,
-  "outputDirectory": "dist",
-  "cleanUrls": true,
-  "env": {
-    "SKIP_TYPESCRIPT": "true",
-    "ENABLE_TS_ERRORS": "false",
-    "NODE_ENV": "production"
-  },
-  "rewrites": [
-    { "source": "/(.*)", "destination": "/index.html" }
+  "version": 2,
+  "routes": [
+    { "handle": "filesystem" },
+    { "src": "/(.*)", "dest": "/index.html" }
   ],
-  "trailingSlash": false,
+  "buildCommand": "npm run build",
+  "outputDirectory": "dist",
   "github": {
     "silent": true
-  }
+  },
+  "trailingSlash": false
 }

@@ -1,0 +1,53 @@
+{
+  "buildCommand": "npm run build",
+  "framework": "vite",
+  "installCommand": "npm install",
+  "outputDirectory": "dist",
+  "cleanUrls": true,
+  "env": {
+    "SKIP_TYPESCRIPT": "true",
+    "ENABLE_TS_ERRORS": "false",
+    "NODE_ENV": "production"
+  },
+  "headers": [
+    {
+      "source": "/(.*)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=31536000, immutable"
+        }
+      ]
+    },
+    {
+      "source": "/manifest.webmanifest",
+      "headers": [
+        {
+          "key": "Content-Type",
+          "value": "application/manifest+json"
+        },
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=3600"
+        }
+      ]
+    },
+    {
+      "source": "/sw.js",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "no-cache"
+        }
+      ]
+    }
+  ],
+  "rewrites": [
+    { "source": "/((?!assets|pwa-\\d+x\\d+\\.png|favicon\\.ico|apple-touch-icon\\.png|manifest\\.webmanifest|sw\\.js|workbox-.*).*)", "destination": "/index.html" }
+  ],
+  "trailingSlash": false,
+  "github": {
+    "silent": true
+  },
+  "public": true
+}
