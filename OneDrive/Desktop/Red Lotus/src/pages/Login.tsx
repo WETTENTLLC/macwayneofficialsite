@@ -40,7 +40,7 @@ const Login: React.FC = () => {
         )}
 
         <form onSubmit={handleSubmit} className="space-y-4">
-          <div>
+            <div>
             <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">
               Email
             </label>
@@ -48,13 +48,13 @@ const Login: React.FC = () => {
               id="email"
               type="email"
               value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) => setEmail(e.target.value)}
               required
               className="w-full px-3 py-2 border rounded-md"
             />
-          </div>
+            </div>
 
-          <div>
+            <div>
             <label htmlFor="password" className="block text-sm font-medium text-gray-700 mb-1">
               Password
             </label>
@@ -62,11 +62,11 @@ const Login: React.FC = () => {
               id="password"
               type="password"
               value={password}
-              onChange={(e) => setPassword(e.target.value)}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) => setPassword(e.target.value)}
               required
               className="w-full px-3 py-2 border rounded-md"
             />
-          </div>
+            </div>
 
           <button
             type="submit"

@@ -62,7 +62,7 @@ const MediaUploader: React.FC<MediaUploaderProps> = ({
 
   const handleMetadataChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-    setMetadata(prev => ({ ...prev, [name]: value }));
+    setMetadata((prev: Record<string, string | number>) => ({ ...prev, [name]: value }));
   };
 
   const uploadFile = async () => {

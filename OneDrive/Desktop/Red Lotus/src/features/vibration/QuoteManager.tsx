@@ -11,12 +11,17 @@ interface Quote {
   createdAt: Date;
 }
 
-const QuoteTextField: React.FC<{ text: string; setText: React.Dispatch<React.SetStateAction<string>> }> = ({ text, setText }) => (
+interface QuoteTextFieldProps {
+  text: string;
+  setText: React.Dispatch<React.SetStateAction<string>>;
+}
+
+const QuoteTextField: React.FC<QuoteTextFieldProps> = ({ text, setText }) => (
   <div>
     <label className="block text-sm font-medium mb-1">Quote Text:</label>
     <textarea
       value={text}
-      onChange={(e) => setText(e.target.value)}
+      onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => setText(e.target.value)}
       required
       rows={4}
       className="w-full px-3 py-2 border rounded-md"
@@ -30,7 +35,7 @@ const AuthorInput: React.FC<{ author: string; setAuthor: React.Dispatch<React.Se
     <input
       type="text"
       value={author}
-      onChange={(e) => setAuthor(e.target.value)}
+      onChange={(e: React.ChangeEvent<HTMLInputElement>) => setAuthor(e.target.value)}
       required
       className="w-full px-3 py-2 border rounded-md"
     />

@@ -1703,4 +1703,104 @@ function App() {
 }
 
 export default App;
+function getRealTimeVisitors(): Promise<number> {
+  return new Promise((resolve, reject) => {
+    // Simulate network delay (250-750ms)
+    const delay = 250 + Math.random() * 500;
+    
+    setTimeout(() => {
+      // Simulate occasional API failures (5% chance)
+      if (Math.random() < 0.05) {
+        reject(new Error('Failed to fetch visitor data'));
+        return;
+      }
+      
+      // Generate realistic visitor count (100-5000)
+      const visitorCount = Math.floor(100 + Math.random() * 4900);
+      
+      // Log for debugging
+      console.log('Fetched visitor count:', visitorCount);
+      
+      resolve(visitorCount);
+    }, delay);
+  });
+}
+function getRealTimeTribeSelections(tribe: string): Promise<number> {
+  return new Promise((resolve, reject) => {
+    // Simulate network delay (200-600ms)
+    const delay = 200 + Math.random() * 400;
+    
+    setTimeout(() => {
+      // Simulate occasional API failures (5% chance)
+      if (Math.random() < 0.05) {
+        reject(new Error(`Failed to fetch ${tribe} tribe selection data`));
+        return;
+      }
+      
+      // Generate realistic tribe selection counts
+      // Red is most popular, then yellow, then blue
+      let baseCount = 50 + Math.random() * 950;
+      
+      if (tribe === 'red') {
+        baseCount *= 1.5; // Red tribe is more popular
+      } else if (tribe === 'yellow') {
+        baseCount *= 1.2; // Yellow tribe is medium popular
+      }
+      // Blue tribe uses the base count
+      
+      const selectionCount = Math.floor(baseCount);
+      
+      // Log for debugging
+      console.log(`Fetched ${tribe} tribe selections:`, selectionCount);
+      
+      resolve(selectionCount);
+    }, delay);
+  });
+}
+function getRealTimeSignups(): Promise<number> {
+  return new Promise((resolve, reject) => {
+    // Simulate network delay (200-700ms)
+    const delay = 200 + Math.random() * 500;
+    
+    setTimeout(() => {
+      // Simulate occasional API failures (5% chance)
+      if (Math.random() < 0.05) {
+        reject(new Error('Failed to fetch signup data'));
+        return;
+      }
+      
+      // Generate realistic signup count (20-1000)
+      // Usually fewer signups than visitors
+      const signupCount = Math.floor(20 + Math.random() * 980);
+      
+      // Log for debugging
+      console.log('Fetched signup count:', signupCount);
+      
+      resolve(signupCount);
+    }, delay);
+  });
+}
+function getRealTimeMusicStreams(): Promise<number> {
+  return new Promise((resolve, reject) => {
+    // Simulate network delay (300-800ms)
+    const delay = 300 + Math.random() * 500;
+    
+    setTimeout(() => {
+      // Simulate occasional API failures (5% chance)
+      if (Math.random() < 0.05) {
+        reject(new Error('Failed to fetch music stream data'));
+        return;
+      }
+      
+      // Generate realistic music stream count (500-15000)
+      // Typically, streams would be much higher than visitors or signups
+      const streamCount = Math.floor(500 + Math.random() * 14500);
+      
+      // Log for debugging
+      console.log('Fetched music stream count:', streamCount);
+      
+      resolve(streamCount);
+    }, delay);
+  });
+}
 

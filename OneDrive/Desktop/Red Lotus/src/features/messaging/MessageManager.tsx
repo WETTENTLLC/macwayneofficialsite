@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, SetStateAction } from 'react';
 import { collection, addDoc, query, orderBy, onSnapshot, Timestamp, updateDoc, doc, where, getDocs } from 'firebase/firestore';
 import { db } from '../../firebase/config'; // Assumes Firebase setup
 import DatePicker from 'react-datepicker';
@@ -14,6 +14,24 @@ interface Message {
   scheduledFor?: Timestamp | null;
   read: boolean;
 }
+
+interface SubjectInputProps {
+  subject: string;
+  setSubject: React.Dispatch<SetStateAction<string>>;
+}
+
+const SubjectInput: React.FC<SubjectInputProps> = ({ subject, setSubject }) => (
+  <div>
+    <label className="block text-sm font-medium mb-1">Subject:</label>
+    <input 
+      type="text"
+      value={subject}
+      onChange={(e: React.ChangeEvent<HTMLInputElement>) => setSubject(e.target.value)}
+      required
+      className="w-full px-3 py-2 border rounded-md"
+    />
+  </div>
+);
 
 const MessageManager: React.FC = () => {
   const [activeTab, setActiveTab] = useState<'inbox' | 'compose' | 'scheduled'>('inbox');
@@ -198,69 +216,60 @@ const MessageManager: React.FC = () => {
                 ))
               )}
             </>
-          )}
-        </div>
-      )}
-      
-      {/* Compose */}
-      {activeTab === 'compose' && (
-        <div className="bg-white rounded-lg shadow p-6">
-          <h2 className="text-xl font-bold mb-4">Compose Message</h2>
-          <form onSubmit={sendMessage} className="space-y-4">
-            <div>
-              <label className="block text-sm font-medium mb-1">To:</label>
-              <input 
-                type="email"
-                value={recipient}
-                onChange={(e) => setRecipient(e.target.value)}
-                required
-                className="w-full px-3 py-2 border rounded-md"
-              />
-            </div>
-            
-            <div>
-              <label className="block text-sm font-medium mb-1">Subject:</label>
-              <input 
-                type="text"
-                value={subject}
-                onChange={(e) => setSubject(e.target.value)}
-                required
-                className="w-full px-3 py-2 border rounded-md"
-              />
-            </div>
-            
-            <div>
-              <label className="block text-sm font-medium mb-1">Message:</label>
-              <textarea 
-                value={content}
-                onChange={(e) => setContent(e.target.value)}
-                required
-                rows={6}
-                className="w-full px-3 py-2 border rounded-md"
-              ></textarea>
-            </div>
-            
-            <div>
-              <label className="block text-sm font-medium mb-1">Schedule (optional):</label>
-              <DatePicker
-                selected={scheduledDate}
-                onChange={(date) => setScheduledDate(date)}
-                showTimeSelect
-                timeFormat="HH:mm"
-                timeIntervals={15}
-                minDate={new Date()}
-                dateFormat="MMMM d, yyyy h:mm aa"
-                placeholderText="Click to schedule"
-                className="w-full px-3 py-2 border rounded-md"
-              />
-            </div>
-            
-            <button 
-              type="submit"
-              className="w-full py-2 px-4 bg-blue-600 text-white rounded-md hover:bg-blue-700"
-            >
-              {scheduledDate ? 'Schedule Message' : 'Send Message'}
-            </button>
+            )}
+          </div>
+        )}
+        
+        {/* Compose */}
+        {activeTab === 'compose' && (
+          <div className="space-y-4">
+            <h2 className="text-xl font-bold mb-4">Compose Message</h2>
+            <form onSubmit={sendMessage} className="space-y-4">
+                <div>
+                <label className="block text-sm font-medium mb-1">To:</label>
+                <input 
+                  type="email"
+                  value={recipient}
+                  onChange={(e: React.ChangeEvent<HTMLInputElement>) => setRecipient(e.target.value)}
+                  required
+                  className="w-full px-3 py-2 border rounded-md"
+                />
+                </div>
+              
+              <SubjectInput subject={subject} setSubject={setSubject} />
+              
+              <div>
+                <label className="block text-sm font-medium mb-1">Message:</label>
+                <textarea 
+                  value={content}
+                  onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => setContent(e.target.value)}
+                  required
+                  rows={6}
+                  className="w-full px-3 py-2 border rounded-md"
+                ></textarea>
+              </div>
+              
+              <div>
+                <label className="block text-sm font-medium mb-1">Schedule (optional):</label>
+                <DatePicker
+                  selected={scheduledDate}
+                  onChange={(date) => setScheduledDate(date)}
+                  showTimeSelect
+                  timeFormat="HH:mm"
+                  timeIntervals={15}
+                  minDate={new Date()}
+                  dateFormat="MMMM d, yyyy h:mm aa"
+                  placeholderText="Click to schedule"
+                  className="w-full px-3 py-2 border rounded-md"
+                />
+              </div>
+              
+              <button 
+                type="submit"
+                className="w-full py-2 px-4 bg-blue-600 text-white rounded-md hover:bg-blue-700"
+              >
+                {scheduledDate ? 'Schedule Message' : 'Send Message'}
+              </button>
           </form>
         </div>
       )}
