@@ -8,8 +8,7 @@ interface LeaderboardProps {
   currentUserId?: string;
 }
 
-export default function Leaderboard({ currentUserId }: LeaderboardProps) {
-  const [leaderboard, setLeaderboard] = useState<Array<{
+export default function Leaderboard({ currentUserId }: LeaderboardProps) {  const [leaderboard, setLeaderboard] = useState<Array<{
     rank: number;
     userId: string;
     displayName: string;
@@ -109,7 +108,7 @@ export default function Leaderboard({ currentUserId }: LeaderboardProps) {
         </div>
       ) : (
         <div className="space-y-3">
-          {leaderboard.map((user, index) => (
+          {leaderboard.map((user) => (
             <div
               key={user.userId}
               className={`flex items-center gap-4 p-4 rounded-lg border transition-all hover:scale-105 ${
