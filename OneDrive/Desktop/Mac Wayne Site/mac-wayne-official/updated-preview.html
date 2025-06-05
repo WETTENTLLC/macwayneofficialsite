@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mac Wayne Official - Updated Layout Preview</title>
+  <style>
+    :root {
+      --dark-bg: #121212;
+      --darker-bg: #0a0a0a;
+      --prison-red: #cc0000;
+      --prison-orange: #ff0000;
+      --metal-gray: #333333;
+      --highlight-red: #ff0000;
+      --shadow-black: rgba(0, 0, 0, 0.8);
+      --text-white: #ffffff;
+      --text-gray: #aaaaaa;
+    }
+    
+    body {
+      background-color: var(--dark-bg);
+      color: var(--text-white);
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+    
+    .header-background {
+      width: 100%;
+      margin: 0;
+      text-align: center;
+      overflow: hidden;
+      position: relative;
+      padding: 0;
+    }
+      .header-background img {
+      width: 100%;
+      height: auto;
+      display: block;
+      margin: 0;
+      object-fit: contain;
+      max-height: 50vh;
+      filter: drop-shadow(0 0 20px var(--prison-red));
+      border-top: 1px solid var(--prison-red);
+      border-bottom: 1px solid var(--prison-red);
+      box-shadow: 0 0 20px rgba(204, 0, 0, 0.3);
+    }
+    
+    .hero-section {
+      background: rgba(26, 26, 26, 0.95);
+      border: 1px solid var(--prison-red);
+      margin: 1rem auto;
+      max-width: 1200px;
+      width: 100%;
+      padding: 2rem;
+      text-align: center;
+      box-shadow: 0 0 20px rgba(204, 0, 0, 0.3);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    .hero-logo {
+      width: 100vw;
+      max-width: 100vw;
+      height: auto;
+      margin: 0;
+      filter: drop-shadow(0 0 20px var(--prison-red));
+      background-color: transparent;
+      object-fit: contain;
+      max-height: 25vh;
+    }
+    
+    .button {
+      background: linear-gradient(to bottom, var(--prison-red), var(--highlight-red));
+      color: #ffffff;
+      border: none;
+      padding: 0.75rem 1.5rem;
+      text-transform: uppercase;
+      font-weight: bold;
+      letter-spacing: 1px;
+      cursor: pointer;
+      margin: 0.5rem;
+      box-shadow: 0 0 15px rgba(204, 0, 0, 0.5);
+    }
+    
+    .overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(rgba(10, 10, 10, 0.7), rgba(0, 0, 0, 0.8));
+      pointer-events: none;
+      z-index: -1;
+    }
+    
+    @media (max-width: 768px) {
+      .header-background img {
+        max-height: 30vh;
+      }
+      
+      .hero-logo {
+        max-width: 300px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="overlay"></div>
+  
+  <!-- Header Background Image -->
+  <div class="header-background">
+    <img src="/Images/macwayne-background.png" alt="Mac Wayne Background">
+  </div>
+    <!-- Hero Section with Full-Width Logo -->
+  <div class="hero-section" style="border: none; background: transparent; box-shadow: none; margin: 0;">
+    <img src="/Images/macwayne-logo.JPG" alt="Mac Wayne" class="hero-logo">
+    <p style="font-size: 1.5rem; margin: 2rem 0;">OFFICIAL WEBSITE</p>
+    <div>
+      <button class="button">STREAM MUSIC</button>
+      <button class="button">WATCH VIDEOS</button>
+    </div>
+  </div>
+  
+  <div class="hero-section">
+    <h2 style="font-size: 2.5rem; margin-bottom: 2rem;">LATEST RELEASE</h2>
+    <p>This is a preview of the updated layout with the background image stretched across the top.</p>
+  </div>
+</body>
+</html>

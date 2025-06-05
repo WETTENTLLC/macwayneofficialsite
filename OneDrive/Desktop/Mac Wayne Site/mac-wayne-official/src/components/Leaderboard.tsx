@@ -9,7 +9,14 @@ interface LeaderboardProps {
 }
 
 export default function Leaderboard({ currentUserId }: LeaderboardProps) {
-  const [leaderboard, setLeaderboard] = useState<any[]>([]);
+  const [leaderboard, setLeaderboard] = useState<Array<{
+    rank: number;
+    userId: string;
+    displayName: string;
+    totalPoints: number;
+    tier: MembershipTier;
+    achievements: number;
+  }>>([]);
   const [userRank, setUserRank] = useState<number>(0);
   const [isLoading, setIsLoading] = useState(true);
 
