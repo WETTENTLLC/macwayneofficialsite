@@ -1,5 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server';
 
+// For static export compatibility
+export const dynamic = "force-static";
+
 // Mock cart storage - in production, use database or session storage
 const mockCarts = new Map();
 

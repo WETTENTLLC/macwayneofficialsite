@@ -1,5 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server';
 
+// For static export compatibility
+export const dynamic = "force-static";
+
 // Mock database - in production, use a real database
 const mockUsers: any[] = [];
 
