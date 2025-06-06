@@ -8,7 +8,7 @@ const HomePage = () => {
         {/* Hero Section */}
         <section className="strange-section text-center py-20">
           <img 
-            src="/Images/macwayne-logo.JPG" 
+            src="/Images/macwayne-logo.png" 
             alt="Mac Wayne" 
             className="hero-logo mx-auto mb-6"
           />

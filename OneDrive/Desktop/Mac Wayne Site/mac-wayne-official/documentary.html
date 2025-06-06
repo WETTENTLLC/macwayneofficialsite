@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mac Wayne Documentary - Official Site</title>    <meta name="description" content="Watch the official Mac Wayne documentary - an in-depth look at the artist's journey, creative process, and impact on the music industry.">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Atkinson+Hyperlegible:wght@400;700&display=swap" rel="stylesheet">
+    
+    <!-- Styles -->
+    <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="styles/components.css">
+    <link rel="stylesheet" href="styles/animations.css">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+</head>
+<body class="documentary-page">
+    <!-- Navigation -->
+    <nav class="main-nav">
+        <div class="nav-container">            <a href="index.html" class="nav-logo">
+                <img src="/Images/macwayne-logo.png" alt="Mac Wayne" class="logo-img">
+            </a>
+            
+            <ul class="nav-menu">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="index.html#music">Music</a></li>
+                <li><a href="index.html#tour">Tour</a></li>
+                <li><a href="shop.html">Shop</a></li>
+                <li><a href="documentary.html" class="active">Documentary</a></li>
+                <li><a href="index.html#contact">Contact</a></li>
+            </ul>
+            
+            <button class="mobile-menu-toggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="documentary-hero">
+        <div class="hero-background">
+            <video autoplay muted loop class="hero-video">
+                <source src="videos/documentary-trailer.mp4" type="video/mp4">
+            </video>
+            <div class="hero-overlay"></div>
+        </div>
+        
+        <div class="hero-content">
+            <h1 class="hero-title">The Mac Wayne Story</h1>
+            <p class="hero-subtitle">An intimate look at the artist behind the music</p>
+            <div class="hero-actions">
+                <button class="btn btn-primary watch-trailer-btn">
+                    <i class="icon-play"></i>
+                    Watch Trailer
+                </button>
+                <button class="btn btn-secondary watch-full-btn">
+                    <i class="icon-film"></i>
+                    Watch Full Documentary
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Documentary Info -->
+    <section class="documentary-info">
+        <div class="container">
+            <div class="info-grid">
+                <div class="info-content">
+                    <h2>Behind the Music</h2>
+                    <p class="lead">Experience the untold story of Mac Wayne's rise from the streets to the stage. This exclusive documentary takes you behind the scenes of his creative process, personal struggles, and the dedication that drives his music.</p>
+                    
+                    <div class="documentary-details">
+                        <div class="detail-item">
+                            <span class="detail-label">Runtime:</span>
+                            <span class="detail-value">78 minutes</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">Release Date:</span>
+                            <span class="detail-value">December 2024</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">Director:</span>
+                            <span class="detail-value">Marcus Johnson</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">Production:</span>
+                            <span class="detail-value">Strange Music Films</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="info-media">
+                    <div class="documentary-poster">
+                        <img src="images/documentary-poster.jpg" alt="Mac Wayne Documentary Poster">
+                        <div class="poster-overlay">
+                            <button class="play-btn" data-video="documentary-full">
+                                <i class="icon-play"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Featured Clips -->
+    <section class="documentary-clips">
+        <div class="container">
+            <h2 class="section-title">Featured Clips</h2>
+            
+            <div class="clips-grid">
+                <div class="clip-card" data-video="clip-1">
+                    <div class="clip-thumbnail">
+                        <img src="images/clip-1-thumb.jpg" alt="Studio Sessions">
+                        <div class="clip-overlay">
+                            <button class="play-btn">
+                                <i class="icon-play"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="clip-info">
+                        <h3>Studio Sessions</h3>
+                        <p>Go behind the scenes as Mac Wayne records his latest tracks</p>
+                        <span class="clip-duration">4:32</span>
+                    </div>
+                </div>
+                
+                <div class="clip-card" data-video="clip-2">
+                    <div class="clip-thumbnail">
+                        <img src="images/clip-2-thumb.jpg" alt="Early Days">
+                        <div class="clip-overlay">
+                            <button class="play-btn">
+                                <i class="icon-play"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="clip-info">
+                        <h3>Early Days</h3>
+                        <p>Mac Wayne reflects on his humble beginnings and first breakthrough</p>
+                        <span class="clip-duration">6:18</span>
+                    </div>
+                </div>
+                
+                <div class="clip-card" data-video="clip-3">
+                    <div class="clip-thumbnail">
+                        <img src="images/clip-3-thumb.jpg" alt="Live Performance">
+                        <div class="clip-overlay">
+                            <button class="play-btn">
+                                <i class="icon-play"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="clip-info">
+                        <h3>Live Performance</h3>
+                        <p>Exclusive footage from Mac Wayne's sold-out concert</p>
+                        <span class="clip-duration">3:45</span>
+                    </div>
+                </div>
+                
+                <div class="clip-card" data-video="clip-4">
+                    <div class="clip-thumbnail">
+                        <img src="images/clip-4-thumb.jpg" alt="Personal Journey">
+                        <div class="clip-overlay">
+                            <button class="play-btn">
+                                <i class="icon-play"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="clip-info">
+                        <h3>Personal Journey</h3>
+                        <p>An intimate conversation about overcoming challenges</p>
+                        <span class="clip-duration">5:22</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Reviews Section -->
+    <section class="documentary-reviews">
+        <div class="container">
+            <h2 class="section-title">Critics & Fans</h2>
+            
+            <div class="reviews-grid">
+                <div class="review-card">
+                    <div class="review-stars">
+                        <i class="icon-star filled"></i>
+                        <i class="icon-star filled"></i>
+                        <i class="icon-star filled"></i>
+                        <i class="icon-star filled"></i>
+                        <i class="icon-star filled"></i>
+                    </div>
+                    <p class="review-text">"A raw and honest portrayal of artistic dedication. Mac Wayne's story is both inspiring and deeply human."</p>
+                    <div class="review-author">
+                        <strong>Music Weekly</strong>
+                    </div>
+                </div>
+                
+                <div class="review-card">
+                    <div class="review-stars">
+                        <i class="icon-star filled"></i>
+                        <i class="icon-star filled"></i>
+                        <i class="icon-star filled"></i>
+                        <i class="icon-star filled"></i>
+                        <i class="icon-star"></i>
+                    </div>
+                    <p class="review-text">"Exceptional filmmaking that captures the essence of what it means to be an artist in today's world."</p>
+                    <div class="review-author">
+                        <strong>Hip-Hop Chronicles</strong>
+                    </div>
+                </div>
+                
+                <div class="review-card">
+                    <div class="review-stars">
+                        <i class="icon-star filled"></i>
+                        <i class="icon-star filled"></i>
+                        <i class="icon-star filled"></i>
+                        <i class="icon-star filled"></i>
+                        <i class="icon-star filled"></i>
+                    </div>
+                    <p class="review-text">"Finally, a documentary that shows the real Mac Wayne. Authentic, powerful, and unforgettable."</p>
+                    <div class="review-author">
+                        <strong>Fan Review - @MusicLover2024</strong>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Watch Options -->
+    <section class="watch-options">
+        <div class="container">
+            <h2 class="section-title">Watch Now</h2>
+            
+            <div class="watch-grid">
+                <div class="watch-option">
+                    <div class="option-icon">
+                        <i class="icon-play-circle"></i>
+                    </div>
+                    <h3>Stream Online</h3>
+                    <p>Watch instantly on any device</p>
+                    <div class="option-price">$9.99</div>
+                    <button class="btn btn-primary">Stream Now</button>
+                </div>
+                
+                <div class="watch-option featured">
+                    <div class="option-badge">Best Value</div>
+                    <div class="option-icon">
+                        <i class="icon-download"></i>
+                    </div>
+                    <h3>Digital Download</h3>
+                    <p>Own it forever with bonus content</p>
+                    <div class="option-price">$14.99</div>
+                    <button class="btn btn-primary">Buy Now</button>
+                </div>
+                
+                <div class="watch-option">
+                    <div class="option-icon">
+                        <i class="icon-disc"></i>
+                    </div>
+                    <h3>Physical DVD</h3>
+                    <p>Collector's edition with behind-the-scenes</p>
+                    <div class="option-price">$19.99</div>
+                    <button class="btn btn-secondary">Pre-Order</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Video Modal -->
+    <div class="video-modal" id="videoModal">
+        <div class="modal-overlay"></div>
+        <div class="modal-content">
+            <button class="modal-close">&times;</button>
+            <div class="modal-video">
+                <iframe src="" frameborder="0" allowfullscreen></iframe>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="main-footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Mac Wayne</h3>
+                    <p>Official website of Mac Wayne - Hip-hop artist, producer, and storyteller.</p>
+                    <div class="social-links">
+                        <a href="#" class="social-link"><i class="icon-instagram"></i></a>
+                        <a href="#" class="social-link"><i class="icon-twitter"></i></a>
+                        <a href="#" class="social-link"><i class="icon-youtube"></i></a>
+                        <a href="#" class="social-link"><i class="icon-spotify"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="index.html#music">Music</a></li>
+                        <li><a href="index.html#tour">Tour</a></li>
+                        <li><a href="shop.html">Shop</a></li>
+                        <li><a href="documentary.html">Documentary</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Support</h4>
+                    <ul>
+                        <li><a href="#contact">Contact</a></li>
+                        <li><a href="#faq">FAQ</a></li>
+                        <li><a href="#privacy">Privacy Policy</a></li>
+                        <li><a href="#terms">Terms of Service</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Newsletter</h4>
+                    <p>Stay updated with the latest news and releases.</p>
+                    <form class="newsletter-form">
+                        <input type="email" placeholder="Your email" required>
+                        <button type="submit" class="btn btn-primary">Subscribe</button>
+                    </form>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2024 Mac Wayne. All rights reserved.</p>
+                <p>Strange Music Entertainment</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="js/main.js"></script>
+    <script src="js/animations.js"></script>
+    <script src="js/documentary.js"></script>
+</body>
+</html>

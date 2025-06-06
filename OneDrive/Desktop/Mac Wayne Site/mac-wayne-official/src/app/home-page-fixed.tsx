@@ -56,7 +56,7 @@ export default function Home() {
       {/* Hero Logo Only at the Top */}
       <div className="hero-logo-container">
         <Image 
-          src="/Images/macwayne-logo.JPG" 
+          src="/Images/macwayne-logo.png" 
           alt="Mac Wayne" 
           width={1920}
           height={400}

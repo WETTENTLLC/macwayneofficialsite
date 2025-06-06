@@ -38,7 +38,7 @@ The site uses a combination of:
 ## Images and Media
 
 - Background image: `/Images/macwayne-background.png`
-- Logo: `/Images/macwayne-logo.JPG`
+- Logo: `/Images/macwayne-logo.png`
 - Audio samples in `/audio/` directory
 
 ## Responsive Design

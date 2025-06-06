@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mac Wayne Official - Hip Hop Artist</title>    <meta name="description" content="Official website of Mac Wayne - Hip Hop Artist. Stream music, watch videos, and get tour dates.">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Atkinson+Hyperlegible:wght@400;700&display=swap" rel="stylesheet">
+    
+    <!-- CSS Files -->
+    <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="styles/components.css">
+    <link rel="stylesheet" href="styles/animations.css">
+    
+    <!-- Favicon -->
+    <link rel="icon" href="/Images/macwayne-logo.png" type="image/png">
+    
+    <!-- Preload key resources -->
+    <link rel="preload" href="/Images/macwayne-logo.png" as="image">
+    <link rel="preload" href="/Images/macwayne-background.png" as="image">
+</head>
+<body class="strange-theme">
+    <!-- Hero Logo Section -->
+    <div class="hero-logo-container">
+        <img 
+            src="/Images/macwayne-logo.png" 
+            alt="Mac Wayne" 
+            class="hero-logo"
+            loading="eager"
+        />
+    </div>
+    
+    <div class="main-content">
+        <!-- Hero Section -->
+        <section class="strange-section hero-section">
+            <div class="hero-content">
+                <p class="hero-subtitle">OFFICIAL WEBSITE</p>
+                <div class="hero-buttons">
+                    <a href="/shop" class="strange-button">SHOP MUSIC</a>
+                    <a href="#video-section" class="strange-button">WATCH VIDEOS</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Featured Video Section -->
+        <section id="video-section" class="strange-section video-section">
+            <h2 class="strange-header">WATCH NOW</h2>
+            <div class="video-container">
+                <div class="video-wrapper">
+                    <iframe 
+                        src="https://www.youtube.com/embed/CkDPQkDTxC8"
+                        title="Mac Wayne - Blind & Battered"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                        allowfullscreen
+                    ></iframe>
+                </div>
+                <p class="video-description">
+                    "Blind & Battered" - The official music video from Mac Wayne
+                </p>
+                <div class="video-cta">
+                    <a href="/documentary" class="strange-button">
+                        VIEW FULL DOCUMENTARY
+                    </a>
+                </div>
+            </div>
+        </section>
+          
+        <!-- Album Section -->
+        <section class="strange-section album-section">
+            <div class="album-container" id="album-slideshow">
+                <div class="album-slide active" data-album="0">
+                    <div class="album-content">
+                        <div class="album-cover-section">
+                            <img
+                                src="/Images/macwayne-background.png"
+                                alt="Blind & Battered [Explicit] Cover"
+                                class="album-cover"
+                            />
+                            <div class="album-info">
+                                <h3 class="album-title">Blind & Battered [Explicit]</h3>
+                                <div class="album-year">2025</div>
+                            </div>
+                        </div>
+                        <div class="album-tracks-section">
+                            <p class="album-description">Stream the full album or listen to individual tracks below.</p>
+                            
+                            <!-- Featured Track Player -->
+                            <div class="featured-player">
+                                <div class="audio-player" data-src="/audio/Blind and Battered [Explicit]/01 - Gotta Split [Explicit].mp3" data-title="Gotta Split" data-duration="3:12">
+                                    <button class="play-btn">
+                                        <svg class="play-icon" viewBox="0 0 24 24" fill="currentColor">
+                                            <path d="M8 5v14l11-7z"/>
+                                        </svg>
+                                        <svg class="pause-icon hidden" viewBox="0 0 24 24" fill="currentColor">
+                                            <path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/>
+                                        </svg>
+                                    </button>
+                                    <div class="track-info">
+                                        <div class="track-title">Gotta Split</div>
+                                        <div class="track-artist">Mac Wayne</div>
+                                    </div>
+                                    <div class="progress-container">
+                                        <div class="progress-bar">
+                                            <div class="progress-fill"></div>
+                                        </div>
+                                        <div class="time-display">
+                                            <span class="current-time">0:00</span>
+                                            <span class="duration">3:12</span>
+                                        </div>
+                                    </div>
+                                    <button class="volume-btn">
+                                        <svg class="volume-icon" viewBox="0 0 24 24" fill="currentColor">
+                                            <path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3A4.5 4.5 0 0 0 14 7.97v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77 0-4.28-2.99-7.86-7-8.77z"/>
+                                        </svg>
+                                    </button>
+                                    <audio preload="metadata"></audio>
+                                </div>
+                            </div>
+                            
+                            <!-- Track List -->
+                            <div class="track-list">
+                                <div class="track-item" data-src="/audio/Blind and Battered [Explicit]/01 - Gotta Split [Explicit].mp3" data-title="Gotta Split" data-duration="3:12">
+                                    <span class="track-name">Gotta Split</span>
+                                    <div class="mini-player">
+                                        <button class="mini-play-btn">
+                                            <svg viewBox="0 0 24 24" fill="currentColor">
+                                                <path d="M8 5v14l11-7z"/>
+                                            </svg>
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="track-item" data-src="/audio/Blind and Battered [Explicit]/02 - I Think [Explicit].mp3" data-title="I Think" data-duration="2:58">
+                                    <span class="track-name">I Think</span>
+                                    <div class="mini-player">
+                                        <button class="mini-play-btn">
+                                            <svg viewBox="0 0 24 24" fill="currentColor">
+                                                <path d="M8 5v14l11-7z"/>
+                                            </svg>
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="track-item" data-src="/audio/Blind and Battered [Explicit]/03 - Keep Your Mouth Shut (Skit) [Explicit].mp3" data-title="Keep Your Mouth Shut (Skit)" data-duration="0:45">
+                                    <span class="track-name">Keep Your Mouth Shut (Skit)</span>
+                                    <div class="mini-player">
+                                        <button class="mini-play-btn">
+                                            <svg viewBox="0 0 24 24" fill="currentColor">
+                                                <path d="M8 5v14l11-7z"/>
+                                            </svg>
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="track-item" data-src="/audio/Blind and Battered [Explicit]/04 - Just a Player [Explicit].mp3" data-title="Just a Player" data-duration="3:22">
+                                    <span class="track-name">Just a Player</span>
+                                    <div class="mini-player">
+                                        <button class="mini-play-btn">
+                                            <svg viewBox="0 0 24 24" fill="currentColor">
+                                                <path d="M8 5v14l11-7z"/>
+                                            </svg>
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="track-item" data-src="/audio/Blind and Battered [Explicit]/05 - Ziplocks [Explicit].mp3" data-title="Ziplocks" data-duration="4:10">
+                                    <span class="track-name">Ziplocks</span>
+                                    <div class="mini-player">
+                                        <button class="mini-play-btn">
+                                            <svg viewBox="0 0 24 24" fill="currentColor">
+                                                <path d="M8 5v14l11-7z"/>
+                                            </svg>
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="track-item" data-src="/audio/Blind and Battered [Explicit]/06 - Where You Been (Skit) [Explicit].mp3" data-title="Where You Been (Skit)" data-duration="1:15">
+                                    <span class="track-name">Where You Been (Skit)</span>
+                                    <div class="mini-player">
+                                        <button class="mini-play-btn">
+                                            <svg viewBox="0 0 24 24" fill="currentColor">
+                                                <path d="M8 5v14l11-7z"/>
+                                            </svg>
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="track-item" data-src="/audio/Blind and Battered [Explicit]/07 - Cant Tell Me [Explicit].mp3" data-title="Cant Tell Me" data-duration="3:55">
+                                    <span class="track-name">Cant Tell Me</span>
+                                    <div class="mini-player">
+                                        <button class="mini-play-btn">
+                                            <svg viewBox="0 0 24 24" fill="currentColor">
+                                                <path d="M8 5v14l11-7z"/>
+                                            </svg>
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="track-item" data-src="/audio/Blind and Battered [Explicit]/08 - Just a Gimmick [Explicit].mp3" data-title="Just a Gimmick" data-duration="4:02">
+                                    <span class="track-name">Just a Gimmick</span>
+                                    <div class="mini-player">
+                                        <button class="mini-play-btn">
+                                            <svg viewBox="0 0 24 24" fill="currentColor">
+                                                <path d="M8 5v14l11-7z"/>
+                                            </svg>
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="track-item" data-src="/audio/Blind and Battered [Explicit]/09 - Wish I Knew Then [Explicit].mp3" data-title="Wish I Knew Then" data-duration="3:50">
+                                    <span class="track-name">Wish I Knew Then</span>
+                                    <div class="mini-player">
+                                        <button class="mini-play-btn">
+                                            <svg viewBox="0 0 24 24" fill="currentColor">
+                                                <path d="M8 5v14l11-7z"/>
+                                            </svg>
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="track-item" data-src="/audio/Blind and Battered [Explicit]/10 - Blind and Battered [Explicit].mp3" data-title="Blind and Battered" data-duration="3:40">
+                                    <span class="track-name">Blind and Battered</span>
+                                    <div class="mini-player">
+                                        <button class="mini-play-btn">
+                                            <svg viewBox="0 0 24 24" fill="currentColor">
+                                                <path d="M8 5v14l11-7z"/>
+                                            </svg>
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="track-item" data-src="/audio/Blind and Battered [Explicit]/11 - Smoother Than Woodgrain [Explicit].mp3" data-title="Smoother Than Woodgrain" data-duration="3:15">
+                                    <span class="track-name">Smoother Than Woodgrain</span>
+                                    <div class="mini-player">
+                                        <button class="mini-play-btn">
+                                            <svg viewBox="0 0 24 24" fill="currentColor">
+                                                <path d="M8 5v14l11-7z"/>
+                                            </svg>
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="track-item" data-src="/audio/Blind and Battered [Explicit]/12 - Touch You [Explicit].mp3" data-title="Touch You" data-duration="3:25">
+                                    <span class="track-name">Touch You</span>
+                                    <div class="mini-player">
+                                        <button class="mini-play-btn">
+                                            <svg viewBox="0 0 24 24" fill="currentColor">
+                                                <path d="M8 5v14l11-7z"/>
+                                            </svg>
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="track-item" data-src="/audio/Blind and Battered [Explicit]/13 - Life of Magic [Explicit].mp3" data-title="Life of Magic" data-duration="3:35">
+                                    <span class="track-name">Life of Magic</span>
+                                    <div class="mini-player">
+                                        <button class="mini-play-btn">
+                                            <svg viewBox="0 0 24 24" fill="currentColor">
+                                                <path d="M8 5v14l11-7z"/>
+                                            </svg>
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="track-item" data-src="/audio/Blind and Battered [Explicit]/14 - Its Going Down [Explicit].mp3" data-title="Its Going Down" data-duration="3:45">
+                                    <span class="track-name">Its Going Down</span>
+                                    <div class="mini-player">
+                                        <button class="mini-play-btn">
+                                            <svg viewBox="0 0 24 24" fill="currentColor">
+                                                <path d="M8 5v14l11-7z"/>
+                                            </svg>
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="track-item" data-src="/audio/Blind and Battered [Explicit]/15 - One Way In [Explicit].mp3" data-title="One Way In" data-duration="3:50">
+                                    <span class="track-name">One Way In</span>
+                                    <div class="mini-player">
+                                        <button class="mini-play-btn">
+                                            <svg viewBox="0 0 24 24" fill="currentColor">
+                                                <path d="M8 5v14l11-7z"/>
+                                            </svg>
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="track-item" data-src="/audio/Blind and Battered [Explicit]/16 - Crispy Game [Explicit].mp3" data-title="Crispy Game" data-duration="4:05">
+                                    <span class="track-name">Crispy Game</span>
+                                    <div class="mini-player">
+                                        <button class="mini-play-btn">
+                                            <svg viewBox="0 0 24 24" fill="currentColor">
+                                                <path d="M8 5v14l11-7z"/>
+                                            </svg>
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="track-item" data-src="/audio/Blind and Battered [Explicit]/17 - The End of the World [Explicit].mp3" data-title="The End of the World" data-duration="3:30">
+                                    <span class="track-name">The End of the World</span>
+                                    <div class="mini-player">
+                                        <button class="mini-play-btn">
+                                            <svg viewBox="0 0 24 24" fill="currentColor">
+                                                <path d="M8 5v14l11-7z"/>
+                                            </svg>
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="track-item" data-src="/audio/Blind and Battered [Explicit]/18 - Smell of Victory [Explicit].mp3" data-title="Smell of Victory" data-duration="3:55">
+                                    <span class="track-name">Smell of Victory</span>
+                                    <div class="mini-player">
+                                        <button class="mini-play-btn">
+                                            <svg viewBox="0 0 24 24" fill="currentColor">
+                                                <path d="M8 5v14l11-7z"/>
+                                            </svg>
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="track-item" data-src="/audio/Blind and Battered [Explicit]/19 - Do the I'm the Shit [Explicit].mp3" data-title="Do the I'm the Shit" data-duration="4:00">
+                                    <span class="track-name">Do the I'm the Shit</span>
+                                    <div class="mini-player">
+                                        <button class="mini-play-btn">
+                                            <svg viewBox="0 0 24 24" fill="currentColor">
+                                                <path d="M8 5v14l11-7z"/>
+                                            </svg>
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="track-item" data-src="/audio/Blind and Battered [Explicit]/20 - Hatin On a Blind Man [Explicit].mp3" data-title="Hatin On a Blind Man" data-duration="3:44">
+                                    <span class="track-name">Hatin On a Blind Man</span>
+                                    <div class="mini-player">
+                                        <button class="mini-play-btn">
+                                            <svg viewBox="0 0 24 24" fill="currentColor">
+                                                <path d="M8 5v14l11-7z"/>
+                                            </svg>
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="view-all-tracks">
+                                    <a href="/shop" class="view-all-link">View all 20 tracks →</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Upcoming Shows -->
+        <section class="strange-section shows-section">
+            <h2 class="strange-header">UPCOMING SHOWS</h2>
+            <div class="tour-dates">
+                <div class="event-item">
+                    <div class="event-date">
+                        <div class="event-day">15</div>
+                        <div class="event-month">JUN</div>
+                    </div>
+                    <div class="event-info">
+                        <h3>The Underground</h3>
+                        <div class="event-venue">Live Performance</div>
+                        <div class="event-city">Charlotte, NC</div>
+                    </div>
+                    <button class="ticket-button">Tickets</button>
+                </div>
+                <div class="event-item">
+                    <div class="event-date">
+                        <div class="event-day">22</div>
+                        <div class="event-month">JUN</div>
+                    </div>
+                    <div class="event-info">
+                        <h3>The Fillmore</h3>
+                        <div class="event-venue">Live Performance</div>
+                        <div class="event-city">Detroit, MI</div>
+                    </div>
+                    <button class="ticket-button">Tickets</button>
+                </div>
+                <div class="event-item">
+                    <div class="event-date">
+                        <div class="event-day">29</div>
+                        <div class="event-month">JUN</div>
+                    </div>
+                    <div class="event-info">
+                        <h3>House of Blues</h3>
+                        <div class="event-venue">Live Performance</div>
+                        <div class="event-city">Chicago, IL</div>
+                    </div>
+                    <button class="ticket-button">Tickets</button>
+                </div>
+            </div>
+            <div class="shows-cta">
+                <button class="strange-button">VIEW ALL SHOWS</button>
+            </div>
+        </section>
+        
+        <!-- Newsletter -->
+        <section class="strange-section newsletter-section">
+            <h2 class="strange-header">JOIN THE FANBASE</h2>
+            <div class="newsletter-form">
+                <p class="newsletter-description">Subscribe to get updates on new music, videos, tour dates, and exclusive content.</p>
+                <form class="newsletter-form-grid" id="newsletter-form">
+                    <div class="form-group">
+                        <input type="text" placeholder="Your Name" class="strange-input" name="name" required />
+                    </div>
+                    <div class="form-group">
+                        <input type="email" placeholder="Your Email" class="strange-input" name="email" required />
+                    </div>
+                    <div class="form-submit">
+                        <button type="submit" class="strange-button">SUBSCRIBE</button>
+                    </div>
+                </form>
+            </div>
+        </section>
+    </div>
+
+    <!-- JavaScript Files -->
+    <script src="js/main.js"></script>
+    <script src="js/audio-player.js"></script>
+    <script src="js/animations.js"></script>
+</body>
+</html>

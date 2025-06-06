@@ -12,7 +12,7 @@ const Footer = () => {
         <div className="grid md:grid-cols-4 gap-8">
           <div className="md:col-span-1">
             <Link to="/">
-              <img src="/Images/macwayne-logo.JPG" alt="Mac Wayne" className="strange-logo mx-auto md:mx-0 mb-4" style={{maxWidth: '180px'}} />
+              <img src="/Images/macwayne-logo.png" alt="Mac Wayne" className="strange-logo mx-auto md:mx-0 mb-4" style={{maxWidth: '180px'}} />
             </Link>
             <p className="text-gray-400 text-sm text-center md:text-left">
               Official website of Mac Wayne. Strange music inspired artist bringing you authentic hip-hop music.

@@ -1,0 +1,464 @@
+/* 
+Mac Wayne Official Website - Main Styles
+Converted from Next.js to vanilla HTML/CSS/JS
+Based on Strange Music / Tech N9ne aesthetic
+*/
+
+/* CSS Variables - Strange Music Theme */
+:root {
+  --dark-bg: #000000;
+  --darker-bg: #000000;
+  --prison-red: #cc0000;
+  --prison-orange: #ff6600;
+  --metal-gray: #333333;
+  --highlight-red: #ff0000;
+  --highlight-orange: #ff6600;
+  --highlight-yellow: #ffcc00;
+  --shadow-black: rgba(0, 0, 0, 0.8);
+  --text-white: #ffffff;
+  --text-gray: #aaaaaa;
+  --accent-blue: #cc0000;
+  --accent-purple: #cc0000;
+  --graffiti-green: #cc0000;
+  --overlay-dark: rgba(0, 0, 0, 0.85);
+  --glass-effect: rgba(0, 0, 0, 0.7);
+  --section-bg: #1a1a1a;
+    /* Strange Music Brand Colors */
+  --strange-red: #cc0000;
+  --strange-orange: #ff6600;
+  --strange-black: #000000;
+  --strange-white: #ffffff;
+  
+  /* Fonts */
+  --font-bebas: 'Bebas Neue', cursive;
+  --font-body: 'Atkinson Hyperlegible', Arial, sans-serif;
+}
+
+/* Base Styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-body);
+  background-color: var(--dark-bg);
+  color: var(--text-white);
+  position: relative;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+  will-change: transform;
+  contain: layout style paint;
+}
+
+/* Background Effects */
+body::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: -2;
+  background-color: #000000;
+  background-image: 
+    url('/Images/macwayne-background.png'),
+    radial-gradient(circle at 30% 30%, rgba(204, 0, 0, 0.7) 0%, transparent 50%),
+    radial-gradient(circle at 70% 60%, rgba(255, 102, 0, 0.6) 0%, transparent 60%);
+  background-blend-mode: overlay;
+  background-size: contain, cover, cover;
+  background-repeat: no-repeat, no-repeat, no-repeat;
+  background-position: center, center, center;
+  opacity: 0.7;
+  pointer-events: none;
+  will-change: transform;
+  filter: blur(2px);
+  animation: smokeEffect 20s infinite alternate ease-in-out;
+}
+
+.strange-theme::after {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(to bottom right, 
+                rgba(0, 0, 0, 0.6), 
+                rgba(204, 0, 0, 0.2),
+                rgba(255, 102, 0, 0.2),
+                rgba(0, 0, 0, 0.6));
+  pointer-events: none;
+  z-index: -1;
+  opacity: 0.25;
+  animation: smokeOverlay 15s infinite alternate ease-in-out;
+}
+
+/* Hero Logo Section */
+.hero-logo-container {
+  width: 100% !important;
+  max-width: 2400px !important;
+  margin: 0 auto !important;
+  padding: 1rem !important;
+  position: relative !important;
+  box-sizing: border-box;
+  background: transparent !important;
+  overflow: hidden;
+  display: block;
+  margin-top: 2.5rem !important;
+  text-align: center;
+}
+
+.hero-logo {
+  width: auto !important;
+  max-width: 100% !important;
+  height: auto !important;
+  max-height: 600px !important;
+  object-fit: contain !important;
+  margin: 0 auto !important;
+  padding: 0 !important;
+  display: block;
+  position: relative !important;
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  filter: drop-shadow(0 0 40px var(--highlight-red)) drop-shadow(0 0 20px rgba(255, 255, 255, 0.5)) brightness(1.15) !important;
+  transform: none !important;
+  transition: filter 0.3s, transform 0.3s;
+}
+
+.hero-logo:hover {
+  filter: drop-shadow(0 0 60px var(--highlight-red)) drop-shadow(0 0 30px #fff) brightness(1.2);
+  transform: scale(1.02);
+}
+
+/* Main Content */
+.main-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+
+/* Section Styles */
+.strange-section {
+  width: 100%;
+  max-width: 1200px;
+  margin: 2rem auto;
+  padding: 2rem;
+  background: var(--glass-effect);
+  border-radius: 15px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  position: relative;
+  overflow: hidden;
+}
+
+.strange-section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--prison-red), var(--prison-orange), var(--highlight-yellow));
+  animation: shimmer 2s infinite;
+}
+
+/* Headers */
+.strange-header {
+  font-family: var(--font-bebas);
+  font-size: 2.5rem;
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 2rem;
+  color: var(--text-white);
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  position: relative;
+  text-shadow: 0 0 10px var(--prison-red);
+}
+
+.strange-header::after {
+  content: '';
+  position: absolute;
+  bottom: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100px;
+  height: 3px;
+  background: linear-gradient(90deg, var(--prison-red), var(--prison-orange));
+  border-radius: 2px;
+}
+
+/* Buttons */
+.strange-button {
+  display: inline-block;
+  padding: 12px 24px;
+  background: linear-gradient(45deg, var(--prison-red), var(--prison-orange));
+  color: var(--text-white);
+  text-decoration: none;
+  border: none;
+  border-radius: 8px;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(204, 0, 0, 0.3);
+  position: relative;
+  overflow: hidden;
+}
+
+.strange-button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: left 0.5s;
+}
+
+.strange-button:hover::before {
+  left: 100%;
+}
+
+.strange-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(204, 0, 0, 0.4);
+  filter: brightness(1.1);
+}
+
+.strange-button:active {
+  transform: translateY(0);
+}
+
+/* Hero Section */
+.hero-section {
+  background: transparent;
+  border: none;
+  box-shadow: none;
+  backdrop-filter: none;
+}
+
+.hero-content {
+  text-align: center;
+  padding: 2rem;
+}
+
+.hero-subtitle {
+  font-size: 1.5rem;
+  margin-bottom: 2rem;
+  color: var(--text-white);
+  letter-spacing: 2px;
+}
+
+.hero-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+/* Video Section */
+.video-container {
+  width: 100%;
+  max-width: 800px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.video-wrapper {
+  position: relative;
+  padding-bottom: 56.25%;
+  height: 0;
+  overflow: hidden;
+  border-radius: 10px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+}
+
+.video-wrapper iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: none;
+}
+
+.video-description {
+  margin: 1rem 0;
+  color: var(--text-gray);
+  font-style: italic;
+}
+
+.video-cta {
+  margin-top: 1.5rem;
+}
+
+/* Album Section */
+.album-container {
+  position: relative;
+  width: 100%;
+  max-width: 1000px;
+  margin: 0 auto;
+  background: rgba(0, 0, 0, 0.7);
+  border-radius: 15px;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+.album-slide {
+  display: none;
+  opacity: 0;
+  transition: opacity 0.7s ease-in-out;
+}
+
+.album-slide.active {
+  display: block;
+  opacity: 1;
+}
+
+.album-content {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  padding: 2rem;
+}
+
+.album-cover-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.album-cover {
+  width: 100%;
+  max-width: 300px;
+  height: auto;
+  border-radius: 10px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+  margin-bottom: 1rem;
+}
+
+.album-info {
+  text-align: center;
+}
+
+.album-title {
+  font-size: 2rem;
+  font-weight: bold;
+  color: var(--text-white);
+  margin-bottom: 0.5rem;
+}
+
+.album-year {
+  color: var(--prison-orange);
+  font-weight: bold;
+  font-size: 1.2rem;
+}
+
+.album-tracks-section {
+  flex: 1;
+}
+
+.album-description {
+  margin-bottom: 1.5rem;
+  color: var(--text-gray);
+  text-align: center;
+}
+
+/* Forms */
+.strange-input {
+  width: 100%;
+  padding: 12px 16px;
+  background: rgba(255, 255, 255, 0.1);
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  border-radius: 8px;
+  color: var(--text-white);
+  font-size: 1rem;
+  transition: all 0.3s ease;
+}
+
+.strange-input::placeholder {
+  color: var(--text-gray);
+}
+
+.strange-input:focus {
+  outline: none;
+  border-color: var(--prison-red);
+  box-shadow: 0 0 10px rgba(204, 0, 0, 0.3);
+  background: rgba(255, 255, 255, 0.15);
+}
+
+/* Newsletter Section */
+.newsletter-description {
+  margin-bottom: 2rem;
+  color: var(--text-gray);
+  text-align: center;
+  font-size: 1.1rem;
+}
+
+.newsletter-form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 1rem;
+  align-items: end;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-submit {
+  display: flex;
+  align-items: end;
+}
+
+.form-submit .strange-button {
+  width: 100%;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .hero-logo {
+    max-height: 300px !important;
+  }
+  
+  .hero-buttons {
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .strange-section {
+    margin: 1rem;
+    padding: 1rem;
+  }
+  
+  .strange-header {
+    font-size: 2rem;
+  }
+  
+  .album-content {
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+  
+  .newsletter-form-grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+}

@@ -28,7 +28,7 @@ const Header = () => {
       <div className="container mx-auto px-4 py-3">
         <div className="flex justify-between items-center">
           <Link to="/" className="flex items-center">
-            <img src="/Images/macwayne-logo.JPG" alt="Mac Wayne" className="strange-logo" />
+            <img src="/Images/macwayne-logo.png" alt="Mac Wayne" className="strange-logo" />
           </Link>
 
           {/* Desktop Navigation */}
