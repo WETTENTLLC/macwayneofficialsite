@@ -31,11 +31,11 @@
             <a href="index.html" class="nav-logo">
                 <img src="public/Images/macwayne-logo.png" alt="Mac Wayne" class="logo-img">
             </a>
-            
-            <ul class="nav-menu">
+              <ul class="nav-menu">
                 <li><a href="index.html" class="active">Home</a></li>
                 <li><a href="#music">Music</a></li>
                 <li><a href="#video-section">Videos</a></li>
+                <li><a href="#help-blind-man">Help The Blind Man</a></li>
                 <li><a href="#tour">Live</a></li>
                 <li><a href="shop.html">Shop</a></li>
                 <li><a href="documentary.html">Documentary</a></li>
@@ -64,8 +64,8 @@
         <!-- Hero Section -->
         <section class="strange-section hero-section">
             <div class="hero-content">
-                <p class="hero-subtitle">OFFICIAL WEBSITE</p>
-                <div class="hero-buttons">
+                <p class="hero-subtitle">OFFICIAL WEBSITE</p>                <div class="hero-buttons">
+                    <a href="#help-blind-man" class="strange-button">HELP THE BLIND MAN</a>
                     <a href="/shop" class="strange-button">SHOP MUSIC</a>
                     <a href="#video-section" class="strange-button">WATCH VIDEOS</a>
                 </div>
@@ -95,6 +95,183 @@
             </div>
         </section>
           
+        <!-- Help The Blind Man Section - Key Interactive Feature -->
+        <section class="strange-section help-blind-man-section" id="help-blind-man">
+            <div class="help-container">
+                <h2 class="strange-header">HELP THE BLIND MAN</h2>
+                <div class="help-content">
+                    <div class="story-section">
+                        <div class="blind-story">
+                            <h3 class="story-title">MAC WAYNE'S JOURNEY</h3>
+                            <p class="story-text">
+                                Mac Wayne lost his sight but never lost his vision. After going blind, he discovered his true calling in music, 
+                                using his other senses to create powerful beats and lyrics that touch the soul. His blindness isn't a limitation - 
+                                it's his superpower.
+                            </p>
+                            <div class="story-audio">
+                                <button class="story-play-btn" data-story="going-blind">
+                                    <i class="fas fa-play"></i>
+                                    HEAR HIS STORY
+                                </button>
+                                <audio id="going-blind-audio" preload="metadata">
+                                    <source src="public/audio/going-blind-story.mp3" type="audio/mpeg">
+                                </audio>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="interaction-section">
+                        <h3 class="interaction-title">GUIDE MAC WAYNE</h3>
+                        <p class="interaction-description">
+                            Experience what it's like to navigate the world without sight. Help guide Mac Wayne through different scenarios 
+                            and understand his daily challenges.
+                        </p>
+                        
+                        <div class="interaction-game">
+                            <div class="game-screen" id="guidance-game">
+                                <div class="scene active" data-scene="studio">
+                                    <h4>STUDIO SESSION</h4>
+                                    <p>Mac Wayne needs to find his way to the recording booth. Help guide him:</p>
+                                    <div class="direction-buttons">
+                                        <button class="direction-btn" data-direction="left" data-correct="false">
+                                            <i class="fas fa-arrow-left"></i> LEFT
+                                        </button>
+                                        <button class="direction-btn" data-direction="forward" data-correct="true">
+                                            <i class="fas fa-arrow-up"></i> STRAIGHT
+                                        </button>
+                                        <button class="direction-btn" data-direction="right" data-correct="false">
+                                            <i class="fas fa-arrow-right"></i> RIGHT
+                                        </button>
+                                    </div>
+                                    <div class="feedback" id="scene-feedback"></div>
+                                </div>
+                                
+                                <div class="scene" data-scene="stage">
+                                    <h4>ON STAGE</h4>
+                                    <p>Mac Wayne is performing. Help him locate the microphone:</p>
+                                    <div class="direction-buttons">
+                                        <button class="direction-btn" data-direction="left" data-correct="true">
+                                            <i class="fas fa-arrow-left"></i> LEFT
+                                        </button>
+                                        <button class="direction-btn" data-direction="forward" data-correct="false">
+                                            <i class="fas fa-arrow-up"></i> STRAIGHT
+                                        </button>
+                                        <button class="direction-btn" data-direction="right" data-correct="false">
+                                            <i class="fas fa-arrow-right"></i> RIGHT
+                                        </button>
+                                    </div>
+                                    <div class="feedback" id="scene-feedback"></div>
+                                </div>
+                                
+                                <div class="scene" data-scene="home">
+                                    <h4>DAILY LIFE</h4>
+                                    <p>Help Mac Wayne navigate to his music equipment at home:</p>
+                                    <div class="direction-buttons">
+                                        <button class="direction-btn" data-direction="left" data-correct="false">
+                                            <i class="fas fa-arrow-left"></i> LEFT
+                                        </button>
+                                        <button class="direction-btn" data-direction="forward" data-correct="false">
+                                            <i class="fas fa-arrow-up"></i> STRAIGHT
+                                        </button>
+                                        <button class="direction-btn" data-direction="right" data-correct="true">
+                                            <i class="fas fa-arrow-right"></i> RIGHT
+                                        </button>
+                                    </div>
+                                    <div class="feedback" id="scene-feedback"></div>
+                                </div>
+                            </div>
+                            
+                            <div class="game-controls">
+                                <button class="game-reset-btn" id="reset-game">
+                                    <i class="fas fa-redo"></i> RESET GUIDANCE
+                                </button>
+                                <div class="game-score">
+                                    <span>Successful Guidance: </span>
+                                    <span id="score-counter">0</span>/<span id="total-scenarios">3</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="support-section">
+                        <h3 class="support-title">SUPPORT MAC WAYNE</h3>
+                        <p class="support-description">
+                            Your support helps Mac Wayne continue creating music and spreading awareness about blindness. 
+                            Every interaction makes a difference.
+                        </p>
+                        
+                        <div class="support-options">
+                            <div class="support-option">
+                                <div class="support-icon">
+                                    <i class="fas fa-music"></i>
+                                </div>
+                                <h4>STREAM MUSIC</h4>
+                                <p>Every stream supports his journey</p>
+                                <button class="support-btn" onclick="document.getElementById('album-slideshow').scrollIntoView()">
+                                    LISTEN NOW
+                                </button>
+                            </div>
+                            
+                            <div class="support-option">
+                                <div class="support-icon">
+                                    <i class="fas fa-shopping-cart"></i>
+                                </div>
+                                <h4>BUY MERCHANDISE</h4>
+                                <p>Official Mac Wayne gear</p>
+                                <button class="support-btn" onclick="window.location.href='shop.html'">
+                                    SHOP NOW
+                                </button>
+                            </div>
+                            
+                            <div class="support-option">
+                                <div class="support-icon">
+                                    <i class="fas fa-share"></i>
+                                </div>
+                                <h4>SHARE HIS STORY</h4>
+                                <p>Spread awareness about his journey</p>
+                                <button class="support-btn" id="share-story">
+                                    SHARE NOW
+                                </button>
+                            </div>
+                            
+                            <div class="support-option">
+                                <div class="support-icon">
+                                    <i class="fas fa-heart"></i>
+                                </div>
+                                <h4>LEAVE ENCOURAGEMENT</h4>
+                                <p>Send a message of support</p>
+                                <button class="support-btn" id="send-encouragement">
+                                    SEND MESSAGE
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="awareness-section">
+                        <h3 class="awareness-title">BLINDNESS AWARENESS</h3>
+                        <div class="awareness-facts">
+                            <div class="fact-item">
+                                <div class="fact-number">285M</div>
+                                <div class="fact-text">People worldwide are visually impaired</div>
+                            </div>
+                            <div class="fact-item">
+                                <div class="fact-number">39M</div>
+                                <div class="fact-text">People are completely blind</div>
+                            </div>
+                            <div class="fact-item">
+                                <div class="fact-number">90%</div>
+                                <div class="fact-text">Of visual impairment is preventable</div>
+                            </div>
+                        </div>
+                        <p class="awareness-message">
+                            Mac Wayne's music brings awareness to the blind and visually impaired community. 
+                            Through his art, he shows that blindness doesn't limit creativity or potential.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
         <!-- Album Section -->
         <section class="strange-section album-section">
             <div class="album-container" id="album-slideshow">
@@ -419,17 +596,46 @@
             </div>
         </section>
         
+        <!-- Encouragement Modal -->
+        <div id="encouragement-modal" class="modal" style="display: none;">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3>Send Encouragement to Mac Wayne</h3>
+                    <span class="close-modal" onclick="closeEncouragementModal()">&times;</span>
+                </div>
+                <div class="modal-body">
+                    <p>Your words of encouragement mean everything to Mac Wayne. Share your thoughts, support, or just let him know you're listening!</p>
+                    <form id="encouragement-form">
+                        <div class="form-group">
+                            <label for="encourager-name">Your Name (optional):</label>
+                            <input type="text" id="encourager-name" class="strange-input" placeholder="Anonymous supporter">
+                        </div>
+                        <div class="form-group">
+                            <label for="encouragement-message">Your Message:</label>
+                            <textarea id="encouragement-message" class="strange-input" rows="4" placeholder="Write your encouraging message here..." required></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label>
+                                <input type="checkbox" id="share-publicly" style="margin-right: 0.5rem;">
+                                Allow this message to be shared publicly on the website
+                            </label>
+                        </div>
+                        <button type="submit" class="strange-button">SEND ENCOURAGEMENT</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
         <!-- Development Note -->
         <div class="dev-note" style="margin-top: 1rem; padding: 1rem; background: rgba(100, 100, 100, 0.2); border-radius: 8px; font-size: 0.875rem; color: #888;">
             <strong>Development Note:</strong> All tracks are in 30-second preview mode. 
             Open browser console and type <code>unlockTracks()</code> to test full playback.
             Type <code>testPreviewMode()</code> to check preview status.
         </div>
-    </div>
-
-    <!-- JavaScript Files -->
+    </div>    <!-- JavaScript Files -->
     <script src="js/main.js"></script>
     <script src="js/simple-audio-player.js"></script>
     <script src="js/animations.js"></script>
+    <script src="js/help-blind-man.js"></script>
 </body>
 </html>
