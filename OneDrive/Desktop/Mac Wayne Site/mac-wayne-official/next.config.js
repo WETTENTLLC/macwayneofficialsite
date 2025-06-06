@@ -1,16 +1,10 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
-  // Simplified config to rule out issues
   images: {
     domains: ['placehold.co'],
-    unoptimized: true, // Required for static export
+    // unoptimized: true, // Remove for Vercel, unless you want to keep it
   },
-  // Configure for static export
-  output: 'export',
-  // Configure the base path for GitHub Pages
-  basePath: '/macwayneofficialsite',
-  // Remove all experimental features temporarily
   experimental: {},
 };
 
