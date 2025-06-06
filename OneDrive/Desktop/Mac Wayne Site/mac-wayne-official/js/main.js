@@ -7,6 +7,7 @@ document.addEventListener('DOMContentLoaded', function() {
     initializeNewsletterForm();
     initializeVideoPlayer();
     initializeLazyLoading();
+    initializeAudioPlayers();
 });
 
 // Scroll animations
@@ -33,11 +34,11 @@ function initializeScrollAnimations() {
 // Navigation functionality
 function initializeNavigation() {
     const mobileMenuToggle = document.querySelector('.mobile-menu-toggle');
-    const mobileMenu = document.querySelector('.mobile-menu');
+    const navMenu = document.querySelector('.nav-menu');
     
-    if (mobileMenuToggle && mobileMenu) {
+    if (mobileMenuToggle && navMenu) {
         mobileMenuToggle.addEventListener('click', () => {
-            mobileMenu.classList.toggle('active');
+            navMenu.classList.toggle('active');
             mobileMenuToggle.classList.toggle('active');
         });
     }
@@ -54,8 +55,8 @@ function initializeNavigation() {
                 });
                 
                 // Close mobile menu if open
-                if (mobileMenu && mobileMenu.classList.contains('active')) {
-                    mobileMenu.classList.remove('active');
+                if (navMenu && navMenu.classList.contains('active')) {
+                    navMenu.classList.remove('active');
                     mobileMenuToggle.classList.remove('active');
                 }
             }
@@ -193,6 +194,52 @@ function initializeLazyLoading() {
     images.forEach(img => imageObserver.observe(img));
 }
 
+// Audio player initialization
+function initializeAudioPlayers() {
+    console.log('Initializing simple audio players...');
+    
+    // Initialize featured player
+    const featuredPlayer = document.querySelector('.featured-player .audio-player');
+    if (featuredPlayer) {
+        console.log('Found featured player, initializing with SimpleAudioPlayer...');
+        window.featuredAudioPlayer = new SimpleAudioPlayer(featuredPlayer);
+    }
+    
+    // Initialize any other audio players on the page
+    const audioPlayers = document.querySelectorAll('.audio-player:not(.featured-player .audio-player)');
+    audioPlayers.forEach((player, index) => {
+        console.log(`Initializing simple audio player ${index + 1}...`);
+        new SimpleAudioPlayer(player);
+    });
+    
+    // Add click handlers for mini play buttons in track list
+    const miniPlayBtns = document.querySelectorAll('.mini-play-btn');
+    miniPlayBtns.forEach(btn => {
+        btn.addEventListener('click', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            
+            const trackItem = this.closest('.track-item');
+            if (trackItem && window.featuredAudioPlayer) {
+                const trackSrc = trackItem.dataset.src;
+                const trackTitle = trackItem.dataset.title;
+                const trackDuration = trackItem.dataset.duration;
+                
+                console.log('Loading new track:', { trackSrc, trackTitle, trackDuration });
+                
+                // Update the featured player with this track
+                window.featuredAudioPlayer.loadNewTrack({
+                    src: trackSrc,
+                    title: trackTitle,
+                    duration: trackDuration
+                });
+            }
+        });
+    });
+    
+    console.log('Simple audio players initialization complete');
+}
+
 // Utility functions
 function debounce(func, wait) {
     let timeout;
@@ -208,11 +255,9 @@ function debounce(func, wait) {
 
 function throttle(func, limit) {
     let inThrottle;
-    return function() {
-        const args = arguments;
-        const context = this;
+    return function(...args) {
         if (!inThrottle) {
-            func.apply(context, args);
+            func.apply(this, args);
             inThrottle = true;
             setTimeout(() => inThrottle = false, limit);
         }

@@ -22,7 +22,7 @@
     <!-- Navigation -->
     <nav class="main-nav">
         <div class="nav-container">            <a href="index.html" class="nav-logo">
-                <img src="/Images/macwayne-logo.png" alt="Mac Wayne" class="logo-img">
+                <img src="public/Images/macwayne-logo.png" alt="Mac Wayne" class="logo-img">
             </a>
             
             <ul class="nav-menu">
@@ -95,8 +95,34 @@
 
     <!-- Products -->
     <section class="products-section">
-        <div class="container">
-            <div class="product-grid">
+        <div class="container">            <div class="product-grid">
+                <!-- Featured Album - Blind and Battered -->
+                <div class="product-card featured-album" data-product-id="blind-battered-digital" data-category="digital">
+                    <div class="product-image">
+                        <img src="public/Images/macwayne-logo.png" alt="Blind and Battered Album">
+                        <div class="product-badge">Featured</div>
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-name">Blind and Battered - Digital Album</h3>
+                        <p class="product-description">Complete album with 20 tracks. Unlock full versions of all songs!</p>
+                        <p class="product-price">$9.99</p>
+                        <button class="add-to-cart purchase-album" data-album="blind-battered">Purchase & Unlock</button>
+                    </div>
+                </div>
+
+                <div class="product-card" data-product-id="blind-battered-cd" data-category="music">
+                    <div class="product-image">
+                        <img src="public/Images/macwayne-logo.png" alt="Blind and Battered CD">
+                        <div class="product-badge">Physical</div>
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-name">Blind and Battered - Physical CD</h3>
+                        <p class="product-description">Physical CD with digital download included</p>
+                        <p class="product-price">$15.99</p>
+                        <button class="add-to-cart purchase-album" data-album="blind-battered">Add to Cart</button>
+                    </div>
+                </div>
+
                 <!-- Music Products -->
                 <div class="product-card" data-product-id="album-cd" data-category="music">
                     <div class="product-image">

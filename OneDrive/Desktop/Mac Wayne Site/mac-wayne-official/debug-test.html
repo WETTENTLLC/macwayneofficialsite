@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Audio Player Debug Test</title>
+    <link rel="stylesheet" href="styles/main.css">
+    <style>
+        body {
+            padding: 20px;
+            font-family: Arial, sans-serif;
+            background: #1a1a1a;
+            color: white;
+        }
+        .debug-section {
+            margin: 20px 0;
+            padding: 20px;
+            border: 1px solid #333;
+            border-radius: 8px;
+        }
+        .console-output {
+            background: #000;
+            padding: 10px;
+            border-radius: 4px;
+            font-family: monospace;
+            font-size: 12px;
+            max-height: 200px;
+            overflow-y: auto;
+            margin: 10px 0;
+        }
+        .test-button {
+            background: #c9a96e;
+            color: #000;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            margin: 5px;
+        }
+        .test-button:hover {
+            background: #b8965d;
+        }
+    </style>
+</head>
+<body>
+    <h1>Mac Wayne Audio Player Debug Test</h1>
+    
+    <div class="debug-section">
+        <h2>Debug Console</h2>
+        <div id="console-output" class="console-output"></div>
+        <button class="test-button" onclick="clearConsole()">Clear Console</button>
+    </div>
+    
+    <div class="debug-section">
+        <h2>Simple Audio Player Test</h2>
+        <div class="audio-player" data-src="public/audio/Blind and Battered [Explicit]/01 - Gotta Split [Explicit].mp3" data-title="Gotta Split" data-duration="3:45" data-preview="true">
+            <div class="player-controls">
+                <button class="play-btn">▶️</button>                <div class="track-info">
+                    <div class="track-title">Gotta Split</div>
+                    <div class="track-duration">3:45</div>
+                </div>
+                <div class="progress-container">
+                    <div class="progress-bar">
+                        <div class="progress-fill"></div>
+                    </div>
+                    <div class="time-display">                        <span class="current-time">0:00</span>
+                        <span class="duration">3:45</span>
+                    </div>
+                </div>
+            </div>
+            <div class="preview-indicator">PREVIEW</div>
+        </div>
+        
+        <div class="debug-controls">
+            <button class="test-button" onclick="testAudioPlayer()">Test Audio Player</button>
+            <button class="test-button" onclick="testPlayButton()">Test Play Button</button>
+            <button class="test-button" onclick="unlockTracks()">Unlock Tracks</button>
+            <button class="test-button" onclick="resetPurchase()">Reset Purchase</button>
+        </div>
+    </div>
+    
+    <div class="debug-section">
+        <h2>Track List Test</h2>
+        <div class="track-item" data-src="public/audio/Blind and Battered [Explicit]/10 - Blind and Battered [Explicit].mp3" data-title="Blind and Battered" data-duration="3:45" data-preview="true">
+            <button class="mini-play-btn">▶️</button>
+            <span class="track-name">Blind and Battered</span>
+            <span class="track-duration">3:45</span>
+        </div>
+    </div>
+
+    <script>
+        // Enhanced console logging
+        const originalLog = console.log;
+        const originalError = console.error;
+        const originalWarn = console.warn;
+        
+        function addToConsole(message, type = 'log') {
+            const consoleOutput = document.getElementById('console-output');
+            const timestamp = new Date().toLocaleTimeString();
+            const div = document.createElement('div');
+            div.style.color = type === 'error' ? '#ff6b6b' : type === 'warn' ? '#feca57' : '#48cae4';
+            div.textContent = `[${timestamp}] ${message}`;
+            consoleOutput.appendChild(div);
+            consoleOutput.scrollTop = consoleOutput.scrollHeight;
+        }
+        
+        console.log = function(...args) {
+            originalLog.apply(console, args);
+            addToConsole(args.join(' '), 'log');
+        };
+        
+        console.error = function(...args) {
+            originalError.apply(console, args);
+            addToConsole(args.join(' '), 'error');
+        };
+        
+        console.warn = function(...args) {
+            originalWarn.apply(console, args);
+            addToConsole(args.join(' '), 'warn');
+        };
+        
+        function clearConsole() {
+            document.getElementById('console-output').innerHTML = '';
+        }
+        
+        function testAudioPlayer() {
+            console.log('Testing audio player...');
+            const audioPlayer = document.querySelector('.audio-player');
+            if (audioPlayer) {
+                console.log('Audio player element found:', audioPlayer);
+                console.log('Data attributes:', {
+                    src: audioPlayer.dataset.src,
+                    title: audioPlayer.dataset.title,
+                    duration: audioPlayer.dataset.duration
+                });
+            } else {
+                console.error('Audio player element not found');
+            }
+        }
+        
+        function testPlayButton() {
+            console.log('Testing play button...');
+            const playBtn = document.querySelector('.play-btn');
+            if (playBtn) {
+                console.log('Play button found, clicking...');
+                playBtn.click();
+            } else {
+                console.error('Play button not found');
+            }
+        }
+        
+        function unlockTracks() {
+            console.log('Unlocking tracks...');
+            localStorage.setItem('mac-wayne-album-purchased', 'true');
+            console.log('Tracks unlocked');
+        }
+        
+        function resetPurchase() {
+            console.log('Resetting purchase...');
+            localStorage.removeItem('mac-wayne-album-purchased');
+            console.log('Purchase reset');
+        }
+        
+        // Initialize when page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('DOM Content Loaded');
+            console.log('Initializing debug test...');
+        });
+    </script>
+    
+    <script src="js/simple-audio-player.js"></script>
+    <script>
+        // Initialize simple audio player for testing
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('Initializing SimpleAudioPlayer for debug...');
+            const audioPlayer = document.querySelector('.audio-player');
+            if (audioPlayer) {
+                window.debugAudioPlayer = new SimpleAudioPlayer(audioPlayer);
+                console.log('Debug audio player initialized:', window.debugAudioPlayer);
+            }
+        });
+    </script>
+</body>
+</html>
