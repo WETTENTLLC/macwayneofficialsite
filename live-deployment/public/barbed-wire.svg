@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="120" height="20" viewBox="0 0 120 20" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="barbedWireGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#8b0000" stop-opacity="0.7"/>
+      <stop offset="50%" stop-color="#c10000" stop-opacity="1"/>
+      <stop offset="100%" stop-color="#8b0000" stop-opacity="0.7"/>
+    </linearGradient>
+  </defs>
+  <path d="M0,10 C5,10 5,5 10,5 L15,5 C20,5 20,15 25,15 L30,15 C35,15 35,5 40,5 L45,5 C50,5 50,15 55,15 L60,15 C65,15 65,5 70,5 L75,5 C80,5 80,15 85,15 L90,15 C95,15 95,5 100,5 L105,5 C110,5 110,15 115,15 L120,15" 
+        stroke="url(#barbedWireGradient)" 
+        stroke-width="1.5" 
+        fill="none"/>
+  
+  <!-- Barbs -->
+  <path d="M10,5 L8,1 M10,5 L12,1" stroke="url(#barbedWireGradient)" stroke-width="1" fill="none"/>
+  <path d="M25,15 L23,19 M25,15 L27,19" stroke="url(#barbedWireGradient)" stroke-width="1" fill="none"/>
+  <path d="M40,5 L38,1 M40,5 L42,1" stroke="url(#barbedWireGradient)" stroke-width="1" fill="none"/>
+  <path d="M55,15 L53,19 M55,15 L57,19" stroke="url(#barbedWireGradient)" stroke-width="1" fill="none"/>
+  <path d="M70,5 L68,1 M70,5 L72,1" stroke="url(#barbedWireGradient)" stroke-width="1" fill="none"/>
+  <path d="M85,15 L83,19 M85,15 L87,19" stroke="url(#barbedWireGradient)" stroke-width="1" fill="none"/>
+  <path d="M100,5 L98,1 M100,5 L102,1" stroke="url(#barbedWireGradient)" stroke-width="1" fill="none"/>
+  <path d="M115,15 L113,19 M115,15 L117,19" stroke="url(#barbedWireGradient)" stroke-width="1" fill="none"/>
+</svg>

@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Complete Test - Mac Wayne Official</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Atkinson+Hyperlegible:wght@400;700&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <!-- Styles -->
+    <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="styles/components.css">
+    <link rel="stylesheet" href="styles/animations.css">
+    
+    <style>
+        .test-controls {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: rgba(0, 0, 0, 0.9);
+            color: white;
+            padding: 15px;
+            border-radius: 10px;
+            z-index: 1000;
+            max-width: 250px;
+        }
+        
+        .test-controls h3 {
+            margin: 0 0 10px 0;
+            font-size: 1rem;
+            color: #ff6b6b;
+        }
+        
+        .test-btn {
+            display: block;
+            width: 100%;
+            margin: 5px 0;
+            padding: 8px 12px;
+            background: #333;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 0.8rem;
+        }
+        
+        .test-btn:hover {
+            background: #555;
+        }
+        
+        .status-display {
+            margin-top: 10px;
+            padding: 10px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 5px;
+            font-size: 0.8rem;
+        }
+        
+        .test-section {
+            margin: 40px 0;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+        }
+        
+        .test-section h3 {
+            color: #ff6b6b;
+            margin-bottom: 15px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Test Controls -->
+    <div class="test-controls">
+        <h3>🧪 Test Controls</h3>
+        <button class="test-btn" onclick="testPreviewMode()">Test Preview Status</button>
+        <button class="test-btn" onclick="testPurchase()">Simulate Purchase</button>
+        <button class="test-btn" onclick="unlockTracks()">Unlock All Tracks</button>
+        <button class="test-btn" onclick="resetPurchase()">Reset Purchase</button>
+        <button class="test-btn" onclick="testImageLoading()">Test Images</button>
+        <div class="status-display" id="statusDisplay">
+            Ready for testing...
+        </div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="main-nav">
+        <div class="nav-container">
+            <a href="index.html" class="nav-logo">
+                <img src="public/Images/macwayne-logo.png" alt="Mac Wayne" class="logo-img">
+            </a>
+            
+            <ul class="nav-menu">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="shop.html">Shop</a></li>
+                <li><a href="documentary.html">Documentary</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero Section with Background Test -->
+    <section class="hero" style="background-image: url('public/Images/macwayne-background.png');">
+        <div class="container">
+            <div class="test-section">
+                <h3>🖼️ Image Loading Test</h3>
+                <p><strong>Logo:</strong> <span id="logoStatus">Checking...</span></p>
+                <p><strong>Background:</strong> <span id="backgroundStatus">Checking...</span></p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Audio Player Test Section -->
+    <section class="music-section">
+        <div class="container">
+            <div class="test-section">
+                <h3>🎵 Audio Player & Preview Test</h3>
+                
+                <!-- Featured Player -->
+                <div class="featured-player" id="featuredPlayer">
+                    <div class="player-info">
+                        <div class="track-details">
+                            <h3 class="current-track-title">Select a track</h3>
+                            <p class="current-track-artist">Mac Wayne</p>
+                        </div>
+                        <div class="preview-status">
+                            <span class="preview-indicator">Preview Mode Active</span>
+                        </div>
+                    </div>
+                    
+                    <div class="player-controls">
+                        <button class="control-btn prev-btn">
+                            <i class="fas fa-step-backward"></i>
+                        </button>
+                        <button class="control-btn play-pause-btn">
+                            <i class="fas fa-play"></i>
+                        </button>
+                        <button class="control-btn next-btn">
+                            <i class="fas fa-step-forward"></i>
+                        </button>
+                    </div>
+                    
+                    <div class="progress-container">
+                        <span class="current-time">0:00</span>
+                        <div class="progress-bar">
+                            <div class="progress-fill"></div>
+                        </div>
+                        <span class="duration">0:00</span>
+                    </div>
+                    
+                    <div class="volume-control">
+                        <i class="fas fa-volume-up"></i>
+                        <input type="range" class="volume-slider" min="0" max="100" value="70">
+                    </div>
+                </div>
+                
+                <!-- Track List for Testing -->
+                <div class="album-section">
+                    <h4>Test Tracks (Preview Mode)</h4>
+                    <div class="track-list">
+                        <div class="track-item" data-src="/audio/test1.mp3" data-title="Test Track 1" data-duration="3:30" data-preview="true">
+                            <span class="track-name">Test Track 1 <span class="preview-indicator">Preview</span></span>
+                            <div class="mini-player">
+                                <button class="mini-play-btn">
+                                    <svg viewBox="0 0 24 24" fill="currentColor">
+                                        <path d="M8 5v14l11-7z"/>
+                                    </svg>
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <div class="track-item" data-src="/audio/test2.mp3" data-title="Test Track 2" data-duration="4:15" data-preview="true">
+                            <span class="track-name">Test Track 2 <span class="preview-indicator">Preview</span></span>
+                            <div class="mini-player">
+                                <button class="mini-play-btn">
+                                    <svg viewBox="0 0 24 24" fill="currentColor">
+                                        <path d="M8 5v14l11-7z"/>
+                                    </svg>
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <div class="track-item" data-src="/audio/test3.mp3" data-title="Test Track 3" data-duration="3:45" data-preview="true">
+                            <span class="track-name">Test Track 3 <span class="preview-indicator">Preview</span></span>
+                            <div class="mini-player">
+                                <button class="mini-play-btn">
+                                    <svg viewBox="0 0 24 24" fill="currentColor">
+                                        <path d="M8 5v14l11-7z"/>
+                                    </svg>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Purchase Test Section -->
+            <div class="test-section">
+                <h3>💳 Purchase Flow Test</h3>
+                <div class="product-card featured-album">
+                    <div class="product-info">
+                        <h3>Test Album - Digital Download</h3>
+                        <p class="product-description">Complete album with full tracks. Test the purchase flow!</p>
+                        <p class="product-price">$9.99</p>
+                        <button class="add-to-cart purchase-album" data-album="test-album">Purchase & Unlock</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- JavaScript -->
+    <script src="js/audio-player.js"></script>
+    <script>
+        // Initialize test environment
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initialize audio player
+            const playerContainer = document.getElementById('featuredPlayer');
+            if (playerContainer) {
+                window.audioPlayer = new AudioPlayer(playerContainer);
+                updateStatus('Audio player initialized in preview mode');
+            }
+            
+            // Test image loading
+            testImageLoading();
+            
+            // Show initial status
+            showCurrentStatus();
+        });
+        
+        function testPurchase() {
+            updateStatus('Testing purchase flow...');
+            
+            // Simulate the purchase button click
+            const purchaseBtn = document.querySelector('.purchase-album');
+            if (purchaseBtn) {
+                purchaseBtn.click();
+            } else {
+                updateStatus('Purchase button not found');
+            }
+        }
+        
+        function testImageLoading() {
+            updateStatus('Testing image loading...');
+            
+            // Test logo
+            const logoImg = new Image();
+            logoImg.onload = () => {
+                document.getElementById('logoStatus').textContent = '✅ Loaded successfully';
+                document.getElementById('logoStatus').style.color = 'green';
+            };
+            logoImg.onerror = () => {
+                document.getElementById('logoStatus').textContent = '❌ Failed to load';
+                document.getElementById('logoStatus').style.color = 'red';
+            };
+            logoImg.src = 'public/Images/macwayne-logo.png';
+            
+            // Test background
+            const bgImg = new Image();
+            bgImg.onload = () => {
+                document.getElementById('backgroundStatus').textContent = '✅ Loaded successfully';
+                document.getElementById('backgroundStatus').style.color = 'green';
+            };
+            bgImg.onerror = () => {
+                document.getElementById('backgroundStatus').textContent = '❌ Failed to load';
+                document.getElementById('backgroundStatus').style.color = 'red';
+            };
+            bgImg.src = 'public/Images/macwayne-background.png';
+            
+            updateStatus('Image loading test completed');
+        }
+        
+        function showCurrentStatus() {
+            const isPurchased = localStorage.getItem('mac-wayne-album-purchased') === 'true';
+            const purchaseDate = localStorage.getItem('mac-wayne-purchase-date');
+            
+            let status = `Preview Mode: ${!isPurchased ? 'Active' : 'Disabled'}\n`;
+            status += `Purchased: ${isPurchased ? 'Yes' : 'No'}\n`;
+            if (purchaseDate) {
+                status += `Purchase Date: ${new Date(purchaseDate).toLocaleDateString()}`;
+            }
+            
+            updateStatus(status);
+        }
+        
+        function updateStatus(message) {
+            const statusDisplay = document.getElementById('statusDisplay');
+            if (statusDisplay) {
+                statusDisplay.innerHTML = message.replace(/\n/g, '<br>');
+            }
+            console.log('Test Status:', message);
+        }
+        
+        // Enhanced test functions
+        window.testPreviewMode = function() {
+            if (window.audioPlayer) {
+                const status = window.audioPlayer.getPreviewStatus();
+                updateStatus(`Preview Status:\nMode: ${status.previewMode}\nPurchased: ${status.isPurchased}\nDuration: ${status.previewDuration}s\nEnded: ${status.previewEnded}`);
+            } else {
+                updateStatus('Audio player not initialized');
+            }
+        };
+        
+        // Override global functions for testing
+        window.unlockTracks = function() {
+            updateStatus('Unlocking all tracks...');
+            localStorage.setItem('mac-wayne-album-purchased', 'true');
+            localStorage.setItem('mac-wayne-purchase-date', new Date().toISOString());
+            
+            if (window.audioPlayer) {
+                window.audioPlayer.unlockFullTracks();
+            }
+            
+            // Update UI
+            document.querySelectorAll('.preview-indicator').forEach(indicator => {
+                indicator.style.display = 'none';
+            });
+            
+            document.querySelectorAll('[data-preview="true"]').forEach(track => {
+                track.setAttribute('data-preview', 'false');
+                track.classList.add('purchased');
+            });
+            
+            showCurrentStatus();
+            updateStatus('All tracks unlocked successfully!');
+        };
+        
+        window.resetPurchase = function() {
+            updateStatus('Resetting purchase status...');
+            localStorage.removeItem('mac-wayne-album-purchased');
+            localStorage.removeItem('mac-wayne-purchase-date');
+            localStorage.removeItem('mac-wayne-purchased-album');
+            
+            setTimeout(() => {
+                location.reload();
+            }, 1000);
+        };
+    </script>
+</body>
+</html>
