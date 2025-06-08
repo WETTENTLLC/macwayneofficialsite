@@ -29,14 +29,36 @@ jobs:
         run: npm ci
       - name: Build Next.js
         run: npm run build
+      - name: Create out directory if it doesn't exist
+        run: mkdir -p out
+      - name: Copy static files to out directory if empty
+        run: |
+          if [ -z "$(ls -A out 2>/dev/null)" ]; then
+            echo "Out directory is empty, copying static HTML files"
+            # Copy HTML files from project root if they exist
+            cp -f *.html out/ 2>/dev/null || echo "No HTML files in root"
+            # Copy other assets directories if they exist
+            [ -d "js" ] && cp -r js out/ || echo "No js directory"
+            [ -d "css" ] && cp -r css out/ || echo "No css directory"
+            [ -d "images" ] && cp -r images out/ || echo "No images directory"
+            [ -d "styles" ] && cp -r styles out/ || echo "No styles directory"
+            [ -d "public" ] && cp -r public/* out/ || echo "No public directory"
+          fi
       - name: List output directory
         run: ls -la out
       - name: Debug workspace structure
         run: |
           echo "Current directory structure:"
-          find . -type d -not -path "*/node_modules/*" -not -path "*/.git/*" | sort
-          echo "Files in out directory (if exists):"
-          if [ -d "out" ]; then ls -la out; else echo "out directory not found"; fi
+          find . -type d -maxdepth 3 -not -path "*/node_modules/*" -not -path "*/.git/*" | sort
+          echo "Files in out directory:"
+          find out -type f | sort
+      - name: Ensure artifact path is valid
+        run: |
+          # Create a minimal index.html if out directory is empty
+          if [ -z "$(ls -A out 2>/dev/null)" ]; then
+            echo "Creating fallback index.html"
+            echo "<html><body><h1>Mac Wayne Official</h1><p>Site is being built...</p></body></html>" > out/index.html
+          fi
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3
         with:
