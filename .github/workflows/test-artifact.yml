@@ -1,0 +1,36 @@
+# Test artifact upload workflow
+name: Test Artifact Upload
+
+on: workflow_dispatch
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        
+      - name: Create test artifact
+        run: |
+          mkdir -p test-artifact
+          echo "<html><body><h1>Test Artifact</h1><p>This is a test</p></body></html>" > test-artifact/index.html
+          echo "macwayneofficial.com" > test-artifact/CNAME
+          echo "Test artifact content:" 
+          ls -la test-artifact/
+          
+      - name: Upload test artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          name: test-pages-artifact
+          path: test-artifact
+          
+      - name: Upload debug artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: test-debug-artifact
+          path: test-artifact
