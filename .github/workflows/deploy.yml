@@ -5,7 +5,7 @@ name: Deploy static site to Pages
 on:
   push:
     branches:
-      - main
+      - deploy-updates
 
 permissions:
   contents: read
