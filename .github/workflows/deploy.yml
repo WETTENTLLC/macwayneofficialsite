@@ -44,6 +44,9 @@ jobs:
           [ -d "styles" ] && cp -r styles out/ || echo "No styles directory"
           [ -d "public" ] && cp -r public out/ || echo "No public directory"
           
+          # Copy CNAME file for custom domain
+          [ -f "CNAME" ] && cp CNAME out/ || echo "No CNAME file found"
+          
           # Ensure index.html exists
           if [ ! -f "out/index.html" ]; then
             if [ -f "index.html" ]; then
