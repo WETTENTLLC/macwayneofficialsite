@@ -1,5 +1,5 @@
-# Simple Static Site Deployment to GitHub Pages
-name: Deploy Static Site to GitHub Pages
+# Simplified GitHub Pages Deployment Workflow
+name: Deploy to GitHub Pages
 
 on:
   push:
@@ -22,15 +22,18 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
         
-      - name: Debug workspace structure
+      - name: Use existing out directory
         run: |
-          echo "Current directory structure:"
-          find . -maxdepth 3 -type f -name "*.html" | sort
-          echo "HTML files in repository:"
-          ls -la *.html || echo "No HTML files found in root"
-          
-      - name: Create out directory
-        run: mkdir -p out
+          echo "Using existing out directory if available"
+          if [ -d "out" ]; then
+            echo "Found existing out directory:"
+            ls -la out/
+          else
+            echo "Creating minimal out directory"
+            mkdir -p out
+            cp -f index.html out/ || echo "<html><body><h1>Mac Wayne Official</h1></body></html>" > out/index.html
+            cp -f CNAME out/ || echo "macwayneofficial.com" > out/CNAME
+          fi
       
       - name: Copy static content to out directory
         run: |
@@ -59,9 +62,19 @@ jobs:
       - name: List files in out directory
         run: ls -la out/
         
+      - name: Debug artifact upload
+        run: |
+          echo "Setting explicit permissions on out directory"
+          chmod -R 755 out
+          echo "Verifying out directory content before upload:"
+          find out -type f | sort
+          echo "Total files: $(find out -type f | wc -l)"
+          echo "Directory size: $(du -sh out)"
+        
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3
         with:
+          name: github-pages
           path: out
           
       - name: Upload Debug Artifact
@@ -80,3 +93,5 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v3
+        with:
+          artifact_name: github-pages
