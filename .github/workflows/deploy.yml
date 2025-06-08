@@ -1,6 +1,5 @@
 # Official GitHub Pages deployment workflow for static HTML site
-# Updated June 2025 for static site deployment
-name: Deploy static site to Pages
+name: Deploy to GitHub Pages
 
 on:
   push:
@@ -11,6 +10,10 @@ permissions:
   contents: read
   pages: write
   id-token: write
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
 
 jobs:
   build:
