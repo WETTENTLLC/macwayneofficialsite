@@ -3,8 +3,18 @@ import { NextRequest, NextResponse } from 'next/server';
 // For static export compatibility
 export const dynamic = "force-static";
 
+interface User {
+  id: string;
+  email: string;
+  password: string;
+  name: string;
+  isDeputyMember: boolean;
+  loyaltyPoints: number;
+  createdAt: string;
+}
+
 // Mock database - in production, use a real database
-const mockUsers: any[] = [];
+const mockUsers: User[] = [];
 
 export async function POST(request: NextRequest) {
   try {
@@ -27,19 +37,20 @@ export async function POST(request: NextRequest) {
     }
 
     // Create new user
-    const newUser = {
+    const newUser: User = {
       id: (mockUsers.length + 1).toString(),
       email,
       password, // In production, hash this
       name,
       isDeputyMember: false,
       loyaltyPoints: 0,
-      createdAt: new Date()
+      createdAt: new Date().toISOString()
     };
 
     mockUsers.push(newUser);
 
     // Remove password from response
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const { password: _, ...userWithoutPassword } = newUser;
     
     return NextResponse.json({

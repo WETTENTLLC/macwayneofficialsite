@@ -2,6 +2,7 @@
 
 # dependencies
 /node_modules
+**/node_modules/
 /.pnp
 .pnp.*
 .yarn/*
@@ -9,6 +10,9 @@
 !.yarn/plugins
 !.yarn/releases
 !.yarn/versions
+
+# Large binary files
+*.node
 
 # testing
 /coverage
@@ -39,3 +43,11 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# deployment directories
+live-deployment/
+production-build/
+
+# Large files and problematic filenames
+*.node
+erswette*

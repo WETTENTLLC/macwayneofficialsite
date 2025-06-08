@@ -1,7 +1,5 @@
 'use client';
 
-import { Purchase, getUserPurchases } from './purchaseTracker';
-
 /**
  * Sheriff Thizz Rewards System
  * Manages loyalty points, rewards, and user tiers
@@ -35,7 +33,7 @@ export interface PointTransaction {
   points: number;
   timestamp: number;
   description: string;
-  metadata?: any;
+  metadata?: Record<string, unknown>;
 }
 
 // User loyalty profile
@@ -125,7 +123,7 @@ export function awardPoints(
   activity: PointActivity, 
   description?: string,
   bonusMultiplier: number = 1,
-  metadata?: any
+  metadata?: Record<string, unknown>
 ): PointTransaction {
   const basePoints = POINT_VALUES[activity];
   const points = Math.floor(basePoints * bonusMultiplier);
@@ -610,7 +608,7 @@ export function getLeaderboard(limit: number = 10): Array<{
 }> {
   const profiles = getStoredProfiles();
   const users = Object.values(profiles)
-    .map((profile, index) => ({
+    .map((profile) => ({
       rank: 0,
       userId: profile.userId,
       displayName: `Sheriff ${profile.userId.slice(-4)}`, // Anonymized display
@@ -731,7 +729,16 @@ function savePointTransactions(transactions: PointTransaction[]) {
   }
 }
 
-function getRedeemedRewards(): any[] {
+interface RedemptionRecord {
+  id: string;
+  userId: string;
+  rewardId: string;
+  rewardName: string;
+  points: number;
+  timestamp: number;
+}
+
+function getRedeemedRewards(): RedemptionRecord[] {
   if (typeof window === 'undefined') return [];
   
   try {
@@ -743,7 +750,7 @@ function getRedeemedRewards(): any[] {
   }
 }
 
-function saveRedeemedRewards(redemptions: any[]) {
+function saveRedeemedRewards(redemptions: RedemptionRecord[]) {
   if (typeof window !== 'undefined') {
     localStorage.setItem(REDEEMED_REWARDS_KEY, JSON.stringify(redemptions));
   }

@@ -3,8 +3,18 @@ import { NextRequest, NextResponse } from 'next/server';
 // For static export compatibility
 export const dynamic = "force-static";
 
+interface CartItem {
+  id: string;
+  productId: string;
+  name: string;
+  price: number;
+  quantity: number;
+  image?: string;
+  imageUrl?: string;
+}
+
 // Mock cart storage - in production, use database or session storage
-const mockCarts = new Map();
+const mockCarts = new Map<string, CartItem[]>();
 
 export async function GET(request: NextRequest) {
   try {
@@ -34,10 +44,10 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    let cart = mockCarts.get(sessionId) || [];
+    const cart = mockCarts.get(sessionId) || [];
     
     // Check if item already exists in cart
-    const existingItemIndex = cart.findIndex((item: any) => item.productId === productId);
+    const existingItemIndex = cart.findIndex((item: CartItem) => item.productId === productId);
     
     if (existingItemIndex > -1) {
       // Update quantity
@@ -74,10 +84,10 @@ export async function PUT(request: NextRequest) {
     
     if (quantity <= 0) {
       // Remove item
-      cart = cart.filter((item: any) => item.id !== itemId);
+      cart = cart.filter((item: CartItem) => item.id !== itemId);
     } else {
       // Update quantity
-      const itemIndex = cart.findIndex((item: any) => item.id === itemId);
+      const itemIndex = cart.findIndex((item: CartItem) => item.id === itemId);
       if (itemIndex > -1) {
         cart[itemIndex].quantity = quantity;
       }
@@ -109,7 +119,7 @@ export async function DELETE(request: NextRequest) {
     }
 
     let cart = mockCarts.get(sessionId) || [];
-    cart = cart.filter((item: any) => item.id !== itemId);
+    cart = cart.filter((item: CartItem) => item.id !== itemId);
     mockCarts.set(sessionId, cart);
     
     return NextResponse.json({ cart });

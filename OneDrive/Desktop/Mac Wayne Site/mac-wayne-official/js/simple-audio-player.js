@@ -1,20 +1,34 @@
-// Simple Audio Player - Guaranteed Working Version
+// Simple Audio Player - Enhanced with Purchase Integration
 class SimpleAudioPlayer {
     constructor(container) {
         this.container = container;
         this.audio = null;
         this.isPlaying = false;
-        this.isPreviewMode = true;
+        this.isPreviewMode = !this.isPurchased();
         this.previewDuration = 30; // 30 seconds
-        this.isPurchased = localStorage.getItem('mac-wayne-album-purchased') === 'true';
+        this.previewWarningShown = false;
+        this.purchaseModalShown = false;
         
         console.log('SimpleAudioPlayer initializing...', {
             container: this.container,
             isPreviewMode: this.isPreviewMode,
-            isPurchased: this.isPurchased
+            isPurchased: this.isPurchased()
         });
         
         this.init();
+    }
+    
+    isPurchased() {
+        // Check multiple purchase sources
+        const albumPurchased = localStorage.getItem('mac-wayne-album-purchased') === 'true';
+        const trackPurchased = localStorage.getItem(`track-purchased-${this.getTrackId()}`) === 'true';
+        return albumPurchased || trackPurchased;
+    }
+    
+    getTrackId() {
+        return this.container.dataset.title ? 
+            this.container.dataset.title.toLowerCase().replace(/[^a-z0-9]/g, '-') : 
+            'unknown-track';
     }
     
     init() {

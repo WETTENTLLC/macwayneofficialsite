@@ -48,7 +48,7 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    let loyalty = mockLoyalty.get(userId) || {
+    const loyalty = mockLoyalty.get(userId) || {
       userId,
       points: 0,
       tier: 'Supporter',

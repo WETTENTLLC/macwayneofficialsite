@@ -877,6 +877,34 @@ body::before {
     box-shadow: 0 2px 10px rgba(204, 0, 0, 0.3);
 }
 
+/* Special styling for Battered Coin navigation link */
+.nav-menu a[href="battered-coin.html"] {
+    position: relative;
+    background: linear-gradient(45deg, rgba(255, 0, 0, 0.1), rgba(255, 215, 0, 0.1));
+    border: 1px solid rgba(255, 215, 0, 0.3);
+    color: #ffd700;
+    font-weight: 600;
+}
+
+.nav-menu a[href="battered-coin.html"]::after {
+    content: '🪙';
+    margin-left: 0.5rem;
+    animation: coinSpin 3s linear infinite;
+}
+
+.nav-menu a[href="battered-coin.html"]:hover {
+    background: linear-gradient(45deg, rgba(255, 0, 0, 0.2), rgba(255, 215, 0, 0.2));
+    border-color: rgba(255, 215, 0, 0.6);
+    color: #ffd700;
+    box-shadow: 0 2px 15px rgba(255, 215, 0, 0.4);
+}
+
+@keyframes coinSpin {
+    0% { transform: rotateY(0deg); }
+    50% { transform: rotateY(180deg); }
+    100% { transform: rotateY(360deg); }
+}
+
 /* Mobile Menu */
 .mobile-menu-toggle {
     display: none;

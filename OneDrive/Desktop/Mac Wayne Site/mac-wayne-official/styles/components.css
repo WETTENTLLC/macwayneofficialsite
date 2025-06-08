@@ -1050,95 +1050,1275 @@
   border-left-color: var(--accent-color);
 }
 
-/* Responsive Design */
-@media (max-width: 768px) {
-  .audio-player__controls {
-    flex-wrap: wrap;
-    gap: 0.5rem;
-  }
-  
-  .audio-player__progress {
-    order: 3;
-    flex-basis: 100%;
-    margin: 1rem 0 0 0;
-  }
-  
-  .newsletter-form__input-group {
-    flex-direction: column;
-  }
-  
-  .tour-date-item {
-    flex-direction: column;
-    align-items: flex-start;
+/* Help The Blind Man Section Styles */
+.help-blind-man-section {
+    background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+    border: 2px solid #ff6b35;
+    position: relative;
+    overflow: hidden;
+}
+
+.help-blind-man-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: radial-gradient(circle at center, rgba(255, 107, 53, 0.1) 0%, transparent 70%);
+    pointer-events: none;
+}
+
+.help-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1rem;
+    position: relative;
+    z-index: 1;
+}
+
+.story-section {
+    margin-bottom: 3rem;
+    text-align: center;
+}
+
+.blind-story {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.story-title {
+    color: #ff6b35;
+    font-size: 1.8rem;
+    font-weight: bold;
+    margin-bottom: 1rem;
+    text-shadow: 0 0 10px rgba(255, 107, 53, 0.5);
+}
+
+.story-text {
+    font-size: 1.1rem;
+    line-height: 1.8;
+    color: #e0e0e0;
+    margin-bottom: 2rem;
+}
+
+.story-audio {
+    margin-top: 1.5rem;
+}
+
+.story-play-btn {
+    background: linear-gradient(45deg, #ff6b35, #ff8c42);
+    color: white;
+    border: none;
+    padding: 1rem 2rem;
+    border-radius: 50px;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(255, 107, 53, 0.3);
+}
+
+.story-play-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(255, 107, 53, 0.4);
+}
+
+.story-play-btn i {
+    margin-right: 0.5rem;
+}
+
+/* Interaction Game Styles */
+.interaction-section {
+    margin-bottom: 3rem;
+    padding: 2rem;
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: 15px;
+    border: 1px solid #ff6b35;
+}
+
+.interaction-title {
+    color: #ff6b35;
+    font-size: 1.6rem;
+    text-align: center;
+    margin-bottom: 1rem;
+}
+
+.interaction-description {
+    text-align: center;
+    color: #ccc;
+    margin-bottom: 2rem;
+    font-size: 1rem;
+}
+
+.interaction-game {
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.game-screen {
+    background: #1a1a1a;
+    border-radius: 10px;
+    padding: 2rem;
+    border: 2px solid #333;
+}
+
+.scene {
+    display: none;
+    text-align: center;
+}
+
+.scene.active {
+    display: block;
+    animation: fadeIn 0.5s ease;
+}
+
+.scene h4 {
+    color: #ff6b35;
+    font-size: 1.4rem;
+    margin-bottom: 1rem;
+}
+
+.scene p {
+    color: #ccc;
+    margin-bottom: 2rem;
+}
+
+.direction-buttons {
+    display: flex;
+    justify-content: center;
     gap: 1rem;
-  }
-  
-  .track-item {
+    margin-bottom: 1.5rem;
+}
+
+.direction-btn {
+    background: linear-gradient(45deg, #333, #555);
+    color: white;
+    border: 2px solid #ff6b35;
+    padding: 1rem 1.5rem;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-weight: bold;
+    min-width: 100px;
+}
+
+.direction-btn:hover {
+    background: linear-gradient(45deg, #ff6b35, #ff8c42);
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(255, 107, 53, 0.4);
+}
+
+.direction-btn.correct {
+    background: linear-gradient(45deg, #4CAF50, #66BB6A);
+    border-color: #4CAF50;
+}
+
+.direction-btn.incorrect {
+    background: linear-gradient(45deg, #f44336, #ef5350);
+    border-color: #f44336;
+}
+
+.direction-btn i {
+    margin-right: 0.5rem;
+}
+
+.feedback {
+    min-height: 40px;
+    font-weight: bold;
     padding: 0.5rem;
-  }
-  
-  .video-player iframe {
-    height: 250px;
-  }
-  
-  .info-grid {
-    grid-template-columns: 1fr;
-    gap: 2rem;
-  }
-  
-  .clips-grid,
-  .reviews-grid,
-  .watch-grid {
-    grid-template-columns: 1fr;
-  }
-  
-  .product-grid {
-    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    border-radius: 5px;
+    margin-top: 1rem;
+}
+
+.feedback.success {
+    background: rgba(76, 175, 80, 0.2);
+    color: #4CAF50;
+    border: 1px solid #4CAF50;
+}
+
+.feedback.error {
+    background: rgba(244, 67, 54, 0.2);
+    color: #f44336;
+    border: 1px solid #f44336;
+}
+
+.game-controls {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 1.5rem;
+    padding: 1rem;
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+}
+
+.game-reset-btn {
+    background: linear-gradient(45deg, #666, #888);
+    color: white;
+    border: none;
+    padding: 0.8rem 1.5rem;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.game-reset-btn:hover {
+    background: linear-gradient(45deg, #888, #aaa);
+}
+
+.game-score {
+    color: #ff6b35;
+    font-weight: bold;
+}
+
+/* Support Section Styles */
+.support-section {
+    margin-bottom: 3rem;
+}
+
+.support-title {
+    color: #ff6b35;
+    font-size: 1.6rem;
+    text-align: center;
+    margin-bottom: 1rem;
+}
+
+.support-description {
+    text-align: center;
+    color: #ccc;
+    margin-bottom: 2rem;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.support-options {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
     gap: 1.5rem;
-  }
-  
-  .cart-sidebar {
+    margin-top: 2rem;
+}
+
+.support-option {
+    background: rgba(0, 0, 0, 0.3);
+    padding: 2rem;
+    border-radius: 15px;
+    text-align: center;
+    border: 1px solid #333;
+    transition: all 0.3s ease;
+}
+
+.support-option:hover {
+    border-color: #ff6b35;
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+}
+
+.support-icon {
+    font-size: 3rem;
+    color: #ff6b35;
+    margin-bottom: 1rem;
+}
+
+.support-option h4 {
+    color: #ff6b35;
+    margin-bottom: 0.5rem;
+    font-size: 1.2rem;
+}
+
+.support-option p {
+    color: #ccc;
+    margin-bottom: 1.5rem;
+    font-size: 0.9rem;
+}
+
+.support-btn {
+    background: linear-gradient(45deg, #ff6b35, #ff8c42);
+    color: white;
+    border: none;
+    padding: 0.8rem 1.5rem;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-weight: bold;
+}
+
+.support-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(255, 107, 53, 0.4);
+}
+
+/* Awareness Section Styles */
+.awareness-section {
+    background: rgba(0, 0, 0, 0.4);
+    padding: 2rem;
+    border-radius: 15px;
+    border: 1px solid #ff6b35;
+}
+
+.awareness-title {
+    color: #ff6b35;
+    font-size: 1.6rem;
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.awareness-facts {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 2rem;
+    margin-bottom: 2rem;
+}
+
+.fact-item {
+    text-align: center;
+    padding: 1.5rem;
+    background: rgba(255, 107, 53, 0.1);
+    border-radius: 10px;
+    border: 1px solid rgba(255, 107, 53, 0.3);
+}
+
+.fact-number {
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: #ff6b35;
+    margin-bottom: 0.5rem;
+}
+
+.fact-text {
+    color: #ccc;
+    font-size: 0.9rem;
+}
+
+.awareness-message {
+    text-align: center;
+    color: #e0e0e0;
+    font-size: 1rem;
+    line-height: 1.6;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+/* Modal Styles */
+.modal {
+    position: fixed;
+    z-index: 10000;
+    left: 0;
+    top: 0;
     width: 100%;
-    right: -100%;
-  }
-  
-  .filters-container {
-    flex-direction: column;
-    align-items: stretch;
-    gap: 1rem;
-  }
-  
-  .modal-content {
-    width: 95%;
-  }
-  
-  .modal-video iframe {
-    height: 250px;
-  }
-  
-  .hero-actions {
-    flex-direction: column;
-    gap: 1rem;
-  }
-  
-  .hero-actions .btn {
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(5px);
+}
+
+.modal-content {
+    background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+    margin: 5% auto;
+    padding: 0;
+    border: 2px solid #ff6b35;
+    border-radius: 15px;
+    width: 90%;
+    max-width: 600px;
+    max-height: 80vh;
+    overflow-y: auto;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+}
+
+.modal-header {
+    background: linear-gradient(45deg, #ff6b35, #ff8c42);
+    padding: 1.5rem;
+    border-radius: 13px 13px 0 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.modal-header h3 {
+    margin: 0;
+    color: white;
+    font-size: 1.4rem;
+}
+
+.close-modal {
+    color: white;
+    font-size: 2rem;
+    font-weight: bold;
+    cursor: pointer;
+    line-height: 1;
+    padding: 0 0.5rem;
+    border-radius: 50%;
+    transition: background 0.3s ease;
+}
+
+.close-modal:hover {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+.modal-body {
+    padding: 2rem;
+}
+
+.modal-body p {
+    color: #ccc;
+    margin-bottom: 1.5rem;
+    line-height: 1.6;
+}
+
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    color: #ff6b35;
+    font-weight: bold;
+}
+
+.form-group textarea.strange-input {
+    min-height: 120px;
+    resize: vertical;
+    font-family: inherit;
+}
+
+.form-group input[type="checkbox"] {
+    accent-color: #ff6b35;
+}
+
+.form-group label:has(input[type="checkbox"]) {
+    display: flex;
+    align-items: center;
+    color: #ccc;
+    font-weight: normal;
+    cursor: pointer;
+}
+
+/* Coming Soon Overlay */
+.coming-soon-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.95);
+  backdrop-filter: blur(10px);
+  z-index: 10000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  overflow-y: auto;
+}
+
+.coming-soon-content {
+  background: linear-gradient(135deg, rgba(20, 20, 20, 0.9), rgba(40, 40, 40, 0.9));
+  border: 2px solid var(--primary-color);
+  border-radius: 20px;
+  padding: 3rem;
+  text-align: center;
+  max-width: 600px;
+  width: 100%;
+  position: relative;
+  box-shadow: 0 20px 60px rgba(255, 0, 0, 0.3);
+}
+
+.coming-soon-icon {
+  font-size: 4rem;
+  color: var(--primary-color);
+  margin-bottom: 1.5rem;
+  animation: pulse 2s infinite;
+}
+
+.coming-soon-title {
+  font-family: var(--font-heading);
+  font-size: 3rem;
+  color: var(--primary-color);
+  margin-bottom: 1rem;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+
+.coming-soon-description {
+  color: var(--text-secondary);
+  font-size: 1.1rem;
+  line-height: 1.6;
+  margin-bottom: 2.5rem;
+}
+
+.email-signup {
+  background: rgba(255, 0, 0, 0.1);
+  border: 1px solid var(--primary-color);
+  border-radius: 15px;
+  padding: 2rem;
+  margin: 2rem 0;
+}
+
+.email-signup h3 {
+  color: var(--text-primary);
+  margin-bottom: 0.5rem;
+  font-size: 1.5rem;
+}
+
+.email-signup p {
+  color: var(--text-secondary);
+  margin-bottom: 1.5rem;
+}
+
+.notify-form {
+  margin-bottom: 1rem;
+}
+
+.input-group {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.input-group input {
+  flex: 1;
+  padding: 1rem;
+  border: 2px solid var(--accent-color);
+  border-radius: 8px;
+  background: rgba(0, 0, 0, 0.7);
+  color: var(--text-primary);
+  font-size: 1rem;
+}
+
+.input-group input:focus {
+  outline: none;
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 3px rgba(255, 0, 0, 0.1);
+}
+
+.input-group .btn {
+  padding: 1rem 1.5rem;
+  white-space: nowrap;
+}
+
+.privacy-note {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  margin: 0;
+}
+
+.coming-soon-features {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: 1.5rem;
+  margin: 2rem 0;
+}
+
+.feature {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 1rem;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 10px;
+  border: 1px solid rgba(255, 0, 0, 0.2);
+}
+
+.feature i {
+  font-size: 2rem;
+  color: var(--accent-color);
+}
+
+.feature span {
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+  text-align: center;
+}
+
+/* Coming Soon Button */
+.coming-soon-button {
+  display: inline-block;
+  padding: 1rem 2rem;
+  background: var(--primary-color);
+  color: white;
+  border: none;
+  border-radius: 50px;
+  font-size: 1rem;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-top: 1rem;
+}
+
+.coming-soon-button:hover {
+  background: var(--accent-color);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(255, 107, 53, 0.3);
+}
+
+/* ============================================
+   CRYPTOCURRENCY TESTING & OPTIMIZATION STYLES
+   ============================================ */
+
+/* Testing Panel Styles */
+#crypto-testing-panel {
+    position: fixed;
+    top: 10px;
+    right: 10px;
+    width: 320px;
+    max-width: 90vw;
+    background: rgba(0, 0, 0, 0.95);
+    color: #ffffff;
+    padding: 20px;
+    border-radius: 12px;
+    z-index: 10000;
+    font-family: 'Courier New', monospace;
+    font-size: 12px;
+    max-height: 500px;
+    overflow-y: auto;
+    border: 2px solid var(--primary-color);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(10px);
+    display: none;
+}
+
+#crypto-testing-panel h3 {
+    margin: 0 0 15px 0;
+    color: var(--primary-color);
+    font-size: 14px;
+    border-bottom: 1px solid var(--primary-color);
+    padding-bottom: 5px;
+}
+
+#crypto-testing-panel button {
+    background: var(--primary-color);
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 11px;
+    margin: 2px;
+    transition: all 0.3s ease;
+}
+
+#crypto-testing-panel button:hover {
+    background: var(--secondary-color);
+    transform: translateY(-1px);
+}
+
+#test-results {
+    font-size: 11px;
+    line-height: 1.4;
+    margin-top: 10px;
+    max-height: 300px;
+    overflow-y: auto;
+    background: rgba(0, 0, 0, 0.5);
+    padding: 10px;
+    border-radius: 6px;
+    border: 1px solid #333;
+}
+
+#test-results div {
+    margin: 3px 0;
+    padding: 2px 5px;
+    border-radius: 3px;
+}
+
+#test-results div:hover {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+/* Performance Optimization Indicators */
+.crypto-loading-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
     width: 100%;
-  }
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+    backdrop-filter: blur(5px);
+}
+
+.loading-content {
+    text-align: center;
+    color: white;
+    max-width: 400px;
+    padding: 40px;
+    background: rgba(0, 0, 0, 0.9);
+    border-radius: 15px;
+    border: 2px solid var(--primary-color);
+}
+
+.loading-spinner {
+    width: 50px;
+    height: 50px;
+    border: 4px solid rgba(255, 255, 255, 0.3);
+    border-top: 4px solid var(--primary-color);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin: 0 auto 20px auto;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.loading-content p {
+    margin: 10px 0 0 0;
+    font-size: 16px;
+    color: var(--primary-color);
+}
+
+/* Notification System */
+.notification-container {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 10001;
+    pointer-events: none;
+}
+
+.notification {
+    background: white;
+    color: #333;
+    padding: 15px 20px;
+    margin-bottom: 10px;
+    border-radius: 8px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    border-left: 4px solid var(--primary-color);
+    max-width: 350px;
+    pointer-events: all;
+    opacity: 0;
+    transform: translateX(100%);
+    animation: slideIn 0.3s ease forwards;
+}
+
+.notification-error {
+    border-left-color: #ff4444;
+    background: #fff5f5;
+    color: #c53030;
+}
+
+.notification-success {
+    border-left-color: #48bb78;
+    background: #f0fff4;
+    color: #2f855a;
+}
+
+.notification-warning {
+    border-left-color: #ed8936;
+    background: #fffaf0;
+    color: #c05621;
+}
+
+@keyframes slideIn {
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+.notification-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+
+.notification-close {
+    background: none;
+    border: none;
+    font-size: 18px;
+    cursor: pointer;
+    opacity: 0.7;
+    margin-left: 10px;
+    padding: 0;
+    line-height: 1;
+}
+
+.notification-close:hover {
+    opacity: 1;
+}
+
+/* Error Display */
+.crypto-init-error {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: white;
+    color: #333;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+    max-width: 500px;
+    width: 90%;
+    z-index: 10002;
+    border: 2px solid #ff4444;
+}
+
+.error-content h3 {
+    color: #ff4444;
+    margin: 0 0 15px 0;
+    font-size: 18px;
+}
+
+.error-content p {
+    margin: 10px 0;
+    line-height: 1.5;
+}
+
+.error-actions {
+    margin-top: 20px;
+    display: flex;
+    gap: 10px;
+}
+
+.error-actions button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: all 0.3s ease;
+}
+
+.error-actions button:first-child {
+    background: var(--primary-color);
+    color: white;
+}
+
+.error-actions button:last-child {
+    background: #f5f5f5;
+    color: #666;
+}
+
+.error-actions button:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* System Error Notification */
+.system-error-notification {
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
+    right: 20px;
+    background: #fff5f5;
+    color: #c53030;
+    padding: 15px 20px;
+    border-radius: 8px;
+    border: 1px solid #feb2b2;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    z-index: 10000;
+    max-width: 500px;
+    margin: 0 auto;
+}
+
+.system-error-notification h3 {
+    margin: 0 0 10px 0;
+    font-size: 16px;
+}
+
+.system-error-notification p {
+    margin: 5px 0;
+    line-height: 1.4;
+}
+
+.system-error-notification button {
+    background: #c53030;
+    color: white;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-top: 10px;
+    font-size: 12px;
+}
+
+.system-error-notification button:hover {
+    background: #9c2626;
+}
+
+/* Mobile Navigation for Crypto */
+.mobile-crypto-nav {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(0, 0, 0, 0.95);
+    backdrop-filter: blur(10px);
+    display: flex;
+    justify-content: space-around;
+    padding: 10px;
+    border-top: 1px solid var(--primary-color);
+    z-index: 1000;
+}
+
+.mobile-crypto-nav .nav-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: white;
+    text-decoration: none;
+    padding: 8px 12px;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    min-width: 60px;
+}
+
+.mobile-crypto-nav .nav-item:hover,
+.mobile-crypto-nav .nav-item.active {
+    background: var(--primary-color);
+    transform: translateY(-2px);
+}
+
+.mobile-crypto-nav .icon {
+    font-size: 20px;
+    margin-bottom: 4px;
+}
+
+.mobile-crypto-nav .label {
+    font-size: 11px;
+    font-weight: 500;
+}
+
+/* Touch Interaction Feedback */
+.touch-active {
+    transform: scale(0.95) !important;
+    opacity: 0.8;
+    transition: all 0.1s ease;
+}
+
+/* Mobile Wallet Modal */
+.mobile-wallet-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 10003;
+}
+
+.mobile-wallet-modal .modal-content {
+    background: white;
+    padding: 30px;
+    border-radius: 15px;
+    max-width: 350px;
+    width: 90%;
+    text-align: center;
+}
+
+.mobile-wallet-modal h3 {
+    margin: 0 0 20px 0;
+    color: #333;
+}
+
+.mobile-wallet-modal button {
+    display: block;
+    width: 100%;
+    padding: 15px;
+    margin: 10px 0;
+    background: var(--primary-color);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.mobile-wallet-modal button:hover {
+    background: var(--secondary-color);
+    transform: translateY(-1px);
+}
+
+.mobile-wallet-modal button:last-child {
+    background: #f5f5f5;
+    color: #666;
+}
+
+/* Performance Indicators */
+.performance-indicator {
+    position: fixed;
+    top: 60px;
+    right: 10px;
+    background: rgba(0, 0, 0, 0.8);
+    color: white;
+    padding: 8px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    z-index: 9998;
+    display: none;
+}
+
+.performance-indicator.show {
+    display: block;
+}
+
+.performance-indicator.good {
+    background: rgba(72, 187, 120, 0.9);
+}
+
+.performance-indicator.warning {
+    background: rgba(237, 137, 54, 0.9);
+}
+
+.performance-indicator.error {
+    background: rgba(255, 68, 68, 0.9);
+}
+
+/* Accessibility Enhancements for Testing */
+@media (prefers-reduced-motion: reduce) {
+    .loading-spinner {
+        animation: none;
+    }
+    
+    .notification {
+        animation: none;
+        opacity: 1;
+        transform: none;
+    }
+    
+    .touch-active {
+        transform: none !important;
+    }
+}
+
+@media (prefers-high-contrast: high) {
+    #crypto-testing-panel {
+        background: black;
+        border: 3px solid white;
+    }
+    
+    .notification {
+        background: white;
+        color: black;
+        border: 2px solid black;
+    }
+    
+    .crypto-init-error {
+        background: white;
+        color: black;
+        border: 3px solid red;
+    }
+}
+
+/* Skip Links for Testing Panel */
+.skip-link-testing {
+    position: absolute;
+    top: -40px;
+    left: 6px;
+    background: var(--primary-color);
+    color: white;
+    padding: 8px;
+    text-decoration: none;
+    border-radius: 4px;
+    font-size: 14px;
+    z-index: 10001;
+}
+
+.skip-link-testing:focus {
+    top: 6px;
+}
+
+/* Responsive Design for Testing Components */
+@media (max-width: 768px) {
+    #crypto-testing-panel {
+        width: calc(100% - 20px);
+        left: 10px;
+        right: 10px;
+        max-height: 60vh;
+    }
+    
+    .crypto-init-error {
+        width: calc(100% - 40px);
+        max-width: none;
+        padding: 20px;
+    }
+    
+    .notification {
+        max-width: calc(100% - 40px);
+        right: 20px;
+    }
+    
+    .mobile-crypto-nav {
+        display: flex;
+    }
 }
 
 @media (max-width: 480px) {
-  .audio-player {
-    padding: 1rem;
-  }
-  
-  .track-list,
-  .tour-dates,
-  .newsletter-form {
-    padding: 1rem;
-  }
-  
-  .audio-player__header {
-    flex-direction: column;
-    text-align: center;
-  }
+    .loading-content {
+        padding: 20px;
+    }
+    
+    .mobile-crypto-nav .label {
+        font-size: 10px;
+    }
+    
+    .mobile-crypto-nav .icon {
+        font-size: 18px;
+    }
 }
+
+/* Dark Mode Support for Testing Components */
+@media (prefers-color-scheme: dark) {
+    .notification {
+        background: #2d3748;
+        color: #e2e8f0;
+    }
+    
+    .notification-error {
+        background: #742a2a;
+        color: #fed7d7;
+    }
+    
+    .notification-success {
+        background: #22543d;
+        color: #c6f6d5;
+    }
+    
+    .notification-warning {
+        background: #7c2d12;
+        color: #fbd38d;
+    }
+    
+    .crypto-init-error {
+        background: #2d3748;
+        color: #e2e8f0;
+    }
+    
+    .system-error-notification {
+        background: #742a2a;
+        color: #fed7d7;
+        border-color: #e53e3e;
+    }
+}
+
+/* Focus Indicators for Accessibility */
+#crypto-testing-panel button:focus,
+.notification-close:focus,
+.error-actions button:focus,
+.mobile-crypto-nav .nav-item:focus {
+    outline: 2px solid var(--primary-color);
+    outline-offset: 2px;
+}
+
+/* Animation for System Status Updates */
+@keyframes systemPulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.7; }
+}
+
+.system-status-indicator {
+    animation: systemPulse 2s infinite;
+}
+
+/* Loading States for Components */
+.loading-state {
+    opacity: 0.6;
+    pointer-events: none;
+    position: relative;
+}
+
+.loading-state::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 20px;
+    height: 20px;
+    margin: -10px 0 0 -10px;
+    border: 2px solid transparent;
+    border-top: 2px solid var(--primary-color);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+/* Network Status Indicator */
+.network-status {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    padding: 8px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 500;
+    z-index: 9999;
+    transition: all 0.3s ease;
+}
+
+.network-status.online {
+    background: rgba(72, 187, 120, 0.9);
+    color: white;
+}
+
+.network-status.offline {
+    background: rgba(255, 68, 68, 0.9);
+    color: white;
+}
+
+/* Accessibility Mode Enhancements */
+.accessibility-mode #crypto-testing-panel {
+    font-size: 14px;
+    line-height: 1.6;
+}
+
+.accessibility-mode .notification {
+    font-size: 16px;
+    line-height: 1.5;
+    padding: 20px;
+}
+
+.accessibility-mode .mobile-crypto-nav {
+    padding: 15px 10px;
+}
+
+.accessibility-mode .mobile-crypto-nav .label {
+    font-size: 12px;
+}
+
+/* High Contrast Mode */
+.high-contrast #crypto-testing-panel {
+    background: black;
+    border: 3px solid yellow;
+    color: yellow;
+}
+
+.high-contrast .notification {
+    background: white;
+    color: black;
+    border: 3px solid black;
+}
+
+.high-contrast .mobile-crypto-nav {
+    background: black;
+    border-top: 3px solid yellow;
+}
+
+.high-contrast .mobile-crypto-nav .nav-item {
+    color: yellow;
+    border: 1px solid yellow;
+}
+
+/* Print Styles for Testing Reports */
+@media print {
+    #crypto-testing-panel,
+    .notification-container,
+    .mobile-crypto-nav,
+    .crypto-loading-overlay {
+        display: none !important;
+    }
+}
+
+/* ============================================
+   END CRYPTOCURRENCY TESTING & OPTIMIZATION STYLES
+   ============================================ */
