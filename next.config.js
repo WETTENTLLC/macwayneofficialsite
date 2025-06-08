@@ -3,9 +3,10 @@ const nextConfig = {
   reactStrictMode: true,
   images: {
     domains: ['placehold.co'],
-    // unoptimized: true, // Remove for Vercel, unless you want to keep it
+    unoptimized: true, // Enable unoptimized images for static export
   },
-  experimental: {},
+  output: 'export', // Enable static HTML export
+  distDir: 'out', // Output directory
 };
 
 module.exports = nextConfig;

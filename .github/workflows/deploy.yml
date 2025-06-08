@@ -29,8 +29,14 @@ jobs:
         run: npm ci
       - name: Build Next.js
         run: npm run build
-      - name: Export static site
-        run: npx next export
+      - name: List output directory
+        run: ls -la out
+      - name: Debug workspace structure
+        run: |
+          echo "Current directory structure:"
+          find . -type d -not -path "*/node_modules/*" -not -path "*/.git/*" | sort
+          echo "Files in out directory (if exists):"
+          if [ -d "out" ]; then ls -la out; else echo "out directory not found"; fi
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3
         with:
