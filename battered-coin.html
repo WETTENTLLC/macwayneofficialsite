@@ -66,11 +66,11 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Atkinson+Hyperlegible:wght@400;700&display=swap" rel="stylesheet">
-    
-    <!-- Styles -->
+      <!-- Styles -->
     <link rel="stylesheet" href="styles/main.css">
     <link rel="stylesheet" href="styles/components.css">
     <link rel="stylesheet" href="styles/animations.css">
+    <link rel="stylesheet" href="styles/partner-donations.css">
     
     <!-- Favicon -->
     <link rel="icon" type="image/x-icon" href="favicon.ico">
@@ -106,9 +106,8 @@
     <!-- Main Content -->
     <main id="main-content" role="main">
         <!-- Hero Section -->        <section class="hero battered-coin-hero" aria-labelledby="hero-title">
-            <div class="hero-content">
-                <div class="hero-coin-display">
-                    <img src="public/Images/macwayne-coin.png" alt="Mac Wayne Battered Coin - Blind Visionary" class="main-coin-image">
+            <div class="hero-content">                <div class="hero-coin-display">
+                    <img src="public/Images/macwayne-coin.png" alt="Mac Wayne Battered Coin - Blind Visionary" class="main-coin-image" loading="lazy">
                 </div>
                 <h1 id="hero-title" class="hero-title">
                     Mac Wayne <span class="highlight">Battered Coin</span>
@@ -703,6 +702,118 @@
                                 </div>
                                 <span class="allocation-percentage">5%</span>
                             </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Partner Donation Section -->
+        <section class="partner-donations" aria-labelledby="donations-title">
+            <div class="container">
+                <h2 id="donations-title">Partner Donation Program</h2>
+                <div class="donations-content">
+                    <div class="donations-intro">
+                        <p class="lead">Through our partner donation program, Mac Wayne Battered Coin directly supports leading accessibility technology companies. Each transaction contributes to innovative research and development.</p>
+                        <p>When you purchase or trade MWB tokens, 15% of the transaction fees are automatically allocated to our partner companies working on accessibility solutions.</p>
+                    </div>
+                    
+                    <div class="partner-grid">
+                        <div class="partner-card">
+                            <div class="partner-logo">
+                                <img src="public/Images/metaview-logo.png" alt="MetaView Technologies Logo" loading="lazy">
+                            </div>
+                            <h3>MetaView Technologies</h3>
+                            <p>Leading developer of screen reader technology and visual assistance systems for the blind and visually impaired.</p>
+                            <div class="donation-stats">
+                                <div class="stat">
+                                    <span class="stat-value">35%</span>
+                                    <span class="stat-label">Fund Allocation</span>
+                                </div>
+                                <div class="stat">
+                                    <span class="stat-value">$15,750</span>
+                                    <span class="stat-label">Donated to Date</span>
+                                </div>
+                            </div>
+                            <a href="#" class="partner-link">Learn More</a>
+                        </div>
+                        
+                        <div class="partner-card">
+                            <div class="partner-logo">
+                                <img src="public/Images/aris-logo.png" alt="Aris Technologies Logo" loading="lazy">
+                            </div>
+                            <h3>Aris Technologies</h3>
+                            <p>Pioneering adaptive interfaces and gesture control systems for people with mobility impairments.</p>
+                            <div class="donation-stats">
+                                <div class="stat">
+                                    <span class="stat-value">25%</span>
+                                    <span class="stat-label">Fund Allocation</span>
+                                </div>
+                                <div class="stat">
+                                    <span class="stat-value">$11,250</span>
+                                    <span class="stat-label">Donated to Date</span>
+                                </div>
+                            </div>
+                            <a href="#" class="partner-link">Learn More</a>
+                        </div>
+                        
+                        <div class="partner-card">
+                            <div class="partner-logo">
+                                <img src="public/Images/google-accessibility-logo.png" alt="Google Accessibility Logo" loading="lazy">
+                            </div>
+                            <h3>Google Accessibility</h3>
+                            <p>Developing accessible AI and machine learning solutions for diverse accessibility needs.</p>
+                            <div class="donation-stats">
+                                <div class="stat">
+                                    <span class="stat-value">20%</span>
+                                    <span class="stat-label">Fund Allocation</span>
+                                </div>
+                                <div class="stat">
+                                    <span class="stat-value">$9,000</span>
+                                    <span class="stat-label">Donated to Date</span>
+                                </div>
+                            </div>
+                            <a href="#" class="partner-link">Learn More</a>
+                        </div>
+                        
+                        <div class="partner-card">
+                            <div class="partner-logo">
+                                <img src="public/Images/microsoft-accessibility-logo.png" alt="Microsoft Accessibility Logo" loading="lazy">
+                            </div>
+                            <h3>Microsoft Accessibility</h3>
+                            <p>Creating inclusive software and hardware solutions for users with disabilities.</p>
+                            <div class="donation-stats">
+                                <div class="stat">
+                                    <span class="stat-value">15%</span>
+                                    <span class="stat-label">Fund Allocation</span>
+                                </div>
+                                <div class="stat">
+                                    <span class="stat-value">$6,750</span>
+                                    <span class="stat-label">Donated to Date</span>
+                                </div>
+                            </div>
+                            <a href="#" class="partner-link">Learn More</a>
+                        </div>
+                    </div>
+                    
+                    <div class="donation-impact">
+                        <h3>Impact Tracker</h3>
+                        <div class="impact-stats">
+                            <div class="impact-stat">
+                                <span class="impact-value">$45,000+</span>
+                                <span class="impact-label">Total Donations</span>
+                            </div>
+                            <div class="impact-stat">
+                                <span class="impact-value">12</span>
+                                <span class="impact-label">Projects Funded</span>
+                            </div>
+                            <div class="impact-stat">
+                                <span class="impact-value">5,000+</span>
+                                <span class="impact-label">Users Helped</span>
+                            </div>
+                        </div>
+                        <div class="impact-cta">
+                            <a href="#" class="btn btn-primary">View Impact Report</a>
                         </div>
                     </div>
                 </div>
