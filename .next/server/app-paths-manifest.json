@@ -1,0 +1,18 @@
+{
+  "/_not-found/page": "app/_not-found/page.js",
+  "/favicon.ico/route": "app/favicon.ico/route.js",
+  "/api/auth/login/route": "app/api/auth/login/route.js",
+  "/api/loyalty/route": "app/api/loyalty/route.js",
+  "/api/auth/register/route": "app/api/auth/register/route.js",
+  "/api/cart/route": "app/api/cart/route.js",
+  "/live/page": "app/live/page.js",
+  "/test-routing/page": "app/test-routing/page.js",
+  "/loyalty/page": "app/loyalty/page.js",
+  "/page": "app/page.js",
+  "/checkout/page": "app/checkout/page.js",
+  "/test/page": "app/test/page.js",
+  "/documentary/page": "app/documentary/page.js",
+  "/status/page": "app/status/page.js",
+  "/test-route/page": "app/test-route/page.js",
+  "/shop/page": "app/shop/page.js"
+}
