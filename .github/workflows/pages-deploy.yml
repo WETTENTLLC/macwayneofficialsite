@@ -1,19 +1,16 @@
-# Official GitHub Pages deployment workflow for static sites (Next.js static export)
-# Updated June 2025 for artifact v4 compatibility
+# Official GitHub Pages deployment workflow for static HTML site
+# Updated June 2025 for static site deployment
 name: Deploy static site to Pages
 
 on:
   push:
     branches:
-      - main
+      - master
 
 permissions:
   contents: read
   pages: write
   id-token: write
-
-env:
-  NODE_VERSION: 18
 
 jobs:
   build:
@@ -21,19 +18,10 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: ${{ env.NODE_VERSION }}
-          cache: 'npm'
-      - name: Install dependencies
-        run: npm ci
-      - name: Build static site
-        run: npm run build
       - name: Upload Pages artifact
-        uses: actions/upload-pages-artifact@v4
+        uses: actions/upload-pages-artifact@v3
         with:
-          path: ./out
+          path: .
   deploy:
     needs: build
     runs-on: ubuntu-latest
@@ -43,4 +31,4 @@ jobs:
     steps:
       - name: Deploy to GitHub Pages
         id: deployment
-        uses: actions/deploy-pages@v4
+        uses: actions/deploy-pages@v3
