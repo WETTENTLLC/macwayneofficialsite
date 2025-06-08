@@ -1,0 +1,24 @@
+# DISABLED - Using standard-deploy.yml instead
+name: DISABLED Old Deployment Workflow
+
+on:
+  # Disabled
+  push:
+    branches:
+      - disabled-branch 
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: "disabled-pages"
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Disabled
+        run: echo "This workflow is disabled. Using standard-deploy.yml instead."
