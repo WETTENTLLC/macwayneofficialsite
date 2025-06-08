@@ -1,0 +1,74 @@
+# Simple GitHub Pages deployment workflow
+name: Deploy to GitHub Pages
+
+on:
+  # Runs on pushes targeting the default branch
+  push:
+    branches: ["deploy-updates"]
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+# Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Allow only one concurrent deployment, skipping runs queued between the run in-progress and latest queued.
+# However, do NOT cancel in-progress runs as we want to allow these production deployments to complete.
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+
+jobs:
+  # Single deploy job since we're just deploying
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        
+      - name: Setup Pages
+        uses: actions/configure-pages@v4
+        
+      - name: Create output directory
+        run: |
+          echo "Creating artifact directory"
+          mkdir -p _site
+          
+      - name: Copy static content
+        run: |
+          # Copy all HTML files from root
+          cp -f *.html _site/ || echo "No HTML files found in root"
+          
+          # Copy assets
+          [ -d "js" ] && cp -r js _site/ || echo "No js directory"
+          [ -d "css" ] && cp -r css _site/ || echo "No css directory"
+          [ -d "images" ] && cp -r images _site/ || echo "No images directory"
+          [ -d "styles" ] && cp -r styles _site/ || echo "No styles directory"
+          [ -d "public" ] && cp -r public _site/ || echo "No public directory"
+          
+          # Copy CNAME for custom domain
+          [ -f "CNAME" ] && cp CNAME _site/ || echo "macwayneofficial.com" > _site/CNAME
+          
+          # Ensure index.html exists
+          if [ ! -f "_site/index.html" ]; then
+            echo "Creating fallback index.html"
+            echo "<html><body><h1>Mac Wayne Official</h1><p>Welcome to the official site</p></body></html>" > _site/index.html
+          fi
+          
+      - name: List files in output directory
+        run: ls -la _site/
+        
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+          
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
