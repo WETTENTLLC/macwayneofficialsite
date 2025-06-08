@@ -1,4 +1,4 @@
-# Simplified GitHub Pages Deployment Workflow
+# Simplified GitHub Pages Deployment Workflow (Updated)
 name: Deploy to GitHub Pages
 
 on:
