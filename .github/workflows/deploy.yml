@@ -21,6 +21,16 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+      - name: Install dependencies
+        run: npm ci
+      - name: Build Next.js
+        run: npm run build
+      - name: Export static site
+        run: npx next export
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3
         with:
