@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Audio Player Debug</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            line-height: 1.6;
+        }
+        .debug-section {
+            margin-bottom: 30px;
+            padding: 20px;
+            background: #f9f9f9;
+            border-radius: 8px;
+            border: 1px solid #ddd;
+        }
+        h1, h2 {
+            color: #333;
+        }
+        pre {
+            background: #eee;
+            padding: 10px;
+            border-radius: 4px;
+            overflow-x: auto;
+        }
+        button {
+            background: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 4px;
+            cursor: pointer;
+            margin: 5px;
+        }
+        button:hover {
+            background: #0069d9;
+        }
+        .debug-log {
+            height: 200px;
+            overflow-y: auto;
+            border: 1px solid #ddd;
+            padding: 10px;
+            background: #f5f5f5;
+            font-family: monospace;
+            margin-top: 10px;
+        }
+        .test-player {
+            margin-top: 20px;
+            padding: 15px;
+            background: #e9e9e9;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Audio Player Debug Tool</h1>
+    
+    <div class="debug-section">
+        <h2>Audio File Inspector</h2>
+        <p>Test if your MP3 files are valid and playable:</p>
+        
+        <div>
+            <button id="checkAudioFiles">Check All Audio Files</button>
+            <button id="clearLog">Clear Log</button>
+        </div>
+        
+        <div class="debug-log" id="audioDebugLog"></div>
+    </div>
+    
+    <div class="debug-section">
+        <h2>Simple Audio Player</h2>
+        <p>A simple player that should work regardless of your JavaScript implementation:</p>
+        
+        <div class="test-player">
+            <audio id="basicPlayer" controls>
+                <source src="audio/track1.mp3" type="audio/mpeg">
+                Your browser does not support the audio element.
+            </audio>
+            
+            <div>
+                <button id="basicPlay">Play</button>
+                <button id="basicPause">Pause</button>
+            </div>
+        </div>
+    </div>
+    
+    <div class="debug-section">
+        <h2>Audio Player Instance Tester</h2>
+        <div id="simplePlayerTest" class="audio-player" data-src="audio/track1.mp3" data-title="Test Track" data-duration="3:00">
+            <button class="play-btn">Play</button>
+            <div class="track-info">
+                <div class="track-title">Test Track</div>
+                <div class="track-artist">Test Artist</div>
+            </div>
+            <div class="progress-container">
+                <div class="progress-bar">
+                    <div class="progress-fill"></div>
+                </div>
+                <div class="time-display">
+                    <span class="current-time">0:00</span>
+                    <span class="duration">3:00</span>
+                </div>
+            </div>
+        </div>
+        <button id="initPlayer">Initialize Player</button>
+        <button id="checkPlayerState">Check Player State</button>
+    </div>
+    
+    <div class="debug-section">
+        <h2>Create Test Audio File</h2>
+        <button id="createTestAudio">Create Test MP3 File</button>
+        <div id="createFileStatus"></div>
+    </div>
+
+    <script>
+        // Debug logging
+        function log(message) {
+            const logElement = document.getElementById('audioDebugLog');
+            const logEntry = document.createElement('div');
+            logEntry.textContent = `[${new Date().toLocaleTimeString()}] ${message}`;
+            logElement.appendChild(logEntry);
+            logElement.scrollTop = logElement.scrollHeight;
+            console.log(message);
+        }
+        
+        // Clear log
+        document.getElementById('clearLog').addEventListener('click', function() {
+            document.getElementById('audioDebugLog').innerHTML = '';
+        });
+        
+        // Basic player controls
+        const basicPlayer = document.getElementById('basicPlayer');
+        document.getElementById('basicPlay').addEventListener('click', function() {
+            basicPlayer.play().then(() => {
+                log('Basic player: Play successful');
+            }).catch(error => {
+                log(`Basic player: Play failed - ${error.message}`);
+            });
+        });
+        
+        document.getElementById('basicPause').addEventListener('click', function() {
+            basicPlayer.pause();
+            log('Basic player: Paused');
+        });
+        
+        // Audio file checker
+        document.getElementById('checkAudioFiles').addEventListener('click', function() {
+            log('Checking audio files...');
+            
+            const filesToCheck = [
+                'audio/track1.mp3',
+                'audio/track2.mp3',
+                'audio/track3.mp3',
+                'audio/sample-preview.mp3'
+            ];
+            
+            filesToCheck.forEach(file => {
+                log(`Testing file: ${file}`);
+                const audio = new Audio();
+                
+                audio.addEventListener('canplaythrough', function() {
+                    log(`✅ ${file} is valid (Duration: ${this.duration.toFixed(2)}s)`);
+                });
+                
+                audio.addEventListener('error', function() {
+                    const errorCodes = [
+                        'MEDIA_ERR_ABORTED',
+                        'MEDIA_ERR_NETWORK',
+                        'MEDIA_ERR_DECODE',
+                        'MEDIA_ERR_SRC_NOT_SUPPORTED'
+                    ];
+                    const errorMessage = errorCodes[this.error.code - 1] || 'Unknown error';
+                    log(`❌ ${file} error: ${errorMessage}`);
+                });
+                
+                audio.src = file;
+                audio.load();
+            });
+        });
+        
+        // Audio player tester
+        document.getElementById('initPlayer').addEventListener('click', function() {
+            log('Initializing player from page script...');
+            try {
+                window.testPlayer = new SimpleAudioPlayer('#simplePlayerTest');
+                log('Player initialized successfully');
+            } catch (error) {
+                log(`Error initializing player: ${error.message}`);
+            }
+        });
+        
+        document.getElementById('checkPlayerState').addEventListener('click', function() {
+            if (window.testPlayer) {
+                log('Player state:');
+                log(`- isPlaying: ${window.testPlayer.isPlaying}`);
+                log(`- audioEl: ${window.testPlayer.audioEl ? 'exists' : 'missing'}`);
+                log(`- source: ${window.testPlayer.src}`);
+                
+                if (window.testPlayer.audioEl) {
+                    log(`- readyState: ${window.testPlayer.audioEl.readyState}`);
+                    log(`- error: ${window.testPlayer.audioEl.error ? window.testPlayer.audioEl.error.code : 'none'}`);
+                }
+            } else {
+                log('Player not initialized. Click "Initialize Player" first.');
+            }
+        });
+        
+        // Create test audio
+        document.getElementById('createTestAudio').addEventListener('click', function() {
+            const statusEl = document.getElementById('createFileStatus');
+            statusEl.textContent = 'Creating test audio file...';
+            
+            // This would ideally call a server endpoint to create a test MP3
+            // For demo purposes, we'll just log that it's not possible in client-side JS
+            statusEl.textContent = 'Cannot create MP3 files directly from browser. Please replace the audio files manually.';
+        });
+        
+        // Initialize
+        log('Debug tool loaded. Start by checking audio files.');
+    </script>
+</body>
+</html>

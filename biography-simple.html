@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mac Wayne Biography - Simple Version</title>
+    <meta name="description" content="Mac Wayne - Producer, innovator, and accessibility pioneer in hip-hop music production.">
+    <link rel="stylesheet" href="styles/main.css">
+    <style>
+        body {
+            background: linear-gradient(135deg, #1a1a1a, #2d2d2d);
+            color: #fff;
+            font-family: 'Arial', sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .simple-container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .simple-header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 30px;
+            background: linear-gradient(135deg, #cc0000, #ff6600);
+            border-radius: 12px;
+            box-shadow: 0 6px 20px rgba(204, 0, 0, 0.3);
+        }
+
+        .simple-header h1 {
+            color: #fff;
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+        }
+
+        .simple-header p {
+            color: #ffcc00;
+            font-size: 1.2em;
+            margin: 0;
+        }
+
+        .content-section {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid #555;
+            border-radius: 10px;
+            padding: 30px;
+            margin: 20px 0;
+        }
+
+        .section-title {
+            color: #ff6600;
+            font-size: 1.8em;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #ff6600;
+            padding-bottom: 10px;
+        }
+
+        .bio-image {
+            float: left;
+            width: 200px;
+            height: 250px;
+            margin: 0 30px 20px 0;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+        }
+
+        .bio-text {
+            text-align: justify;
+            color: #ccc;
+            font-size: 1.1em;
+            line-height: 1.7;
+        }
+
+        .highlight-box {
+            background: linear-gradient(135deg, #cc0000, #ff6600);
+            color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+            text-align: center;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+
+        .stat-card {
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid #ff6600;
+            border-radius: 8px;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .stat-number {
+            color: #ff6600;
+            font-size: 2em;
+            font-weight: bold;
+            display: block;
+        }
+
+        .stat-label {
+            color: #ccc;
+            font-size: 0.9em;
+            margin-top: 5px;
+        }
+
+        .timeline-simple {
+            margin: 30px 0;
+        }
+
+        .timeline-entry {
+            background: rgba(255, 255, 255, 0.05);
+            border-left: 4px solid #ff6600;
+            padding: 20px;
+            margin: 15px 0;
+            border-radius: 0 8px 8px 0;
+        }
+
+        .timeline-year {
+            color: #ff6600;
+            font-weight: bold;
+            font-size: 1.1em;
+            margin-bottom: 10px;
+        }
+
+        .achievements-list {
+            columns: 2;
+            column-gap: 30px;
+            margin: 20px 0;
+        }
+
+        .achievements-list li {
+            color: #ccc;
+            margin: 10px 0;
+            break-inside: avoid;
+        }
+
+        .contact-section {
+            background: linear-gradient(135deg, #2d4a22, #3d5a32);
+            border: 2px solid #4CAF50;
+            border-radius: 12px;
+            padding: 30px;
+            text-align: center;
+            margin: 40px 0;
+        }
+
+        .contact-button {
+            background: linear-gradient(45deg, #4CAF50, #66BB6A);
+            color: white;
+            text-decoration: none;
+            padding: 12px 25px;
+            border-radius: 25px;
+            display: inline-block;
+            margin: 10px;
+            transition: all 0.3s ease;
+        }
+
+        .contact-button:hover {
+            background: linear-gradient(45deg, #66BB6A, #81C784);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(76, 175, 80, 0.4);
+        }
+
+        .back-link {
+            text-align: center;
+            margin: 30px 0;
+        }
+
+        .back-link a {
+            color: #ff6600;
+            text-decoration: none;
+            font-size: 1.1em;
+            border: 1px solid #ff6600;
+            padding: 10px 20px;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+        }
+
+        .back-link a:hover {
+            background: #ff6600;
+            color: #fff;
+        }
+
+        @media (max-width: 768px) {
+            .bio-image {
+                float: none;
+                width: 100%;
+                height: auto;
+                margin: 0 0 20px 0;
+            }
+
+            .achievements-list {
+                columns: 1;
+            }
+
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="simple-container">
+        <header class="simple-header">
+            <h1>Mac Wayne</h1>
+            <p>Producer • Innovator • Accessibility Pioneer</p>
+        </header>
+
+        <div class="content-section">
+            <img src="images/mac-wayne-portrait.jpg" alt="Mac Wayne" class="bio-image" width="200" height="250">
+            
+            <div class="bio-text">
+                <p>
+                    Mac Wayne is a visionary music producer and accessibility advocate who has spent over two decades 
+                    transforming the hip-hop landscape. Known for his innovative production techniques and unwavering 
+                    commitment to making music creation accessible to everyone, Mac Wayne has become a respected figure 
+                    in both the Strange Music family and the broader music technology community.
+                </p>
+
+                <p>
+                    Starting from humble beginnings with borrowed equipment in his bedroom, Mac Wayne developed a unique 
+                    sound that caught the attention of underground artists and eventually led to his association with 
+                    Strange Music. His journey from bedroom producer to industry innovator is marked by groundbreaking 
+                    achievements in accessibility technology and inclusive design.
+                </p>
+
+                <p>
+                    What sets Mac Wayne apart is his belief that music creation should be accessible to everyone, 
+                    regardless of physical abilities or technological barriers. This philosophy has driven him to 
+                    develop revolutionary tools and techniques that have opened doors for countless producers and 
+                    artists who previously faced limitations in traditional music production environments.
+                </p>
+            </div>
+
+            <div style="clear: both;"></div>
+        </div>
+
+        <div class="content-section">
+            <h2 class="section-title">Career Highlights</h2>
+            
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <span class="stat-number">20+</span>
+                    <span class="stat-label">Years Experience</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-number">150+</span>
+                    <span class="stat-label">Projects Produced</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-number">50+</span>
+                    <span class="stat-label">Artists Mentored</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-number">15+</span>
+                    <span class="stat-label">Speaking Engagements</span>
+                </div>
+            </div>
+
+            <div class="highlight-box">
+                <strong>"Music should be accessible to everyone - not just as listeners, but as creators. 
+                Technology should bridge gaps, not create them."</strong>
+                <br><em>- Mac Wayne's Production Philosophy</em>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2 class="section-title">Timeline</h2>
+            
+            <div class="timeline-simple">
+                <div class="timeline-entry">
+                    <div class="timeline-year">2000-2005: The Beginning</div>
+                    <p>Started producing beats with borrowed equipment, developing signature sound and gaining local recognition in the underground scene.</p>
+                </div>
+
+                <div class="timeline-entry">
+                    <div class="timeline-year">2006-2010: Underground Success</div>
+                    <p>Collaborated with emerging hip-hop artists, building reputation for innovative production techniques and artist development.</p>
+                </div>
+
+                <div class="timeline-entry">
+                    <div class="timeline-year">2011-2015: Strange Music Era</div>
+                    <p>Joined Strange Music as producer and technology consultant, bringing fresh perspectives and pioneering new production approaches.</p>
+                </div>
+
+                <div class="timeline-entry">
+                    <div class="timeline-year">2016-2020: Accessibility Pioneer</div>
+                    <p>Launched initiatives to make music production accessible to artists with disabilities, developing industry-standard tools and techniques.</p>
+                </div>
+
+                <div class="timeline-entry">
+                    <div class="timeline-year">2021-Present: Digital Innovation</div>
+                    <p>Expanded into Web3 technologies, NFTs, and digital fan engagement while maintaining focus on accessibility and inclusive design.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2 class="section-title">Major Achievements</h2>
+            
+            <ul class="achievements-list">
+                <li>Producer of the Year Nomination (2019)</li>
+                <li>Accessibility Innovation Award (2020)</li>
+                <li>Strange Music Outstanding Contribution (2021)</li>
+                <li>Developed voice-controlled production suite</li>
+                <li>Created haptic feedback mixing system</li>
+                <li>Pioneered audio-to-visual production mapping</li>
+                <li>Founded Accessible Beats Initiative</li>
+                <li>Guest lecturer at 15+ music schools</li>
+                <li>Keynote speaker at accessibility conferences</li>
+                <li>Workshop leader for adaptive music technology</li>
+                <li>Mentored 50+ producers with disabilities</li>
+                <li>Donated equipment to 20+ schools</li>
+            </ul>
+        </div>
+
+        <div class="content-section">
+            <h2 class="section-title">Innovation Focus</h2>
+            
+            <p style="color: #ccc; font-size: 1.1em;">
+                Mac Wayne's work centers around three core areas:
+            </p>
+
+            <div style="margin: 20px 0;">
+                <h3 style="color: #ff6600;">🎵 Accessible Production Tools</h3>
+                <p style="color: #ccc;">
+                    Developing software and hardware solutions that enable producers with various disabilities 
+                    to create music without barriers, including voice-controlled interfaces and haptic feedback systems.
+                </p>
+            </div>
+
+            <div style="margin: 20px 0;">
+                <h3 style="color: #ff6600;">💡 Inclusive Studio Design</h3>
+                <p style="color: #ccc;">
+                    Revolutionizing physical studio spaces to accommodate artists with different mobility needs, 
+                    creating blueprints for accessible music production environments worldwide.
+                </p>
+            </div>
+
+            <div style="margin: 20px 0;">
+                <h3 style="color: #ff6600;">🌐 Digital Innovation</h3>
+                <p style="color: #ccc;">
+                    Exploring Web3 technologies, NFTs, and digital fan engagement platforms while ensuring 
+                    accessibility remains at the forefront of all technological implementations.
+                </p>
+            </div>
+        </div>
+
+        <div class="contact-section">
+            <h2 style="color: #4CAF50; margin-bottom: 20px;">Connect with Mac Wayne</h2>
+            <p style="color: #ccc; margin-bottom: 25px;">
+                Interested in collaboration, accessibility consulting, or learning more about innovative production techniques?
+            </p>
+            
+            <a href="consulting.html" class="contact-button">💼 Consulting Services</a>
+            <a href="mailto:mac.wayne@strangemusic.com" class="contact-button">✉️ Send Message</a>
+            <a href="fan-tokens.html" class="contact-button">🎵 Join Community</a>
+        </div>
+
+        <div class="back-link">
+            <a href="index.html">← Back to Home</a>
+        </div>
+    </div>
+
+    <script>
+        // Simple scroll animation for timeline entries
+        const observeElements = () => {
+            const timelineEntries = document.querySelectorAll('.timeline-entry, .stat-card');
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                    }
+                });
+            }, { threshold: 0.2 });
+
+            timelineEntries.forEach(entry => {
+                entry.style.opacity = '0';
+                entry.style.transform = 'translateY(20px)';
+                entry.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+                observer.observe(entry);
+            });
+        };
+
+        // Initialize when DOM is loaded
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', observeElements);
+        } else {
+            observeElements();
+        }
+    </script>
+</body>
+</html>

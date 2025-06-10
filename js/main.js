@@ -196,20 +196,40 @@ function initializeLazyLoading() {
 
 // Audio player initialization
 function initializeAudioPlayers() {
-    console.log('Initializing simple audio players...');
+    console.log('Initializing simple audio players with enhanced error handling...');
+    
+    // First check if audio files exist and are valid
+    const testAudio = new Audio();
+    testAudio.src = 'audio/sample-preview.mp3';
+    
+    testAudio.addEventListener('error', function(e) {
+        console.error('Audio test failed:', this.error);
+        // Try to use fallback audio from CDN
+        useFallbackAudio();
+    });
     
     // Initialize featured player
     const featuredPlayer = document.querySelector('.featured-player .audio-player');
     if (featuredPlayer) {
         console.log('Found featured player, initializing with SimpleAudioPlayer...');
-        window.featuredAudioPlayer = new SimpleAudioPlayer(featuredPlayer);
+        try {
+            window.featuredAudioPlayer = new SimpleAudioPlayer(featuredPlayer);
+        } catch (error) {
+            console.error('Error initializing featured player:', error);
+            showAudioError(featuredPlayer, error.message);
+        }
     }
     
     // Initialize any other audio players on the page
     const audioPlayers = document.querySelectorAll('.audio-player:not(.featured-player .audio-player)');
     audioPlayers.forEach((player, index) => {
         console.log(`Initializing simple audio player ${index + 1}...`);
-        new SimpleAudioPlayer(player);
+        try {
+            new SimpleAudioPlayer(player);
+        } catch (error) {
+            console.error(`Error initializing player ${index + 1}:`, error);
+            showAudioError(player, error.message);
+        }
     });
     
     // Add click handlers for mini play buttons in track list
@@ -227,17 +247,119 @@ function initializeAudioPlayers() {
                 
                 console.log('Loading new track:', { trackSrc, trackTitle, trackDuration });
                 
-                // Update the featured player with this track
-                window.featuredAudioPlayer.loadNewTrack({
-                    src: trackSrc,
-                    title: trackTitle,
-                    duration: trackDuration
-                });
+                try {
+                    // Update the featured player with this track
+                    window.featuredAudioPlayer.loadNewTrack({
+                        src: trackSrc,
+                        title: trackTitle,
+                        duration: trackDuration
+                    });
+                } catch (error) {
+                    console.error('Error loading track:', error);
+                    showAudioError(document.querySelector('.featured-player .audio-player'), 'Failed to load track');
+                }
             }
         });
     });
+      console.log('Simple audio players initialization complete');
+}
+
+// Function to show audio error message
+function showAudioError(container, errorMessage) {
+    const errorDiv = document.createElement('div');
+    errorDiv.className = 'audio-error-message';
+    errorDiv.innerHTML = `
+        <div class="error-icon">
+            <i class="fas fa-exclamation-circle"></i>
+        </div>
+        <div class="error-text">
+            <p>Audio playback error</p>
+            <small>${errorMessage || 'Unable to play audio'}</small>
+        </div>
+        <button class="retry-btn">
+            <i class="fas fa-redo"></i> Try Again
+        </button>
+    `;
     
-    console.log('Simple audio players initialization complete');
+    // Style the error message
+    errorDiv.style.cssText = `
+        display: flex;
+        align-items: center;
+        padding: 10px;
+        background: rgba(220, 53, 69, 0.1);
+        border: 1px solid rgba(220, 53, 69, 0.3);
+        border-radius: 8px;
+        margin: 10px 0;
+        color: #dc3545;
+    `;
+    
+    // Add click handler for retry button
+    const retryBtn = errorDiv.querySelector('.retry-btn');
+    if (retryBtn) {
+        retryBtn.addEventListener('click', function() {
+            errorDiv.remove();
+            if (container.SimpleAudioPlayerInstance) {
+                container.SimpleAudioPlayerInstance.init();
+            } else {
+                // Reinitialize the player
+                new SimpleAudioPlayer(container);
+            }
+        });
+    }
+    
+    // Find a good place to insert the error
+    if (container) {
+        const playerControls = container.querySelector('.progress-container') || container;
+        if (playerControls.parentNode) {
+            playerControls.parentNode.insertBefore(errorDiv, playerControls.nextSibling);
+        } else {
+            container.appendChild(errorDiv);
+        }
+    }
+}
+
+// Function to use fallback audio from a CDN when local files fail
+function useFallbackAudio() {
+    console.log('Using fallback audio from CDN...');
+    
+    // Update all audio players to use fallback sources
+    const fallbackAudios = {
+        'track1.mp3': 'https://cdn.freesound.org/previews/415/415346_3652699-lq.mp3',
+        'track2.mp3': 'https://cdn.freesound.org/previews/400/400561_5121236-lq.mp3',
+        'track3.mp3': 'https://cdn.freesound.org/previews/463/463444_4068033-lq.mp3',
+        'sample-preview.mp3': 'https://cdn.freesound.org/previews/399/399934_7666861-lq.mp3'
+    };
+    
+    // Update all track elements to use fallback sources
+    document.querySelectorAll('.audio-player, .track-item').forEach(el => {
+        const originalSrc = el.dataset.src;
+        if (originalSrc) {
+            // Get the filename from the path
+            const filename = originalSrc.split('/').pop();
+            
+            // Update the source if we have a fallback for it
+            if (fallbackAudios[filename]) {
+                console.log(`Replacing ${originalSrc} with fallback ${fallbackAudios[filename]}`);
+                el.dataset.src = fallbackAudios[filename];
+                
+                // Also update any audio elements directly
+                const audioEl = el.querySelector('audio');
+                if (audioEl) {
+                    audioEl.src = fallbackAudios[filename];
+                    audioEl.load();
+                }
+            }
+        }
+    });
+    
+    // Reinitialize all players
+    if (window.featuredAudioPlayer) {
+        try {
+            window.featuredAudioPlayer.init();
+        } catch (e) {
+            console.error('Error reinitializing featured player:', e);
+        }
+    }
 }
 
 // Utility functions

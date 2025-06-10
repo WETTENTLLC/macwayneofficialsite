@@ -1,0 +1,645 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fixed Audio Testing Suite - Mac Wayne</title>
+    <link rel="stylesheet" href="styles/main.css">
+    <style>
+        body {
+            background: linear-gradient(135deg, #1a1a1a, #2d2d2d);
+            color: #fff;
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .testing-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 30px;
+            background: linear-gradient(135deg, #cc0000, #ff6600);
+            border-radius: 15px;
+            box-shadow: 0 8px 25px rgba(204, 0, 0, 0.4);
+        }
+
+        .header h1 {
+            color: #fff;
+            font-size: 2.5em;
+            margin-bottom: 15px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+        }
+
+        .testing-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 25px;
+            margin: 30px 0;
+        }
+
+        .test-section {
+            background: linear-gradient(135deg, #2d2d2d, #3d3d3d);
+            border: 2px solid #ff6600;
+            border-radius: 12px;
+            padding: 25px;
+            box-shadow: 0 6px 20px rgba(255, 102, 0, 0.3);
+        }
+
+        .section-title {
+            color: #ff6600;
+            font-size: 1.5em;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #ff6600;
+            padding-bottom: 10px;
+        }
+
+        .audio-player-test {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid #555;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 15px 0;
+        }
+
+        .player-controls {
+            display: flex;
+            gap: 10px;
+            margin: 15px 0;
+            flex-wrap: wrap;
+        }
+
+        .control-button {
+            background: linear-gradient(45deg, #cc0000, #ff6600);
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 0.9em;
+            transition: all 0.3s ease;
+        }
+
+        .control-button:hover {
+            background: linear-gradient(45deg, #ff6600, #ffcc00);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 10px rgba(255, 102, 0, 0.4);
+        }
+
+        .control-button:disabled {
+            background: #666;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        .audio-display {
+            background: #000;
+            border: 1px solid #333;
+            border-radius: 5px;
+            padding: 15px;
+            margin: 15px 0;
+            font-family: 'Courier New', monospace;
+        }
+
+        .audio-info {
+            color: #00ff00;
+            font-size: 0.9em;
+            line-height: 1.4;
+        }
+
+        .audio-error {
+            color: #ff4444;
+            font-weight: bold;
+        }
+
+        .audio-warning {
+            color: #ffaa00;
+            font-style: italic;
+        }
+
+        .volume-control {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin: 10px 0;
+        }
+
+        .volume-slider {
+            flex-grow: 1;
+            height: 6px;
+            background: #333;
+            border-radius: 3px;
+            outline: none;
+            -webkit-appearance: none;
+        }
+
+        .volume-slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 18px;
+            height: 18px;
+            background: linear-gradient(45deg, #cc0000, #ff6600);
+            border-radius: 50%;
+            cursor: pointer;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: #333;
+            border-radius: 4px;
+            margin: 10px 0;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #cc0000, #ff6600);
+            border-radius: 4px;
+            width: 0%;
+            transition: width 0.1s ease;
+        }
+
+        .time-display {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.9em;
+            color: #ccc;
+            margin: 5px 0;
+        }
+
+        .test-results {
+            background: rgba(0, 0, 0, 0.7);
+            border: 1px solid #555;
+            border-radius: 6px;
+            padding: 15px;
+            margin: 15px 0;
+            max-height: 200px;
+            overflow-y: auto;
+            font-family: 'Courier New', monospace;
+            font-size: 0.85em;
+        }
+
+        .log-entry {
+            margin: 5px 0;
+            padding: 3px 0;
+            border-bottom: 1px solid #333;
+        }
+
+        .log-success { color: #4CAF50; }
+        .log-error { color: #f44336; }
+        .log-warning { color: #ff9800; }
+        .log-info { color: #2196F3; }
+
+        .batch-controls {
+            background: linear-gradient(135deg, #3d1a5b, #5d2a7b);
+            border: 2px solid #9c27b0;
+            border-radius: 12px;
+            padding: 25px;
+            margin: 30px 0;
+            text-align: center;
+        }
+
+        .batch-controls h2 {
+            color: #e1bee7;
+            margin-bottom: 20px;
+        }
+
+        .batch-button {
+            background: linear-gradient(45deg, #9c27b0, #e91e63);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 25px;
+            font-size: 1.1em;
+            font-weight: bold;
+            cursor: pointer;
+            margin: 0 10px;
+            transition: all 0.3s ease;
+        }
+
+        .batch-button:hover {
+            background: linear-gradient(45deg, #e91e63, #ff5722);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(156, 39, 176, 0.4);
+        }
+
+        .format-test {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .format-card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid #555;
+            border-radius: 8px;
+            padding: 15px;
+            text-align: center;
+        }
+
+        .format-status {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            margin: 10px auto;
+        }
+
+        .status-unknown { background: #888; }
+        .status-supported { background: #4CAF50; }
+        .status-unsupported { background: #f44336; }
+        .status-partial { background: #ff9800; }
+
+        @media (max-width: 768px) {
+            .testing-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .player-controls {
+                flex-direction: column;
+            }
+            
+            .control-button {
+                width: 100%;
+                margin: 2px 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="testing-container">
+        <div class="header">
+            <h1>🔧 Fixed Audio Testing Suite</h1>
+            <p style="color: #ffcc00; font-size: 1.1em;">
+                Comprehensive audio player testing with enhanced debugging capabilities
+            </p>
+        </div>
+
+        <div class="batch-controls">
+            <h2>🚀 Batch Testing Controls</h2>
+            <button class="batch-button" onclick="runAllTests()">Run All Tests</button>
+            <button class="batch-button" onclick="clearAllLogs()">Clear Logs</button>
+            <button class="batch-button" onclick="exportResults()">Export Results</button>
+        </div>
+
+        <div class="testing-grid">
+            <!-- Basic Audio Player Test -->
+            <div class="test-section">
+                <h2 class="section-title">🎵 Basic Audio Player</h2>
+                
+                <div class="audio-player-test">
+                    <h3 style="color: #ffcc00; margin-bottom: 15px;">Test Player #1</h3>
+                    
+                    <audio id="audioPlayer1" style="display: none;">
+                        <source src="audio/test.mp3" type="audio/mpeg">
+                        <source src="audio/test.ogg" type="audio/ogg">
+                        <source src="audio/test.wav" type="audio/wav">
+                    </audio>
+                    
+                    <div class="player-controls">
+                        <button class="control-button" onclick="playAudio('audioPlayer1')">▶️ Play</button>
+                        <button class="control-button" onclick="pauseAudio('audioPlayer1')">⏸️ Pause</button>
+                        <button class="control-button" onclick="stopAudio('audioPlayer1')">⏹️ Stop</button>
+                        <button class="control-button" onclick="loadAudio('audioPlayer1')">🔄 Reload</button>
+                    </div>
+                    
+                    <div class="volume-control">
+                        <span style="color: #ccc;">🔊 Volume:</span>
+                        <input type="range" class="volume-slider" min="0" max="1" step="0.1" value="0.7" 
+                               onchange="setVolume('audioPlayer1', this.value)">
+                        <span id="volumeDisplay1" style="color: #ffcc00;">70%</span>
+                    </div>
+                    
+                    <div class="progress-bar" onclick="seekAudio('audioPlayer1', event)">
+                        <div class="progress-fill" id="progressFill1"></div>
+                    </div>
+                    <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fixed Audio Testing Suite - Mac Wayne</title>
+    <link rel="stylesheet" href="styles/main.css">
+    <style>
+        body {
+            background: linear-gradient(135deg, #1a1a1a, #2d2d2d);
+            color: #fff;
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .testing-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 30px;
+            background: linear-gradient(135deg, #cc0000, #ff6600);
+            border-radius: 15px;
+            box-shadow: 0 8px 25px rgba(204, 0, 0, 0.4);
+        }
+
+        .header h1 {
+            color: #fff;
+            font-size: 2.5em;
+            margin-bottom: 15px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+        }
+
+        .testing-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 25px;
+            margin: 30px 0;
+        }
+
+        .test-section {
+            background: linear-gradient(135deg, #2d2d2d, #3d3d3d);
+            border: 2px solid #ff6600;
+            border-radius: 12px;
+            padding: 25px;
+            box-shadow: 0 6px 20px rgba(255, 102, 0, 0.3);
+        }
+
+        .section-title {
+            color: #ff6600;
+            font-size: 1.5em;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #ff6600;
+            padding-bottom: 10px;
+        }
+
+        .audio-player-test {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid #555;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 15px 0;
+        }
+
+        .player-controls {
+            display: flex;
+            gap: 10px;
+            margin: 15px 0;
+            flex-wrap: wrap;
+        }
+
+        .control-button {
+            background: linear-gradient(45deg, #cc0000, #ff6600);
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 0.9em;
+            transition: all 0.3s ease;
+        }
+
+        .control-button:hover {
+            background: linear-gradient(45deg, #ff6600, #ffcc00);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 10px rgba(255, 102, 0, 0.4);
+        }
+
+        .control-button:disabled {
+            background: #666;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        .audio-display {
+            background: #000;
+            border: 1px solid #333;
+            border-radius: 5px;
+            padding: 15px;
+            margin: 15px 0;
+            font-family: 'Courier New', monospace;
+        }
+
+        .audio-info {
+            color: #00ff00;
+            font-size: 0.9em;
+            line-height: 1.4;
+        }
+
+        .audio-error {
+            color: #ff4444;
+            font-weight: bold;
+        }
+
+        .audio-warning {
+            color: #ffaa00;
+            font-style: italic;
+        }
+
+        .volume-control {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin: 10px 0;
+        }
+
+        .volume-slider {
+            flex-grow: 1;
+            height: 6px;
+            background: #333;
+            border-radius: 3px;
+            outline: none;
+            -webkit-appearance: none;
+        }
+
+        .volume-slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 18px;
+            height: 18px;
+            background: linear-gradient(45deg, #cc0000, #ff6600);
+            border-radius: 50%;
+            cursor: pointer;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: #333;
+            border-radius: 4px;
+            margin: 10px 0;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #cc0000, #ff6600);
+            border-radius: 4px;
+            width: 0%;
+            transition: width 0.1s ease;
+        }
+
+        .time-display {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.9em;
+            color: #ccc;
+            margin: 5px 0;
+        }
+
+        .test-results {
+            background: rgba(0, 0, 0, 0.7);
+            border: 1px solid #555;
+            border-radius: 6px;
+            padding: 15px;
+            margin: 15px 0;
+            max-height: 200px;
+            overflow-y: auto;
+            font-family: 'Courier New', monospace;
+            font-size: 0.85em;
+        }
+
+        .log-entry {
+            margin: 5px 0;
+            padding: 3px 0;
+            border-bottom: 1px solid #333;
+        }
+
+        .log-success { color: #4CAF50; }
+        .log-error { color: #f44336; }
+        .log-warning { color: #ff9800; }
+        .log-info { color: #2196F3; }
+
+        .batch-controls {
+            background: linear-gradient(135deg, #3d1a5b, #5d2a7b);
+            border: 2px solid #9c27b0;
+            border-radius: 12px;
+            padding: 25px;
+            margin: 30px 0;
+            text-align: center;
+        }
+
+        .batch-controls h2 {
+            color: #e1bee7;
+            margin-bottom: 20px;
+        }
+
+        .batch-button {
+            background: linear-gradient(45deg, #9c27b0, #e91e63);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 25px;
+            font-size: 1.1em;
+            font-weight: bold;
+            cursor: pointer;
+            margin: 0 10px;
+            transition: all 0.3s ease;
+        }
+
+        .batch-button:hover {
+            background: linear-gradient(45deg, #e91e63, #ff5722);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(156, 39, 176, 0.4);
+        }
+
+        .format-test {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .format-card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid #555;
+            border-radius: 8px;
+            padding: 15px;
+            text-align: center;
+        }
+
+        .format-status {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            margin: 10px auto;
+        }
+
+        .status-unknown { background: #888; }
+        .status-supported { background: #4CAF50; }
+        .status-unsupported { background: #f44336; }
+        .status-partial { background: #ff9800; }
+
+        @media (max-width: 768px) {
+            .testing-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .player-controls {
+                flex-direction: column;
+            }
+            
+            .control-button {
+                width: 100%;
+                margin: 2px 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="testing-container">
+        <div class="header">
+            <h1>🔧 Fixed Audio Testing Suite</h1>
+            <p style="color: #ffcc00; font-size: 1.1em;">
+                Comprehensive audio player testing with enhanced debugging capabilities
+            </p>
+        </div>
+
+        <div class="batch-controls">
+            <h2>🚀 Batch Testing Controls</h2>
+            <button class="batch-button" onclick="runAllTests()">Run All Tests</button>
+            <button class="batch-button" onclick="clearAllLogs()">Clear Logs</button>
+            <button class="batch-button" onclick="exportResults()">Export Results</button>
+        </div>
+
+        <div class="testing-grid">
+            <!-- Basic Audio Player Test -->
+            <div class="test-section">
+                <h2 class="section-title">🎵 Basic Audio Player</h2>
+                
+                <div class="audio-player-test">
+                    <h3 style="color: #ffcc00; margin-bottom: 15px;">Test Player #1</h3>
+                    
+                    <audio id="audioPlayer1" style="display: none;">
+                        <source src="audio/test.mp3" type="audio/mpeg">
+                        <source src="audio/test.ogg" type="audio/ogg">
+                        <source src="audio/test.wav" type="audio/wav">
+                    </audio>
+                    
+                    <div class="player-controls">
+                        <button class="control-button" onclick="playAudio('audioPlayer1')">▶️ Play</button>
+                        <button class="control-button" onclick="pauseAudio('audioPlayer1')">⏸️ Pause</button>
+                        <button class="control-button" onclick="stopAudio('audioPlayer1')">⏹️ Stop</button>
+                        <button class="control-button" onclick="loadAudio('audioPlayer1')">🔄 Reload</button>
+                    </div>
+                    
+                    <div class="volume-control">
+                        <span style="color: #ccc;">🔊 Volume:</span>
+                        <input type="range" class="volume-slider" min="0" max="1" step="0.1" value="0.7" 
+                               onchange="setVolume('audioPlayer1', this.value)">
+                        <span id="volumeDisplay1" style="color: #ffcc00;">70%</span>
+                    </div>
+                    
+                    <div class="progress-bar" onclick="seekAudio('audioPlayer1', event)">
+                        <div class="progress-fill" id="progressFill1"></div>
+                    </div>
+                    

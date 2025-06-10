@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mac Wayne Audio Test</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #111;
+            color: #fff;
+        }
+        .test-container {
+            margin: 20px 0;
+            padding: 20px;
+            border: 1px solid #333;
+            border-radius: 8px;
+            background: #222;
+        }
+        .test-file {
+            margin: 10px 0;
+            padding: 10px;
+            background: #333;
+            border-radius: 4px;
+        }
+        .status {
+            padding: 5px 10px;
+            border-radius: 4px;
+            margin-left: 10px;
+            font-weight: bold;
+        }
+        .success { background: #2d5a2d; color: #90ee90; }
+        .error { background: #5a2d2d; color: #ff6b6b; }
+        .loading { background: #5a5a2d; color: #ffeb3b; }
+        audio {
+            width: 100%;
+            margin: 10px 0;
+        }
+        button {
+            background: #cc0000;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            margin: 5px;
+        }
+        button:hover {
+            background: #ee0000;
+        }
+    </style>
+</head>
+<body>
+    <h1>Mac Wayne Audio Files Test</h1>
+    <p>Testing the real Mac Wayne MP3 files that were just copied.</p>
+    
+    <div class="test-container">
+        <h2>Audio File Status</h2>
+        <div id="fileTests"></div>
+    </div>
+    
+    <div class="test-container">
+        <h2>Audio Players</h2>
+        <div id="audioPlayers"></div>
+    </div>
+    
+    <button onclick="testAllFiles()">Test All Files</button>
+    <button onclick="stopAllAudio()">Stop All Audio</button>
+    
+    <script>
+        const audioFiles = [
+            { name: 'Track 1 - Gotta Split', file: 'audio/track1.mp3' },
+            { name: 'Track 2 - I Think', file: 'audio/track2.mp3' },
+            { name: 'Track 3 - Just a Player', file: 'audio/track3.mp3' },
+            { name: 'Sample Preview - Blind and Battered', file: 'audio/sample-preview.mp3' }
+        ];
+        
+        let audioInstances = [];
+        
+        function createFileTest(audioFile) {
+            const testDiv = document.createElement('div');
+            testDiv.className = 'test-file';
+            testDiv.innerHTML = `
+                <strong>${audioFile.name}</strong>
+                <span class="status loading" id="status-${audioFile.file}">Testing...</span>
+                <div id="info-${audioFile.file}"></div>
+            `;
+            return testDiv;
+        }
+        
+        function createAudioPlayer(audioFile) {
+            const playerDiv = document.createElement('div');
+            playerDiv.className = 'test-file';
+            playerDiv.innerHTML = `
+                <strong>${audioFile.name}</strong>
+                <audio controls preload="metadata">
+                    <source src="${audioFile.file}" type="audio/mpeg">
+                    Your browser does not support the audio element.
+                </audio>
+                <div id="player-info-${audioFile.file}"></div>
+            `;
+            return playerDiv;
+        }
+        
+        async function testAudioFile(audioFile) {
+            const statusEl = document.getElementById(`status-${audioFile.file}`);
+            const infoEl = document.getElementById(`info-${audioFile.file}`);
+            
+            try {
+                // Test file size first
+                const response = await fetch(audioFile.file, { method: 'HEAD' });
+                const fileSize = response.headers.get('content-length');
+                
+                if (!response.ok) {
+                    throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+                }
+                
+                // Test audio loading
+                const audio = new Audio();
+                audio.preload = 'metadata';
+                
+                return new Promise((resolve, reject) => {
+                    const timeout = setTimeout(() => {
+                        audio.src = '';
+                        reject(new Error('Loading timeout (10s)'));
+                    }, 10000);
+                    
+                    audio.addEventListener('loadedmetadata', () => {
+                        clearTimeout(timeout);
+                        statusEl.className = 'status success';
+                        statusEl.textContent = 'SUCCESS';
+                        
+                        const fileSizeMB = fileSize ? (parseInt(fileSize) / (1024 * 1024)).toFixed(2) : 'Unknown';
+                        const duration = audio.duration ? audio.duration.toFixed(1) : 'Unknown';
+                        
+                        infoEl.innerHTML = `
+                            <small>Size: ${fileSizeMB} MB | Duration: ${duration}s | Type: ${audio.canPlayType('audio/mpeg')}</small>
+                        `;
+                        resolve(audio);
+                    });
+                    
+                    audio.addEventListener('error', (e) => {
+                        clearTimeout(timeout);
+                        const errorMsg = audio.error ? 
+                            ['MEDIA_ERR_ABORTED', 'MEDIA_ERR_NETWORK', 'MEDIA_ERR_DECODE', 'MEDIA_ERR_SRC_NOT_SUPPORTED'][audio.error.code - 1] 
+                            : 'Unknown error';
+                        reject(new Error(errorMsg));
+                    });
+                    
+                    audio.src = audioFile.file;
+                });
+                
+            } catch (error) {
+                statusEl.className = 'status error';
+                statusEl.textContent = 'ERROR';
+                infoEl.innerHTML = `<small>Error: ${error.message}</small>`;
+                throw error;
+            }
+        }
+        
+        async function testAllFiles() {
+            console.log('Testing all audio files...');
+            
+            for (const audioFile of audioFiles) {
+                try {
+                    const audio = await testAudioFile(audioFile);
+                    audioInstances.push(audio);
+                    console.log(`✅ ${audioFile.name} loaded successfully`);
+                } catch (error) {
+                    console.error(`❌ ${audioFile.name} failed:`, error.message);
+                }
+            }
+            
+            console.log('Audio file testing complete!');
+        }
+        
+        function stopAllAudio() {
+            audioInstances.forEach(audio => {
+                audio.pause();
+                audio.currentTime = 0;
+            });
+            
+            document.querySelectorAll('audio').forEach(audio => {
+                audio.pause();
+                audio.currentTime = 0;
+            });
+        }
+        
+        // Initialize the page
+        window.addEventListener('DOMContentLoaded', () => {
+            const fileTestsContainer = document.getElementById('fileTests');
+            const audioPlayersContainer = document.getElementById('audioPlayers');
+            
+            audioFiles.forEach(audioFile => {
+                fileTestsContainer.appendChild(createFileTest(audioFile));
+                audioPlayersContainer.appendChild(createAudioPlayer(audioFile));
+            });
+            
+            // Auto-test on load
+            setTimeout(testAllFiles, 1000);
+        });
+        
+        // Add metadata loading to player audio elements
+        window.addEventListener('load', () => {
+            document.querySelectorAll('audio').forEach((audio, index) => {
+                const audioFile = audioFiles[index];
+                const infoEl = document.getElementById(`player-info-${audioFile.file}`);
+                
+                audio.addEventListener('loadedmetadata', () => {
+                    const duration = audio.duration ? audio.duration.toFixed(1) : 'Unknown';
+                    infoEl.innerHTML = `<small>Duration: ${duration}s | Ready to play</small>`;
+                });
+                
+                audio.addEventListener('error', (e) => {
+                    const errorMsg = audio.error ? 
+                        ['MEDIA_ERR_ABORTED', 'MEDIA_ERR_NETWORK', 'MEDIA_ERR_DECODE', 'MEDIA_ERR_SRC_NOT_SUPPORTED'][audio.error.code - 1] 
+                        : 'Unknown error';
+                    infoEl.innerHTML = `<small style="color: #ff6b6b;">Error: ${errorMsg}</small>`;
+                });
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,38 @@
+User-agent: *
+Allow: /
+
+# Sitemap location
+Sitemap: https://macwayne.com/sitemap.xml
+
+# Allow all major search engines
+User-agent: Googlebot
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+User-agent: Slurp
+Allow: /
+
+# Disallow sensitive areas
+Disallow: /admin/
+Disallow: /.git/
+Disallow: /test/
+Disallow: /debug/
+Disallow: /private/
+
+# Allow important pages
+Allow: /index.html
+Allow: /biography.html
+Allow: /consulting.html
+Allow: /fan-tokens.html
+Allow: /affiliate-program.html
+Allow: /premium.html
+Allow: /documentary.html
+Allow: /audio/
+Allow: /images/
+Allow: /styles/
+Allow: /js/
+
+# Crawl delay (optional)
+Crawl-delay: 1

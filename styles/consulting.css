@@ -1,0 +1,122 @@
+/*
+Mac Wayne Official - Consulting Services Styles
+Based on Strange Music / Tech N9ne aesthetic with accessibility focus
+*/
+
+:root {
+  --dark-bg: #000000;
+  --darker-bg: #111111;
+  --prison-red: #cc0000;
+  --prison-orange: #ff6600;
+  --highlight-yellow: #ffcc00;
+  --text-white: #ffffff;
+  --text-gray: #aaaaaa;
+  --metal-gray: #333333;
+}
+
+.consulting-hero {
+  background: linear-gradient(rgba(0,0,0,0.7),rgba(0,0,0,0.9)), url('../images/consulting-hero-bg.jpg') no-repeat center center;
+  background-size: cover;
+  color: var(--text-white);
+  padding: 120px 0;
+  text-align: center;
+  position: relative;
+}
+.consulting-hero::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 6px;
+  background: linear-gradient(90deg, var(--prison-red), var(--prison-orange), var(--highlight-yellow));
+}
+.consulting-hero h1 {
+  font-size: 3.5rem;
+  margin-bottom: 1rem;
+  text-shadow: 0 2px 10px rgba(0,0,0,0.8);
+  font-weight: 800;
+  letter-spacing: -0.5px;
+}
+.consulting-hero .lead {
+  font-size: 1.5rem;
+  margin-bottom: 2rem;
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
+  opacity: 0.9;
+}
+.hero-cta {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  margin-top: 2rem;
+}
+
+.intro {
+  padding: 80px 0;
+  background-color: var(--dark-bg);
+  color: var(--text-white);
+}
+.intro-grid {
+  display: grid;
+  grid-template-columns: 60% 40%;
+  gap: 3rem;
+  align-items: center;
+}
+.intro h2 {
+  font-size: 2.5rem;
+  margin-bottom: 1.5rem;
+  line-height: 1.2;
+}
+.intro h2 .highlight {
+  color: var(--prison-orange);
+  display: inline-block;
+  position: relative;
+}
+.intro h2 .highlight::after {
+  content: '';
+  position: absolute;
+  bottom: -5px;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background-color: var(--prison-orange);
+}
+.intro p {
+  font-size: 1.1rem;
+  line-height: 1.6;
+  margin-bottom: 1.5rem;
+  color: var(--text-gray);
+}
+.intro-stats {
+  display: flex;
+  gap: 2rem;
+  margin-top: 2.5rem;
+}
+.intro-stats .stat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.stat-number {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: var(--prison-red);
+  margin-bottom: 0.5rem;
+}
+.stat-label {
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+.intro-image img {
+  border-radius: 8px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+  transition: transform 0.3s ease;
+  max-width: 100%;
+  height: auto;
+}
+.intro-image img:hover {
+  transform: scale(1.02);
+}
+
+/* ...continue with the rest of the CSS as needed for your consulting page sections... */

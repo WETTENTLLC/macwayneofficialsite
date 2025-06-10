@@ -1,0 +1,103 @@
+/* Fan Tokens Styles - Mac Wayne Official */
+:root {
+  --bronze: #b08d57;
+  --silver: #bfc1c2;
+  --gold: #ffd700;
+  --platinum: #e5e4e2;
+  --fan-bg: #181818;
+  --fan-accent: #cc0000;
+  --fan-white: #fff;
+  --fan-gray: #aaa;
+}
+
+.fan-tokens-hero {
+  background: linear-gradient(rgba(0,0,0,0.7),rgba(0,0,0,0.9)), url('../images/fan-tokens-hero-bg.jpg') no-repeat center center;
+  background-size: cover;
+  color: var(--fan-white);
+  padding: 100px 0;
+  text-align: center;
+}
+.fan-tokens-hero h1 {
+  font-size: 3rem;
+  font-weight: 800;
+  margin-bottom: 1rem;
+}
+.fan-tokens-hero .lead {
+  font-size: 1.3rem;
+  margin-bottom: 2rem;
+  opacity: 0.9;
+}
+.btn-primary {
+  background: var(--fan-accent);
+  color: var(--fan-white);
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 4px;
+  font-weight: 600;
+  margin-right: 1rem;
+}
+.btn-secondary {
+  background: transparent;
+  color: var(--fan-accent);
+  border: 2px solid var(--fan-accent);
+  padding: 0.75rem 1.5rem;
+  border-radius: 4px;
+  font-weight: 600;
+}
+.token-tiers {
+  background: var(--fan-bg);
+  color: var(--fan-white);
+  padding: 80px 0;
+}
+.tiers-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 2rem;
+}
+.tier-card {
+  background: #222;
+  border-radius: 10px;
+  padding: 2rem 1rem;
+  text-align: center;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.2);
+  border: 2px solid transparent;
+}
+.tier-card.bronze { border-color: var(--bronze); }
+.tier-card.silver { border-color: var(--silver); }
+.tier-card.gold { border-color: var(--gold); }
+.tier-card.platinum { border-color: var(--platinum); }
+.tier-card h3 { font-size: 1.3rem; margin-bottom: 0.5rem; }
+.tier-card ul { list-style: none; padding: 0; margin: 1rem 0; }
+.tier-card li { color: var(--fan-gray); margin-bottom: 0.5rem; }
+.tier-tokens {
+  font-size: 1.1rem;
+  font-weight: 700;
+  margin-top: 1rem;
+}
+.earn-tokens {
+  background: #1a1a1a;
+  color: var(--fan-white);
+  padding: 60px 0;
+}
+.earn-list {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2rem;
+  justify-content: center;
+  margin-top: 2rem;
+}
+.earn-list li {
+  font-size: 1.1rem;
+  color: var(--fan-gray);
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+}
+.redeem-tokens {
+  background: var(--fan-bg);
+  color: var(--fan-white);
+  padding: 60px 0;
+  text-align: center;
+}

@@ -1,0 +1,85 @@
+{
+  "name": "Mac Wayne - Accessibility in Hip-Hop",
+  "short_name": "Mac Wayne",
+  "description": "Producer, innovator, and accessibility pioneer in hip-hop music production. Explore exclusive content, consulting services, and innovative music technology.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#1a1a1a",
+  "theme_color": "#cc0000",
+  "orientation": "portrait-primary",
+  "scope": "/",
+  "lang": "en-US",
+  "dir": "ltr",
+  "categories": ["music", "entertainment", "education"],
+  "icons": [
+    {
+      "src": "images/icon-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "images/icon-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "images/mac-wayne-logo.png",
+      "sizes": "120x60",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "images/screenshot-wide.png",
+      "sizes": "1280x720",
+      "type": "image/png",
+      "form_factor": "wide"
+    },
+    {
+      "src": "images/screenshot-narrow.png",
+      "sizes": "750x1334",
+      "type": "image/png",
+      "form_factor": "narrow"
+    }
+  ],
+  "related_applications": [],
+  "prefer_related_applications": false,
+  "shortcuts": [
+    {
+      "name": "Consulting Services",
+      "url": "/consulting.html",
+      "description": "Book accessibility consulting services",
+      "icons": [
+        {
+          "src": "images/consulting-icon.png",
+          "sizes": "96x96"
+        }
+      ]
+    },
+    {
+      "name": "Fan Tokens",
+      "url": "/fan-tokens.html",
+      "description": "Join the Mac Wayne community",
+      "icons": [
+        {
+          "src": "images/fan-tokens-icon.png",
+          "sizes": "96x96"
+        }
+      ]
+    },
+    {
+      "name": "Premium Access",
+      "url": "/premium.html",
+      "description": "Unlock exclusive content",
+      "icons": [
+        {
+          "src": "images/premium-icon.png",
+          "sizes": "96x96"
+        }
+      ]
+    }
+  ]
+}

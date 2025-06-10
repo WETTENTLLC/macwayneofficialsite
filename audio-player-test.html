@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Audio Player Test - Mac Wayne Site</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #1a1a1a;
+            color: white;
+        }
+        
+        .test-section {
+            margin-bottom: 30px;
+            padding: 20px;
+            background: #2a2a2a;
+            border-radius: 8px;
+            border: 1px solid #444;
+        }
+        
+        .featured-player {
+            margin: 20px 0;
+            padding: 20px;
+            background: #333;
+            border-radius: 8px;
+            position: relative;
+        }
+        
+        .audio-player {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 15px;
+            background: linear-gradient(135deg, #222, #111);
+            border-radius: 8px;
+            border: 2px solid #cc0000;
+            position: relative;
+        }
+        
+        .play-btn {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, #cc0000, #ee0000);
+            border: none;
+            color: white;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        }
+        
+        .play-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
+        }
+        
+        .play-icon, .pause-icon {
+            display: block;
+        }
+        
+        .pause-icon {
+            display: none;
+        }
+        
+        .playing .play-icon {
+            display: none;
+        }
+        
+        .playing .pause-icon {
+            display: block;
+        }
+        
+        .track-info {
+            flex: 1;
+        }
+        
+        .track-title {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        
+        .track-artist {
+            font-size: 14px;
+            opacity: 0.8;
+        }
+        
+        .progress-container {
+            flex: 2;
+            margin-left: 20px;
+        }
+        
+        .progress-bar {
+            width: 100%;
+            height: 6px;
+            background: #555;
+            border-radius: 3px;
+            cursor: pointer;
+            position: relative;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #cc0000, #ee0000);
+            border-radius: 3px;
+            width: 0%;
+            transition: width 0.1s ease;
+        }
+        
+        .time-display {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 8px;
+            font-size: 12px;
+            opacity: 0.8;
+        }
+        
+        .preview-indicator {
+            background: #cc0000;
+            color: white;
+            padding: 2px 8px;
+            border-radius: 12px;
+            font-size: 10px;
+            font-weight: bold;
+            margin-left: 10px;
+        }
+        
+        .status-log {
+            background: #000;
+            color: #0f0;
+            padding: 10px;
+            border-radius: 4px;
+            font-family: monospace;
+            font-size: 12px;
+            height: 200px;
+            overflow-y: auto;
+            margin-top: 15px;
+        }
+        
+        .test-controls {
+            margin-top: 15px;
+        }
+        
+        .test-controls button {
+            background: #007bff;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-right: 10px;
+            margin-bottom: 5px;
+        }
+        
+        .test-controls button:hover {
+            background: #0056b3;
+        }
+        
+        .error {
+            color: #ff4444;
+        }
+        
+        .success {
+            color: #44ff44;
+        }
+        
+        .warning {
+            color: #ffaa44;
+        }
+    </style>
+</head>
+<body>
+    <h1>Audio Player Functionality Test</h1>
+    
+    <div class="test-section">
+        <h2>Audio Player with CDN Fallback</h2>
+        <p>Testing the enhanced audio player with corrupt file detection and CDN fallback system.</p>
+        
+        <div class="featured-player">
+            <div class="audio-player preview-mode" data-src="audio/track1.mp3" data-title="Gotta Split" data-duration="3:12" data-preview="true">
+                <button class="play-btn" aria-label="Play">
+                    <span class="play-icon">▶</span>
+                    <span class="pause-icon">⏸</span>
+                </button>
+                
+                <div class="track-info">
+                    <div class="track-title">Gotta Split</div>
+                    <div class="track-artist">Mac Wayne</div>
+                </div>
+                
+                <div class="progress-container">
+                    <div class="progress-bar">
+                        <div class="progress-fill"></div>
+                    </div>
+                    <div class="time-display">
+                        <span class="current-time">0:00</span>
+                        <span class="duration">3:12</span>
+                    </div>
+                </div>
+                
+                <span class="preview-indicator">30-Sec Preview</span>
+            </div>
+        </div>
+        
+        <div class="test-controls">
+            <button onclick="testAudioFiles()">Check Audio Files</button>
+            <button onclick="testCDNFallback()">Test CDN Fallback</button>
+            <button onclick="unlockTracks()">Unlock Full Tracks</button>
+            <button onclick="resetPurchase()">Reset to Preview Mode</button>
+            <button onclick="clearLog()">Clear Log</button>
+        </div>
+        
+        <div class="status-log" id="testLog">
+            <div>Audio Player Test Console</div>
+            <div>Waiting for tests...</div>
+        </div>
+    </div>
+    
+    <div class="test-section">
+        <h2>Direct CDN Audio Test</h2>
+        <p>Testing direct CDN audio sources:</p>
+        
+        <div class="featured-player">
+            <div class="audio-player" data-src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" data-title="CDN Test Track" data-duration="0:30">
+                <button class="play-btn" aria-label="Play">
+                    <span class="play-icon">▶</span>
+                    <span class="pause-icon">⏸</span>
+                </button>
+                
+                <div class="track-info">
+                    <div class="track-title">CDN Test Track</div>
+                    <div class="track-artist">Direct CDN Source</div>
+                </div>
+                
+                <div class="progress-container">
+                    <div class="progress-bar">
+                        <div class="progress-fill"></div>
+                    </div>
+                    <div class="time-display">
+                        <span class="current-time">0:00</span>
+                        <span class="duration">0:30</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="test-controls">
+            <button onclick="testDirectCDN()">Test Direct CDN</button>
+        </div>
+    </div>
+
+    <!-- Load the simple audio player -->
+    <script src="js/simple-audio-player.js"></script>
+    
+    <script>
+        // Test logging function
+        function log(message, type = 'info') {
+            const logElement = document.getElementById('testLog');
+            const logEntry = document.createElement('div');
+            logEntry.className = type;
+            logEntry.textContent = `[${new Date().toLocaleTimeString()}] ${message}`;
+            logElement.appendChild(logEntry);
+            logElement.scrollTop = logElement.scrollHeight;
+            console.log(message);
+        }
+        
+        function clearLog() {
+            document.getElementById('testLog').innerHTML = '<div>Log cleared</div>';
+        }
+        
+        // Test functions
+        async function testAudioFiles() {
+            log('Testing local audio files...', 'warning');
+            
+            const filesToTest = [
+                'audio/track1.mp3',
+                'audio/track2.mp3', 
+                'audio/track3.mp3',
+                'audio/sample-preview.mp3'
+            ];
+            
+            for (const file of filesToTest) {
+                try {
+                    const response = await fetch(file, { method: 'HEAD' });
+                    const size = response.headers.get('content-length');
+                    
+                    if (response.ok) {
+                        if (size && parseInt(size) < 1000) {
+                            log(`${file}: CORRUPT (${size} bytes)`, 'error');
+                        } else {
+                            log(`${file}: OK (${size} bytes)`, 'success');
+                        }
+                    } else {
+                        log(`${file}: NOT FOUND (${response.status})`, 'error');
+                    }
+                } catch (error) {
+                    log(`${file}: ERROR - ${error.message}`, 'error');
+                }
+            }
+        }
+        
+        async function testCDNFallback() {
+            log('Testing CDN fallback sources...', 'warning');
+            
+            const cdnSources = {
+                'track1.mp3': 'https://cdn.freesound.org/previews/415/415346_3652699-lq.mp3',
+                'track2.mp3': 'https://cdn.freesound.org/previews/400/400561_5121236-lq.mp3',
+                'track3.mp3': 'https://cdn.freesound.org/previews/463/463444_4068033-lq.mp3',
+                'sample-preview.mp3': 'https://cdn.freesound.org/previews/399/399934_7666861-lq.mp3'
+            };
+            
+            for (const [filename, url] of Object.entries(cdnSources)) {
+                try {
+                    const response = await fetch(url, { method: 'HEAD' });
+                    if (response.ok) {
+                        const size = response.headers.get('content-length');
+                        log(`${filename} CDN: OK (${size} bytes)`, 'success');
+                    } else {
+                        log(`${filename} CDN: FAILED (${response.status})`, 'error');
+                    }
+                } catch (error) {
+                    log(`${filename} CDN: ERROR - ${error.message}`, 'error');
+                }
+            }
+        }
+        
+        function testDirectCDN() {
+            log('Testing direct CDN audio playback...', 'warning');
+            
+            const directPlayer = document.querySelectorAll('.audio-player')[1]; // Second player
+            if (directPlayer && window.simpleAudioPlayer) {
+                const trackData = {
+                    src: 'https://cdn.freesound.org/previews/415/415346_3652699-lq.mp3',
+                    title: 'Direct CDN Test',
+                    duration: '0:30'
+                };
+                
+                log('Loading direct CDN track...', 'info');
+                // Create a new player instance for the direct test
+                const testPlayer = new SimpleAudioPlayer(directPlayer);
+                testPlayer.loadTrack(trackData);
+            } else {
+                log('Direct CDN player not found', 'error');
+            }
+        }
+        
+        // Override console.log to also show in our test log
+        const originalLog = console.log;
+        console.log = function(...args) {
+            originalLog.apply(console, args);
+            const message = args.join(' ');
+            if (message.includes('SimpleAudioPlayer') || message.includes('Audio') || message.includes('CDN')) {
+                log(message, 'info');
+            }
+        };
+        
+        const originalError = console.error;
+        console.error = function(...args) {
+            originalError.apply(console, args);
+            const message = args.join(' ');
+            log(`ERROR: ${message}`, 'error');
+        };
+        
+        // Start initial tests
+        document.addEventListener('DOMContentLoaded', function() {
+            log('Audio Player Test Page Loaded', 'success');
+            log('Testing audio file integrity...', 'info');
+            
+            setTimeout(() => {
+                testAudioFiles();
+                setTimeout(() => {
+                    testCDNFallback();
+                }, 2000);
+            }, 1000);
+        });
+    </script>
+</body>
+</html>

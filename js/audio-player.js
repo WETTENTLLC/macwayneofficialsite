@@ -1,8 +1,15 @@
 // Audio Player functionality for Mac Wayne Official website
 
-class AudioPlayer {
-    constructor(container) {
-        this.container = container;
+class AudioPlayer {    constructor(container) {
+        this.container = typeof container === 'string' 
+            ? document.querySelector(container) 
+            : container;
+            
+        if (!this.container) {
+            console.error('Audio player container not found');
+            return;
+        }
+        
         this.audio = null;
         this.currentTrack = null;
         this.isPlaying = false;
@@ -26,9 +33,8 @@ class AudioPlayer {
             previewDuration: this.previewDuration,
             tracksCount: this.tracks.length
         });
-    }
-      setupTracks() {
-        const trackElements = this.container.querySelectorAll('.track-item');
+    }    setupTracks() {
+        const trackElements = this.container.querySelectorAll('.track-item') || [];
         this.tracks = Array.from(trackElements).map((element, index) => ({
             index,
             element,
@@ -36,7 +42,11 @@ class AudioPlayer {
             duration: element.querySelector('.track-duration')?.textContent || element.dataset.duration || '0:00',
             src: element.dataset.src || '', // Audio file URL
             preview: element.dataset.preview === 'true', // Preview mode flag
-            previewDuration: parseInt(element.dataset.previewDuration) || 30 // Custom preview duration
+            previewDuration: parseInt(element.dataset.previewDuration) || 30, // Custom preview duration
+            onError: (e) => {
+                console.error('Failed to load audio file:', e);
+                this.showAudioLoadError();
+            }
         }));
         
         // Also check if the main audio player has preview settings
@@ -44,32 +54,61 @@ class AudioPlayer {
         if (mainPlayer && mainPlayer.dataset.preview === 'true') {
             this.previewMode = true;
         }
+        
+        console.log('Tracks setup complete:', this.tracks.length, 'tracks found');
     }
-    
-    setupEventListeners() {
+      setupEventListeners() {
+        // Store event handlers for cleanup
+        this.eventHandlers = new Map();
+        
         // Play/pause button
         const playPauseBtn = this.container.querySelector('.play-pause-btn');
         if (playPauseBtn) {
-            playPauseBtn.addEventListener('click', () => this.togglePlayPause());
+            // Remove any existing listeners to prevent duplicates
+            if (this.playPauseListener) {
+                playPauseBtn.removeEventListener('click', this.playPauseListener);
+            }
+            
+            // Create a reference to the listener for later removal
+            this.playPauseListener = () => this.togglePlayPause();
+            playPauseBtn.addEventListener('click', this.playPauseListener);
+            this.eventHandlers.set('playPause', this.playPauseListener);
         }
         
         // Previous/next buttons
         const prevBtn = this.container.querySelector('.prev-btn');
         const nextBtn = this.container.querySelector('.next-btn');
         
-        if (prevBtn) prevBtn.addEventListener('click', () => this.previousTrack());
-        if (nextBtn) nextBtn.addEventListener('click', () => this.nextTrack());
+        if (prevBtn) {
+            this.prevListener = () => this.previousTrack();
+            prevBtn.addEventListener('click', this.prevListener);
+            this.eventHandlers.set('prev', this.prevListener);
+        }
+        
+        if (nextBtn) {
+            this.nextListener = () => this.nextTrack();
+            nextBtn.addEventListener('click', this.nextListener);
+            this.eventHandlers.set('next', this.nextListener);
+        }
         
         // Track items
         this.tracks.forEach((track, index) => {
-            track.element.addEventListener('click', () => this.selectTrack(index));
+            if (track.element) {
+                const trackListener = () => this.selectTrack(index);
+                track.element.addEventListener('click', trackListener);
+                this.eventHandlers.set(`track-${index}`, trackListener);
+            }
         });
         
         // Volume control
         const volumeSlider = this.container.querySelector('.volume-slider');
         if (volumeSlider) {
-            volumeSlider.addEventListener('input', (e) => this.setVolume(e.target.value / 100));
+            this.volumeListener = (e) => this.setVolume(e.target.value / 100);
+            volumeSlider.addEventListener('input', this.volumeListener);
+            this.eventHandlers.set('volume', this.volumeListener);
         }
+        
+        console.log('Event listeners setup complete');
     }
     
     setupProgressBar() {
@@ -247,14 +286,19 @@ class AudioPlayer {
         
         const currentTime = this.audio.currentTime;
         
-        // Handle preview mode time limit
-        if (this.previewMode && !this.isPurchased && currentTime >= this.previewDuration) {
+        // Handle preview mode time limit - strictly enforce 30 seconds
+        if (this.previewMode && !this.isPurchased() && currentTime >= this.previewDuration) {
             console.log('AudioPlayer: Preview limit reached', currentTime, 'seconds');
+            // Force the time to exactly the preview duration
+            this.audio.currentTime = this.previewDuration;
             this.audio.pause();
             this.isPlaying = false;
             this.previewEnded = true;
             this.updatePlayPauseButton();
             this.showPreviewEndedMessage();
+            
+            // Log for debugging
+            console.log('Preview ended at exactly:', this.previewDuration, 'seconds');
             return;
         }
         
@@ -348,6 +392,13 @@ class AudioPlayer {
             element.classList.toggle('active', index === this.currentTrackIndex);
             element.classList.toggle('playing', index === this.currentTrackIndex && this.isPlaying);
         });
+    }    // Method to unlock full tracks (for testing or after purchase)
+    unlockFullTracks() {
+        this.isPurchased = true;
+        this.previewMode = false;
+        this.hidePreviewEndedMessage();
+        this.updateProgress();
+        console.log('AudioPlayer: Full tracks unlocked');
     }
       showPreviewEndedMessage() {
         // Remove any existing message
@@ -357,57 +408,108 @@ class AudioPlayer {
         messageContainer.className = 'preview-ended-message';
         messageContainer.innerHTML = `
             <div class="preview-message-content">
-                <p class="preview-title">Preview Ended</p>
-                <p class="preview-text">Purchase the full track to listen to the complete song</p>
-                <button class="purchase-btn">Purchase Now</button>
+                <p class="preview-title">30-Second Preview Ended</p>
+                <p class="preview-text">Purchase the full album to listen to the complete song</p>
+                <div class="preview-message-actions">
+                    <button class="purchase-btn">
+                        <i class="fas fa-shopping-cart"></i> Purchase Now
+                    </button>
+                    <button class="close-btn">
+                        <i class="fas fa-times"></i> Close
+                    </button>
+                </div>
+                <div class="purchase-benefits">
+                    <p><i class="fas fa-check"></i> Full-length tracks</p>
+                    <p><i class="fas fa-check"></i> Offline listening</p>
+                    <p><i class="fas fa-check"></i> Support Mac Wayne</p>
+                </div>
             </div>
+        `;
+        
+        // Add styles
+        messageContainer.style.cssText = `
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.85);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 100;
+            border-radius: 8px;
+        `;
+        
+        const messageContent = messageContainer.querySelector('.preview-message-content');
+        messageContent.style.cssText = `
+            background: #222;
+            color: white;
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+            border: 2px solid #cc0000;
+            max-width: 90%;
         `;
         
         // Add click listener to purchase button
         const purchaseBtn = messageContainer.querySelector('.purchase-btn');
         purchaseBtn.addEventListener('click', () => this.handlePurchaseClick());
         
+        // Add click listener to close button
+        const closeBtn = messageContainer.querySelector('.close-btn');
+        closeBtn.addEventListener('click', () => this.hidePreviewEndedMessage());
+        
+        // Style buttons
+        purchaseBtn.style.cssText = `
+            background: #cc0000;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 4px;
+            margin: 10px 5px;
+            cursor: pointer;
+            font-weight: bold;
+        `;
+        
+        closeBtn.style.cssText = `
+            background: #444;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 4px;
+            margin: 10px 5px;
+            cursor: pointer;
+        `;
+        
         this.container.appendChild(messageContainer);
     }
-    
-    hidePreviewEndedMessage() {
+      hidePreviewEndedMessage() {
         const existingMessage = this.container.querySelector('.preview-ended-message');
         if (existingMessage) {
             existingMessage.remove();
         }
     }
-    
-    handlePurchaseClick() {
+      handlePurchaseClick() {
         // Redirect to shop page or show purchase modal
-        if (window.location.pathname !== '/shop.html') {
-            window.location.href = '/shop.html';
+        if (!window.location.pathname.includes('shop.html')) {
+            window.location.href = 'shop.html';
         } else {
             // Show purchase modal or highlight purchase options
             this.showPurchaseModal();
         }
-    }
-    
-    showPurchaseModal() {
-        alert('Purchase functionality will be implemented here. Redirecting to shop...');
-        window.location.href = '/shop.html';
-    }
-      // Method to unlock full tracks (for testing or after purchase)
-    unlockFullTracks() {
-        this.isPurchased = true;
-        this.previewMode = false;
-        this.hidePreviewEndedMessage();
-        this.updateProgress();
-        console.log('AudioPlayer: Full tracks unlocked');
-    }
-    
-    // Debug method to check preview mode status
+    }// Debug method to check preview mode status
     getPreviewStatus() {
         return {
             previewMode: this.previewMode,
-            isPurchased: this.isPurchased,
+            isPurchased: this.isPurchased(),
             previewDuration: this.previewDuration,
             previewEnded: this.previewEnded
         };
+    }
+      // Method to check if track is purchased
+    isPurchased() {
+        return localStorage.getItem('mac-wayne-album-purchased') === 'true' || this.isPurchased === true;
     }
 
     showLoading(show) {
@@ -432,12 +534,35 @@ class AudioPlayer {
         // Auto-play next track
         this.nextTrack();
     }
-    
-    onAudioError(error) {
+      onAudioError(error) {
         console.error('Audio error:', error);
         this.showError('Error loading audio file');
         this.isPlaying = false;
         this.updatePlayPauseButton();
+    }
+    
+    // Method to show audio load error specifically
+    showAudioLoadError() {
+        const message = 'Unable to load audio. Please check your connection or try again later.';
+        this.showError(message);
+        
+        // Add a visual indicator to the player
+        this.container.classList.add('audio-error');
+        
+        // Add error message inside player if needed
+        const playerControls = this.container.querySelector('.player-controls');
+        if (playerControls) {
+            const errorMsg = document.createElement('div');
+            errorMsg.className = 'audio-error-message';
+            errorMsg.textContent = 'Audio failed to load';
+            playerControls.appendChild(errorMsg);
+            
+            // Auto-remove after 5 seconds
+            setTimeout(() => {
+                errorMsg.remove();
+                this.container.classList.remove('audio-error');
+            }, 5000);
+        }
     }
     
     formatTime(seconds) {
@@ -447,8 +572,7 @@ class AudioPlayer {
         const remainingSeconds = Math.floor(seconds % 60);
         return `${minutes}:${remainingSeconds.toString().padStart(2, '0')}`;
     }
-    
-    // Public methods for external control
+      // Public methods for external control
     getCurrentTrack() {
         return this.currentTrack;
     }
@@ -460,39 +584,129 @@ class AudioPlayer {
     destroy() {
         if (this.audio) {
             this.audio.pause();
+            this.audio.src = '';
             this.audio = null;
         }
+        
+        // Clean up event listeners
+        if (this.eventHandlers) {
+            this.eventHandlers.forEach((handler, key) => {
+                const elementType = key.split('-')[0];
+                let element;
+                
+                if (elementType === 'playPause') {
+                    element = this.container.querySelector('.play-pause-btn');
+                } else if (elementType === 'prev') {
+                    element = this.container.querySelector('.prev-btn');
+                } else if (elementType === 'next') {
+                    element = this.container.querySelector('.next-btn');
+                } else if (elementType === 'volume') {
+                    element = this.container.querySelector('.volume-slider');
+                } else if (elementType === 'track') {
+                    const index = parseInt(key.split('-')[1]);
+                    element = this.tracks[index]?.element;
+                }
+                
+                if (element) {
+                    element.removeEventListener('click', handler);
+                }
+            });
+        }
+        
+        console.log('AudioPlayer destroyed and events cleaned up');
+    }
+    showPurchaseModal() {
+        // Create a nice purchase modal
+        const modalOverlay = document.createElement('div');
+        modalOverlay.className = 'purchase-modal-overlay';
+        modalOverlay.style.cssText = `
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.8);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+        `;
+        
+        const modalContent = document.createElement('div');
+        modalContent.className = 'purchase-modal-content';
+        modalContent.style.cssText = `
+            background: #222;
+            color: white;
+            padding: 30px;
+            border-radius: 12px;
+            max-width: 500px;
+            width: 90%;
+            border: 2px solid #cc0000;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        `;
+        
+        modalContent.innerHTML = `
+            <h2 style="color: #cc0000; margin-top: 0;">Purchase Full Album</h2>
+            <p>Get unlimited access to all 20 tracks from "Blind and Battered" by Mac Wayne.</p>
+            
+            <div class="album-info" style="display: flex; align-items: center; margin: 20px 0;">
+                <div class="album-cover" style="width: 100px; height: 100px; background: #000; margin-right: 15px; flex-shrink: 0; border: 1px solid #cc0000;"></div>
+                <div>
+                    <h3 style="margin-top: 0;">Blind and Battered</h3>
+                    <p>Mac Wayne</p>
+                    <p>20 Tracks • 65 minutes</p>
+                    <p style="font-weight: bold; color: #cc0000;">$9.99</p>
+                </div>
+            </div>
+            
+            <div class="purchase-options" style="margin-top: 20px;">
+                <button class="purchase-album-btn" style="background: #cc0000; color: white; border: none; padding: 12px 20px; border-radius: 6px; font-weight: bold; cursor: pointer; width: 100%;">
+                    PURCHASE NOW - $9.99
+                </button>
+                
+                <div style="margin-top: 15px; text-align: center;">
+                    <button class="close-modal-btn" style="background: transparent; color: #aaa; border: 1px solid #aaa; padding: 8px 16px; border-radius: 6px; cursor: pointer;">
+                        CANCEL
+                    </button>
+                </div>
+            </div>
+        `;
+        
+        modalOverlay.appendChild(modalContent);
+        document.body.appendChild(modalOverlay);
+        
+        // Add event listeners
+        const purchaseBtn = modalContent.querySelector('.purchase-album-btn');
+        const closeBtn = modalContent.querySelector('.close-modal-btn');
+        
+        purchaseBtn.addEventListener('click', () => {
+            // Simulate purchase
+            if (confirm('Confirm purchase of "Blind and Battered" for $9.99?')) {
+                // Mark as purchased
+                localStorage.setItem('mac-wayne-album-purchased', 'true');
+                localStorage.setItem('mac-wayne-purchase-date', new Date().toISOString());
+                
+                // Show success message
+                alert('Purchase successful! Full album unlocked.');
+                
+                // Unlock tracks
+                if (window.unlockTracks && typeof window.unlockTracks === 'function') {
+                    window.unlockTracks();
+                } else {
+                    this.unlockFullTracks();
+                    this.updateProgress();
+                }
+                
+                // Close modal
+                modalOverlay.remove();
+            }
+        });
+        
+        closeBtn.addEventListener('click', () => {
+            modalOverlay.remove();
+        });
     }
 }
-
-// Initialize all audio players on page load
-document.addEventListener('DOMContentLoaded', function() {
-    const audioPlayerContainers = document.querySelectorAll('.audio-player');
-    const audioPlayers = [];
-    
-    audioPlayerContainers.forEach(container => {
-        const player = new AudioPlayer(container);
-        audioPlayers.push(player);
-    });
-    
-    // Store players globally for debugging
-    window.audioPlayers = audioPlayers;
-    
-    // Global helper functions for testing
-    window.testPreviewMode = function() {
-        if (audioPlayers.length > 0) {
-            console.log('Preview Status:', audioPlayers[0].getPreviewStatus());
-            return audioPlayers[0].getPreviewStatus();
-        }
-    };
-    
-    window.unlockTracks = function() {
-        audioPlayers.forEach(player => player.unlockFullTracks());
-        console.log('All tracks unlocked');
-    };
-    
-    console.log('AudioPlayer system initialized with', audioPlayers.length, 'players');
-});
 
 // Shop page integration and purchase functionality
 document.addEventListener('DOMContentLoaded', function() {
