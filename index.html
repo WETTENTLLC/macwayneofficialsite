@@ -3,8 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mac Wayne Official - Blind Hip Hop Visionary | Accessibility Innovation Through Music</title>
-    <meta name="description" content="Experience Mac Wayne's revolutionary accessibility-focused music platform. Blind hip-hop artist showcasing innovative audio technology, accessible design, and assistive music experiences. Perfect for accessibility tech partnerships and inclusive digital innovation.">
+    <title>Mac Wayne Official - Blind and Battered Re-Release</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/macwayne-audio-player.css"> <!-- Added new CSS file -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
     
     <!-- Advanced SEO for Accessibility Tech Companies -->
     <meta name="keywords" content="blind rapper, accessibility technology, assistive technology, accessible music platform, inclusive design, disability tech innovation, accessible audio player, screen reader compatible, visually impaired artist, accessibility partnerships, inclusive technology, assistive music technology, digital accessibility, WCAG compliance, inclusive entertainment, accessibility consulting, disabled artists, accessible web design, audio accessibility, inclusive user experience">
@@ -93,34 +96,39 @@
     <!-- Favicon -->
     <link rel="icon" href="favicon.ico" type="image/x-icon">
     
-    <!-- Preload key resources --><link rel="preload" href="public/Images/macwayne-logo.png" as="image">
+    <!-- Preload key resources -->
+    <link rel="preload" href="public/Images/macwayne-logo.png" as="image">
     <link rel="preload" href="public/Images/macwayne-background.png" as="image">
+    
+    <!-- Content Security Policy -->
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdnjs.cloudflare.com; font-src 'self' https://fonts.gstatic.com https://cdnjs.cloudflare.com; script-src 'self' 'unsafe-inline' https://mainnet.infura.io https://rpc.walletconnect.com wss://*.bridge.walletconnect.org; frame-src 'self' https://www.youtube.com;">
 </head>
 <body class="strange-theme">
     <!-- Navigation -->
-    <nav class="main-nav">
-        <div class="nav-container">
-            <a href="index.html" class="nav-logo">
-                <img src="public/Images/macwayne-logo.png" alt="Mac Wayne" class="logo-img">
-            </a>            <ul class="nav-menu">
-                <li><a href="index.html" class="active">Home</a></li>
-                <li><a href="#music">Music</a></li>
-                <li><a href="#video-section">Videos</a></li>
-                <li><a href="#help-blind-man">Help The Blind Man</a></li>
-                <li><a href="live.html">Live</a></li>
-                <li><a href="shop.html">Shop</a></li>
-                <li><a href="battered-coin.html">Battered Coin</a></li>
-                <li><a href="documentary.html">Documentary</a></li>
-                <li><a href="#contact">Contact</a></li>
-            </ul>
-            
-            <button class="mobile-menu-toggle">
-                <span></span>
-                <span></span>
-                <span></span>
-            </button>
-        </div>
-    </nav>
+    <nav class="main-nav" role="navigation" aria-label="Main Navigation">
+    <div class="nav-container">
+        <a href="index.html" class="nav-logo">
+            <img src="public/logo.svg" alt="Mac Wayne Official Logo" width="180" height="60" class="logo-img">
+        </a>
+        <ul class="nav-menu" id="main-nav-menu">
+            <li><a href="index.html" class="active" aria-current="page">Home</a></li>
+            <li><a href="index.html#music">Music</a></li>
+            <li><a href="premium.html">Premium</a></li>
+            <li><a href="live.html">Live</a></li>
+            <li><a href="shop.html">Shop</a></li>                    <li><a href="battered-coin.html">Battered Coin</a></li>
+            <li><a href="documentary.html">Documentary</a></li>
+            <li><a href="affiliate.html">Affiliates</a></li>
+            <li><a href="consulting.html">Consulting</a></li>
+            <li><a href="licensing.html">Music Licensing</a></li>
+            <li><a href="index.html#contact">Contact</a></li>
+        </ul>
+        <button class="mobile-menu-toggle" aria-label="Toggle Mobile Menu" aria-expanded="false">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+    </div>
+</nav>
 
     <!-- Hero Logo Section -->
     <div class="hero-logo-container">
@@ -136,7 +144,8 @@
         <!-- Hero Section -->
         <section class="strange-section hero-section">
             <div class="hero-content">
-                <p class="hero-subtitle">OFFICIAL WEBSITE</p>                <div class="hero-buttons">
+                <p class="hero-subtitle">OFFICIAL WEBSITE</p>
+                <div class="hero-buttons">
                     <a href="#help-blind-man" class="strange-button">HELP THE BLIND MAN</a>
                     <a href="shop.html" class="strange-button">SHOP MUSIC</a>
                     <a href="#video-section" class="strange-button">WATCH VIDEOS</a>
@@ -209,7 +218,7 @@
         </section>
           
         <!-- Help The Blind Man Section - Key Interactive Feature -->
-        <section class="strange-section help-blind-man-section" id="help-blind-man">
+        <section class="strange-section help-blind-man-section" id="help-blind-man" aria-labelledby="help-blind-man-heading">
             <div class="help-container">
                 <h2 class="strange-header">HELP THE BLIND MAN</h2>
                 <div class="help-content">
@@ -218,17 +227,17 @@
                             <h3 class="story-title">MAC WAYNE'S JOURNEY</h3>
                             <p class="story-text">
                                 Mac Wayne lost his sight but never lost his vision. After going blind, he discovered his true calling in music, 
-                                using his other senses to create powerful beats and lyrics that touch the soul. His blindness isn't a limitation - 
+                                using his other senses to create powerful lyrics and vocal delivery that touch the soul. His blindness isn't a limitation - 
                                 it's his superpower.
                             </p>
                             <div class="story-audio">
-                                <button class="story-play-btn" data-story="going-blind">
+                                <a href="documentary.html" class="story-play-btn">
                                     <i class="fas fa-play"></i>
                                     HEAR HIS STORY
-                                </button>
-                                <audio id="going-blind-audio" preload="metadata">
+                                </a>
+                                <!-- <audio id="going-blind-audio" preload="metadata">
                                     <source src="public/audio/going-blind-story.mp3" type="audio/mpeg">
-                                </audio>
+                                </audio> -->
                             </div>
                         </div>
                     </div>
@@ -273,418 +282,210 @@
                                             <i class="fas fa-arrow-right"></i> RIGHT
                                         </button>
                                     </div>
-                                    <div class="feedback" id="scene-feedback"></div>
-                                </div>
-                                
-                                <div class="scene" data-scene="home">
-                                    <h4>DAILY LIFE</h4>
-                                    <p>Help Mac Wayne navigate to his music equipment at home:</p>
-                                    <div class="direction-buttons">
-                                        <button class="direction-btn" data-direction="left" data-correct="false">
-                                            <i class="fas fa-arrow-left"></i> LEFT
-                                        </button>
-                                        <button class="direction-btn" data-direction="forward" data-correct="false">
-                                            <i class="fas fa-arrow-up"></i> STRAIGHT
-                                        </button>
-                                        <button class="direction-btn" data-direction="right" data-correct="true">
-                                            <i class="fas fa-arrow-right"></i> RIGHT
-                                        </button>
-                                    </div>
-                                    <div class="feedback" id="scene-feedback"></div>
-                                </div>
-                            </div>
-                            
-                            <div class="game-controls">
-                                <button class="game-reset-btn" id="reset-game">
-                                    <i class="fas fa-redo"></i> RESET GUIDANCE
-                                </button>
-                                <div class="game-score">
-                                    <span>Successful Guidance: </span>
-                                    <span id="score-counter">0</span>/<span id="total-scenarios">3</span>
+                                    <div class="feedback" id="scene-feedback-stage"></div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    
-                    <div class="support-section">
-                        <h3 class="support-title">SUPPORT MAC WAYNE</h3>
+                    </div>                    <div class="support-mac-wayne-links">
+                        <h3 class="support-title">MORE WAYS TO SUPPORT</h3>
                         <p class="support-description">
-                            Your support helps Mac Wayne continue creating music and spreading awareness about blindness. 
-                            Every interaction makes a difference.
+                            Your support empowers Mac Wayne to continue breaking barriers and creating impactful art. Explore these avenues to contribute to his journey:
                         </p>
-                        
-                        <div class="support-options">
-                            <div class="support-option">
+                        <div class="support-grid">
+                            <a href="index.html#macwayne-audio-player" class="support-card music-card">
                                 <div class="support-icon">
                                     <i class="fas fa-music"></i>
                                 </div>
-                                <h4>STREAM MUSIC</h4>
-                                <p>Every stream supports his journey</p>
-                                <button class="support-btn" onclick="document.getElementById('album-slideshow').scrollIntoView()">
-                                    LISTEN NOW
-                                </button>
-                            </div>
-                            
-                            <div class="support-option">
-                                <div class="support-icon">
-                                    <i class="fas fa-shopping-cart"></i>
+                                <div class="support-content">
+                                    <h4 class="support-card-title">Purchase Music</h4>
+                                    <p class="support-card-description">Buy tracks & albums to directly support Mac Wayne's artistry</p>
+                                    <span class="support-card-action">Shop Music <i class="fas fa-arrow-right"></i></span>
                                 </div>
-                                <h4>BUY MERCHANDISE</h4>
-                                <p>Official Mac Wayne gear</p>
-                                <button class="support-btn" onclick="window.location.href='shop.html'">
-                                    SHOP NOW
-                                </button>
-                            </div>
+                            </a>
                             
-                            <div class="support-option">
+                            <a href="licensing.html" class="support-card licensing-card">
                                 <div class="support-icon">
-                                    <i class="fas fa-share"></i>
+                                    <i class="fas fa-copyright"></i>
                                 </div>
-                                <h4>SHARE HIS STORY</h4>
-                                <p>Spread awareness about his journey</p>
-                                <button class="support-btn" id="share-story">
-                                    SHARE NOW
-                                </button>
-                            </div>
+                                <div class="support-content">
+                                    <h4 class="support-card-title">License Tracks</h4>
+                                    <p class="support-card-description">Use Mac Wayne's music in your projects and productions</p>
+                                    <span class="support-card-action">Get License <i class="fas fa-arrow-right"></i></span>
+                                </div>
+                            </a>
                             
-                            <div class="support-option">
+                            <a href="consulting.html" class="support-card consulting-card">
                                 <div class="support-icon">
-                                    <i class="fas fa-heart"></i>
+                                    <i class="fas fa-universal-access"></i>
                                 </div>
-                                <h4>LEAVE ENCOURAGEMENT</h4>
-                                <p>Send a message of support</p>
-                                <button class="support-btn" id="send-encouragement">
-                                    SEND MESSAGE
-                                </button>
-                            </div>
+                                <div class="support-content">
+                                    <h4 class="support-card-title">Accessibility Consulting</h4>
+                                    <p class="support-card-description">Book Mac Wayne for accessibility and inclusion consulting</p>
+                                    <span class="support-card-action">Book Session <i class="fas fa-arrow-right"></i></span>
+                                </div>
+                            </a>
+                              <a href="battered-coin.html" class="support-card tokens-card">
+                                <div class="support-icon">
+                                    <i class="fas fa-star"></i>
+                                </div>
+                                <div class="support-content">
+                                    <h4 class="support-card-title">Fan Rewards Program</h4>
+                                    <p class="support-card-description">Earn points and unlock exclusive perks through fan engagement</p>
+                                    <span class="support-card-action">Join Program <i class="fas fa-arrow-right"></i></span>
+                                </div>
+                            </a>
+                            
+                            <a href="battered-coin.html" class="support-card crypto-card">
+                                <div class="support-icon">
+                                    <i class="fas fa-coins"></i>
+                                </div>
+                                <div class="support-content">
+                                    <h4 class="support-card-title">Battered Coin Crypto</h4>
+                                    <p class="support-card-description">Mac Wayne's cryptocurrency & NFT ecosystem on Ethereum</p>
+                                    <span class="support-card-action">Explore BTRC <i class="fas fa-arrow-right"></i></span>
+                                </div>
+                            </a>
+                            
+                            <a href="affiliate.html" class="support-card affiliate-card">
+                                <div class="support-icon">
+                                    <i class="fas fa-handshake"></i>
+                                </div>
+                                <div class="support-content">
+                                    <h4 class="support-card-title">Affiliate Program</h4>
+                                    <p class="support-card-description">Earn by promoting Mac Wayne's music and mission</p>
+                                    <span class="support-card-action">Join Program <i class="fas fa-arrow-right"></i></span>
+                                </div>
+                            </a>
                         </div>
                     </div>
-                    
-                    <div class="awareness-section">
-                        <h3 class="awareness-title">BLINDNESS AWARENESS</h3>
-                        <div class="awareness-facts">
-                            <div class="fact-item">
-                                <div class="fact-number">285M</div>
-                                <div class="fact-text">People worldwide are visually impaired</div>
-                            </div>
-                            <div class="fact-item">
-                                <div class="fact-number">39M</div>
-                                <div class="fact-text">People are completely blind</div>
-                            </div>
-                            <div class="fact-item">
-                                <div class="fact-number">90%</div>
-                                <div class="fact-text">Of visual impairment is preventable</div>
-                            </div>
-                        </div>
-                        <p class="awareness-message">
-                            Mac Wayne's music brings awareness to the blind and visually impaired community. 
-                            Through his art, he shows that blindness doesn't limit creativity or potential.
-                        </p>
-                    </div>
+
                 </div>
             </div>
         </section>
 
-        <!-- Album Section -->
-        <section id="music" class="strange-section album-section">
-            <div class="album-container" id="album-slideshow">
-                <div class="album-slide active" data-album="0">
-                    <div class="album-content">                        <div class="album-cover-section">
-                            <img
-                                src="public/Images/macwayne-background.png"
-                                alt="Blind & Battered [Explicit] Cover"
-                                class="album-cover"
-                            />
-                            <div class="album-info">
-                                <h3 class="album-title">Blind & Battered [Explicit]</h3>
-                                <div class="album-year">2025</div>
+        <!-- Music Section -->
+        <section id="music" class="music-section">
+            <div class="container">
+                <div class="album-relaunch-announcement">
+                    <h2>THE LEGEND RETURNS: "Blind and Battered" - The Re-Release</h2>
+                    <p class="story-intro">Originally unleashed in 2010, Mac Wayne's iconic album "Blind and Battered" is back. After a long hiatus, Mac Wayne is out and ready to reclaim his throne. This re-release isn't just music; it's a testament to resilience, a story of a comeback, and a fresh chance to experience the raw energy that defines Mac Wayne. Every track tells a story, every verse hits harder. This is more than an album – it's a statement.</p>
+                    <p class="album-details"><strong>Album:</strong> Blind and Battered (Re-Release)<br>
+                    <strong>Artist:</strong> Mac Wayne<br>
+                    <strong>Original Release:</strong> 2010</p>
+                    <p class="purchase-info-main">Own a piece of the comeback: Get individual tracks for $2.00 each, or the complete remastered album for $25.00. Payments processed via PayPal.</p>
+                </div>
+        
+                <div id="macwayne-audio-player" class="macwayne-audio-player">
+                    <audio id="audio-element" style="display: none;"></audio> <!-- Added audio element -->
+                    <div class="player-header">
+                        <img id="album-art" src="public/Images/macwayne-background.png" alt="Album Art - Blind and Battered by Mac Wayne" class="album-art">
+                        <div class="track-info-container">
+                            <div class="track-info">
+                                <h3 id="track-title">Select a track</h3>
+                                <p id="track-artist">Mac Wayne</p>
                             </div>
-                        </div>
-                        <div class="album-tracks-section">
-                            <p class="album-description">Stream the full album or listen to individual tracks below.</p>
-                              <!-- Featured Track Player -->
-                            <div class="featured-player">                                <div class="audio-player preview-mode" data-src="audio/track1.mp3" data-title="Gotta Split" data-duration="3:12" data-preview="true">
-                                    <button class="play-btn">
-                                        <svg class="play-icon" viewBox="0 0 24 24" fill="currentColor">
-                                            <path d="M8 5v14l11-7z"/>
-                                        </svg>
-                                        <svg class="pause-icon hidden" viewBox="0 0 24 24" fill="currentColor">
-                                            <path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/>
-                                        </svg>
-                                    </button>
-                                    <div class="track-info">
-                                        <div class="track-title">Gotta Split</div>
-                                        <div class="track-artist">Mac Wayne</div>
-                                        <span class="preview-indicator">30-Sec Preview</span>
-                                    </div>
-                                    <div class="progress-container">
-                                        <div class="progress-bar">
-                                            <div class="progress-fill"></div>
-                                        </div>
-                                        <div class="time-display">
-                                            <span class="current-time">0:00</span>
-                                            <span class="duration">0:30</span>
-                                        </div>
-                                    </div>
-                                    <button class="volume-btn">
-                                        <svg class="volume-icon" viewBox="0 0 24 24" fill="currentColor">
-                                            <path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3A4.5 4.5 0 0 0 14 7.97v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77 0-4.28-2.99-7.86-7-8.77z"/>
-                                        </svg>
-                                    </button>
-                                    <audio preload="metadata"></audio>
-                                </div>
-                            </div>
-                              <!-- Track List -->
-                            <div class="track-list">                                <div class="track-item" data-src="audio/track1.mp3" data-title="Gotta Split" data-duration="3:12" data-preview="true">
-                                    <span class="track-name">Gotta Split <span class="preview-indicator">Preview</span></span>
-                                    <div class="mini-player">
-                                        <button class="mini-play-btn">
-                                            <svg viewBox="0 0 24 24" fill="currentColor">
-                                                <path d="M8 5v14l11-7z"/>
-                                            </svg>
-                                        </button>
-                                    </div>
-                                </div>
-                                <div class="track-item" data-src="audio/track2.mp3" data-title="I Think" data-duration="2:58" data-preview="true">
-                                    <span class="track-name">I Think <span class="preview-indicator">Preview</span></span>
-                                    <div class="mini-player">
-                                        <button class="mini-play-btn">
-                                            <svg viewBox="0 0 24 24" fill="currentColor">
-                                                <path d="M8 5v14l11-7z"/>
-                                            </svg>
-                                        </button>
-                                    </div>
-                                </div>
-                                <div class="track-item" data-src="audio/track3.mp3" data-title="Keep Your Mouth Shut" data-duration="0:45" data-preview="true">
-                                    <span class="track-name">Keep Your Mouth Shut <span class="preview-indicator">Preview</span></span>
-                                    <div class="mini-player">
-                                        <button class="mini-play-btn">
-                                            <svg viewBox="0 0 24 24" fill="currentColor">
-                                                <path d="M8 5v14l11-7z"/>
-                                            </svg>
-                                        </button>
-                                    </div>
-                                </div><div class="track-item" data-src="public/audio/Blind and Battered [Explicit]/04 - Just a Player [Explicit].mp3" data-title="Just a Player" data-duration="3:22" data-preview="true">
-                                    <span class="track-name">Just a Player <span class="preview-indicator">Preview</span></span>
-                                    <div class="mini-player">
-                                        <button class="mini-play-btn">
-                                            <svg viewBox="0 0 24 24" fill="currentColor">
-                                                <path d="M8 5v14l11-7z"/>
-                                            </svg>
-                                        </button>
-                                    </div>
-                                </div>
-                                <div class="track-item" data-src="public/audio/Blind and Battered [Explicit]/05 - Ziplocks [Explicit].mp3" data-title="Ziplocks" data-duration="4:10" data-preview="true">
-                                    <span class="track-name">Ziplocks <span class="preview-indicator">Preview</span></span>
-                                    <div class="mini-player">
-                                        <button class="mini-play-btn">
-                                            <svg viewBox="0 0 24 24" fill="currentColor">
-                                                <path d="M8 5v14l11-7z"/>
-                                            </svg>
-                                        </button>
-                                    </div>
-                                </div>
-                                <div class="track-item" data-src="public/audio/Blind and Battered [Explicit]/06 - Where You Been (Skit) [Explicit].mp3" data-title="Where You Been (Skit)" data-duration="1:15" data-preview="true">
-                                    <span class="track-name">Where You Been (Skit) <span class="preview-indicator">Preview</span></span>
-                                    <div class="mini-player">
-                                        <button class="mini-play-btn">
-                                            <svg viewBox="0 0 24 24" fill="currentColor">
-                                                <path d="M8 5v14l11-7z"/>
-                                            </svg>
-                                        </button>
-                                    </div>
-                                </div>
-                                <div class="track-item" data-src="public/audio/Blind and Battered [Explicit]/07 - Cant Tell Me [Explicit].mp3" data-title="Cant Tell Me" data-duration="3:55" data-preview="true">
-                                    <span class="track-name">Cant Tell Me <span class="preview-indicator">Preview</span></span>
-                                    <div class="mini-player">
-                                        <button class="mini-play-btn">
-                                            <svg viewBox="0 0 24 24" fill="currentColor">
-                                                <path d="M8 5v14l11-7z"/>
-                                            </svg>
-                                        </button>
-                                    </div>
-                                </div>
-                                <div class="track-item" data-src="public/audio/Blind and Battered [Explicit]/08 - Just a Gimmick [Explicit].mp3" data-title="Just a Gimmick" data-duration="4:02" data-preview="true">
-                                    <span class="track-name">Just a Gimmick <span class="preview-indicator">Preview</span></span>
-                                    <div class="mini-player">
-                                        <button class="mini-play-btn">
-                                            <svg viewBox="0 0 24 24" fill="currentColor">
-                                                <path d="M8 5v14l11-7z"/>
-                                            </svg>
-                                        </button>
-                                    </div>
-                                </div>                                <div class="track-item" data-src="public/audio/Blind and Battered [Explicit]/09 - Wish I Knew Then [Explicit].mp3" data-title="Wish I Knew Then" data-duration="3:50" data-preview="true">
-                                    <span class="track-name">Wish I Knew Then <span class="preview-indicator">Preview</span></span>
-                                    <div class="mini-player">
-                                        <button class="mini-play-btn">
-                                            <svg viewBox="0 0 24 24" fill="currentColor">
-                                                <path d="M8 5v14l11-7z"/>
-                                            </svg>
-                                        </button>
-                                    </div>
-                                </div>
-                                <div class="track-item" data-src="public/audio/Blind and Battered [Explicit]/10 - Blind and Battered [Explicit].mp3" data-title="Blind and Battered" data-duration="3:40" data-preview="true">
-                                    <span class="track-name">Blind and Battered <span class="preview-indicator">Preview</span></span>
-                                    <div class="mini-player">
-                                        <button class="mini-play-btn">
-                                            <svg viewBox="0 0 24 24" fill="currentColor">
-                                                <path d="M8 5v14l11-7z"/>
-                                            </svg>
-                                        </button>
-                                    </div>
-                                </div>
-                                <div class="track-item" data-src="public/audio/Blind and Battered [Explicit]/11 - Smoother Than Woodgrain [Explicit].mp3" data-title="Smoother Than Woodgrain" data-duration="3:15" data-preview="true">
-                                    <span class="track-name">Smoother Than Woodgrain <span class="preview-indicator">Preview</span></span>
-                                    <div class="mini-player">
-                                        <button class="mini-play-btn">
-                                            <svg viewBox="0 0 24 24" fill="currentColor">
-                                                <path d="M8 5v14l11-7z"/>
-                                            </svg>
-                                        </button>
-                                    </div>
-                                </div>
-                                <div class="track-item" data-src="public/audio/Blind and Battered [Explicit]/12 - Touch You [Explicit].mp3" data-title="Touch You" data-duration="3:25" data-preview="true">
-                                    <span class="track-name">Touch You <span class="preview-indicator">Preview</span></span>
-                                    <div class="mini-player">
-                                        <button class="mini-play-btn">
-                                            <svg viewBox="0 0 24 24" fill="currentColor">
-                                                <path d="M8 5v14l11-7z"/>
-                                            </svg>
-                                        </button>
-                                    </div>
-                                </div>
-                                <div class="track-item" data-src="public/audio/Blind and Battered [Explicit]/13 - Life of Magic [Explicit].mp3" data-title="Life of Magic" data-duration="3:35" data-preview="true">
-                                    <span class="track-name">Life of Magic <span class="preview-indicator">Preview</span></span>
-                                    <div class="mini-player">
-                                        <button class="mini-play-btn">
-                                            <svg viewBox="0 0 24 24" fill="currentColor">
-                                                <path d="M8 5v14l11-7z"/>
-                                            </svg>
-                                        </button>
-                                    </div>
-                                </div>                                <div class="track-item" data-src="public/audio/Blind and Battered [Explicit]/14 - Its Going Down [Explicit].mp3" data-title="Its Going Down" data-duration="3:45" data-preview="true">
-                                    <span class="track-name">Its Going Down <span class="preview-indicator">Preview</span></span>
-                                    <div class="mini-player">
-                                        <button class="mini-play-btn">
-                                            <svg viewBox="0 0 24 24" fill="currentColor">
-                                                <path d="M8 5v14l11-7z"/>
-                                            </svg>
-                                        </button>
-                                    </div>
-                                </div>
-                                <div class="track-item" data-src="public/audio/Blind and Battered [Explicit]/15 - One Way In [Explicit].mp3" data-title="One Way In" data-duration="3:50" data-preview="true">
-                                    <span class="track-name">One Way In <span class="preview-indicator">Preview</span></span>
-                                    <div class="mini-player">
-                                        <button class="mini-play-btn">
-                                            <svg viewBox="0 0 24 24" fill="currentColor">
-                                                <path d="M8 5v14l11-7z"/>
-                                            </svg>
-                                        </button>
-                                    </div>
-                                </div>
-                                <div class="track-item" data-src="public/audio/Blind and Battered [Explicit]/16 - Crispy Game [Explicit].mp3" data-title="Crispy Game" data-duration="4:05" data-preview="true">
-                                    <span class="track-name">Crispy Game <span class="preview-indicator">Preview</span></span>
-                                    <div class="mini-player">
-                                        <button class="mini-play-btn">
-                                            <svg viewBox="0 0 24 24" fill="currentColor">
-                                                <path d="M8 5v14l11-7z"/>
-                                            </svg>
-                                        </button>
-                                    </div>
-                                </div>
-                                <div class="track-item" data-src="public/audio/Blind and Battered [Explicit]/17 - The End of the World [Explicit].mp3" data-title="The End of the World" data-duration="3:30" data-preview="true">
-                                    <span class="track-name">The End of the World <span class="preview-indicator">Preview</span></span>
-                                    <div class="mini-player">
-                                        <button class="mini-play-btn">
-                                            <svg viewBox="0 0 24 24" fill="currentColor">
-                                                <path d="M8 5v14l11-7z"/>
-                                            </svg>
-                                        </button>
-                                    </div>
-                                </div>
-                                <div class="track-item" data-src="public/audio/Blind and Battered [Explicit]/18 - Smell of Victory [Explicit].mp3" data-title="Smell of Victory" data-duration="3:55" data-preview="true">
-                                    <span class="track-name">Smell of Victory <span class="preview-indicator">Preview</span></span>
-                                    <div class="mini-player">
-                                        <button class="mini-play-btn">
-                                            <svg viewBox="0 0 24 24" fill="currentColor">
-                                                <path d="M8 5v14l11-7z"/>
-                                            </svg>
-                                        </button>
-                                    </div>
-                                </div>
-                                <div class="track-item" data-src="public/audio/Blind and Battered [Explicit]/19 - Do the I'm the Shit [Explicit].mp3" data-title="Do the I'm the Shit" data-duration="4:00" data-preview="true">
-                                    <span class="track-name">Do the I'm the Shit <span class="preview-indicator">Preview</span></span>
-                                    <div class="mini-player">
-                                        <button class="mini-play-btn">
-                                            <svg viewBox="0 0 24 24" fill="currentColor">
-                                                <path d="M8 5v14l11-7z"/>
-                                            </svg>
-                                        </button>
-                                    </div>
-                                </div>
-                                <div class="track-item" data-src="public/audio/Blind and Battered [Explicit]/20 - Hatin On a Blind Man [Explicit].mp3" data-title="Hatin On a Blind Man" data-duration="3:44" data-preview="true">
-                                    <span class="track-name">Hatin On a Blind Man <span class="preview-indicator">Preview</span></span>
-                                    <div class="mini-player">
-                                        <button class="mini-play-btn">
-                                            <svg viewBox="0 0 24 24" fill="currentColor">
-                                                <path d="M8 5v14l11-7z"/>
-                                            </svg>
-                                        </button>
-                                    </div>
-                                </div>
-                                <div class="view-all-tracks">
-                                    <a href="shop.html" class="view-all-link">View all 20 tracks →</a>
-                                </div>
+                            <div class="playback-time">
+                                <span id="current-time" class="time">0:00</span> / <span id="duration" class="time">0:00</span>
                             </div>
                         </div>
                     </div>
+                    
+                    <div class="progress-container">
+                        <input type="range" id="progress-bar" class="progress-bar" value="0" min="0" max="100" step="0.1" aria-label="Track Progress">
+                    </div>
+        
+                    <div class="player-controls-main">
+                        <button id="prev-button" class="control-button prev-button" aria-label="Previous Track"><i class="fas fa-step-backward"></i></button> <!-- Corrected ID -->
+                        <button id="play-pause-button" class="control-button play-button" aria-label="Play Track"><i class="fas fa-play"></i></button> <!-- Corrected ID -->
+                        <button id="next-button" class="control-button next-button" aria-label="Next Track"><i class="fas fa-step-forward"></i></button> <!-- Corrected ID -->
+                        <div class="volume-control-area">
+                            <button id="volume-mute" class="control-button volume-button" aria-label="Mute Volume"><i class="fas fa-volume-up"></i></button>
+                            <input type="range" id="volume-control" class="volume-slider" value="100" min="0" max="100" step="1" aria-label="Volume Control"> <!-- Corrected ID -->
+                        </div>
+                    </div>
+        
+                    <div class="purchase-options-player">
+                        <button id="purchase-track-player" class="btn btn-primary btn-paypal" data-price="2.00" disabled><i class="fab fa-paypal"></i> Buy Track ($2.00)</button>
+                        <button id="buy-album-paypal" class="btn btn-secondary btn-paypal" data-price="25.00"><i class="fab fa-paypal"></i> Buy Album ($25.00)</button> <!-- Corrected ID -->
+                    </div>
+        
+                    <ul id="playlist" class="playlist">
+                        <!-- Track items will be dynamically inserted here by JavaScript -->
+                    </ul>
                 </div>
             </div>
         </section>
-        
-        <!-- Upcoming Shows -->
+          <!-- Upcoming Shows -->
         <section id="tour" class="strange-section shows-section">
             <h2 class="strange-header">UPCOMING SHOWS</h2>
-            <div class="tour-dates">
-                <div class="event-item">
-                    <div class="event-date">
-                        <div class="event-day">15</div>
-                        <div class="event-month">JUN</div>
-                    </div>
-                    <div class="event-info">
-                        <h3>The Underground</h3>
-                        <div class="event-venue">Live Performance</div>
-                        <div class="event-city">Charlotte, NC</div>
-                    </div>
-                    <button class="ticket-button">Tickets</button>
+            
+            <!-- Coming Soon Message -->
+            <div class="coming-soon-container">
+                <div class="coming-soon-announcement">
+                    <i class="fas fa-calendar-alt coming-soon-icon"></i>
+                    <h3 class="coming-soon-title">COMING SOON</h3>
+                    <p class="coming-soon-description">
+                        Mac Wayne is planning his comeback tour! Live performances and exclusive streaming shows are in the works. 
+                        Be the first to know when tickets go on sale.
+                    </p>
                 </div>
-                <div class="event-item">
-                    <div class="event-date">
-                        <div class="event-day">22</div>
-                        <div class="event-month">JUN</div>
+                
+                <!-- Show Notification Signup -->
+                <div class="show-notifications-signup">
+                    <h4 class="signup-title">GET NOTIFIED ABOUT SHOWS</h4>
+                    <p class="signup-description">
+                        Sign up to receive exclusive notifications about upcoming live performances, virtual concerts, and streaming events.
+                    </p>
+                    
+                    <form class="show-signup-form" id="show-notifications-form">
+                        <div class="signup-form-grid">
+                            <div class="form-group">
+                                <input type="text" placeholder="Your Name" class="strange-input" name="name" required />
+                            </div>
+                            <div class="form-group">
+                                <input type="email" placeholder="Your Email" class="strange-input" name="email" required />
+                            </div>
+                            <div class="form-group">
+                                <select class="strange-input" name="showType" required>
+                                    <option value="">Show Type Preference</option>
+                                    <option value="live">Live Performances</option>
+                                    <option value="streaming">Live Streaming</option>
+                                    <option value="both">Both Live & Streaming</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <input type="text" placeholder="City (Optional)" class="strange-input" name="city" />
+                            </div>
+                        </div>
+                        
+                        <div class="notification-preferences">
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="earlyAccess" value="yes">
+                                <span class="checkmark"></span>
+                                Early access to tickets
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="backstageUpdates" value="yes">
+                                <span class="checkmark"></span>
+                                Behind-the-scenes updates
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="streamingAlerts" value="yes" checked>
+                                <span class="checkmark"></span>
+                                Live streaming notifications
+                            </label>
+                        </div>
+                        
+                        <button type="submit" class="strange-button notification-signup-btn">
+                            <i class="fas fa-bell"></i> NOTIFY ME ABOUT SHOWS
+                        </button>
+                    </form>
+                    
+                    <div class="signup-success-message" id="show-signup-success" style="display: none;">
+                        <i class="fas fa-check-circle"></i>
+                        <p>You're all set! We'll notify you as soon as Mac Wayne announces upcoming shows.</p>
                     </div>
-                    <div class="event-info">
-                        <h3>The Fillmore</h3>
-                        <div class="event-venue">Live Performance</div>
-                        <div class="event-city">Detroit, MI</div>
-                    </div>
-                    <button class="ticket-button">Tickets</button>
                 </div>
-                <div class="event-item">
-                    <div class="event-date">
-                        <div class="event-day">29</div>
-                        <div class="event-month">JUN</div>
-                    </div>
-                    <div class="event-info">
-                        <h3>House of Blues</h3>
-                        <div class="event-venue">Live Performance</div>
-                        <div class="event-city">Chicago, IL</div>
-                    </div>
-                    <button class="ticket-button">Tickets</button>
-                </div>
-            </div>
-            <div class="shows-cta">
-                <button class="strange-button">VIEW ALL SHOWS</button>
             </div>
         </section>
         
@@ -884,7 +685,7 @@
     
     <!-- JavaScript Files -->
     <script src="js/main.js"></script>
-    <script src="js/simple-audio-player.js"></script>
+    <script src="js/macwayne-audio-player.js" defer></script>
     <script src="js/animations.js"></script>
     <script src="js/help-blind-man.js"></script>
 </body>

@@ -40,7 +40,7 @@ class AudioPlayer {    constructor(container) {
             element,
             title: element.querySelector('.track-title')?.textContent || element.dataset.title || `Track ${index + 1}`,
             duration: element.querySelector('.track-duration')?.textContent || element.dataset.duration || '0:00',
-            src: element.dataset.src || '', // Audio file URL
+            src: encodeURI(element.dataset.src || ''), // Audio file URL with encoding
             preview: element.dataset.preview === 'true', // Preview mode flag
             previewDuration: parseInt(element.dataset.previewDuration) || 30, // Custom preview duration
             onError: (e) => {

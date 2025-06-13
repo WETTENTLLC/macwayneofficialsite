@@ -78,26 +78,35 @@
     <!-- Favicon -->
     <link rel="icon" type="image/x-icon" href="favicon.ico">
 </head>
-<body class="shop-page">
+<body class="strange-theme shop-page">
     <!-- Navigation -->
-    <nav class="main-nav">
-        <div class="nav-container">            <a href="index.html" class="nav-logo">
-                <img src="public/Images/macwayne-logo.png" alt="Mac Wayne" class="logo-img">
-            </a>
-              <ul class="nav-menu">
-                <li><a href="index.html">Home</a></li>
-                <li><a href="index.html#music">Music</a></li>
-                <li><a href="index.html#tour">Tour</a></li>
-                <li><a href="shop.html" class="active">Shop</a></li>
-                <li><a href="battered-coin.html">Battered Coin</a></li>
-                <li><a href="documentary.html">Documentary</a></li>
-                <li><a href="index.html#contact">Contact</a></li>
-                <li>
-                    <button class="cart-toggle">
-                        <i class="fas fa-shopping-cart"></i>
-                        <span class="cart-count">0</span>
-                    </button>
-                </li>
+    <nav class="main-nav" role="navigation" aria-label="Main Navigation">
+    <div class="nav-container">
+        <a href="index.html" class="nav-logo">
+            <img src="public/logo.svg" alt="Mac Wayne Official Logo" width="180" height="60" class="logo-img">
+        </a>
+        <ul class="nav-menu" id="main-nav-menu">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="index.html#music">Music</a></li>
+            <li><a href="premium.html">Premium</a></li>
+            <li><a href="live.html">Live</a></li>
+            <li><a href="shop.html" class="active" aria-current="page">Shop</a></li>                    <li><a href="battered-coin.html">Battered Coin</a></li>
+            <li><a href="documentary.html">Documentary</a></li>
+            <li><a href="affiliate.html">Affiliates</a></li>
+            <li><a href="consulting.html">Consulting</a></li>
+            <li><a href="licensing.html">Music Licensing</a></li>
+            <li><a href="index.html#contact">Contact</a></li>
+        </ul>        <button class="mobile-menu-toggle" aria-label="Toggle Mobile Menu" aria-expanded="false">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+        <button class="cart-toggle">
+            <i class="fas fa-shopping-cart"></i>
+            <span class="cart-count">0</span>
+        </button>
+    </div>
+</nav>
             </ul>
             
             <button class="mobile-menu-toggle">
@@ -238,7 +247,7 @@
                 <!-- Music Products -->
                 <div class="product-card" data-product-id="album-cd" data-category="music">
                     <div class="product-image">
-                        <img src="images/album-cover.jpg" alt="Latest Album">
+                        <img src="public/Images/macwayne-background.png" alt="Latest Album">
                         <div class="product-badge">New</div>
                     </div>
                     <div class="product-info">
@@ -250,7 +259,7 @@
 
                 <div class="product-card" data-product-id="vinyl-record" data-category="music">
                     <div class="product-image">
-                        <img src="images/vinyl-record.jpg" alt="Vinyl Record">
+                        <img src="public/Images/macwayne-background.png" alt="Vinyl Record">
                         <div class="product-badge">Limited</div>
                     </div>
                     <div class="product-info">
@@ -262,7 +271,7 @@
 
                 <div class="product-card" data-product-id="digital-album" data-category="digital">
                     <div class="product-image">
-                        <img src="images/digital-album.jpg" alt="Digital Album">
+                        <img src="public/Images/macwayne-background.png" alt="Digital Album">
                     </div>
                     <div class="product-info">
                         <h3 class="product-name">Digital Album Download</h3>
@@ -274,7 +283,7 @@
                 <!-- Apparel Products -->
                 <div class="product-card" data-product-id="hoodie-black" data-category="apparel">
                     <div class="product-image">
-                        <img src="images/hoodie-black.jpg" alt="Black Mac Wayne Hoodie">
+                        <img src="public/Images/macwayne-background.png" alt="Black Mac Wayne Hoodie">
                         <div class="product-badge">Popular</div>
                     </div>
                     <div class="product-info">
@@ -286,7 +295,7 @@
 
                 <div class="product-card" data-product-id="t-shirt-red" data-category="apparel">
                     <div class="product-image">
-                        <img src="images/t-shirt-red.jpg" alt="Red Mac Wayne T-Shirt">
+                        <img src="public/Images/macwayne-background.png" alt="Red Mac Wayne T-Shirt">
                     </div>
                     <div class="product-info">
                         <h3 class="product-name">Mac Wayne T-Shirt - Red</h3>
@@ -297,7 +306,7 @@
 
                 <div class="product-card" data-product-id="cap-black" data-category="accessories">
                     <div class="product-image">
-                        <img src="images/cap-black.jpg" alt="Black Mac Wayne Cap">
+                        <img src="public/Images/macwayne-background.png" alt="Black Mac Wayne Cap">
                     </div>
                     <div class="product-info">
                         <h3 class="product-name">Mac Wayne Cap - Black</h3>
@@ -309,7 +318,7 @@
                 <!-- Accessories -->
                 <div class="product-card" data-product-id="phone-case" data-category="accessories">
                     <div class="product-image">
-                        <img src="images/phone-case.jpg" alt="Mac Wayne Phone Case">
+                        <img src="public/Images/macwayne-background.png" alt="Mac Wayne Phone Case">
                     </div>
                     <div class="product-info">
                         <h3 class="product-name">Mac Wayne Phone Case</h3>
@@ -320,7 +329,7 @@
 
                 <div class="product-card" data-product-id="keychain" data-category="accessories">
                     <div class="product-image">
-                        <img src="images/keychain.jpg" alt="Mac Wayne Keychain">
+                        <img src="public/Images/macwayne-background.png" alt="Mac Wayne Keychain">
                     </div>
                     <div class="product-info">
                         <h3 class="product-name">Mac Wayne Keychain</h3>
@@ -332,7 +341,7 @@
                 <!-- Digital Products -->
                 <div class="product-card" data-product-id="exclusive-content" data-category="digital">
                     <div class="product-image">
-                        <img src="images/exclusive-content.jpg" alt="Exclusive Content">
+                        <img src="public/Images/macwayne-background.png" alt="Exclusive Content">
                         <div class="product-badge">Exclusive</div>
                     </div>
                     <div class="product-info">
@@ -340,14 +349,12 @@
                         <p class="product-price">$4.99</p>
                         <button class="add-to-cart">Add to Cart</button>
                     </div>
-                </div>
-
-                <div class="product-card" data-product-id="beats-pack" data-category="digital">
+                </div>                <div class="product-card" data-product-id="beats-pack" data-category="digital">
                     <div class="product-image">
-                        <img src="images/beats-pack.jpg" alt="Producer Beats Pack">
+                        <img src="public/Images/macwayne-background.png" alt="Vocal Techniques Pack">
                     </div>
                     <div class="product-info">
-                        <h3 class="product-name">Producer Beats Pack</h3>
+                        <h3 class="product-name">Vocal Techniques Pack</h3>
                         <p class="product-price">$29.99</p>
                         <button class="add-to-cart">Add to Cart</button>
                     </div>
@@ -380,7 +387,7 @@
             <div class="footer-content">
                 <div class="footer-section">
                     <h3>Mac Wayne</h3>
-                    <p>Official website of Mac Wayne - Hip-hop artist, producer, and storyteller.</p>
+                    <p>Official website of Mac Wayne - Hip-hop artist, video director, and storyteller.</p>
                     <div class="social-links">
                         <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
                         <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>

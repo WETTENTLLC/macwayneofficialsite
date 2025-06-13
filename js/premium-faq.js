@@ -16,14 +16,13 @@ function initializeFAQ() {
     faqQuestions.forEach((button, index) => {
         // Ensure proper ARIA setup
         const answerId = `faq-answer-${index + 1}`;
-        let answer = document.getElementById(answerId);
+        const answer = document.getElementById(answerId);
         
         if (!answer) {
             // Create answer ID if it doesn't exist
             const nextElement = button.nextElementSibling;
             if (nextElement && nextElement.classList.contains('faq-answer')) {
                 nextElement.id = answerId;
-                answer = nextElement;
                 button.setAttribute('aria-controls', answerId);
             }
         }
@@ -167,9 +166,7 @@ function announceToScreenReader(message) {
     document.body.appendChild(announcement);
     
     setTimeout(() => {
-        if (document.body.contains(announcement)) {
-            document.body.removeChild(announcement);
-        }
+        document.body.removeChild(announcement);
     }, 1000);
 }
 

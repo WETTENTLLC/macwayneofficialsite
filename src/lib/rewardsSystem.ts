@@ -15,7 +15,9 @@ export enum PointActivity {
   REFERRAL = 'referral',
   SOCIAL_FOLLOW = 'social_follow',
   STREAM = 'stream',
-  CONCERT_ATTEND = 'concert_attend'
+  CONCERT_ATTEND = 'concert_attend',
+  DAILY_LOGIN = 'daily_login', // Added
+  STREAK_BONUS = 'streak_bonus' // Added
 }
 
 // Membership tiers
@@ -71,11 +73,13 @@ const POINT_VALUES: Record<PointActivity, number> = {
   [PointActivity.SHARE]: 10,
   [PointActivity.REVIEW]: 15,
   [PointActivity.VOLUNTEER]: 50,
-  [PointActivity.SIGNUP]: 100,
+  [PointActivity.SIGNUP]: 100, // Points for initial signup
   [PointActivity.REFERRAL]: 75,
   [PointActivity.SOCIAL_FOLLOW]: 20,
   [PointActivity.STREAM]: 5,
-  [PointActivity.CONCERT_ATTEND]: 100
+  [PointActivity.CONCERT_ATTEND]: 100,
+  [PointActivity.DAILY_LOGIN]: 5, // Base points for daily login
+  [PointActivity.STREAK_BONUS]: 50 // Points for a 7-day streak
 };
 
 // Tier thresholds
@@ -161,7 +165,9 @@ export function awardPoints(
       [PointActivity.REFERRAL]: 0,
       [PointActivity.SOCIAL_FOLLOW]: 0,
       [PointActivity.STREAM]: 0,
-      [PointActivity.CONCERT_ATTEND]: 0
+      [PointActivity.CONCERT_ATTEND]: 0,
+      [PointActivity.DAILY_LOGIN]: 0, // Added
+      [PointActivity.STREAK_BONUS]: 0 // Added
     };
   }
   profile.activitiesCompleted[activity] = (profile.activitiesCompleted[activity] || 0) + 1;
@@ -408,7 +414,7 @@ function createDefaultProfile(userId: string): LoyaltyProfile {
     pointsSpent: 0,
     pointsEarned: 0,
     achievements: [],
-    activitiesCompleted: {
+    activitiesCompleted: { // Ensure all activities are initialized
       [PointActivity.PURCHASE]: 0,
       [PointActivity.SHARE]: 0,
       [PointActivity.REVIEW]: 0,
@@ -417,7 +423,9 @@ function createDefaultProfile(userId: string): LoyaltyProfile {
       [PointActivity.REFERRAL]: 0,
       [PointActivity.SOCIAL_FOLLOW]: 0,
       [PointActivity.STREAM]: 0,
-      [PointActivity.CONCERT_ATTEND]: 0
+      [PointActivity.CONCERT_ATTEND]: 0,
+      [PointActivity.DAILY_LOGIN]: 0,
+      [PointActivity.STREAK_BONUS]: 0
     },
     streakCount: 0,
     lastLoginDate: Date.now()
@@ -489,10 +497,12 @@ function getDefaultDescription(activity: PointActivity): string {
     [PointActivity.REFERRAL]: 'Referred a friend',
     [PointActivity.SOCIAL_FOLLOW]: 'Followed on social media',
     [PointActivity.STREAM]: 'Streamed music',
-    [PointActivity.CONCERT_ATTEND]: 'Attended concert'
+    [PointActivity.CONCERT_ATTEND]: 'Attended concert',
+    [PointActivity.DAILY_LOGIN]: 'Daily login bonus', // Added
+    [PointActivity.STREAK_BONUS]: 'Activity streak bonus' // Added
   };
   
-  return descriptions[activity];
+  return descriptions[activity] || 'Point activity'; // Fallback description
 }
 
 /**
@@ -537,58 +547,59 @@ export function awardDailyBonus(userId: string): PointTransaction | null {
   const lastLoginDateStr = new Date(profile.lastLoginDate || 0).toDateString();
   const yesterday = new Date(Date.now() - 24 * 60 * 60 * 1000).toDateString();
   
-  // Check if user already got bonus today
   if (lastLoginDateStr === today) {
-    return null;
+    return null; // Already awarded today
   }
   
-  // Update streak count
-  if (!profile.streakCount) profile.streakCount = 0;
-  if (!profile.lastLoginDate) profile.lastLoginDate = Date.now();
-  
-  if (lastLoginDateStr === yesterday) {
-    // Consecutive day - increment streak
-    profile.streakCount += 1;
-  } else if (lastLoginDateStr !== today) {
-    // Non-consecutive - reset streak
-    profile.streakCount = 1;
+  if (profile.lastLoginDate) { // Ensure lastLoginDate is set before calculating streak
+    if (lastLoginDateStr === yesterday) {
+      profile.streakCount = (profile.streakCount || 0) + 1;
+    } else {
+      profile.streakCount = 1; // Reset streak if not consecutive
+    }
+  } else {
+    profile.streakCount = 1; // First login (or first after this system update)
   }
   
   profile.lastLoginDate = Date.now();
   
-  // Award daily bonus (5-15 points based on tier)
-  const bonusPoints = profile.tier === MembershipTier.LEGEND ? 15 : 
-                     profile.tier === MembershipTier.SHERIFF ? 10 : 5;
-  
-  // Save updated profile
+  const baseDailyPoints = POINT_VALUES[PointActivity.DAILY_LOGIN];
+  let pointMultiplier = 1;
+  if (profile.tier === MembershipTier.LEGEND) {
+    pointMultiplier = 3;
+  } else if (profile.tier === MembershipTier.SHERIFF) {
+    pointMultiplier = 2;
+  }
+
+  // Save profile with updated streak and lastLoginDate *before* awarding points
   const profiles = getStoredProfiles();
   profiles[userId] = profile;
   saveProfiles(profiles);
   
-  return awardPoints(userId, PointActivity.SIGNUP, `Daily login bonus (${profile.tier})`, bonusPoints / 100);
+  return awardPoints(userId, PointActivity.DAILY_LOGIN, `Daily login bonus (${profile.tier})`, pointMultiplier);
 }
 
 /**
  * Check and award streak bonuses
  */
 export function checkStreakBonus(userId: string): PointTransaction | null {
-  const transactions = getPointTransactions()
-    .filter(t => t.userId === userId)
-    .sort((a, b) => b.timestamp - a.timestamp);
-  
-  const last7Days = transactions.filter(t => 
-    t.timestamp > Date.now() - (7 * 24 * 60 * 60 * 1000)
-  );
-  
-  // Award streak bonus for 7 consecutive days
-  if (last7Days.length >= 7) {
-    const hasStreakBonus = transactions.some(t => 
-      t.description.includes('7-day streak') && 
-      t.timestamp > Date.now() - (7 * 24 * 60 * 60 * 1000)
+  const profile = getLoyaltyProfile(userId);
+
+  if (profile.streakCount > 0 && profile.streakCount % 7 === 0) {
+    const streakBonusDescription = `${profile.streakCount}-day login streak bonus!`;
+    const transactions = getPointTransactions();
+    const sevenDaysAgo = Date.now() - (7 * 24 * 60 * 60 * 1000);
+
+    // Check if a bonus for this specific streak count (e.g., 7-day, 14-day) was already awarded recently
+    const alreadyAwardedThisExactStreak = transactions.some(t => 
+      t.userId === userId &&
+      t.activity === PointActivity.STREAK_BONUS &&
+      t.description === streakBonusDescription && // Ensures it's for the same streak number
+      t.timestamp > profile.lastLoginDate - (24 * 60 * 60 * 1000) // Awarded since the login that achieved this streak count
     );
-    
-    if (!hasStreakBonus) {
-      return awardPoints(userId, PointActivity.SIGNUP, '7-day streak bonus!', 1);
+
+    if (!alreadyAwardedThisExactStreak) {
+      return awardPoints(userId, PointActivity.STREAK_BONUS, streakBonusDescription, 1); // Standard points for STREAK_BONUS
     }
   }
   
@@ -694,38 +705,48 @@ export function getAchievementDefinitions(): Record<string, {
 
 // Storage helper functions
 function getStoredProfiles(): Record<string, LoyaltyProfile> {
-  if (typeof window === 'undefined') return {};
-  
-  try {
-    const profilesJson = localStorage.getItem(LOYALTY_PROFILE_KEY);
-    return profilesJson ? JSON.parse(profilesJson) : {};
-  } catch (error) {
-    console.error('Failed to load loyalty profiles:', error);
-    return {};
+  if (typeof globalThis !== 'undefined' && typeof (globalThis as any).localStorage !== 'undefined') {
+    try {
+      const profilesJson = (globalThis as any).localStorage.getItem(LOYALTY_PROFILE_KEY);
+      return profilesJson ? JSON.parse(profilesJson) : {};
+    } catch (error) {
+      console.error('Failed to load loyalty profiles:', error);
+      return {}; // Return empty object on error
+    }
   }
+  return {}; // Return empty object if localStorage is not available
 }
 
 function saveProfiles(profiles: Record<string, LoyaltyProfile>) {
-  if (typeof window !== 'undefined') {
-    localStorage.setItem(LOYALTY_PROFILE_KEY, JSON.stringify(profiles));
+  if (typeof globalThis !== 'undefined' && typeof (globalThis as any).localStorage !== 'undefined') {
+    try {
+      (globalThis as any).localStorage.setItem(LOYALTY_PROFILE_KEY, JSON.stringify(profiles));
+    } catch (error) {
+      console.error('Failed to save loyalty profiles:', error);
+    }
   }
 }
 
 function getPointTransactions(): PointTransaction[] {
-  if (typeof window === 'undefined') return [];
-  
-  try {
-    const transactionsJson = localStorage.getItem(POINT_TRANSACTIONS_KEY);
-    return transactionsJson ? JSON.parse(transactionsJson) : [];
-  } catch (error) {
-    console.error('Failed to load point transactions:', error);
-    return [];
+  if (typeof globalThis !== 'undefined' && typeof (globalThis as any).localStorage !== 'undefined') {
+    try {
+      const transactionsJson = (globalThis as any).localStorage.getItem(POINT_TRANSACTIONS_KEY);
+      return transactionsJson ? JSON.parse(transactionsJson) : [];
+    } catch (error) {
+      console.error('Failed to load point transactions:', error);
+      return []; // Return empty array on error
+    }
   }
+  return []; // Return empty array if localStorage is not available
 }
 
 function savePointTransactions(transactions: PointTransaction[]) {
-  if (typeof window !== 'undefined') {
-    localStorage.setItem(POINT_TRANSACTIONS_KEY, JSON.stringify(transactions));
+  if (typeof globalThis !== 'undefined' && typeof (globalThis as any).localStorage !== 'undefined') {
+    try {
+      (globalThis as any).localStorage.setItem(POINT_TRANSACTIONS_KEY, JSON.stringify(transactions));
+    } catch (error) {
+      console.error('Failed to save point transactions:', error);
+    }
   }
 }
 
@@ -739,20 +760,25 @@ interface RedemptionRecord {
 }
 
 function getRedeemedRewards(): RedemptionRecord[] {
-  if (typeof window === 'undefined') return [];
-  
-  try {
-    const redemptionsJson = localStorage.getItem(REDEEMED_REWARDS_KEY);
-    return redemptionsJson ? JSON.parse(redemptionsJson) : [];
-  } catch (error) {
-    console.error('Failed to load redeemed rewards:', error);
-    return [];
+  if (typeof globalThis !== 'undefined' && typeof (globalThis as any).localStorage !== 'undefined') {
+    try {
+      const redemptionsJson = (globalThis as any).localStorage.getItem(REDEEMED_REWARDS_KEY);
+      return redemptionsJson ? JSON.parse(redemptionsJson) : [];
+    } catch (error) {
+      console.error('Failed to load redeemed rewards:', error);
+      return []; // Return empty array on error
+    }
   }
+  return []; // Return empty array if localStorage is not available
 }
 
 function saveRedeemedRewards(redemptions: RedemptionRecord[]) {
-  if (typeof window !== 'undefined') {
-    localStorage.setItem(REDEEMED_REWARDS_KEY, JSON.stringify(redemptions));
+  if (typeof globalThis !== 'undefined' && typeof (globalThis as any).localStorage !== 'undefined') {
+    try {
+      (globalThis as any).localStorage.setItem(REDEEMED_REWARDS_KEY, JSON.stringify(redemptions));
+    } catch (error) {
+      console.error('Failed to save redeemed rewards:', error);
+    }
   }
 }
 

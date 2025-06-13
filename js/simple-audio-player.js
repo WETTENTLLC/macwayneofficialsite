@@ -195,20 +195,38 @@ class SimpleAudioPlayer {
     }
     
     async play() {
-        console.log('play() called');
+        console.log('simple-audio-player.js: play() called. Instance this.src:', this.src, 'AudioEl currentSrc:', this.audioEl.currentSrc);
         try {
             // Update status indicator to show loading
             if (this.statusIndicator) {
                 this.statusIndicator.style.backgroundColor = '#ffcc00'; // Yellow for loading
             }
-            // Load audio if not loaded
-            if (!this.audioEl.src || this.audioEl.src === '') {
-                console.log('Loading audio source:', this.src);
-                if (!this.src) {
-                    throw new Error('No audio source provided');
-                }
-                await this.loadAudioSource();
+
+            // Determine if a new source needs to be loaded into the audio element
+            let needsToLoadNewSource = false;
+            if (!this.audioEl.currentSrc || this.audioEl.currentSrc === '') { // No source currently in audio element
+                needsToLoadNewSource = true;
+                console.log('simple-audio-player.js: play() - Reason: audioEl has no currentSrc.');
+            } else if (this.src && !this.audioEl.currentSrc.endsWith(this.src)) { // Instance's src is different from audio element's current src
+                needsToLoadNewSource = true;
+                console.log('simple-audio-player.js: play() - Reason: instance src differs from audioEl.currentSrc.');
+            } else if (this.audioEl.readyState === 0) { // HAVE_NOTHING state
+                needsToLoadNewSource = true;
+                console.log('simple-audio-player.js: play() - Reason: audioEl.readyState is 0.');
             }
+
+
+            if (needsToLoadNewSource) {
+                console.log('simple-audio-player.js: play() - Decision: New source needs to be loaded.');
+                if (!this.src) {
+                    console.error('simple-audio-player.js: play() - Critical: this.src is undefined or empty. Cannot load new source.');
+                    throw new Error('No audio source provided to instance for loading');
+                }
+                await this.loadAudioSource(); // This method should set this.audioEl.src = this.src and load it
+            } else {
+                console.log('simple-audio-player.js: play() - Decision: Existing source in audioEl is sufficient or matches instance src. Proceeding to play.');
+            }
+            
             // Wait for canplay before calling play
             await new Promise((resolve, reject) => {
                 if (this.audioEl.readyState >= 3) { // HAVE_FUTURE_DATA
@@ -764,134 +782,100 @@ class SimpleAudioPlayer {
     
     // Public method to load new track
     loadTrack(trackData) {
-        console.log('Loading new track:', trackData);
+        console.log('simple-audio-player.js: loadTrack called with trackData:', trackData);
         
+        if (!trackData || !trackData.src) {
+            console.error('simple-audio-player.js: loadTrack - Invalid trackData or missing src:', trackData);
+            this.showError('Cannot load track: missing source information.');
+            return;
+        }
+
+        // Update the instance's source and title
         this.src = trackData.src;
-        this.title = trackData.title;
-        this.duration = trackData.duration;
+        this.title = trackData.title || 'Unknown Track';
+        this.duration = trackData.duration; 
         
-        // Update UI
-        const titleEl = this.container.querySelector('.track-title');
-        if (titleEl) titleEl.textContent = this.title;
-        
-        // Reset audio
-        if (this.audioEl) {
-            this.audioEl.src = '';
-            this.audioEl.currentTime = 0;
+        console.log(`simple-audio-player.js: loadTrack - Instance updated: this.src = ${this.src}, this.title = ${this.title}`);
+
+        // Update UI elements related to track title in the featured player
+        if (window.simpleAudioPlayer && window.simpleAudioPlayer.container === this.container) { // Ensure this is the featured player instance
+            const titleEl = this.container.querySelector('.track-title'); // Adjust selector if needed for your featured player
+            if (titleEl) {
+                titleEl.textContent = this.title;
+                console.log('simple-audio-player.js: loadTrack - Updated featured player title to:', this.title);
+            }
         }
         
-        this.isPlaying = false;
-        this.updatePlayButton();
+        // Reset audio element's state for the new track
+        if (this.audioEl) {
+            console.log('simple-audio-player.js: loadTrack - Pausing audio element if playing, and resetting currentTime.');
+            this.audioEl.pause(); // Pause current playback
+            this.audioEl.currentTime = 0; // Reset time
+            // Do NOT set this.audioEl.src = '' here. 
+            // The play() method will handle loading the new this.src via loadAudioSource if needed.
+        }
         
-        // Auto-play
-        this.play();
-    }
-    
-    // Alias for compatibility
-    loadNewTrack(trackData) {
-        return this.loadTrack(trackData);
+        this.isPlaying = false; 
+        this.updatePlayButton(); 
+        
+        console.log('simple-audio-player.js: loadTrack - Calling this.play() to start the new track.');
+        this.play().catch(error => {
+            console.error('simple-audio-player.js: loadTrack - Error during play() call for new track:', error);
+        });
     }
 }
 
-// Initialize simple audio players when DOM loads
 document.addEventListener('DOMContentLoaded', function() {
-    console.log('DOM loaded, initializing simple audio players...');
+    console.log('simple-audio-player.js: DOM loaded, initializing simple audio players...');
     
     // Initialize featured player
-    const featuredPlayer = document.querySelector('.featured-player .audio-player');
-    if (featuredPlayer) {
-        console.log('Initializing featured player...');
-        window.simpleAudioPlayer = new SimpleAudioPlayer(featuredPlayer);
+    const featuredPlayerContainer = document.querySelector('.featured-player .audio-player');
+    if (featuredPlayerContainer) {
+        console.log('simple-audio-player.js: Initializing featured player for container:', featuredPlayerContainer);
+        // IMPORTANT: Ensure featuredPlayerContainer has data-src, data-title attributes in HTML
+        // if you want it to load a default track on page load.
+        // Example: <div class="audio-player" data-src="path/to/default.mp3" data-title="Default Song">...</div>
+        if (!featuredPlayerContainer.dataset.src) {
+            console.warn("simple-audio-player.js: Featured player container is missing 'data-src'. It will initialize without a default track.");
+        }
+        window.simpleAudioPlayer = new SimpleAudioPlayer(featuredPlayerContainer);
     } else {
-        console.log('Featured player not found');
+        console.warn('simple-audio-player.js: Featured player container not found. Mini players will still initialize if present.');
     }
     
-    // Handle mini play buttons
-    const miniPlayBtns = document.querySelectorAll('.mini-play-btn');
-    console.log('Found mini play buttons:', miniPlayBtns.length);
+    // Initialize mini players
+    const miniPlayerContainers = document.querySelectorAll('.mini-audio-player');
+    miniPlayerContainers.forEach(container => {
+        new SimpleAudioPlayer(container);
+    });
     
-    miniPlayBtns.forEach((btn, index) => {
-        // Add hover effect for better visibility
-        btn.addEventListener('mouseenter', function() {
-            this.style.transform = 'scale(1.1)';
-            this.style.boxShadow = '0 4px 8px rgba(0, 0, 0, 0.3)';
-            this.style.backgroundColor = '#ee0000';
-        });
-        
-        btn.addEventListener('mouseleave', function() {
-            this.style.transform = 'scale(1)';
-            this.style.boxShadow = '0 2px 4px rgba(0, 0, 0, 0.2)';
-            this.style.backgroundColor = '#cc0000';
-        });
-        
+    // Example: Attach click event to all mini play buttons to load track in featured player
+    const miniPlayButtons = document.querySelectorAll('.mini-audio-player .play-btn');
+    miniPlayButtons.forEach(btn => {
         btn.addEventListener('click', function(e) {
             e.preventDefault();
             e.stopPropagation();
             
-            console.log('Mini play button clicked:', index);
-            
-            const trackItem = this.closest('.track-item');
+            const trackItem = this.closest('.mini-audio-player');
             if (trackItem && window.simpleAudioPlayer) {
                 const trackData = {
-                    src: trackItem.dataset.src,
-                    title: trackItem.dataset.title,
+                    src: trackItem.dataset.src, // This is the crucial part for mini buttons
+                    title: trackItem.querySelector('.track-name')?.textContent || trackItem.dataset.title || 'Unknown Track',
                     duration: trackItem.dataset.duration
                 };
                 
-                console.log('Loading track from mini button:', trackData);
-                window.simpleAudioPlayer.loadTrack(trackData);
-                
-                // Provide visual feedback
-                document.querySelectorAll('.track-item').forEach(item => {
-                    item.style.backgroundColor = '';
-                });
-                trackItem.style.backgroundColor = 'rgba(204, 0, 0, 0.15)';
-                
-                // Scroll to the featured player if it's not visible
-                const featuredPlayer = document.querySelector('.featured-player');
-                if (featuredPlayer) {
-                    featuredPlayer.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                if (!trackData.src) {
+                    console.error('simple-audio-player.js: Mini play button clicked, but data-src is missing on trackItem:', trackItem);
+                    // Display an error to the user or on the track item itself
+                    if(window.simpleAudioPlayer && typeof window.simpleAudioPlayer.showError === 'function') {
+                        window.simpleAudioPlayer.showError("Track data is missing. Cannot play.");
+                    }
+                    return; 
                 }
+                
+                console.log('simple-audio-player.js: Mini play button - Calling loadTrack with:', trackData);
+                window.simpleAudioPlayer.loadTrack(trackData);
             }
         });
     });
-    
-    console.log('Simple audio player initialization complete');
 });
-
-// Global functions for testing
-window.unlockTracks = function() {
-    console.log('Unlocking tracks...');
-    localStorage.setItem('mac-wayne-album-purchased', 'true');
-    
-    if (window.simpleAudioPlayer) {
-        window.simpleAudioPlayer.isPurchased = true;
-        window.simpleAudioPlayer.updatePreviewStatus();
-    }
-    
-    // Update all preview indicators
-    document.querySelectorAll('.preview-indicator').forEach(indicator => {
-        indicator.style.display = 'none';
-    });
-    
-    alert('All tracks unlocked! Preview mode disabled.');
-};
-
-window.resetPurchase = function() {
-    console.log('Resetting purchase...');
-    localStorage.removeItem('mac-wayne-album-purchased');
-    location.reload();
-};
-
-window.testAudio = function() {
-    console.log('Testing audio player...');
-    if (window.simpleAudioPlayer) {
-        console.log('Audio player state:', {
-            isPlaying: window.simpleAudioPlayer.isPlaying,
-            src: window.simpleAudioPlayer.src,
-            isPurchased: window.simpleAudioPlayer.isPurchased()
-        });
-    } else {
-        console.log('No audio player found');
-    }
-};

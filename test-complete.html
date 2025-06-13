@@ -8,10 +8,22 @@
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Atkinson+Hyperlegible:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
     
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <!-- Custom Control Icons -->
+    <style>
+        .control-icon {
+            display: inline-block;
+            width: 1em;
+            height: 1em;
+            text-align: center;
+        }
+        .icon-prev::before { content: "⏮"; }
+        .icon-play::before { content: "▶"; }
+        .icon-pause::before { content: "⏸"; }
+        .icon-next::before { content: "⏭"; }
+        .icon-volume::before { content: "🔊"; }
+    </style>
     
     <!-- Styles -->
     <link rel="stylesheet" href="styles/main.css">
@@ -160,44 +172,37 @@
                 </div>
                 
                 <!-- Track List for Testing -->
-                <div class="album-section">
-                    <h4>Test Tracks (Preview Mode)</h4>
-                    <div class="track-list">
-                        <div class="track-item" data-src="/audio/test1.mp3" data-title="Test Track 1" data-duration="3:30" data-preview="true">
-                            <span class="track-name">Test Track 1 <span class="preview-indicator">Preview</span></span>
-                            <div class="mini-player">
-                                <button class="mini-play-btn">
-                                    <svg viewBox="0 0 24 24" fill="currentColor">
-                                        <path d="M8 5v14l11-7z"/>
-                                    </svg>
-                                </button>
-                            </div>
+                <div class="track-list">
+                    <div class="track-item" data-src="public/audio/test3.mp3" data-title="Test Track 3" data-duration="3:45" data-preview="true">
+                        <span class="track-name">Test Track 1 <span class="preview-indicator">Preview</span></span>
+                        <div class="mini-player">
+                            <button class="mini-play-btn">
+                                <i class="fas fa-play"></i>
+                            </button>
                         </div>
-                        
-                        <div class="track-item" data-src="/audio/test2.mp3" data-title="Test Track 2" data-duration="4:15" data-preview="true">
-                            <span class="track-name">Test Track 2 <span class="preview-indicator">Preview</span></span>
-                            <div class="mini-player">
-                                <button class="mini-play-btn">
-                                    <svg viewBox="0 0 24 24" fill="currentColor">
-                                        <path d="M8 5v14l11-7z"/>
-                                    </svg>
-                                </button>
-                            </div>
+                    </div>
+                    <div class="track-item" data-src="public/audio/test1.mp3" data-title="Test Track 1" data-duration="3:30" data-preview="true">
+                        <span class="track-name">Test Track 2 <span class="preview-indicator">Preview</span></span>
+                        <div class="mini-player">
+                            <button class="mini-play-btn">
+                                <svg viewBox="0 0 24 24" fill="currentColor">
+                                    <path d="M8 5v14l11-7z"/>
+                                </svg>
+                            </button>
                         </div>
-                        
-                        <div class="track-item" data-src="/audio/test3.mp3" data-title="Test Track 3" data-duration="3:45" data-preview="true">
-                            <span class="track-name">Test Track 3 <span class="preview-indicator">Preview</span></span>
-                            <div class="mini-player">
-                                <button class="mini-play-btn">
-                                    <svg viewBox="0 0 24 24" fill="currentColor">
-                                        <path d="M8 5v14l11-7z"/>
-                                    </svg>
-                                </button>
-                            </div>
+                    </div>
+                    
+                    <div class="track-item" data-src="public/audio/test2.mp3" data-title="Test Track 2" data-duration="4:15" data-preview="true">
+                        <span class="track-name">Test Track 3 <span class="preview-indicator">Preview</span></span>
+                        <div class="mini-player">
+                            <button class="mini-play-btn">
+                                <svg viewBox="0 0 24 24" fill="currentColor">
+                                    <path d="M8 5v14l11-7z"/>
+                                </svg>
+                            </button>
                         </div>
                     </div>
                 </div>
-            </div>
             
             <!-- Purchase Test Section -->
             <div class="test-section">
