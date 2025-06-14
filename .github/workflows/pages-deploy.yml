@@ -5,30 +5,37 @@ name: Deploy static site to Pages
 on:
   push:
     branches:
-      - deploy-updates
+      - main # Deploy when main is pushed
 
 permissions:
   contents: read
   pages: write
   id-token: write
 
+# Allow only one concurrent deployment, skipping runs queued between the run in-progress and latest queued.
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+
 jobs:
-  build:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-      - name: Upload Pages artifact
-        uses: actions/upload-pages-artifact@v3
-        with:
-          path: .
-  deploy:
-    needs: build
-    runs-on: ubuntu-latest
+  deploy: # Simplified to a single job
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
     steps:
+      - name: Checkout
+        uses: actions/checkout@v4 # Standard checkout action
+      
+      - name: Setup Pages
+        uses: actions/configure-pages@v5 # Standard configure pages action
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3 # Standard upload for Pages
+        with:
+          # Path to the directory to upload
+          path: './deploy-clean' # Assuming your site's content is in the deploy-clean folder at the root
+
       - name: Deploy to GitHub Pages
         id: deployment
-        uses: actions/deploy-pages@v3
+        uses: actions/deploy-pages@v4 # Standard deploy action

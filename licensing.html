@@ -343,7 +343,7 @@
     <!-- JavaScript -->
     <script src="js/main.js"></script>
     <script src="js/animations.js"></script>
-    
+    <audio id="licensing-preview-audio" style="display:none;"></audio>
     <script>
         // Licensing Form Handler
         document.getElementById('licensing-inquiry-form').addEventListener('submit', function(e) {
@@ -362,13 +362,50 @@
         });
 
         // Track Preview/License Button Handlers
+        const previewAudio = document.getElementById('licensing-preview-audio');
+        const trackSamples = {
+            'gotta-split': 'public/audio/Blind and Battered [Explicit]/samples/01-sample.mp3',
+            'i-think': 'public/audio/Blind and Battered [Explicit]/samples/02-sample.mp3',
+            // Add 'mac-waynes-flow' if sample is available, e.g.:
+            // 'mac-waynes-flow': 'public/audio/Blind and Battered [Explicit]/samples/your-sample-file.mp3'
+        };
+
         document.querySelectorAll('.btn-preview').forEach(button => {
             button.addEventListener('click', function() {
-                const track = this.dataset.track;
-                // Here you would implement audio preview functionality
-                alert(`Preview for "${track}" - Audio preview functionality would be implemented here.`);
+                const trackKey = this.dataset.track;
+                const samplePath = trackSamples[trackKey];
+
+                if (samplePath) {
+                    if (previewAudio.src.endsWith(samplePath) && !previewAudio.paused) {
+                        previewAudio.pause();
+                        this.innerHTML = '<i class="fas fa-play"></i> Preview';
+                    } else {
+                        previewAudio.src = samplePath;
+                        previewAudio.play();
+                        // Reset other buttons
+                        document.querySelectorAll('.btn-preview').forEach(btn => {
+                            if (btn !== this) {
+                                btn.innerHTML = '<i class="fas fa-play"></i> Preview';
+                            }
+                        });
+                        this.innerHTML = '<i class="fas fa-pause"></i> Pause';
+                    }
+                } else {
+                    alert('Preview for "' + trackKey + '" is not available yet.');
+                }
             });
         });
+
+        if (previewAudio) {
+            previewAudio.addEventListener('ended', function() {
+                document.querySelectorAll('.btn-preview').forEach(button => {
+                    const trackKey = button.dataset.track;
+                    if (previewAudio.src.endsWith(trackSamples[trackKey])) {
+                        button.innerHTML = '<i class="fas fa-play"></i> Preview';
+                    }
+                });
+            });
+        }
 
         document.querySelectorAll('.btn-license').forEach(button => {
             button.addEventListener('click', function() {
