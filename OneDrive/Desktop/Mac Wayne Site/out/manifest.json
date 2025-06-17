@@ -1,0 +1,35 @@
+{
+  "name": "Mac Wayne Official - The Blind Visionary's Universe",
+  "short_name": "Mac Wayne",
+  "description": "Official website of Mac Wayne - Blind rapper, storyteller, and visionary",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#121212",
+  "theme_color": "#cc0000",
+  "orientation": "portrait-primary",
+  "categories": ["music", "entertainment", "accessibility"],
+  "lang": "en",
+  "dir": "ltr",
+  "icons": [
+    {
+      "src": "/Images/macwayne-logo.JPG",
+      "sizes": "192x192",
+      "type": "image/jpeg",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/Images/macwayne-logo.JPG",
+      "sizes": "512x512",
+      "type": "image/jpeg",
+      "purpose": "any maskable"
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "/Images/macwayne-background.png",
+      "sizes": "1280x720",
+      "type": "image/png",
+      "form_factor": "wide"
+    }
+  ]
+}

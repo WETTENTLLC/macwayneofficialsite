@@ -277,10 +277,259 @@
       </div>
     </div>
   </section>
-
   <!-- Add more sections as needed, such as case studies, testimonials, process, FAQ, and footer -->
+
+  <!-- Consultation Request Modal -->
+  <div id="consultingModal" class="modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2>Request Consultation</h2>
+        <span class="close" onclick="closeConsultingModal()">&times;</span>
+      </div>
+      <div class="modal-body">
+        <form action="https://formspree.io/f/xgveaarg" method="POST" id="consultingForm">
+          <input type="hidden" name="_subject" value="Accessibility Consulting Request">
+          <div class="form-group">
+            <label for="consultingCompany">Company/Organization</label>
+            <input type="text" id="consultingCompany" name="company" required>
+          </div>
+          <div class="form-group">
+            <label for="consultingContact">Contact Name</label>
+            <input type="text" id="consultingContact" name="contact" required>
+          </div>
+          <div class="form-group">
+            <label for="consultingEmail">Email</label>
+            <input type="email" id="consultingEmail" name="email" required>
+          </div>
+          <div class="form-group">
+            <label for="consultingPhone">Phone</label>
+            <input type="tel" id="consultingPhone" name="phone">
+          </div>
+          <div class="form-group">
+            <label for="consultingService">Service Type</label>
+            <select id="consultingService" name="serviceType" required>
+              <option value="">Select a service</option>
+              <option value="accessibility-audit">Accessibility Audit</option>
+              <option value="compliance-wcag">WCAG Compliance</option>
+              <option value="strategy-consulting">Strategy Consulting</option>
+              <option value="audio-accessibility">Audio Accessibility</option>
+              <option value="creative-accessibility">Creative Accessibility</option>
+              <option value="training">Team Training</option>
+              <option value="other">Other</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="consultingProject">Project Description</label>
+            <textarea id="consultingProject" name="projectDescription" rows="4" required placeholder="Please describe your accessibility needs, current challenges, and desired outcomes..."></textarea>
+          </div>
+          <div class="form-group">
+            <label for="consultingTimeline">Timeline</label>
+            <input type="text" id="consultingTimeline" name="timeline" placeholder="When do you need this completed?">
+          </div>
+          <div class="form-group">
+            <label for="consultingBudget">Budget Range</label>
+            <select id="consultingBudget" name="budget">
+              <option value="">Select budget range</option>
+              <option value="under-2k">Under $2,000</option>
+              <option value="2k-5k">$2,000 - $5,000</option>
+              <option value="5k-10k">$5,000 - $10,000</option>
+              <option value="10k-25k">$10,000 - $25,000</option>
+              <option value="25k-plus">$25,000+</option>
+              <option value="discuss">Prefer to discuss</option>
+            </select>
+          </div>
+          <button type="submit" class="btn btn-primary">Submit Request</button>
+        </form>
+      </div>
+    </div>
+  </div>
 
   <script src="js/main.js"></script>
   <script src="js/consulting.js"></script>
+  
+  <script>
+    // Update existing quote links to open modal
+    document.addEventListener('DOMContentLoaded', function() {
+      // Replace quote links with modal trigger
+      document.querySelectorAll('a[href="#quote"]').forEach(link => {
+        link.addEventListener('click', function(e) {
+          e.preventDefault();
+          openConsultingModal();
+          const service = this.getAttribute('data-service');
+          if (service) {
+            document.getElementById('consultingService').value = service.toLowerCase().replace(' ', '-');
+          }
+        });
+      });
+
+      // Form submission handling
+      const consultingForm = document.getElementById('consultingForm');
+      if (consultingForm) {
+        consultingForm.addEventListener('submit', function(e) {
+          const submitBtn = this.querySelector('button[type="submit"]');
+          submitBtn.textContent = 'Sending...';
+          submitBtn.disabled = true;
+
+          setTimeout(() => {
+            alert('Thank you! Your consultation request has been submitted. We\'ll get back to you within 24 hours to schedule a discovery call.');
+            closeConsultingModal();
+            this.reset();
+            submitBtn.textContent = 'Submit Request';
+            submitBtn.disabled = false;
+          }, 1000);
+        });
+      }
+    });
+
+    function openConsultingModal() {
+      document.getElementById('consultingModal').style.display = 'block';
+    }
+
+    function closeConsultingModal() {
+      document.getElementById('consultingModal').style.display = 'none';
+    }
+
+    // Close modal when clicking outside
+    window.onclick = function(event) {
+      const modal = document.getElementById('consultingModal');
+      if (event.target === modal) {
+        closeConsultingModal();
+      }
+    }
+  </script>
+
+  <style>
+    /* Modal Styles */
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 10000;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.8);
+      overflow-y: auto;
+    }
+
+    .modal-content {
+      background-color: #1a1a1a;
+      margin: 2% auto;
+      padding: 0;
+      border: 2px solid #cc0000;
+      border-radius: 10px;
+      width: 90%;
+      max-width: 700px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8);
+      animation: scaleIn 0.3s ease-out;
+    }
+
+    .modal-header {
+      padding: 20px;
+      border-bottom: 1px solid #333;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .modal-header h2 {
+      color: #cc0000;
+      margin: 0;
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.8em;
+    }
+
+    .close {
+      color: #999;
+      font-size: 28px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: color 0.3s;
+    }
+
+    .close:hover {
+      color: #cc0000;
+    }
+
+    .modal-body {
+      padding: 20px;
+      max-height: 70vh;
+      overflow-y: auto;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 8px;
+      color: #fff;
+      font-weight: bold;
+    }
+
+    .form-group input, .form-group select, .form-group textarea {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid #444;
+      border-radius: 5px;
+      background-color: #2a2a2a;
+      color: #fff;
+      font-size: 16px;
+      transition: border-color 0.3s;
+      box-sizing: border-box;
+    }
+
+    .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+      outline: none;
+      border-color: #cc0000;
+      box-shadow: 0 0 5px rgba(204, 0, 0, 0.3);
+    }
+
+    .btn {
+      background: linear-gradient(145deg, #cc0000, #990000);
+      color: white;
+      padding: 12px 24px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 16px;
+      font-weight: bold;
+      transition: all 0.3s;
+      text-decoration: none;
+      display: inline-block;
+    }
+
+    .btn:hover {
+      background: linear-gradient(145deg, #ee0000, #cc0000);
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(204, 0, 0, 0.4);
+    }
+
+    @keyframes scaleIn {
+      from { transform: scale(0.9); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
+    }
+
+    @media (max-width: 768px) {
+      .modal-content {
+        width: 95%;
+        margin: 5% auto;
+      }
+      
+      .modal-header {
+        padding: 15px;
+      }
+      
+      .modal-body {
+        padding: 15px;
+        max-height: 75vh;
+      }
+      
+      .form-group input, .form-group select, .form-group textarea {
+        font-size: 16px;
+      }
+    }
+  </style>
 </body>
 </html>

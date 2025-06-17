@@ -270,19 +270,90 @@
                     </ul>
                 </div>
             </div>
-        </section>
-
-        <!-- Signup Section (Placeholder - adapt from original or create new) -->
+        </section>        <!-- Signup Section -->
         <section id="signup" class="cta-section section-signup">
              <div class="container">
                 <h2>Ready to Get Started?</h2>
                 <p>Join thousands of successful affiliates earning with our program today.</p>
-                <!-- Replace # with actual signup link or form -->
-                <a href="#" class="btn btn-primary btn-lg">Apply Now</a>
+                <button onclick="openModal('affiliateModal')" class="btn btn-primary btn-lg">Apply Now</button>
             </div>
         </section>
 
     </main>
+
+    <!-- Affiliate Application Modal -->
+    <div id="affiliateModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Affiliate Application</h2>
+                <span class="close" onclick="closeAffiliateModal()">&times;</span>
+            </div>
+            <div class="modal-body">
+                <form action="https://formspree.io/f/xgveaarg" method="POST" id="affiliateApplicationForm">
+                    <input type="hidden" name="_subject" value="New Affiliate Application">
+                    <div class="form-group">
+                        <label for="affiliateFullName">Full Name</label>
+                        <input type="text" id="affiliateFullName" name="name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="affiliateEmailAddress">Email Address</label>
+                        <input type="email" id="affiliateEmailAddress" name="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="affiliatePhoneNumber">Phone Number</label>
+                        <input type="tel" id="affiliatePhoneNumber" name="phone">
+                    </div>
+                    <div class="form-group">
+                        <label for="affiliateCompanyName">Company/Organization</label>
+                        <input type="text" id="affiliateCompanyName" name="company">
+                    </div>
+                    <div class="form-group">
+                        <label for="affiliateWebsiteUrl">Website/Social Media URL</label>
+                        <input type="url" id="affiliateWebsiteUrl" name="website" placeholder="https://...">
+                    </div>
+                    <div class="form-group">
+                        <label for="affiliatePlatformType">Primary Platform</label>
+                        <select id="affiliatePlatformType" name="platform" required>
+                            <option value="">Select your primary platform</option>
+                            <option value="accessibility-tech">Accessibility Technology</option>
+                            <option value="music-industry">Music Industry</option>
+                            <option value="social-media">Social Media Influencer</option>
+                            <option value="content-creator">Content Creator</option>
+                            <option value="disability-advocacy">Disability Advocacy</option>
+                            <option value="technology-blog">Technology Blog/Website</option>
+                            <option value="email-marketing">Email Marketing</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="affiliateAudienceSize">Audience Size</label>
+                        <select id="affiliateAudienceSize" name="audienceSize">
+                            <option value="">Select audience size</option>
+                            <option value="under-1k">Under 1,000</option>
+                            <option value="1k-5k">1,000 - 5,000</option>
+                            <option value="5k-10k">5,000 - 10,000</option>
+                            <option value="10k-50k">10,000 - 50,000</option>
+                            <option value="50k-100k">50,000 - 100,000</option>
+                            <option value="100k-plus">100,000+</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="affiliateExperienceDescription">Marketing Experience</label>
+                        <textarea id="affiliateExperienceDescription" name="experience" rows="3" placeholder="Tell us about your marketing experience, previous affiliate partnerships, and promotional strategies..."></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="affiliateGoalsDescription">Partnership Goals</label>
+                        <textarea id="affiliateGoalsDescription" name="goals" rows="3" placeholder="What do you hope to achieve through this partnership? How do you plan to promote Mac Wayne's content?"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="affiliateRelevantAudience">Target Audience Relevance</label>
+                        <textarea id="affiliateRelevantAudience" name="audienceRelevance" rows="2" placeholder="How does your audience align with Mac Wayne's mission of accessibility and inclusive entertainment?"></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Submit Application</button>
+                </form>
+            </div>
+        </div>
+    </div>
 
     <footer class="main-footer">
         <div class="container">
@@ -314,10 +385,186 @@
                 </div>
             </div>
         </div>
-    </footer>
-
-    <script src="js/main.js"></script>
+    </footer>    <script src="js/main.js"></script>
     <script src="js/mobile-menu.js"></script>
-    <!-- <script src="js/affiliate.js"></script> Potentially needed if affiliate.html has specific JS -->
+    
+    <script>
+        // Affiliate modal functions
+        function openModal(modalId) {
+            document.getElementById(modalId).style.display = 'block';
+        }
+
+        function closeAffiliateModal() {
+            document.getElementById('affiliateModal').style.display = 'none';
+        }
+
+        // Form submission handling
+        document.addEventListener('DOMContentLoaded', function() {
+            const affiliateForm = document.getElementById('affiliateApplicationForm');
+            if (affiliateForm) {
+                affiliateForm.addEventListener('submit', function(e) {
+                    const submitBtn = this.querySelector('button[type="submit"]');
+                    submitBtn.textContent = 'Sending...';
+                    submitBtn.disabled = true;
+
+                    setTimeout(() => {
+                        alert('Thank you for your affiliate application! We\'ll review it and get back to you within 48 hours with next steps.');
+                        closeAffiliateModal();
+                        this.reset();
+                        submitBtn.textContent = 'Submit Application';
+                        submitBtn.disabled = false;
+                    }, 1000);
+                });
+            }
+
+            // Close modal when clicking outside
+            window.onclick = function(event) {
+                const modal = document.getElementById('affiliateModal');
+                if (event.target === modal) {
+                    closeAffiliateModal();
+                }
+            }
+        });
+    </script>
+    
+    <style>
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 10000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            overflow-y: auto;
+        }
+
+        .modal-content {
+            background-color: #1a1a1a;
+            margin: 2% auto;
+            padding: 0;
+            border: 2px solid #cc0000;
+            border-radius: 10px;
+            width: 90%;
+            max-width: 700px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8);
+            animation: scaleIn 0.3s ease-out;
+        }
+
+        .modal-header {
+            padding: 20px;
+            border-bottom: 1px solid #333;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .modal-header h2 {
+            color: #cc0000;
+            margin: 0;
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1.8em;
+        }
+
+        .close {
+            color: #999;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+
+        .close:hover {
+            color: #cc0000;
+        }
+
+        .modal-body {
+            padding: 20px;
+            max-height: 70vh;
+            overflow-y: auto;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: #fff;
+            font-weight: bold;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #444;
+            border-radius: 5px;
+            background-color: #2a2a2a;
+            color: #fff;
+            font-size: 16px;
+            transition: border-color 0.3s;
+            box-sizing: border-box;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #cc0000;
+            box-shadow: 0 0 5px rgba(204, 0, 0, 0.3);
+        }
+
+        .btn {
+            background: linear-gradient(145deg, #cc0000, #990000);
+            color: white;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: bold;
+            transition: all 0.3s;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn:hover {
+            background: linear-gradient(145deg, #ee0000, #cc0000);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(204, 0, 0, 0.4);
+        }
+
+        @keyframes scaleIn {
+            from { transform: scale(0.9); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+
+        @media (max-width: 768px) {
+            .modal-content {
+                width: 95%;
+                margin: 5% auto;
+            }
+            
+            .modal-header {
+                padding: 15px;
+            }
+            
+            .modal-body {
+                padding: 15px;
+                max-height: 75vh;
+            }
+            
+            .form-group input,
+            .form-group select,
+            .form-group textarea {
+                font-size: 16px; /* Prevent zoom on iOS */
+            }
+        }
+    </style>
 </body>
 </html>

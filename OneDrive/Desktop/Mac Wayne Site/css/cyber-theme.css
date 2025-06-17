@@ -1,0 +1,811 @@
+/* Battered Coin - Futuristic Cyber Theme */
+
+/* Cyber Grid Background */
+body.crypto-page {
+    background: #000000;
+    background-image: 
+        radial-gradient(rgba(0, 255, 255, 0.1) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0, 255, 255, 0.03) 1px, transparent 1px),
+        linear-gradient(rgba(0, 255, 255, 0.03) 1px, transparent 1px);
+    background-size: 50px 50px, 50px 50px, 50px 50px;
+    background-position: 0 0, 0 0, 0 0;
+    animation: gridMove 20s linear infinite;
+    position: relative;
+    overflow-x: hidden;
+}
+
+body.crypto-page::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: 
+        radial-gradient(ellipse at 20% 50%, rgba(255, 0, 150, 0.1) 0%, transparent 50%),
+        radial-gradient(ellipse at 80% 20%, rgba(0, 255, 255, 0.1) 0%, transparent 50%),
+        radial-gradient(ellipse at 40% 80%, rgba(255, 107, 53, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+@keyframes gridMove {
+    0% { background-position: 0 0, 0 0, 0 0; }
+    100% { background-position: 50px 50px, 50px 50px, 50px 50px; }
+}
+
+/* Cyber Typography */
+.crypto-page h1, .crypto-page h2, .crypto-page h3 {
+    font-family: 'Orbitron', 'Bebas Neue', monospace;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    position: relative;
+}
+
+.crypto-page h1 {
+    font-size: 4rem;
+    background: linear-gradient(45deg, #00ffff, #ff00ff, #ffff00, #00ffff);
+    background-size: 400% 400%;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    animation: gradientShift 3s ease-in-out infinite;
+    text-shadow: 0 0 30px rgba(0, 255, 255, 0.5);
+}
+
+@keyframes gradientShift {
+    0%, 100% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+}
+
+/* Cyber Hero Section */
+.hero-battered-coin {
+    background: linear-gradient(135deg, rgba(0, 0, 0, 0.9) 0%, rgba(0, 20, 40, 0.9) 100%);
+    padding: 120px 0 80px;
+    position: relative;
+    overflow: hidden;
+}
+
+.hero-battered-coin::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000"><polygon fill="none" stroke="rgba(0,255,255,0.1)" stroke-width="1" points="100,100 900,100 900,900 100,900"/><polygon fill="none" stroke="rgba(255,0,255,0.1)" stroke-width="1" points="200,200 800,200 800,800 200,800"/><polygon fill="none" stroke="rgba(255,255,0,0.1)" stroke-width="1" points="300,300 700,300 700,700 300,700"/></svg>') center/cover;
+    animation: cyberPulse 4s ease-in-out infinite;
+}
+
+@keyframes cyberPulse {
+    0%, 100% { opacity: 0.3; transform: scale(1); }
+    50% { opacity: 0.7; transform: scale(1.05); }
+}
+
+.hero-battered-coin .subtitle {
+    color: #00ffff;
+    font-size: 1.5rem;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    margin-bottom: 20px;
+    text-shadow: 0 0 20px rgba(0, 255, 255, 0.6);
+    animation: neonFlicker 2s ease-in-out infinite alternate;
+}
+
+@keyframes neonFlicker {
+    0%, 100% { text-shadow: 0 0 5px #00ffff, 0 0 10px #00ffff, 0 0 15px #00ffff; }
+    50% { text-shadow: 0 0 2px #00ffff, 0 0 5px #00ffff, 0 0 8px #00ffff; }
+}
+
+/* Holographic Cards */
+.nft-collection-card, .benefit-item, .technique-card {
+    background: linear-gradient(145deg, rgba(0, 255, 255, 0.05) 0%, rgba(255, 0, 255, 0.05) 100%);
+    border: 2px solid transparent;
+    background-clip: padding-box;
+    position: relative;
+    overflow: hidden;
+}
+
+.nft-collection-card::before, .benefit-item::before, .technique-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(45deg, #00ffff, #ff00ff, #ffff00, #00ffff);
+    background-size: 400% 400%;
+    animation: borderFlow 3s linear infinite;
+    z-index: -1;
+    margin: -2px;
+}
+
+@keyframes borderFlow {
+    0% { background-position: 0% 50%; }
+    100% { background-position: 100% 50%; }
+}
+
+.nft-collection-card::after, .benefit-item::after, .technique-card::after {
+    content: '';
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    right: 2px;
+    bottom: 2px;
+    background: linear-gradient(145deg, rgba(0, 20, 40, 0.9) 0%, rgba(0, 0, 0, 0.9) 100%);
+    border-radius: inherit;
+    z-index: -1;
+}
+
+/* Cyber Buttons */
+.btn-primary {
+    background: linear-gradient(45deg, #00ffff, #0088ff);
+    border: 2px solid #00ffff;
+    color: #000000;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-weight: bold;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    text-shadow: none;
+}
+
+.btn-primary::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+    transition: left 0.5s ease;
+}
+
+.btn-primary:hover::before {
+    left: 100%;
+}
+
+.btn-primary:hover {
+    box-shadow: 0 0 20px rgba(0, 255, 255, 0.6), inset 0 0 20px rgba(0, 255, 255, 0.2);
+    transform: translateY(-2px);
+}
+
+.btn-secondary {
+    background: transparent;
+    border: 2px solid #ff00ff;
+    color: #ff00ff;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    transition: all 0.3s ease;
+}
+
+.btn-secondary:hover {
+    background: rgba(255, 0, 255, 0.1);
+    box-shadow: 0 0 20px rgba(255, 0, 255, 0.6);
+    color: #ffffff;
+}
+
+/* Cyber Button Enhancements */
+.cyber-btn {
+    position: relative;
+    overflow: hidden;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    font-weight: 900;
+    border-radius: 0;
+    clip-path: polygon(10px 0%, 100% 0%, calc(100% - 10px) 100%, 0% 100%);
+}
+
+.cyber-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+    transition: left 0.5s ease;
+    z-index: 1;
+}
+
+.cyber-btn:hover::before {
+    left: 100%;
+}
+
+.cyber-btn::after {
+    content: attr(data-cyber);
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: rgba(255, 255, 255, 0.1);
+    font-size: 0.8em;
+    font-weight: 900;
+    letter-spacing: 2px;
+    z-index: 0;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.cyber-btn:hover::after {
+    opacity: 1;
+}
+
+/* Cyber Statistics */
+.crypto-stats .stat-item {
+    background: linear-gradient(145deg, rgba(0, 255, 255, 0.1) 0%, rgba(255, 0, 255, 0.1) 100%);
+    border: 1px solid rgba(0, 255, 255, 0.3);
+    position: relative;
+    overflow: hidden;
+}
+
+.crypto-stats .stat-item::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, #00ffff, #ff00ff, #ffff00);
+    animation: dataFlow 2s linear infinite;
+}
+
+@keyframes dataFlow {
+    0% { transform: translateX(-100%); }
+    100% { transform: translateX(100%); }
+}
+
+/* Holographic Text Effects */
+.hero-description {
+    color: #ffffff;
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+    animation: textGlow 3s ease-in-out infinite alternate;
+}
+
+@keyframes textGlow {
+    0% { text-shadow: 0 0 5px rgba(255, 255, 255, 0.3); }
+    100% { text-shadow: 0 0 15px rgba(255, 255, 255, 0.6), 0 0 25px rgba(0, 255, 255, 0.3); }
+}
+
+/* Cyber Icons */
+.benefit-item i, .feature-item i {
+    background: linear-gradient(45deg, #00ffff, #ff00ff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    filter: drop-shadow(0 0 10px rgba(0, 255, 255, 0.5));
+    animation: iconPulse 2s ease-in-out infinite alternate;
+}
+
+@keyframes iconPulse {
+    0% { transform: scale(1); filter: drop-shadow(0 0 5px rgba(0, 255, 255, 0.3)); }
+    100% { transform: scale(1.1); filter: drop-shadow(0 0 15px rgba(0, 255, 255, 0.7)); }
+}
+
+/* Cyber Navigation */
+.main-header {
+    background: rgba(0, 0, 0, 0.9);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(0, 255, 255, 0.3);
+}
+
+.main-nav a {
+    color: #ffffff;
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.main-nav a::after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: linear-gradient(90deg, #00ffff, #ff00ff);
+    transition: width 0.3s ease;
+}
+
+.main-nav a:hover::after, .main-nav a.active::after {
+    width: 100%;
+}
+
+.main-nav a:hover, .main-nav a.active {
+    color: #00ffff;
+    text-shadow: 0 0 10px rgba(0, 255, 255, 0.6);
+}
+
+/* Page Navigation */
+.page-navigation {
+    margin-top: 40px;
+    text-align: center;
+    padding: 30px;
+    background: rgba(0, 0, 0, 0.5);
+    border-radius: 15px;
+    border: 1px solid rgba(0, 255, 255, 0.3);
+}
+
+.page-navigation h3 {
+    color: #00ffff;
+    font-family: 'Orbitron', monospace;
+    margin-bottom: 20px;
+    font-size: 1.5rem;
+}
+
+.nav-buttons {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.nav-buttons .btn {
+    min-width: 200px;
+    padding: 15px 30px;
+}
+
+@media (max-width: 768px) {
+    .nav-buttons {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .nav-buttons .btn {
+        width: 100%;
+        max-width: 300px;
+    }
+}
+
+/* Matrix Rain Effect */
+.matrix-rain {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: -2;
+    opacity: 0.1;
+}
+
+/* Cyber Section Backgrounds */
+.section-nft-collections, .section-benefits {
+    background: linear-gradient(135deg, rgba(0, 20, 40, 0.8) 0%, rgba(20, 0, 40, 0.8) 50%, rgba(0, 0, 0, 0.9) 100%);
+    position: relative;
+}
+
+.section-nft-collections::before, .section-benefits::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse"><path d="M 10 0 L 0 0 0 10" fill="none" stroke="rgba(0,255,255,0.1)" stroke-width="0.5"/></pattern></defs><rect width="100" height="100" fill="url(%23grid)"/></svg>');
+    opacity: 0.3;
+}
+
+/* Fan Engagement Section */
+.section-fan-engagement {
+    padding: 100px 0;
+    background: linear-gradient(135deg, rgba(0, 255, 255, 0.05), rgba(255, 0, 255, 0.05));
+    position: relative;
+}
+
+.section-fan-engagement::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: repeating-linear-gradient(
+        90deg,
+        transparent,
+        transparent 98px,
+        rgba(0, 255, 255, 0.03) 100px
+    );
+    pointer-events: none;
+}
+
+.fan-intro {
+    text-align: center;
+    font-size: 1.2rem;
+    color: #cccccc;
+    margin-bottom: 60px;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.engagement-tiers {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 30px;
+    margin-bottom: 80px;
+}
+
+.tier-card {
+    background: rgba(0, 0, 0, 0.8);
+    border: 2px solid transparent;
+    border-radius: 15px;
+    padding: 30px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(10px);
+}
+
+.tier-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    padding: 2px;
+    background: linear-gradient(45deg, #00ffff, #ff00ff, #ffff00, #00ffff);
+    background-size: 300% 300%;
+    border-radius: 15px;
+    mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    mask-composite: exclude;
+    animation: borderRotate 3s linear infinite;
+    opacity: 0.7;
+}
+
+.tier-card.bronze::before {
+    background: linear-gradient(45deg, #cd7f32, #ffad5a, #cd7f32);
+}
+
+.tier-card.silver::before {
+    background: linear-gradient(45deg, #c0c0c0, #e8e8e8, #c0c0c0);
+}
+
+.tier-card.gold::before {
+    background: linear-gradient(45deg, #ffd700, #ffed4e, #ffd700);
+}
+
+.tier-card.platinum::before {
+    background: linear-gradient(45deg, #e5e4e2, #ffffff, #e5e4e2);
+}
+
+.tier-card:hover {
+    transform: translateY(-10px) scale(1.02);
+    box-shadow: 0 20px 40px rgba(0, 255, 255, 0.3);
+}
+
+.tier-icon {
+    font-size: 3rem;
+    margin-bottom: 20px;
+    color: #00ffff;
+}
+
+.tier-card.bronze .tier-icon { color: #cd7f32; }
+.tier-card.silver .tier-icon { color: #c0c0c0; }
+.tier-card.gold .tier-icon { color: #ffd700; }
+.tier-card.platinum .tier-icon { color: #e5e4e2; }
+
+.tier-card h3 {
+    font-family: 'Orbitron', monospace;
+    font-size: 2rem;
+    margin-bottom: 10px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+.tier-card p {
+    color: #aaaaaa;
+    margin-bottom: 20px;
+    font-style: italic;
+}
+
+.tier-card ul {
+    list-style: none;
+    padding: 0;
+    margin-bottom: 30px;
+}
+
+.tier-card li {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+    color: #cccccc;
+}
+
+.tier-card li i {
+    color: #00ffff;
+    margin-right: 10px;
+    width: 20px;
+}
+
+.tier-tokens {
+    background: linear-gradient(45deg, #00ffff, #ff00ff);
+    color: #000000;
+    font-weight: bold;
+    font-family: 'Orbitron', monospace;
+    padding: 10px 20px;
+    border-radius: 25px;
+    font-size: 1.1rem;
+    letter-spacing: 1px;
+}
+
+.earn-points {
+    margin-bottom: 60px;
+}
+
+.earn-points h3 {
+    text-align: center;
+    font-size: 2.5rem;
+    margin-bottom: 40px;
+    color: #00ffff;
+    font-family: 'Orbitron', monospace;
+}
+
+.earn-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 30px;
+}
+
+.earn-item {
+    background: rgba(0, 0, 0, 0.6);
+    border: 1px solid rgba(0, 255, 255, 0.3);
+    border-radius: 10px;
+    padding: 30px;
+    text-align: center;
+    transition: all 0.3s ease;
+}
+
+.earn-item:hover {
+    border-color: #00ffff;
+    background: rgba(0, 255, 255, 0.1);
+    transform: translateY(-5px);
+}
+
+.earn-item i {
+    font-size: 3rem;
+    color: #00ffff;
+    margin-bottom: 20px;
+}
+
+.earn-item h4 {
+    font-family: 'Orbitron', monospace;
+    margin-bottom: 15px;
+    color: #ffffff;
+}
+
+.earn-item p {
+    color: #cccccc;
+    line-height: 1.6;
+}
+
+.crypto-vs-points {
+    background: rgba(0, 0, 0, 0.8);
+    border-radius: 15px;
+    padding: 40px;
+    border: 1px solid rgba(0, 255, 255, 0.3);
+}
+
+.crypto-vs-points h3 {
+    text-align: center;
+    font-size: 2.5rem;
+    margin-bottom: 40px;
+    color: #ff00ff;
+    font-family: 'Orbitron', monospace;
+}
+
+.comparison-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 40px;
+}
+
+.comparison-item {
+    background: rgba(0, 255, 255, 0.05);
+    border-radius: 10px;
+    padding: 30px;
+    border: 1px solid rgba(0, 255, 255, 0.2);
+}
+
+.comparison-item h4 {
+    font-family: 'Orbitron', monospace;
+    font-size: 1.5rem;
+    margin-bottom: 20px;
+    color: #00ffff;
+    text-align: center;
+}
+
+.comparison-item ul {
+    list-style: none;
+    padding: 0;
+}
+
+.comparison-item li {
+    color: #cccccc;
+    margin-bottom: 10px;
+    padding-left: 20px;
+    position: relative;
+}
+
+.comparison-item li::before {
+    content: '▶';
+    position: absolute;
+    left: 0;
+    color: #00ffff;
+}
+
+@media (max-width: 768px) {
+    .crypto-page h1 {
+        font-size: 2.5rem;
+    }
+    
+    .hero-battered-coin {
+        padding: 80px 0 60px;
+    }
+    
+    .hero-stats {
+        flex-direction: column;
+    }
+    
+    .engagement-tiers {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+    
+    .earn-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+    
+    .comparison-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .tier-card {
+        padding: 20px;
+    }
+    
+    .crypto-vs-points {
+        padding: 20px;
+    }
+}
+
+/* Loading Animation */
+.cyber-loading {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    border: 2px solid rgba(0, 255, 255, 0.3);
+    border-radius: 50%;
+    border-top-color: #00ffff;
+    animation: spin 1s ease-in-out infinite;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+/* Glitch Effect */
+.glitch {
+    position: relative;
+    animation: glitch 2s infinite;
+}
+
+.glitch::before,
+.glitch::after {
+    content: attr(data-text);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.glitch::before {
+    animation: glitch-1 0.5s infinite;
+    color: #ff00ff;
+    z-index: -1;
+}
+
+.glitch::after {
+    animation: glitch-2 0.5s infinite;
+    color: #00ffff;
+    z-index: -2;
+}
+
+@keyframes glitch {
+    0%, 100% { transform: translate(0); }
+    20% { transform: translate(-2px, 2px); }
+    40% { transform: translate(-2px, -2px); }
+    60% { transform: translate(2px, 2px); }
+    80% { transform: translate(2px, -2px); }
+}
+
+@keyframes glitch-1 {
+    0%, 100% { transform: translate(0); }
+    20% { transform: translate(-1px, 1px); }
+    40% { transform: translate(-1px, -1px); }
+    60% { transform: translate(1px, 1px); }
+    80% { transform: translate(1px, -1px); }
+}
+
+@keyframes glitch-2 {
+    0%, 100% { transform: translate(0); }
+    20% { transform: translate(1px, -1px); }
+    40% { transform: translate(1px, 1px); }
+    60% { transform: translate(-1px, -1px); }
+    80% { transform: translate(-1px, 1px); }
+}
+
+/* Additional glitch effects for headings */
+.glitch:hover {
+    animation: glitch-intense 0.3s infinite;
+}
+
+@keyframes glitch-intense {
+    0%, 100% { transform: translate(0); }
+    10% { transform: translate(-2px, 2px); }
+    20% { transform: translate(-2px, -2px); }
+    30% { transform: translate(2px, 2px); }
+    40% { transform: translate(2px, -2px); }
+    50% { transform: translate(-2px, 2px); }
+    60% { transform: translate(-2px, -2px); }
+    70% { transform: translate(2px, 2px); }
+    80% { transform: translate(-2px, -2px); }
+    90% { transform: translate(2px, 2px); }
+}
+
+/* Scan line effect */
+.scan-lines::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(
+        transparent 50%, 
+        rgba(0, 255, 255, 0.03) 50%, 
+        rgba(0, 255, 255, 0.03) 51%, 
+        transparent 51%
+    );
+    background-size: 100% 4px;
+    animation: scanlines 0.1s linear infinite;
+    pointer-events: none;
+}
+
+@keyframes scanlines {
+    0% { background-position: 0 0; }
+    100% { background-position: 0 4px; }
+}
+
+/* Data corruption effect */
+.data-corrupt {
+    position: relative;
+    overflow: hidden;
+}
+
+.data-corrupt::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: repeating-linear-gradient(
+        90deg,
+        transparent,
+        transparent 2px,
+        rgba(255, 0, 255, 0.1) 2px,
+        rgba(255, 0, 255, 0.1) 4px
+    );
+    animation: dataCorrupt 3s linear infinite;
+    pointer-events: none;
+}
+
+@keyframes dataCorrupt {
+    0% { transform: translateX(-100%); }
+    100% { transform: translateX(100%); }
+}

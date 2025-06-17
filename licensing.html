@@ -95,13 +95,15 @@
     
     <!-- Favicon -->
     <link rel="icon" href="favicon.ico" type="image/x-icon">
-    
-    <!-- Preload key resources -->
+      <!-- Preload key resources -->
     <link rel="preload" href="public/Images/macwayne-logo.png" as="image">
     <link rel="preload" href="public/Images/macwayne-background.png" as="image">
     
+    <!-- PayPal SDK -->
+    <script src="https://www.paypal.com/sdk/js?client-id=ATefxKUHVrxyBM7_sudRHvnbUXV-nznDOJD9ZwO_nRMOSZlYCfrHA6SouCz9K7Uk3X0phjvkj_Yo0STn&currency=USD"></script>
+    
     <!-- Content Security Policy -->
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdnjs.cloudflare.com; font-src 'self' https://fonts.gstatic.com https://cdnjs.cloudflare.com; script-src 'self' 'unsafe-inline' https://mainnet.infura.io https://rpc.walletconnect.com wss://*.bridge.walletconnect.org; frame-src 'self' https://www.youtube.com;">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdnjs.cloudflare.com; font-src 'self' https://fonts.gstatic.com https://cdnjs.cloudflare.com; script-src 'self' 'unsafe-inline' https://www.paypal.com; frame-src 'self' https://www.paypal.com;">
 </head>
 
 <body class="crypto-page licensing-page">
@@ -558,8 +560,335 @@
             const modal = document.getElementById('quick-inquiry-modal');
             if (e.target === modal) {
                 closeQuickInquiry();
-            }
-        });
+            }        });
     </script>
+
+    <!-- Licensing Quote Modal -->
+    <div id="licensingModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Licensing Quote Request</h2>
+                <span class="close" onclick="closeLicensingModal()">&times;</span>
+            </div>
+            <div class="modal-body">
+                <form action="https://formspree.io/f/xgveaarg" method="POST" id="licensingForm">
+                    <input type="hidden" name="_subject" value="Music/Technology Licensing Quote Request">
+                    <div class="form-group">
+                        <label for="licensingCompany">Company/Organization</label>
+                        <input type="text" id="licensingCompany" name="company" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="licensingContact">Contact Name</label>
+                        <input type="text" id="licensingContact" name="contact" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="licensingEmail">Email</label>
+                        <input type="email" id="licensingEmail" name="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="licensingType">Licensing Type</label>
+                        <select id="licensingType" name="licensingType" required>
+                            <option value="">Select licensing type</option>
+                            <option value="music-sync">Music - Sync Licensing</option>
+                            <option value="music-commercial">Music - Commercial Use</option>
+                            <option value="music-streaming">Music - Streaming Platform</option>
+                            <option value="technology-accessibility">Technology - Accessibility Solutions</option>
+                            <option value="technology-audio">Technology - Audio Player</option>
+                            <option value="collaboration">Strategic Partnership</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="licensingProject">Project Description</label>
+                        <textarea id="licensingProject" name="projectDescription" rows="4" required placeholder="Please describe your project, intended use, audience reach, and timeline..."></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="licensingBudget">Budget Range</label>
+                        <select id="licensingBudget" name="budget">
+                            <option value="">Select budget range</option>
+                            <option value="under-500">Under $500</option>
+                            <option value="500-2k">$500 - $2,000</option>
+                            <option value="2k-5k">$2,000 - $5,000</option>
+                            <option value="5k-10k">$5,000 - $10,000</option>
+                            <option value="10k-25k">$10,000 - $25,000</option>
+                            <option value="25k-plus">$25,000+</option>
+                            <option value="discuss">Prefer to discuss</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="licensingUsage">Usage Details</label>
+                        <textarea id="licensingUsage" name="usageDetails" rows="3" placeholder="Geographic territories, duration, exclusivity requirements, etc."></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Submit Quote Request</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- PayPal Licensing Payment Modal -->
+    <div id="paypalLicensingModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>License Payment</h2>
+                <span class="close" onclick="closePayPalModal()">&times;</span>
+            </div>
+            <div class="modal-body">
+                <div id="license-payment-details">
+                    <h3 id="license-item-name">Standard Music License</h3>
+                    <p id="license-item-price">Price: $500.00 USD</p>
+                    <p id="license-item-description">One-time sync license for commercial use</p>
+                </div>
+                <div id="paypal-button-container-licensing"></div>
+                <p style="text-align: center; margin-top: 15px; font-size: 0.9em; color: #666;">
+                    Secure payment processed by PayPal. License agreement will be sent via email after payment.
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Modal functions
+        function openLicensingModal(type) {
+            document.getElementById('licensingModal').style.display = 'block';
+            if (type) {
+                document.getElementById('licensingType').value = type;
+            }
+        }
+
+        function closeLicensingModal() {
+            document.getElementById('licensingModal').style.display = 'none';
+        }
+
+        function closePayPalModal() {
+            document.getElementById('paypalLicensingModal').style.display = 'none';
+        }
+
+        // Update the openInquiry function to use the new modal
+        function openInquiry(type) {
+            openLicensingModal(type);
+        }
+
+        // PayPal Licensing Payment
+        function initiateLicensePayment(itemName, price, description) {
+            document.getElementById('license-item-name').textContent = itemName;
+            document.getElementById('license-item-price').textContent = `Price: $${price} USD`;
+            document.getElementById('license-item-description').textContent = description;
+            
+            document.getElementById('paypalLicensingModal').style.display = 'block';
+            
+            // Clear any existing PayPal buttons
+            document.getElementById('paypal-button-container-licensing').innerHTML = '';
+            
+            paypal.Buttons({
+                createOrder: function(data, actions) {
+                    return actions.order.create({
+                        purchase_units: [{
+                            amount: {
+                                value: price,
+                                currency_code: 'USD'
+                            },
+                            description: `License: ${itemName} - ${description}`,
+                            soft_descriptor: "Mac Wayne License"
+                        }]
+                    });
+                },
+                onApprove: function(data, actions) {
+                    return actions.order.capture().then(function(details) {
+                        alert(`License payment successful! Order ID: ${details.id}. License agreement will be sent to your email.`);
+                        closePayPalModal();
+                    });
+                },
+                onError: function(err) {
+                    console.error('PayPal payment error:', err);
+                    alert('Payment failed. Please try again or contact support.');
+                },
+                onCancel: function(data) {
+                    console.log('Payment cancelled');
+                    alert('Payment was cancelled.');
+                }
+            }).render('#paypal-button-container-licensing');
+        }
+
+        // Form submission handling
+        document.getElementById('licensingForm').addEventListener('submit', function(e) {
+            const submitBtn = this.querySelector('button[type="submit"]');
+            submitBtn.textContent = 'Sending...';
+            submitBtn.disabled = true;
+
+            setTimeout(() => {
+                alert('Thank you! Your licensing quote request has been submitted. We\'ll get back to you within 24 hours with a detailed quote.');
+                closeLicensingModal();
+                this.reset();
+                submitBtn.textContent = 'Submit Quote Request';
+                submitBtn.disabled = false;
+            }, 1000);
+        });
+
+        // Close modals when clicking outside
+        window.onclick = function(event) {
+            const licensingModal = document.getElementById('licensingModal');
+            const paypalModal = document.getElementById('paypalLicensingModal');
+            
+            if (event.target === licensingModal) {
+                closeLicensingModal();
+            }
+            if (event.target === paypalModal) {
+                closePayPalModal();
+            }
+        }
+    </script>
+
+    <!-- Modal Styles -->
+    <style>
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 10000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
+    overflow-y: auto;
+}
+
+.modal-content {
+    background-color: #1a1a1a;
+    margin: 2% auto;
+    padding: 0;
+    border: 2px solid #cc0000;
+    border-radius: 10px;
+    width: 90%;
+    max-width: 700px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8);
+    animation: scaleIn 0.3s ease-out;
+}
+
+.modal-header {
+    padding: 20px;
+    border-bottom: 1px solid #333;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.modal-header h2 {
+    color: #cc0000;
+    margin: 0;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.8em;
+}
+
+.close {
+    color: #999;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: color 0.3s;
+}
+
+.close:hover {
+    color: #cc0000;
+}
+
+.modal-body {
+    padding: 20px;
+    max-height: 70vh;
+    overflow-y: auto;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    color: #fff;
+    font-weight: bold;
+}
+
+.form-group input, .form-group select, .form-group textarea {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #444;
+    border-radius: 5px;
+    background-color: #2a2a2a;
+    color: #fff;
+    font-size: 16px;
+    transition: border-color 0.3s;
+    box-sizing: border-box;
+}
+
+.form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+    outline: none;
+    border-color: #cc0000;
+    box-shadow: 0 0 5px rgba(204, 0, 0, 0.3);
+}
+
+.btn {
+    background: linear-gradient(145deg, #cc0000, #990000);
+    color: white;
+    padding: 12px 24px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+    transition: all 0.3s;
+    text-decoration: none;
+    display: inline-block;
+}
+
+.btn:hover {
+    background: linear-gradient(145deg, #ee0000, #cc0000);
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(204, 0, 0, 0.4);
+}
+
+#license-payment-details {
+    background: #2a2a2a;
+    padding: 20px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    border: 1px solid #444;
+}
+
+#license-payment-details h3 {
+    color: #cc0000;
+    margin: 0 0 10px 0;
+}
+
+#license-payment-details p {
+    margin: 5px 0;
+    color: #ccc;
+}
+
+@keyframes scaleIn {
+    from { transform: scale(0.9); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+}
+
+@media (max-width: 768px) {
+    .modal-content {
+        width: 95%;
+        margin: 5% auto;
+    }
+    
+    .modal-header {
+        padding: 15px;
+    }
+    
+    .modal-body {
+        padding: 15px;
+        max-height: 75vh;
+    }
+    
+    .form-group input, .form-group select, .form-group textarea {
+        font-size: 16px;
+    }
+}
+</style>
+
 </body>
 </html>

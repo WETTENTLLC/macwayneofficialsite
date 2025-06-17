@@ -41,11 +41,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const ALBUM_PRICE = "25.00";
     const TRACK_PRICE = "2.00";
     const CURRENCY = "USD";
-    // IMPORTANT: Replace with your actual PayPal Merchant ID for live payments
-    const PAYPAL_MERCHANT_ID = "YOUR_PAYPAL_MERCHANT_ID"; 
-    // IMPORTANT: Set to false for live environment
-    const PAYPAL_SANDBOX_MODE = true; 
-    const PAYPAL_IPN_URL = '/paypal-ipn'; // Our backend IPN listener
+    // Live PayPal Client ID for production payments
+    const PAYPAL_CLIENT_ID = "AeLWu4sO4qRzK1Z9-TDfQA0-CvBCXmBq5-4L2i2C6cO2m7n5Y1sLcXuqG5_8KUZqO5SJC-M2q8OfJgHi";
+    const PAYPAL_SANDBOX_MODE = false; // Set to false for live payments
 
     // Function to get or generate a unique user ID
     async function initUser() {
@@ -115,91 +113,98 @@ document.addEventListener('DOMContentLoaded', () => {
         console.log("[PLAYER] fetchTracks: Finished");
     }
 
-    // Create PayPal payment
-    async function initiatePayPalPayment(itemId, itemType, itemName, amount, currency) {
-        if (!userId) {
-            alert("User information not available. Please refresh the page.");
+    // Create PayPal payment using PayPal SDK
+    function initiatePayPalPayment(itemId, itemType, itemName, amount, currency) {
+        console.log(`Initiating PayPal payment for ${itemType}: ${itemName} ($${amount} ${currency})`);
+        
+        // Get user email for download delivery
+        const userEmail = prompt("Enter your email address for download delivery:") || "";
+        
+        if (!userEmail || !userEmail.includes('@')) {
+            alert("Please enter a valid email address to receive your download links.");
             return;
         }
 
-        console.log(`Initiating PayPal payment for ${itemType}: ${itemName} ($${amount} ${currency})`);
-        
-        try {
-            // Get user email for download delivery
-            const userEmail = prompt("Enter your email address for download delivery (optional):");
-            
-            const response = await fetch('/create-payment', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    itemType,
-                    itemId,
-                    itemName,
-                    amount,
-                    currency,
-                    userId,
-                    userEmail
-                })
-            });
-            
-            if (!response.ok) {
-                throw new Error('Failed to create payment');
-            }
-            
-            const data = await response.json();
-            
-            // Open PayPal payment window
-            const paymentWindow = window.open(
-                data.approvalUrl, 
-                'PayPalPayment', 
-                'width=600,height=700,scrollbars=yes,resizable=yes'
-            );
-            
-            // Listen for payment completion
-            const handlePaymentMessage = (event) => {
-                if (event.data.type === 'PAYMENT_SUCCESS') {
-                    console.log('Payment successful!');
-                    paymentWindow.close();
-                    window.removeEventListener('message', handlePaymentMessage);
+        // Create a modal for PayPal payment
+        const paypalModal = document.createElement('div');
+        paypalModal.className = 'modal';
+        paypalModal.style.display = 'block';
+        paypalModal.innerHTML = `
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2>Complete Payment</h2>
+                    <span class="close" onclick="this.closest('.modal').remove()">&times;</span>
+                </div>
+                <div class="modal-body">
+                    <h3>Purchasing: ${itemName}</h3>
+                    <p>Price: $${amount} ${currency}</p>
+                    <p>Email: ${userEmail}</p>
+                    <div id="paypal-button-container-modal"></div>
+                </div>
+            </div>
+        `;
+        document.body.appendChild(paypalModal);
+
+        // Use PayPal SDK to create payment
+        paypal.Buttons({
+            createOrder: function(data, actions) {
+                return actions.order.create({
+                    purchase_units: [{
+                        amount: {
+                            value: amount,
+                            currency_code: currency
+                        },
+                        description: `${itemType === 'track' ? 'Music Track' : 'Album'}: ${itemName}`,
+                        custom_id: `${itemType}_${itemId}_${userEmail}`,
+                        soft_descriptor: "Mac Wayne Music"
+                    }]
+                });
+            },
+            onApprove: function(data, actions) {
+                return actions.order.capture().then(function(details) {
+                    console.log('Payment successful!', details);
+                    
+                    // Store purchase info locally
+                    const purchases = JSON.parse(localStorage.getItem('macwayne_purchases') || '[]');
+                    purchases.push({
+                        itemId,
+                        itemType,
+                        itemName,
+                        purchaseDate: new Date().toISOString(),
+                        orderId: details.id,
+                        email: userEmail
+                    });
+                    localStorage.setItem('macwayne_purchases', JSON.stringify(purchases));
+                    
+                    // Close modal
+                    paypalModal.remove();
+                    
+                    alert(`Payment successful! Thank you for purchasing ${itemName}. Download instructions will be sent to ${userEmail} shortly.`);
                     
                     // Refresh purchase status
-                    setTimeout(async () => {
-                        await loadUserPurchases();
-                        alert(`Purchase successful for ${itemName}! Your music has been unlocked and download links have been sent to your email.`);
-                        
-                        // Reload current track if it was just purchased
-                        if (itemType === 'track' && tracks[currentTrackIndex]?.id === itemId) {
-                            loadTrack(currentTrackIndex, isPlaying);
-                        } else if (itemType === 'album') {
-                            loadTrack(currentTrackIndex, isPlaying);
-                        }
-                    }, 1000);
+                    loadUserPurchases();
                     
-                } else if (event.data.type === 'PAYMENT_CANCELLED') {
-                    console.log('Payment cancelled');
-                    paymentWindow.close();
-                    window.removeEventListener('message', handlePaymentMessage);
-                    alert('Payment was cancelled. No charges were made.');
-                }
-            };
-            
-            window.addEventListener('message', handlePaymentMessage);
-            
-            // Check if window was closed without payment
-            const checkClosed = setInterval(() => {
-                if (paymentWindow.closed) {
-                    clearInterval(checkClosed);
-                    window.removeEventListener('message', handlePaymentMessage);
-                    console.log('Payment window closed');
-                }
-            }, 1000);
-            
-        } catch (error) {
-            console.error('Payment error:', error);
-            alert('Failed to initiate payment. Please try again.');
-        }
+                    // If it's a track purchase, enable the track
+                    if (itemType === 'track') {
+                        const track = tracks.find(t => t.id === itemId);
+                        if (track) {
+                            track.purchased = true;
+                            updatePlaylistDisplay();
+                        }
+                    }
+                });
+            },
+            onError: function(err) {
+                console.error('PayPal payment error:', err);
+                alert('Payment failed. Please try again or contact support.');
+                paypalModal.remove();
+            },
+            onCancel: function(data) {
+                console.log('Payment cancelled:', data);
+                alert('Payment was cancelled.');
+                paypalModal.remove();
+            }
+        }).render('#paypal-button-container-modal');
     }
 
     // Add download functionality for purchased items

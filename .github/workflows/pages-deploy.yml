@@ -1,41 +1,25 @@
 # Official GitHub Pages deployment workflow for static HTML site
 # Updated June 2025 for static site deployment
-name: Deploy static site to Pages
+name: Deploy Pages
 
 on:
   push:
-    branches:
-      - main # Deploy when main is pushed
-
-permissions:
-  contents: read
-  pages: write
-  id-token: write
-
-# Allow only one concurrent deployment, skipping runs queued between the run in-progress and latest queued.
-concurrency:
-  group: "pages"
-  cancel-in-progress: false
+    branches: [ main ]
 
 jobs:
-  deploy: # Simplified to a single job
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
+  deploy:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4 # Standard checkout action
-      
+      - uses: actions/checkout@v4
+
       - name: Setup Pages
-        uses: actions/configure-pages@v5 # Standard configure pages action
+        uses: actions/configure-pages@v5
 
       - name: Upload artifact
-        uses: actions/upload-pages-artifact@v3 # Standard upload for Pages
+        uses: actions/upload-pages-artifact@v3
         with:
-          # Path to the directory to upload
-          path: './deploy-clean' # Assuming your site's content is in the deploy-clean folder at the root
+          path: ./deploy-clean
 
       - name: Deploy to GitHub Pages
         id: deployment
-        uses: actions/deploy-pages@v4 # Standard deploy action
+        uses: actions/deploy-pages@v4

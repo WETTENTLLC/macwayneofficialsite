@@ -1,0 +1,177 @@
+/* Layout Improvements */
+.strange-theme {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+main {
+  flex: 1;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Constrain content width */
+.strange-section {
+  max-width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+/* Enhanced event item styling */
+.event-item {
+  transform: translateX(0);
+  transition: all 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.event-item:hover {
+  transform: translateX(10px);
+  background: rgba(40, 40, 40, 0.98);
+  border-left-width: 8px;
+}
+
+.ticket-button {
+  position: relative;
+  overflow: hidden;
+  z-index: 1;
+}
+
+.ticket-button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(to right, transparent, rgba(255,255,255,0.3), transparent);
+  transition: all 0.5s ease;
+  z-index: -1;
+}
+
+.ticket-button:hover::before {
+  left: 100%;
+}
+
+/* Newsletter form enhancements */
+.newsletter-form {
+  transition: all 0.4s ease;
+}
+
+.newsletter-form:hover {
+  box-shadow: 0 10px 30px rgba(204, 0, 0, 0.3);
+}
+
+.strange-input {
+  transition: all 0.3s ease;
+}
+
+.strange-input:focus {
+  transform: translateY(-2px);
+}
+
+/* Animated section headers */
+.strange-header {
+  position: relative;
+  overflow: hidden;
+}
+
+.strange-header::before {
+  content: '';
+  position: absolute;
+  top: -3px;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background: linear-gradient(to right, transparent, var(--highlight-red), transparent);
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 0.5; }
+  50% { opacity: 1; }
+}
+
+/* Smoother transitions for hover effects */
+.strange-button:hover {
+  transform: translateY(-3px) scale(1.03);
+  box-shadow: 0 10px 25px rgba(204, 0, 0, 0.7);
+}
+
+/* Additional visual enhancements */
+.animate-on-scroll {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.animate-on-scroll.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Custom scrollbar for the site */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: #0a0a0a;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #333;
+  border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--prison-red);
+}
+
+/* Enhanced Navigation Styles */
+.strange-nav {
+  background: linear-gradient(to bottom, #000000 0%, rgba(0, 0, 0, 0.9) 100%);
+  border-bottom: 2px solid var(--prison-red);
+  box-shadow: 0 2px 15px rgba(204, 0, 0, 0.3);
+  transition: all 0.3s ease;
+}
+
+.strange-nav.scrolled {
+  padding: 0.5rem 0;
+  background: rgba(0, 0, 0, 0.95);
+  box-shadow: 0 5px 20px rgba(204, 0, 0, 0.5);
+}
+
+.strange-logo-text {
+  font-family: var(--font-bebas);
+  letter-spacing: 2px;
+  position: relative;
+  display: inline-block;
+  padding: 0.5rem 0;
+}
+
+.strange-logo-text::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background-color: var(--prison-red);
+  transition: width 0.3s ease;
+}
+
+.strange-logo-text:hover::after {
+  width: 100%;
+}
+
+.strange-nav-mobile-item {
+  transition: all 0.3s ease;
+  border-bottom: 1px solid rgba(204, 0, 0, 0.1);
+}
+
+.strange-nav-mobile-item:hover {
+  background: rgba(204, 0, 0, 0.1);
+}

@@ -1,0 +1,145 @@
+/* Responsive styles for Red Lotus */
+
+/* TV and large screen optimizations */
+@media screen and (min-width: 1920px) {
+  .container {
+    max-width: 1800px !important;
+  }
+  
+  h1 {
+    font-size: 3.5rem !important;
+  }
+  
+  h2 {
+    font-size: 3rem !important;
+  }
+  
+  h3 {
+    font-size: 2.5rem !important;
+  }
+  
+  p, button, input, select, textarea {
+    font-size: 1.25rem !important;
+  }
+  
+  /* Larger navigation for TV interfaces */
+  .tv-nav-spacing {
+    gap: 1.5rem !important;
+  }
+  
+  /* TV-friendly buttons (larger tap/click targets) */
+  .tv-button {
+    padding: 0.75rem 1.5rem !important;
+    min-height: 60px !important;
+  }
+  
+  /* Full-bleed images for immersive TV experience */
+  .tv-full-bleed {
+    width: 100vw !important;
+    position: relative !important;
+    left: 50% !important;
+    right: 50% !important;
+    margin-left: -50vw !important;
+    margin-right: -50vw !important;
+  }
+}
+
+/* Mobile optimizations */
+@media screen and (max-width: 640px) {
+  .mobile-stack {
+    flex-direction: column !important;
+  }
+  
+  .mobile-scroll {
+    overflow-x: auto !important;
+    -webkit-overflow-scrolling: touch !important;
+    scroll-snap-type: x mandatory !important;
+    scroll-behavior: smooth !important;
+  }
+  
+  .mobile-scroll > * {
+    scroll-snap-align: start !important;
+  }
+  
+  /* Larger touch targets for mobile */
+  .mobile-touch {
+    min-height: 44px !important;
+  }
+  
+  /* Fix for mobile viewport height issues */
+  .mobile-full-height {
+    height: 100vh !important;
+    height: -webkit-fill-available !important;
+  }
+  
+  /* Adjust modal positioning for mobile */
+  .modal-mobile {
+    width: 95% !important;
+    max-height: 90vh !important;
+    overflow-y: auto !important;
+  }
+}
+
+/* Tablet optimizations */
+@media screen and (min-width: 641px) and (max-width: 1024px) {
+  .tablet-grid {
+    display: grid !important;
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 1rem !important;
+  }
+  
+  /* Medium-sized buttons for tablet */
+  .tablet-button {
+    padding: 0.5rem 1rem !important;
+  }
+}
+
+/* Universal improvements */
+.aspect-ratio-16-9 {
+  aspect-ratio: 16 / 9;
+  width: 100%;
+  object-fit: cover;
+}
+
+.aspect-ratio-1-1 {
+  aspect-ratio: 1 / 1;
+  width: 100%;
+  object-fit: cover;
+}
+
+/* Optimizations for reduced motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Dark mode optimizations */
+@media (prefers-color-scheme: dark) {
+  .auto-dark-mode {
+    background-color: #111 !important;
+    color: #eee !important;
+  }
+}
+
+/* Focus improvements for accessibility */
+:focus-visible {
+  outline: 2px solid #45080A !important;
+  outline-offset: 2px !important;
+}
+
+/* Smooth scrolling for all pages */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Better tap targets for touch devices */
+@media (pointer: coarse) {
+  .touch-target {
+    min-height: 44px;
+    min-width: 44px;
+  }
+}

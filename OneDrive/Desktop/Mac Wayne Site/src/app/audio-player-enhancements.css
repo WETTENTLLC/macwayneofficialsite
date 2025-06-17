@@ -1,0 +1,157 @@
+/* Enhanced audio player styling */
+.enhanced-player {
+  transition: all 0.3s ease;
+  border-radius: 8px;
+  overflow: hidden;
+  position: relative;
+}
+
+.enhanced-player:hover {
+  box-shadow: 0 0 15px rgba(204, 0, 0, 0.4);
+  transform: translateY(-2px);
+}
+
+.player-controls {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.play-pause-btn {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(to bottom right, var(--prison-red), var(--highlight-red));
+  color: white;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.play-pause-btn:hover {
+  transform: scale(1.1);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4), 0 0 15px rgba(204, 0, 0, 0.4);
+}
+
+.progress-container {
+  height: 8px;
+  background-color: rgba(30, 30, 30, 0.8);
+  border-radius: 4px;
+  overflow: hidden;
+  position: relative;
+  cursor: pointer;
+  transition: height 0.3s ease;
+}
+
+.progress-container:hover {
+  height: 10px;
+}
+
+.progress-bar {
+  height: 100%;
+  background: linear-gradient(to right, var(--prison-red), var(--highlight-red));
+  border-radius: 4px;
+  position: relative;
+}
+
+.progress-bar::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  right: 0;
+  transform: translate(50%, -50%);
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: white;
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.5);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.progress-container:hover .progress-bar::after {
+  opacity: 1;
+}
+
+.time-display {
+  font-size: 0.8rem;
+  color: var(--text-gray);
+  font-family: monospace;
+}
+
+.track-info {
+  overflow: hidden;
+}
+
+.track-title {
+  font-weight: bold;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.track-artist {
+  font-size: 0.8rem;
+  color: var(--text-gray);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.volume-control {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.volume-slider {
+  height: 4px;
+  background-color: rgba(30, 30, 30, 0.8);
+  border-radius: 2px;
+  overflow: hidden;
+  position: relative;
+  cursor: pointer;
+  width: 60px;
+}
+
+.volume-level {
+  height: 100%;
+  background: linear-gradient(to right, var(--text-gray), var(--text-white));
+  border-radius: 2px;
+}
+
+/* Waveform visualization */
+.waveform-container {
+  height: 40px;
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  margin-top: 8px;
+}
+
+.waveform-bar {
+  flex: 1;
+  background: linear-gradient(to top, var(--prison-red), rgba(204, 0, 0, 0.5));
+  transform-origin: bottom;
+  border-radius: 2px 2px 0 0;
+  opacity: 0.7;
+  transition: height 0.3s ease;
+}
+
+/* Animation will only be applied on the client side via inline styles */
+.waveform-bar.active {
+  animation: waveAnimation 1.2s ease-in-out infinite;
+}
+
+.waveform-bar.inactive {
+  background: linear-gradient(to top, #333, #555);
+}
+
+@keyframes waveAnimation {
+  0%, 100% { transform: scaleY(1); }
+  50% { transform: scaleY(0.8); }
+}

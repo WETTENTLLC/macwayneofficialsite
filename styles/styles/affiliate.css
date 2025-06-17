@@ -1,0 +1,157 @@
+/* Affiliate Program Styles - Mac Wayne Official */
+:root {
+  --affiliate-bg: #111111;
+  --affiliate-accent: #cc0000;
+  --affiliate-orange: #ff6600;
+  --affiliate-yellow: #ffcc00;
+  --affiliate-white: #fff;
+  --affiliate-gray: #aaa;
+}
+
+.affiliate-hero {
+  background: linear-gradient(rgba(0,0,0,0.7),rgba(0,0,0,0.9)), url('../images/affiliate-hero-bg.jpg') no-repeat center center;
+  background-size: cover;
+  color: var(--affiliate-white);
+  padding: 120px 0;
+  text-align: center;
+  position: relative;
+}
+.affiliate-hero h1 {
+  font-size: 3rem;
+  font-weight: 800;
+  margin-bottom: 1rem;
+}
+.affiliate-hero .lead {
+  font-size: 1.3rem;
+  margin-bottom: 2rem;
+  opacity: 0.9;
+}
+.hero-cta {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  margin-top: 2rem;
+}
+.hero-stats {
+  display: flex;
+  gap: 2rem;
+  justify-content: center;
+  margin-top: 2rem;
+}
+.stat-number {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--affiliate-accent);
+}
+.stat-label {
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  color: var(--affiliate-gray);
+}
+.benefits {
+  background: var(--affiliate-bg);
+  color: var(--affiliate-white);
+  padding: 80px 0;
+}
+.benefits-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 2rem;
+}
+.benefit-card {
+  background: rgba(51,51,51,0.3);
+  border-radius: 8px;
+  padding: 2rem;
+  text-align: center;
+  border: 1px solid rgba(255,255,255,0.08);
+}
+.benefit-icon {
+  font-size: 2.5rem;
+  color: var(--affiliate-orange);
+  margin-bottom: 1rem;
+}
+.benefit-card h3 {
+  font-size: 1.2rem;
+  margin-bottom: 0.5rem;
+}
+.benefit-card p {
+  color: var(--affiliate-gray);
+  font-size: 1rem;
+}
+.commission {
+  background: #181818;
+  color: var(--affiliate-white);
+  padding: 80px 0;
+}
+.commission-table-container {
+  overflow-x: auto;
+}
+.commission-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 2rem 0;
+}
+.commission-table th, .commission-table td {
+  padding: 1rem;
+  border: 1px solid #222;
+  text-align: center;
+}
+.commission-table th {
+  background: var(--affiliate-accent);
+  color: var(--affiliate-white);
+}
+.commission-table td {
+  background: #222;
+  color: var(--affiliate-yellow);
+}
+.commission-notes {
+  margin-top: 2rem;
+  color: var(--affiliate-white);
+}
+.commission-notes ul {
+  list-style: none;
+  padding: 0;
+}
+.commission-notes li {
+  margin-bottom: 0.7rem;
+  font-size: 1rem;
+}
+.commission-notes i {
+  color: var(--affiliate-orange);
+  margin-right: 0.5rem;
+}
+.btn, .btn-primary, .btn-secondary {
+  display: inline-block;
+  padding: 0.75rem 1.5rem;
+  border-radius: 4px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: background 0.3s, color 0.3s;
+  cursor: pointer;
+}
+.btn-primary {
+  background: var(--affiliate-accent);
+  color: var(--affiliate-white);
+  border: none;
+}
+.btn-primary:hover {
+  background: var(--affiliate-orange);
+}
+.btn-secondary {
+  background: transparent;
+  color: var(--affiliate-orange);
+  border: 2px solid var(--affiliate-orange);
+}
+.btn-secondary:hover {
+  background: var(--affiliate-orange);
+  color: var(--affiliate-white);
+}
+.section-header h2 {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+}
+.section-header p {
+  color: var(--affiliate-gray);
+  font-size: 1.1rem;
+  margin-bottom: 2rem;
+}

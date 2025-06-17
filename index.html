@@ -149,6 +149,8 @@
                     <a href="#help-blind-man" class="strange-button">HELP THE BLIND MAN</a>
                     <a href="shop.html" class="strange-button">SHOP MUSIC</a>
                     <a href="#video-section" class="strange-button">WATCH VIDEOS</a>
+                    <button class="request-quote-btn" onclick="openModal('quoteModal')">REQUEST QUOTE</button>
+                    <button class="apply-now-btn" onclick="openModal('affiliateModal')">APPLY NOW</button>
                 </div>
             </div>
         </section>
@@ -681,8 +683,297 @@
             from { transform: scale(0.9); opacity: 0; }
             to { transform: scale(1); opacity: 1; }
         }
+
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 10000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            overflow-y: auto;
+        }
+
+        .modal-content {
+            background-color: #1a1a1a;
+            margin: 2% auto;
+            padding: 0;
+            border: 2px solid #cc0000;
+            border-radius: 10px;
+            width: 90%;
+            max-width: 600px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8);
+            animation: scaleIn 0.3s ease-out;
+        }
+
+        .modal-header {
+            padding: 20px;
+            border-bottom: 1px solid #333;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .modal-header h2 {
+            color: #cc0000;
+            margin: 0;
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1.8em;
+        }
+
+        .close {
+            color: #999;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+
+        .close:hover {
+            color: #cc0000;
+        }
+
+        .modal-body {
+            padding: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: #fff;
+            font-weight: bold;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #444;
+            border-radius: 5px;
+            background-color: #2a2a2a;
+            color: #fff;
+            font-size: 16px;
+            transition: border-color 0.3s;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #cc0000;
+            box-shadow: 0 0 5px rgba(204, 0, 0, 0.3);
+        }
+
+        .btn {
+            background: linear-gradient(145deg, #cc0000, #990000);
+            color: white;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: bold;
+            transition: all 0.3s;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn:hover {
+            background: linear-gradient(145deg, #ee0000, #cc0000);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(204, 0, 0, 0.4);
+        }
+
+        .btn-primary {
+            background: linear-gradient(145deg, #cc0000, #990000);
+        }
+
+        .btn-secondary {
+            background: linear-gradient(145deg, #666, #444);
+        }
+
+        .btn-secondary:hover {
+            background: linear-gradient(145deg, #777, #555);
+        }
+
+        /* Request Quote and Apply Now buttons */
+        .request-quote-btn,
+        .apply-now-btn {
+            background: linear-gradient(145deg, #cc0000, #990000);
+            color: white;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: bold;
+            transition: all 0.3s;
+            text-decoration: none;
+            display: inline-block;
+            margin: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .request-quote-btn:hover,
+        .apply-now-btn:hover {
+            background: linear-gradient(145deg, #ee0000, #cc0000);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(204, 0, 0, 0.4);
+        }
+
+        @media (max-width: 768px) {
+            .modal-content {
+                width: 95%;
+                margin: 5% auto;
+            }
+            
+            .modal-header {
+                padding: 15px;
+            }
+            
+            .modal-body {
+                padding: 15px;
+            }
+            
+            .form-group input,
+            .form-group select,
+            .form-group textarea {
+                font-size: 16px; /* Prevent zoom on iOS */
+            }
+        }
     </style>
     
+    <!-- PayPal SDK -->
+    <script src="https://www.paypal.com/sdk/js?client-id=ATefxKUHVrxyBM7_sudRHvnbUXV-nznDOJD9ZwO_nRMOSZlYCfrHA6SouCz9K7Uk3X0phjvkj_Yo0STn&currency=USD"></script>
+    
+    <!-- Hidden PayPal button container for dynamic rendering -->
+    <div id="paypal-button-container-temp" style="display: none;"></div>
+    
+    <!-- Modals for Forms -->
+    <div id="quoteModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Request a Quote</h2>
+                <span class="close" data-modal="quoteModal">&times;</span>
+            </div>
+            <div class="modal-body">
+                <form action="https://formspree.io/f/xgveaarg" method="POST" id="quoteForm">
+                    <div class="form-group">
+                        <label for="quoteCompany">Company/Organization</label>
+                        <input type="text" id="quoteCompany" name="company" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="quoteContact">Contact Name</label>
+                        <input type="text" id="quoteContact" name="contact" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="quoteEmail">Email</label>
+                        <input type="email" id="quoteEmail" name="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="quotePhone">Phone</label>
+                        <input type="tel" id="quotePhone" name="phone">
+                    </div>
+                    <div class="form-group">
+                        <label for="quoteType">Service Type</label>
+                        <select id="quoteType" name="serviceType" required>
+                            <option value="">Select a service</option>
+                            <option value="music-licensing">Music Licensing</option>
+                            <option value="consulting">Accessibility Consulting</option>
+                            <option value="speaking">Speaking Engagement</option>
+                            <option value="collaboration">Technology Partnership</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="quoteProject">Project Description</label>
+                        <textarea id="quoteProject" name="projectDescription" rows="4" required placeholder="Please describe your project and specific needs..."></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="quoteBudget">Budget Range</label>
+                        <select id="quoteBudget" name="budget">
+                            <option value="">Select budget range</option>
+                            <option value="under-1k">Under $1,000</option>
+                            <option value="1k-5k">$1,000 - $5,000</option>
+                            <option value="5k-10k">$5,000 - $10,000</option>
+                            <option value="10k-25k">$10,000 - $25,000</option>
+                            <option value="25k-plus">$25,000+</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="quoteTimeline">Timeline</label>
+                        <input type="text" id="quoteTimeline" name="timeline" placeholder="When do you need this completed?">
+                    </div>
+                    <button type="submit" class="btn btn-primary">Submit Request</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div id="affiliateModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Apply to Become an Affiliate</h2>
+                <span class="close" data-modal="affiliateModal">&times;</span>
+            </div>
+            <div class="modal-body">
+                <form action="https://formspree.io/f/xgveaarg" method="POST" id="affiliateForm">
+                    <input type="hidden" name="_subject" value="New Affiliate Application">
+                    <div class="form-group">
+                        <label for="affiliateName">Full Name</label>
+                        <input type="text" id="affiliateName" name="name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="affiliateEmail">Email</label>
+                        <input type="email" id="affiliateEmail" name="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="affiliatePhone">Phone</label>
+                        <input type="tel" id="affiliatePhone" name="phone">
+                    </div>
+                    <div class="form-group">
+                        <label for="affiliateCompany">Company/Organization</label>
+                        <input type="text" id="affiliateCompany" name="company">
+                    </div>
+                    <div class="form-group">
+                        <label for="affiliateWebsite">Website/Social Media</label>
+                        <input type="url" id="affiliateWebsite" name="website" placeholder="https://...">
+                    </div>
+                    <div class="form-group">
+                        <label for="affiliateAudience">Audience/Platform</label>
+                        <select id="affiliateAudience" name="platform" required>
+                            <option value="">Select your platform</option>
+                            <option value="accessibility-tech">Accessibility Technology</option>
+                            <option value="music-industry">Music Industry</option>
+                            <option value="social-media">Social Media Influencer</option>
+                            <option value="content-creator">Content Creator</option>
+                            <option value="disability-advocacy">Disability Advocacy</option>
+                            <option value="technology-blog">Technology Blog/Site</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="affiliateExperience">Marketing Experience</label>
+                        <textarea id="affiliateExperience" name="experience" rows="3" placeholder="Tell us about your marketing experience and audience reach..."></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="affiliateGoals">Partnership Goals</label>
+                        <textarea id="affiliateGoals" name="goals" rows="3" placeholder="What do you hope to achieve through this partnership?"></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Submit Application</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
     <!-- JavaScript Files -->
     <script src="js/main.js"></script>
     <script src="js/macwayne-audio-player.js" defer></script>

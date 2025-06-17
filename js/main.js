@@ -8,7 +8,73 @@ document.addEventListener('DOMContentLoaded', function() {
     initializeVideoPlayer();
     initializeLazyLoading();
     enhanceAccessibility(); // Call accessibility enhancements
+    initializeModals();
+    initializeFormHandling();
 });
+
+// Modal functionality
+function initializeModals() {
+    // Close modal when clicking outside
+    window.onclick = function(event) {
+        if (event.target.classList.contains('modal')) {
+            event.target.style.display = 'none';
+        }
+    }
+
+    // Close modal when clicking X
+    document.querySelectorAll('.close').forEach(closeBtn => {
+        closeBtn.onclick = function() {
+            const modalId = this.getAttribute('data-modal');
+            document.getElementById(modalId).style.display = 'none';
+        }
+    });
+}
+
+// Open modal function (called by buttons)
+window.openModal = function(modalId) {
+    document.getElementById(modalId).style.display = 'block';
+}
+
+// Form handling
+function initializeFormHandling() {
+    // Quote form handling
+    const quoteForm = document.getElementById('quoteForm');
+    if (quoteForm) {
+        quoteForm.addEventListener('submit', function() {
+            const submitBtn = this.querySelector('button[type="submit"]');
+            submitBtn.textContent = 'Sending...';
+            submitBtn.disabled = true;
+
+            // Formspree will handle the actual submission
+            setTimeout(() => {
+                alert('Thank you! Your quote request has been submitted. We\'ll get back to you within 24 hours.');
+                document.getElementById('quoteModal').style.display = 'none';
+                quoteForm.reset();
+                submitBtn.textContent = 'Submit Request';
+                submitBtn.disabled = false;
+            }, 1000);
+        });
+    }
+
+    // Affiliate form handling
+    const affiliateForm = document.getElementById('affiliateForm');
+    if (affiliateForm) {
+        affiliateForm.addEventListener('submit', function() {
+            const submitBtn = this.querySelector('button[type="submit"]');
+            submitBtn.textContent = 'Sending...';
+            submitBtn.disabled = true;
+
+            // Formspree will handle the actual submission
+            setTimeout(() => {
+                alert('Thank you for your affiliate application! We\'ll review it and get back to you within 48 hours.');
+                document.getElementById('affiliateModal').style.display = 'none';
+                affiliateForm.reset();
+                submitBtn.textContent = 'Submit Application';
+                submitBtn.disabled = false;
+            }, 1000);
+        });
+    }
+}
 
 // Scroll animations
 function initializeScrollAnimations() {
