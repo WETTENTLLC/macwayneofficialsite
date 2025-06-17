@@ -2,7 +2,7 @@
 
 ## 🚀 FINAL DEPLOYMENT STATUS: SUCCESS
 
-**Live Site:** https://macwayne.github.io  
+**Live Site:** https://macwayneofficial.com  
 **Deployment Date:** June 17, 2025  
 **Status:** ✅ FULLY OPERATIONAL
 
@@ -49,7 +49,7 @@
 - **Payment Provider:** PayPal (Live Environment)
 - **Form Processing:** Formspree
 - **Hosting:** GitHub Pages
-- **Domain:** macwayne.github.io
+- **Domain:** macwayneofficial.com
 - **SSL:** Enabled ✅
 - **Mobile Responsive:** Yes ✅
 - **Cross-Browser Compatible:** Yes ✅
@@ -108,7 +108,7 @@
 
 ## 🚀 NEXT STEPS FOR MAC WAYNE:
 
-1. **Test Live Site:** Visit https://macwayne.github.io and test all features
+1. **Test Live Site:** Visit https://macwayneofficial.com and test all features
 2. **Verify Email:** Check that form submissions arrive via Formspree
 3. **Test Payments:** Confirm PayPal payments process correctly
 4. **Share & Promote:** The site is ready for full public use
