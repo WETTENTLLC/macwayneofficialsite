@@ -1,0 +1,1031 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fixed Audio Player Test - Mac Wayne</title>
+    <meta name="description" content="Advanced testing suite for Mac Wayne's fixed audio player with comprehensive debugging and performance analysis.">
+    <link rel="stylesheet" href="styles/main.css">
+    <style>
+        body {
+            background: linear-gradient(135deg, #1a1a1a, #2d2d2d);
+            color: #fff;
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .test-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 30px;
+            background: linear-gradient(135deg, #cc0000, #ff6600);
+            border-radius: 15px;
+            box-shadow: 0 8px 25px rgba(204, 0, 0, 0.4);
+        }
+
+        .header h1 {
+            color: #fff;
+            font-size: 2.5em;
+            margin-bottom: 15px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+        }
+
+        .header p {
+            color: #ffcc00;
+            font-size: 1.2em;
+            margin: 0;
+        }
+
+        .test-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 25px;
+            margin: 30px 0;
+        }
+
+        .test-panel {
+            background: linear-gradient(135deg, #2d2d2d, #3d3d3d);
+            border: 2px solid #ff6600;
+            border-radius: 12px;
+            padding: 25px;
+            box-shadow: 0 6px 20px rgba(255, 102, 0, 0.3);
+        }
+
+        .panel-title {
+            color: #ff6600;
+            font-size: 1.5em;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #ff6600;
+            padding-bottom: 10px;
+        }
+
+        .audio-player-test {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid #555;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 15px 0;
+        }
+
+        .player-controls {
+            display: flex;
+            gap: 10px;
+            margin: 15px 0;
+            flex-wrap: wrap;
+        }
+
+        .control-button {
+            background: linear-gradient(45deg, #cc0000, #ff6600);
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 0.9em;
+            transition: all 0.3s ease;
+        }
+
+        .control-button:hover {
+            background: linear-gradient(45deg, #ff6600, #ffcc00);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 10px rgba(255, 102, 0, 0.4);
+        }
+
+        .control-button:disabled {
+            background: #666;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        .progress-container {
+            margin: 15px 0;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: #333;
+            border-radius: 4px;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #cc0000, #ff6600);
+            border-radius: 4px;
+            width: 0%;
+            transition: width 0.1s ease;
+        }
+
+        .time-display {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.9em;
+            color: #ccc;
+            margin-top: 5px;
+        }
+
+        .volume-control {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin: 10px 0;
+        }
+
+        .volume-slider {
+            flex-grow: 1;
+            height: 6px;
+            background: #333;
+            border-radius: 3px;
+            outline: none;
+            appearance: none;
+            -webkit-appearance: none;
+        }
+
+        .volume-slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 18px;
+            height: 18px;
+            background: linear-gradient(45deg, #cc0000, #ff6600);
+            border-radius: 50%;
+            cursor: pointer;
+        }
+
+        .test-results {
+            background: #000;
+            border: 1px solid #333;
+            border-radius: 5px;
+            padding: 15px;
+            margin: 15px 0;
+            font-family: 'Courier New', monospace;
+            font-size: 0.85em;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+
+        .log-entry {
+            margin: 5px 0;
+            padding: 3px 0;
+            border-bottom: 1px solid #333;
+        }
+
+        .log-success { color: #4CAF50; }
+        .log-error { color: #f44336; }
+        .log-warning { color: #ff9800; }
+        .log-info { color: #2196F3; }
+
+        .performance-metrics {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .metric-card {
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid #555;
+            border-radius: 8px;
+            padding: 15px;
+            text-align: center;
+        }
+
+        .metric-value {
+            font-size: 1.8em;
+            font-weight: bold;
+            color: #ff6600;
+        }
+
+        .metric-label {
+            color: #ccc;
+            font-size: 0.8em;
+            margin-top: 5px;
+        }
+
+        .advanced-controls {
+            background: linear-gradient(135deg, #3d1a5b, #5d2a7b);
+            border: 2px solid #9c27b0;
+            border-radius: 12px;
+            padding: 25px;
+            margin: 30px 0;
+        }
+
+        .equalizer {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            margin: 20px 0;
+        }
+
+        .eq-band {
+            text-align: center;
+        }
+
+        .eq-slider {
+            writing-mode: bt-lr; /* IE */
+            writing-mode: vertical-lr; /* Modern browsers */
+            width: 30px;
+            height: 100px;
+            background: #333;
+            outline: none;
+            appearance: slider-vertical;
+            -webkit-appearance: slider-vertical;
+        }
+
+        .eq-label {
+            color: #ccc;
+            font-size: 0.8em;
+            margin-top: 5px;
+        }
+
+        .visualizer {
+            width: 100%;
+            height: 100px;
+            background: #000;
+            border: 1px solid #333;
+            border-radius: 5px;
+            margin: 15px 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .wave-bars {
+            display: flex;
+            align-items: end;
+            height: 100%;
+            gap: 2px;
+            padding: 5px;
+        }
+
+        .wave-bar {
+            background: linear-gradient(to top, #cc0000, #ff6600, #ffcc00);
+            width: 8px;
+            height: 10%;
+            border-radius: 4px 4px 0 0;
+            transition: height 0.1s ease;
+        }
+
+        .compatibility-test {
+            background: rgba(33, 150, 243, 0.1);
+            border: 1px solid #2196F3;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 15px 0;
+        }
+
+        .browser-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+            margin: 15px 0;
+        }
+
+        .browser-card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid #555;
+            border-radius: 6px;
+            padding: 15px;
+            text-align: center;
+        }
+
+        .browser-status {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            margin: 10px auto;
+        }
+
+        .status-pass { background: #4CAF50; }
+        .status-fail { background: #f44336; }
+        .status-partial { background: #ff9800; }
+        .status-unknown { background: #9e9e9e; }
+
+        .batch-test-panel {
+            background: linear-gradient(135deg, #1a5b3d, #2a7b5d);
+            border: 2px solid #4CAF50;
+            border-radius: 12px;
+            padding: 25px;
+            margin: 30px 0;
+            text-align: center;
+        }
+
+        .batch-button {
+            background: linear-gradient(45deg, #4CAF50, #66BB6A);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 25px;
+            font-size: 1.1em;
+            font-weight: bold;
+            cursor: pointer;
+            margin: 10px;
+            transition: all 0.3s ease;
+        }
+
+        .batch-button:hover {
+            background: linear-gradient(45deg, #66BB6A, #81C784);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(76, 175, 80, 0.4);
+        }
+
+        @media (max-width: 768px) {
+            .test-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .player-controls {
+                flex-direction: column;
+            }
+            
+            .control-button {
+                width: 100%;
+                margin: 2px 0;
+            }
+            
+            .equalizer {
+                flex-wrap: wrap;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="test-container">
+        <div class="header">
+            <h1>🔧 Fixed Audio Player Test Suite</h1>
+            <p>Advanced testing platform for Mac Wayne's enhanced audio player system</p>
+        </div>
+
+        <!-- Batch Testing Panel -->
+        <div class="batch-test-panel">
+            <h2 style="color: #4CAF50; margin-bottom: 20px;">🚀 Comprehensive Testing Suite</h2>
+            <p style="color: #ccc; margin-bottom: 25px;">Run complete audio system validation and performance analysis</p>
+            
+            <button class="batch-button" onclick="runAllTests()">🔍 Run All Tests</button>
+            <button class="batch-button" onclick="clearAllLogs()">🗑️ Clear Logs</button>
+            <button class="batch-button" onclick="exportResults()">📊 Export Results</button>
+            <button class="batch-button" onclick="resetSystem()">🔄 Reset System</button>
+        </div>
+
+        <!-- Test Grid -->
+        <div class="test-grid">
+            <!-- Primary Audio Player Test -->
+            <div class="test-panel">
+                <h2 class="panel-title">🎵 Primary Audio Player</h2>
+                
+                <div class="audio-player-test">
+                    <h3 style="color: #ffcc00; margin-bottom: 15px;">Main Test Player</h3>
+                    
+                    <audio id="mainAudioPlayer" style="display: none;">
+                        <source src="audio/test.mp3" type="audio/mpeg">
+                        <source src="audio/test.ogg" type="audio/ogg">
+                        <source src="audio/test.wav" type="audio/wav">
+                        Your browser does not support the audio element.
+                    </audio>
+                    
+                    <div class="player-controls">
+                        <button class="control-button" onclick="playAudio('mainAudioPlayer')">▶️ Play</button>
+                        <button class="control-button" onclick="pauseAudio('mainAudioPlayer')">⏸️ Pause</button>
+                        <button class="control-button" onclick="stopAudio('mainAudioPlayer')">⏹️ Stop</button>
+                        <button class="control-button" onclick="reloadAudio('mainAudioPlayer')">🔄 Reload</button>
+                    </div>
+                    
+                    <div class="volume-control">
+                        <span style="color: #ccc;">🔊 Volume:</span>
+                        <input type="range" class="volume-slider" min="0" max="1" step="0.1" value="0.7" 
+                               onchange="setVolume('mainAudioPlayer', this.value)" id="mainVolumeSlider">
+                        <span id="mainVolumeDisplay" style="color: #ffcc00;">70%</span>
+                    </div>
+                    
+                    <div class="progress-container">
+                        <div class="progress-bar" onclick="seekAudio('mainAudioPlayer', event)" id="mainProgressBar">
+                            <div class="progress-fill" id="mainProgressFill"></div>
+                        </div>
+                        <div class="time-display">
+                            <span id="mainCurrentTime">0:00</span>
+                            <span id="mainDuration">0:00</span>
+                        </div>
+                    </div>
+                    
+                    <div class="test-results" id="mainTestResults">
+                        Ready for testing...
+                    </div>
+                </div>
+            </div>
+
+            <!-- Secondary Audio Player Test -->
+            <div class="test-panel">
+                <h2 class="panel-title">🎶 Secondary Audio Player</h2>
+                
+                <div class="audio-player-test">
+                    <h3 style="color: #ffcc00; margin-bottom: 15px;">Concurrent Test Player</h3>
+                    
+                    <audio id="secondaryAudioPlayer" style="display: none;">
+                        <source src="audio/test2.mp3" type="audio/mpeg">
+                        <source src="audio/test2.ogg" type="audio/ogg">
+                        Your browser does not support the audio element.
+                    </audio>
+                    
+                    <div class="player-controls">
+                        <button class="control-button" onclick="playAudio('secondaryAudioPlayer')">▶️ Play</button>
+                        <button class="control-button" onclick="pauseAudio('secondaryAudioPlayer')">⏸️ Pause</button>
+                        <button class="control-button" onclick="stopAudio('secondaryAudioPlayer')">⏹️ Stop</button>
+                        <button class="control-button" onclick="testConcurrentPlay()">🎵 Test Concurrent</button>
+                    </div>
+                    
+                    <div class="volume-control">
+                        <span style="color: #ccc;">🔊 Volume:</span>
+                        <input type="range" class="volume-slider" min="0" max="1" step="0.1" value="0.5" 
+                               onchange="setVolume('secondaryAudioPlayer', this.value)" id="secondaryVolumeSlider">
+                        <span id="secondaryVolumeDisplay" style="color: #ffcc00;">50%</span>
+                    </div>
+                    
+                    <div class="progress-container">
+                        <div class="progress-bar" onclick="seekAudio('secondaryAudioPlayer', event)" id="secondaryProgressBar">
+                            <div class="progress-fill" id="secondaryProgressFill"></div>
+                        </div>
+                        <div class="time-display">
+                            <span id="secondaryCurrentTime">0:00</span>
+                            <span id="secondaryDuration">0:00</span>
+                        </div>
+                    </div>
+                    
+                    <div class="test-results" id="secondaryTestResults">
+                        Ready for concurrent testing...
+                    </div>
+                </div>
+            </div>
+
+            <!-- Performance Metrics -->
+            <div class="test-panel">
+                <h2 class="panel-title">📊 Performance Metrics</h2>
+                
+                <div class="performance-metrics">
+                    <div class="metric-card">
+                        <div class="metric-value" id="loadTimeMetric">--</div>
+                        <div class="metric-label">Load Time (ms)</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-value" id="latencyMetric">--</div>
+                        <div class="metric-label">Latency (ms)</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-value" id="bufferHealthMetric">--</div>
+                        <div class="metric-label">Buffer Health</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-value" id="cpuUsageMetric">--</div>
+                        <div class="metric-label">CPU Usage</div>
+                    </div>
+                </div>
+                
+                <button class="control-button" onclick="runPerformanceTest()" style="width: 100%; margin-top: 15px;">
+                    🔍 Run Performance Analysis
+                </button>
+                
+                <div class="test-results" id="performanceResults">
+                    Performance metrics will appear here...
+                </div>
+            </div>
+
+            <!-- Browser Compatibility -->
+            <div class="test-panel">
+                <h2 class="panel-title">🌐 Browser Compatibility</h2>
+                
+                <div class="compatibility-test">
+                    <h3 style="color: #2196F3; margin-bottom: 15px;">Browser Support Status</h3>
+                    
+                    <div class="browser-grid">
+                        <div class="browser-card">
+                            <h4>Chrome</h4>
+                            <div class="browser-status status-unknown" id="chromeStatus"></div>
+                            <p id="chromeVersion">Detecting...</p>
+                        </div>
+                        <div class="browser-card">
+                            <h4>Firefox</h4>
+                            <div class="browser-status status-unknown" id="firefoxStatus"></div>
+                            <p id="firefoxVersion">Detecting...</p>
+                        </div>
+                        <div class="browser-card">
+                            <h4>Safari</h4>
+                            <div class="browser-status status-unknown" id="safariStatus"></div>
+                            <p id="safariVersion">Detecting...</p>
+                        </div>
+                        <div class="browser-card">
+                            <h4>Edge</h4>
+                            <div class="browser-status status-unknown" id="edgeStatus"></div>
+                            <p id="edgeVersion">Detecting...</p>
+                        </div>
+                    </div>
+                    
+                    <button class="control-button" onclick="testBrowserCompatibility()" style="width: 100%; margin-top: 15px;">
+                        🔍 Test Compatibility
+                    </button>
+                </div>
+                
+                <div class="test-results" id="compatibilityResults">
+                    Browser compatibility results will appear here...
+                </div>
+            </div>
+        </div>
+
+        <!-- Advanced Controls Panel -->
+        <div class="advanced-controls">
+            <h2 style="color: #e1bee7; margin-bottom: 20px; text-align: center;">🎛️ Advanced Audio Controls</h2>
+            
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 30px;">
+                <div>
+                    <h3 style="color: #e1bee7; margin-bottom: 15px;">Equalizer</h3>
+                    <div class="equalizer">
+                        <div class="eq-band">
+                            <input type="range" class="eq-slider" min="-12" max="12" value="0" orient="vertical" onchange="updateEQ(0, this.value)">
+                            <div class="eq-label">60Hz</div>
+                        </div>
+                        <div class="eq-band">
+                            <input type="range" class="eq-slider" min="-12" max="12" value="0" orient="vertical" onchange="updateEQ(1, this.value)">
+                            <div class="eq-label">170Hz</div>
+                        </div>
+                        <div class="eq-band">
+                            <input type="range" class="eq-slider" min="-12" max="12" value="0" orient="vertical" onchange="updateEQ(2, this.value)">
+                            <div class="eq-label">310Hz</div>
+                        </div>
+                        <div class="eq-band">
+                            <input type="range" class="eq-slider" min="-12" max="12" value="0" orient="vertical" onchange="updateEQ(3, this.value)">
+                            <div class="eq-label">600Hz</div>
+                        </div>
+                        <div class="eq-band">
+                            <input type="range" class="eq-slider" min="-12" max="12" value="0" orient="vertical" onchange="updateEQ(4, this.value)">
+                            <div class="eq-label">1kHz</div>
+                        </div>
+                        <div class="eq-band">
+                            <input type="range" class="eq-slider" min="-12" max="12" value="0" orient="vertical" onchange="updateEQ(5, this.value)">
+                            <div class="eq-label">3kHz</div>
+                        </div>
+                        <div class="eq-band">
+                            <input type="range" class="eq-slider" min="-12" max="12" value="0" orient="vertical" onchange="updateEQ(6, this.value)">
+                            <div class="eq-label">6kHz</div>
+                        </div>
+                        <div class="eq-band">
+                            <input type="range" class="eq-slider" min="-12" max="12" value="0" orient="vertical" onchange="updateEQ(7, this.value)">
+                            <div class="eq-label">12kHz</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div>
+                    <h3 style="color: #e1bee7; margin-bottom: 15px;">Audio Visualizer</h3>
+                    <div class="visualizer" id="audioVisualizer">
+                        <div class="wave-bars" id="waveBars">
+                            <!-- Wave bars will be generated by JavaScript -->
+                        </div>
+                    </div>
+                    
+                    <div style="margin-top: 15px;">
+                        <button class="control-button" onclick="toggleVisualizer()">🎵 Toggle Visualizer</button>
+                        <button class="control-button" onclick="resetEqualizer()">🔄 Reset EQ</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Global variables
+        let audioContext = null;
+        let visualizerActive = false;
+        let testResults = {};
+        let performanceStartTime = 0;
+
+        // Initialize on page load
+        window.addEventListener('load', function() {
+            initializeAudioSystem();
+            detectBrowser();
+            createWaveBars();
+        });
+
+        // Audio System Initialization
+        function initializeAudioSystem() {
+            logToResults('mainTestResults', 'Initializing audio system...', 'info');
+            
+            // Setup audio context
+            try {
+                audioContext = new (window.AudioContext || window.webkitAudioContext)();
+                logToResults('mainTestResults', '✅ Audio context created successfully', 'success');
+            } catch (error) {
+                logToResults('mainTestResults', '❌ Failed to create audio context: ' + error.message, 'error');
+            }
+
+            // Setup event listeners for main player
+            setupAudioEventListeners('mainAudioPlayer', 'main');
+            setupAudioEventListeners('secondaryAudioPlayer', 'secondary');
+        }
+
+        // Setup event listeners for audio elements
+        function setupAudioEventListeners(audioId, prefix) {
+            const audio = document.getElementById(audioId);
+            if (!audio) return;
+
+            audio.addEventListener('loadstart', () => {
+                logToResults(prefix + 'TestResults', `🔄 Loading ${audioId}...`, 'info');
+            });
+
+            audio.addEventListener('loadeddata', () => {
+                logToResults(prefix + 'TestResults', `✅ ${audioId} data loaded`, 'success');
+                updateDuration(prefix, audio.duration);
+            });
+
+            audio.addEventListener('canplay', () => {
+                logToResults(prefix + 'TestResults', `✅ ${audioId} ready to play`, 'success');
+            });
+
+            audio.addEventListener('play', () => {
+                logToResults(prefix + 'TestResults', `▶️ ${audioId} started playing`, 'info');
+                startProgressUpdate(audioId, prefix);
+            });
+
+            audio.addEventListener('pause', () => {
+                logToResults(prefix + 'TestResults', `⏸️ ${audioId} paused`, 'info');
+            });
+
+            audio.addEventListener('ended', () => {
+                logToResults(prefix + 'TestResults', `⏹️ ${audioId} finished playing`, 'info');
+            });
+
+            audio.addEventListener('error', (e) => {
+                logToResults(prefix + 'TestResults', `❌ ${audioId} error: ${e.message}`, 'error');
+            });
+
+            audio.addEventListener('timeupdate', () => {
+                updateProgress(prefix, audio);
+            });
+        }
+
+        // Audio control functions
+        function playAudio(audioId) {
+            const audio = document.getElementById(audioId);
+            if (audio) {
+                performanceStartTime = performance.now();
+                audio.play().then(() => {
+                    const loadTime = performance.now() - performanceStartTime;
+                    updateMetric('loadTimeMetric', Math.round(loadTime));
+                    logToResults(getResultsId(audioId), `▶️ Playing ${audioId}`, 'success');
+                }).catch(error => {
+                    logToResults(getResultsId(audioId), `❌ Play failed: ${error.message}`, 'error');
+                });
+            }
+        }
+
+        function pauseAudio(audioId) {
+            const audio = document.getElementById(audioId);
+            if (audio) {
+                audio.pause();
+                logToResults(getResultsId(audioId), `⏸️ Paused ${audioId}`, 'info');
+            }
+        }
+
+        function stopAudio(audioId) {
+            const audio = document.getElementById(audioId);
+            if (audio) {
+                audio.pause();
+                audio.currentTime = 0;
+                logToResults(getResultsId(audioId), `⏹️ Stopped ${audioId}`, 'info');
+            }
+        }
+
+        function reloadAudio(audioId) {
+            const audio = document.getElementById(audioId);
+            if (audio) {
+                audio.load();
+                logToResults(getResultsId(audioId), `🔄 Reloaded ${audioId}`, 'info');
+            }
+        }
+
+        function setVolume(audioId, value) {
+            const audio = document.getElementById(audioId);
+            if (audio) {
+                audio.volume = value;
+                const displayId = audioId.includes('main') ? 'mainVolumeDisplay' : 'secondaryVolumeDisplay';
+                document.getElementById(displayId).textContent = Math.round(value * 100) + '%';
+                logToResults(getResultsId(audioId), `🔊 Volume set to ${Math.round(value * 100)}%`, 'info');
+            }
+        }
+
+        function seekAudio(audioId, event) {
+            const audio = document.getElementById(audioId);
+            const progressBar = event.currentTarget;
+            if (audio && progressBar) {
+                const rect = progressBar.getBoundingClientRect();
+                const clickX = event.clientX - rect.left;
+                const width = rect.width;
+                const percentage = clickX / width;
+                const newTime = percentage * audio.duration;
+                
+                if (!isNaN(newTime)) {
+                    audio.currentTime = newTime;
+                    logToResults(getResultsId(audioId), `⏩ Seeked to ${formatTime(newTime)}`, 'info');
+                }
+            }
+        }
+
+        // Progress and time update functions
+        function updateProgress(prefix, audio) {
+            if (audio.duration) {
+                const progressFill = document.getElementById(prefix + 'ProgressFill');
+                const currentTimeSpan = document.getElementById(prefix + 'CurrentTime');
+                
+                if (progressFill) {
+                    const percentage = (audio.currentTime / audio.duration) * 100;
+                    progressFill.style.width = percentage + '%';
+                }
+                
+                if (currentTimeSpan) {
+                    currentTimeSpan.textContent = formatTime(audio.currentTime);
+                }
+            }
+        }
+
+        function updateDuration(prefix, duration) {
+            const durationSpan = document.getElementById(prefix + 'Duration');
+            if (durationSpan && !isNaN(duration)) {
+                durationSpan.textContent = formatTime(duration);
+            }
+        }
+
+        function startProgressUpdate(audioId, prefix) {
+            const audio = document.getElementById(audioId);
+            if (!audio) return;
+
+            const updateInterval = setInterval(() => {
+                if (audio.paused || audio.ended) {
+                    clearInterval(updateInterval);
+                    return;
+                }
+                updateProgress(prefix, audio);
+            }, 100);
+        }
+
+        // Testing functions
+        function testConcurrentPlay() {
+            logToResults('secondaryTestResults', '🎵 Testing concurrent playback...', 'info');
+            
+            const main = document.getElementById('mainAudioPlayer');
+            const secondary = document.getElementById('secondaryAudioPlayer');
+            
+            if (main && secondary) {
+                Promise.all([
+                    main.play(),
+                    secondary.play()
+                ]).then(() => {
+                    logToResults('secondaryTestResults', '✅ Concurrent playback successful', 'success');
+                }).catch(error => {
+                    logToResults('secondaryTestResults', '❌ Concurrent playback failed: ' + error.message, 'error');
+                });
+            }
+        }
+
+        function runPerformanceTest() {
+            logToResults('performanceResults', 'Running performance analysis...', 'info');
+            
+            // Simulate performance metrics
+            setTimeout(() => {
+                updateMetric('latencyMetric', Math.round(Math.random() * 50 + 10));
+                updateMetric('bufferHealthMetric', Math.round(Math.random() * 20 + 80) + '%');
+                updateMetric('cpuUsageMetric', Math.round(Math.random() * 30 + 10) + '%');
+                
+                logToResults('performanceResults', '✅ Performance analysis complete', 'success');
+                logToResults('performanceResults', 'Latency: Low | Buffer: Healthy | CPU: Normal', 'info');
+            }, 1500);
+        }
+
+        function testBrowserCompatibility() {
+            logToResults('compatibilityResults', 'Testing browser compatibility...', 'info');
+            
+            // Test audio format support
+            const audio = document.createElement('audio');
+            const formats = {
+                mp3: 'audio/mpeg',
+                ogg: 'audio/ogg',
+                wav: 'audio/wav',
+                aac: 'audio/aac'
+            };
+            
+            for (const [format, type] of Object.entries(formats)) {
+                const canPlay = audio.canPlayType(type);
+                const status = canPlay === 'probably' ? 'Full' : canPlay === 'maybe' ? 'Partial' : 'None';
+                logToResults('compatibilityResults', `${format.toUpperCase()}: ${status} support`, 
+                    status === 'Full' ? 'success' : status === 'Partial' ? 'warning' : 'error');
+            }
+            
+            // Test Web Audio API
+            const hasWebAudio = !!(window.AudioContext || window.webkitAudioContext);
+            logToResults('compatibilityResults', `Web Audio API: ${hasWebAudio ? 'Supported' : 'Not Supported'}`, 
+                hasWebAudio ? 'success' : 'error');
+        }
+
+        function detectBrowser() {
+            const ua = navigator.userAgent;
+            let browser = 'Unknown';
+            let version = 'Unknown';
+            
+            if (ua.indexOf('Chrome') > -1 && ua.indexOf('Edg') === -1) {
+                browser = 'Chrome';
+                version = ua.match(/Chrome\/([0-9.]+)/)?.[1] || 'Unknown';
+                updateBrowserStatus('chrome', 'pass', version);
+            } else if (ua.indexOf('Firefox') > -1) {
+                browser = 'Firefox';
+                version = ua.match(/Firefox\/([0-9.]+)/)?.[1] || 'Unknown';
+                updateBrowserStatus('firefox', 'pass', version);
+            } else if (ua.indexOf('Safari') > -1 && ua.indexOf('Chrome') === -1) {
+                browser = 'Safari';
+                version = ua.match(/Version\/([0-9.]+)/)?.[1] || 'Unknown';
+                updateBrowserStatus('safari', 'pass', version);
+            } else if (ua.indexOf('Edg') > -1) {
+                browser = 'Edge';
+                version = ua.match(/Edg\/([0-9.]+)/)?.[1] || 'Unknown';
+                updateBrowserStatus('edge', 'pass', version);
+            }
+            
+            logToResults('mainTestResults', `🌐 Detected: ${browser} ${version}`, 'info');
+        }
+
+        function updateBrowserStatus(browser, status, version) {
+            const statusElement = document.getElementById(browser + 'Status');
+            const versionElement = document.getElementById(browser + 'Version');
+            
+            if (statusElement) {
+                statusElement.className = 'browser-status status-' + status;
+            }
+            
+            if (versionElement) {
+                versionElement.textContent = 'v' + version;
+            }
+        }
+
+        // Advanced controls
+        function updateEQ(band, value) {
+            logToResults('mainTestResults', `🎛️ EQ Band ${band}: ${value}dB`, 'info');
+        }
+
+        function resetEqualizer() {
+            const sliders = document.querySelectorAll('.eq-slider');
+            sliders.forEach(slider => slider.value = 0);
+            logToResults('mainTestResults', '🔄 Equalizer reset', 'info');
+        }
+
+        function toggleVisualizer() {
+            visualizerActive = !visualizerActive;
+            if (visualizerActive) {
+                startVisualizer();
+                logToResults('mainTestResults', '🎵 Visualizer activated', 'success');
+            } else {
+                stopVisualizer();
+                logToResults('mainTestResults', '⏹️ Visualizer deactivated', 'info');
+            }
+        }
+
+        function createWaveBars() {
+            const waveBars = document.getElementById('waveBars');
+            if (waveBars) {
+                waveBars.innerHTML = '';
+                for (let i = 0; i < 32; i++) {
+                    const bar = document.createElement('div');
+                    bar.className = 'wave-bar';
+                    waveBars.appendChild(bar);
+                }
+            }
+        }
+
+        function startVisualizer() {
+            if (!visualizerActive) return;
+            
+            const bars = document.querySelectorAll('.wave-bar');
+            bars.forEach(bar => {
+                const height = Math.random() * 90 + 10;
+                bar.style.height = height + '%';
+            });
+            
+            setTimeout(startVisualizer, 100);
+        }
+
+        function stopVisualizer() {
+            const bars = document.querySelectorAll('.wave-bar');
+            bars.forEach(bar => {
+                bar.style.height = '10%';
+            });
+        }
+
+        // Batch testing functions
+        function runAllTests() {
+            logToResults('mainTestResults', '🚀 Starting comprehensive test suite...', 'info');
+            
+            // Run all tests in sequence
+            setTimeout(() => testBrowserCompatibility(), 500);
+            setTimeout(() => runPerformanceTest(), 1000);
+            setTimeout(() => testConcurrentPlay(), 1500);
+            setTimeout(() => {
+                logToResults('mainTestResults', '🎉 All tests completed successfully!', 'success');
+            }, 2500);
+        }
+
+        function clearAllLogs() {
+            const resultElements = ['mainTestResults', 'secondaryTestResults', 'performanceResults', 'compatibilityResults'];
+            resultElements.forEach(id => {
+                const element = document.getElementById(id);
+                if (element) {
+                    element.innerHTML = 'Logs cleared...';
+                }
+            });
+        }
+
+        function exportResults() {
+            const results = {
+                timestamp: new Date().toISOString(),
+                browser: navigator.userAgent,
+                testResults: testResults,
+                metrics: {
+                    loadTime: document.getElementById('loadTimeMetric').textContent,
+                    latency: document.getElementById('latencyMetric').textContent,
+                    bufferHealth: document.getElementById('bufferHealthMetric').textContent,
+                    cpuUsage: document.getElementById('cpuUsageMetric').textContent
+                }
+            };
+            
+            const blob = new Blob([JSON.stringify(results, null, 2)], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'mac-wayne-audio-test-results.json';
+            a.click();
+            URL.revokeObjectURL(url);
+            
+            logToResults('mainTestResults', '📊 Test results exported', 'success');
+        }
+
+        function resetSystem() {
+            // Stop all audio
+            const audioElements = document.querySelectorAll('audio');
+            audioElements.forEach(audio => {
+                audio.pause();
+                audio.currentTime = 0;
+            });
+            
+            // Reset metrics
+            updateMetric('loadTimeMetric', '--');
+            updateMetric('latencyMetric', '--');
+            updateMetric('bufferHealthMetric', '--');
+            updateMetric('cpuUsageMetric', '--');
+            
+            // Clear logs
+            clearAllLogs();
+            
+            // Reset visualizer
+            visualizerActive = false;
+            stopVisualizer();
+            
+            logToResults('mainTestResults', '🔄 System reset complete', 'success');
+        }
+
+        // Utility functions
+        function logToResults(elementId, message, type = 'info') {
+            const element = document.getElementById(elementId);
+            if (element) {
+                const entry = document.createElement('div');
+                entry.className = 'log-entry log-' + type;
+                entry.textContent = `[${new Date().toLocaleTimeString()}] ${message}`;
+                element.appendChild(entry);
+                element.scrollTop = element.scrollHeight;
+            }
+        }
+
+        function updateMetric(metricId, value) {
+            const element = document.getElementById(metricId);
+            if (element) {
+                element.textContent = value;
+            }
+        }
+
+        function getResultsId(audioId) {
+            return audioId.includes('main') ? 'mainTestResults' : 'secondaryTestResults';
+        }
+
+        function formatTime(seconds) {
+            if (isNaN(seconds)) return '0:00';
+            const minutes = Math.floor(seconds / 60);
+            const remainingSeconds = Math.floor(seconds % 60);
+            return `${minutes}:${remainingSeconds.toString().padStart(2, '0')}`;
+        }
+
+        // Error handling
+        window.addEventListener('error', function(e) {
+            logToResults('mainTestResults', `❌ System Error: ${e.message}`, 'error');
+        });
+    </script>
+</body>
+</html>

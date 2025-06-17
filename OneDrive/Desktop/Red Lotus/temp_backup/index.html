@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" href="/favicon.ico" />
+    <meta name="theme-color" content="#45080A" />
+    <meta property="og:title" content="Red Lotus | Official Site" />
+    <meta property="og:description" content="Red Lotus - Official music collective. Explore albums, join the tribe, and experience exclusive content." />
+    <meta property="og:image" content="/og-image.png" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="format-detection" content="telephone=no" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="description" content="Red Lotus - Official music collective. Explore albums, join the tribe, and experience exclusive content." />
+    <title>Red Lotus Music</title>
+    <!-- Add Tailwind CSS via CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              'red-lotus': '#45080A',
+              'yellow-lotus': '#C17505',
+              'blue-lotus': '#405769',
+              'green-lotus': '#384A50',
+              'brown-lotus': '#7F371E',
+              'pink-lotus': '#966B73',
+              'blue-lotus-accent': '#C17505',
+            },
+            screens: {
+              'sm': '640px',
+              'md': '768px', 
+              'lg': '1024px',
+              'xl': '1280px',
+              '2xl': '1536px',
+              '3xl': '1920px', // For large desktop/TV displays
+              'tv': '2560px',  // For TV/large format displays
+            }
+          }
+        }
+      }
+    </script>
+    <!-- Add responsive font scaling -->
+    <style>
+      html {
+        font-size: 16px;
+      }
+      @media screen and (max-width: 640px) {
+        html {
+          font-size: 14px;
+        }
+      }
+      @media screen and (min-width: 1920px) {
+        html {
+          font-size: 18px;
+        }
+      }
+      @media screen and (min-width: 2560px) {
+        html {
+          font-size: 20px;
+        }
+      }
+      /* Safe areas for notched devices */
+      @supports(padding: max(0px)) {
+        body {
+          padding-left: min(0vmin, env(safe-area-inset-left));
+          padding-right: min(0vmin, env(safe-area-inset-right));
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>

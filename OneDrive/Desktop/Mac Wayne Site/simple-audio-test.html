@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple Audio Test</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        button {
+            background: #cc0000;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 4px;
+            cursor: pointer;
+            margin: 10px 0;
+        }
+        .test-section {
+            margin-bottom: 20px;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+        }
+        .status {
+            margin-top: 10px;
+            padding: 10px;
+            border-radius: 4px;
+        }
+        .success {
+            background: #d4edda;
+            color: #155724;
+        }
+        .error {
+            background: #f8d7da;
+            color: #721c24;
+        }
+        audio {
+            width: 100%;
+            margin: 10px 0;
+        }
+    </style>
+</head>
+<body>
+    <h1>Simple Audio Test</h1>
+    <p>This page contains simple HTML5 audio tests to troubleshoot audio playback issues.</p>
+    
+    <div class="test-section">
+        <h2>1. Static HTML5 Audio Element</h2>
+        <audio controls>
+            <source src="https://cdn.freesound.org/previews/400/400561_5121236-lq.mp3" type="audio/mpeg">
+            Your browser does not support the audio element.
+        </audio>
+        <div>
+            <button id="play1">Play</button>
+            <button id="pause1">Pause</button>
+        </div>
+        <div id="status1" class="status"></div>
+    </div>
+    
+    <div class="test-section">
+        <h2>2. JavaScript-Created Audio</h2>
+        <button id="createAudio">Create and Play Audio</button>
+        <div id="audioContainer"></div>
+        <div id="status2" class="status"></div>
+    </div>
+    
+    <div class="test-section">
+        <h2>3. Test Local Audio Files</h2>
+        <p>Create new test file:</p>
+        <div>
+            <button id="createTestFile">Create Test Audio File</button>
+            <div id="createStatus" class="status"></div>
+        </div>
+        
+        <p>Test existing files:</p>
+        <div>
+            <button id="testTrack1">Test track1.mp3</button>
+            <button id="testTrack2">Test track2.mp3</button>
+            <button id="testTrack3">Test track3.mp3</button>
+        </div>
+        <div id="status3" class="status"></div>
+    </div>
+    
+    <div class="test-section">
+        <h2>Results:</h2>
+        <div id="results"></div>
+    </div>
+
+    <script>
+        function addResult(message, isError = false) {
+            const resultsDiv = document.getElementById('results');
+            const resultItem = document.createElement('div');
+            resultItem.textContent = `[${new Date().toLocaleTimeString()}] ${message}`;
+            resultItem.className = isError ? 'error' : 'success';
+            resultsDiv.appendChild(resultItem);
+            console.log(message);
+        }
+        
+        // Test 1: Static HTML5 Audio
+        const audio1 = document.querySelector('audio');
+        const status1 = document.getElementById('status1');
+        
+        audio1.addEventListener('canplay', () => {
+            status1.textContent = 'Audio can be played';
+            status1.className = 'status success';
+            addResult('Test 1: Audio can be played');
+        });
+        
+        audio1.addEventListener('error', (e) => {
+            status1.textContent = `Error: ${audio1.error ? audio1.error.code : 'unknown'}`;
+            status1.className = 'status error';
+            addResult(`Test 1: Audio error - ${audio1.error ? audio1.error.code : 'unknown'}`, true);
+        });
+        
+        document.getElementById('play1').addEventListener('click', () => {
+            audio1.play().catch(error => {
+                status1.textContent = `Play error: ${error.message}`;
+                status1.className = 'status error';
+                addResult(`Test 1: Play error - ${error.message}`, true);
+            });
+        });
+        
+        document.getElementById('pause1').addEventListener('click', () => {
+            audio1.pause();
+        });
+        
+        // Test 2: JavaScript-Created Audio
+        document.getElementById('createAudio').addEventListener('click', () => {
+            const status2 = document.getElementById('status2');
+            const container = document.getElementById('audioContainer');
+            container.innerHTML = '';
+            
+            try {
+                // Create audio element
+                const audio = document.createElement('audio');
+                audio.controls = true;
+                
+                // Add source
+                const source = document.createElement('source');
+                source.src = "https://cdn.freesound.org/previews/415/415346_3652699-lq.mp3";
+                source.type = "audio/mpeg";
+                
+                audio.appendChild(source);
+                container.appendChild(audio);
+                
+                // Add event listeners
+                audio.addEventListener('canplay', () => {
+                    status2.textContent = 'JavaScript-created audio can be played';
+                    status2.className = 'status success';
+                    addResult('Test 2: JavaScript-created audio can be played');
+                });
+                
+                audio.addEventListener('error', (e) => {
+                    status2.textContent = `Error: ${audio.error ? audio.error.code : 'unknown'}`;
+                    status2.className = 'status error';
+                    addResult(`Test 2: Audio error - ${audio.error ? audio.error.code : 'unknown'}`, true);
+                });
+                
+                // Try to play
+                audio.play().catch(error => {
+                    status2.textContent = `Play error: ${error.message}`;
+                    status2.className = 'status error';
+                    addResult(`Test 2: Play error - ${error.message}`, true);
+                });
+                
+            } catch (error) {
+                status2.textContent = `Error creating audio: ${error.message}`;
+                status2.className = 'status error';
+                addResult(`Test 2: Error creating audio - ${error.message}`, true);
+            }
+        });
+        
+        // Test 3: Local Audio Files
+        document.getElementById('createTestFile').addEventListener('click', () => {
+            const createStatus = document.getElementById('createStatus');
+            createStatus.textContent = "Can't create files directly from browser. Use server-side tool.";
+            createStatus.className = 'status error';
+        });
+        
+        function testLocalFile(filename) {
+            const status3 = document.getElementById('status3');
+            status3.textContent = `Testing ${filename}...`;
+            status3.className = 'status';
+            
+            const audio = new Audio(filename);
+            
+            audio.addEventListener('canplay', () => {
+                status3.textContent = `${filename} is playable (duration: ${audio.duration.toFixed(2)}s)`;
+                status3.className = 'status success';
+                addResult(`Test 3: ${filename} is playable (duration: ${audio.duration.toFixed(2)}s)`);
+            });
+            
+            audio.addEventListener('error', (e) => {
+                status3.textContent = `Error with ${filename}: ${audio.error ? audio.error.code : 'unknown'}`;
+                status3.className = 'status error';
+                addResult(`Test 3: Error with ${filename} - ${audio.error ? audio.error.code : 'unknown'}`, true);
+            });
+            
+            // Force load
+            audio.load();
+        }
+        
+        document.getElementById('testTrack1').addEventListener('click', () => {
+            testLocalFile('audio/track1.mp3');
+        });
+        
+        document.getElementById('testTrack2').addEventListener('click', () => {
+            testLocalFile('audio/track2.mp3');
+        });
+        
+        document.getElementById('testTrack3').addEventListener('click', () => {
+            testLocalFile('audio/track3.mp3');
+        });
+        
+        // Initial status
+        addResult('Audio test page loaded successfully');
+    </script>
+</body>
+</html>

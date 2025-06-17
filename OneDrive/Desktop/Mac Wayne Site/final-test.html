@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mac Wayne - Complete Functionality Test</title>
+    <link rel="stylesheet" href="styles/main.css">
+    <style>
+        body {
+            padding: 20px;
+            font-family: Arial, sans-serif;
+            background: #1a1a1a;
+            color: white;
+            line-height: 1.6;
+        }
+        .test-section {
+            margin: 30px 0;
+            padding: 20px;
+            border: 2px solid #c9a96e;
+            border-radius: 8px;
+            background: rgba(201, 169, 110, 0.1);
+        }
+        .test-button {
+            background: #c9a96e;
+            color: #000;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 4px;
+            cursor: pointer;
+            margin: 5px;
+            font-weight: bold;
+        }
+        .test-button:hover {
+            background: #b8965d;
+        }
+        .status {
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+        .status.success {
+            background: #10b981;
+            color: white;
+        }
+        .status.error {
+            background: #ef4444;
+            color: white;
+        }
+        .status.info {
+            background: #3b82f6;
+            color: white;
+        }
+        .console-log {
+            background: #000;
+            color: #00ff00;
+            padding: 15px;
+            border-radius: 4px;
+            font-family: monospace;
+            font-size: 12px;
+            max-height: 300px;
+            overflow-y: auto;
+            margin: 10px 0;
+            border: 1px solid #333;
+        }
+        .featured-player {
+            margin: 20px 0;
+            padding: 20px;
+            background: rgba(0,0,0,0.3);
+            border-radius: 8px;
+        }
+        h1 {
+            color: #c9a96e;
+            text-align: center;
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+        h2 {
+            color: #c9a96e;
+            border-bottom: 2px solid #c9a96e;
+            padding-bottom: 10px;
+        }
+        .track-list {
+            max-height: 400px;
+            overflow-y: auto;
+            border: 1px solid #333;
+            border-radius: 4px;
+            padding: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1>🎵 Mac Wayne - Complete Functionality Test</h1>
+    
+    <div class="test-section">
+        <h2>🎧 Featured Audio Player Test</h2>
+        <div class="featured-player">
+            <div class="audio-player" data-src="public/audio/Blind and Battered [Explicit]/01 - Gotta Split [Explicit].mp3" data-title="Gotta Split [Explicit]" data-duration="3:12" data-preview="true">
+                <div class="player-controls">
+                    <button class="play-btn">▶️</button>
+                    <div class="track-info">
+                        <div class="track-title">Gotta Split [Explicit]</div>
+                        <div class="track-duration">3:12</div>
+                    </div>
+                    <div class="progress-container">
+                        <div class="progress-bar">
+                            <div class="progress-fill"></div>
+                        </div>
+                        <div class="time-display">
+                            <span class="current-time">0:00</span>
+                            <span class="duration">3:12</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="preview-indicator">🔒 PREVIEW - 30 SECONDS</div>
+            </div>
+        </div>
+        
+        <div>
+            <button class="test-button" onclick="testMainPlayer()">🎵 Test Main Player</button>
+            <button class="test-button" onclick="testPreviewMode()">🔒 Test Preview Mode</button>
+            <button class="test-button" onclick="unlockTracks()">🔓 Unlock All Tracks</button>
+        </div>
+        <div id="player-status" class="status info">Ready to test...</div>
+    </div>
+    
+    <div class="test-section">
+        <h2>📋 Track List Test</h2>
+        <div class="track-list">
+            <div class="track-item" data-src="public/audio/Blind and Battered [Explicit]/01 - Gotta Split [Explicit].mp3" data-title="Gotta Split [Explicit]" data-duration="3:12" data-preview="true">
+                <button class="mini-play-btn">▶️</button>
+                <span class="track-name">01. Gotta Split [Explicit]</span>
+                <span class="track-duration">3:12</span>
+            </div>
+            <div class="track-item" data-src="public/audio/Blind and Battered [Explicit]/02 - I Think [Explicit].mp3" data-title="I Think [Explicit]" data-duration="2:58" data-preview="true">
+                <button class="mini-play-btn">▶️</button>
+                <span class="track-name">02. I Think [Explicit]</span>
+                <span class="track-duration">2:58</span>
+            </div>
+            <div class="track-item" data-src="public/audio/Blind and Battered [Explicit]/10 - Blind and Battered [Explicit].mp3" data-title="Blind and Battered [Explicit]" data-duration="3:40" data-preview="true">
+                <button class="mini-play-btn">▶️</button>
+                <span class="track-name">10. Blind and Battered [Explicit] (Title Track)</span>
+                <span class="track-duration">3:40</span>
+            </div>
+            <div class="track-item" data-src="public/audio/Blind and Battered [Explicit]/20 - Hatin On a Blind Man [Explicit].mp3" data-title="Hatin On a Blind Man [Explicit]" data-duration="4:15" data-preview="true">
+                <button class="mini-play-btn">▶️</button>
+                <span class="track-name">20. Hatin On a Blind Man [Explicit]</span>
+                <span class="track-duration">4:15</span>
+            </div>
+        </div>
+        
+        <div>
+            <button class="test-button" onclick="testTrackSwitching()">🔄 Test Track Switching</button>
+            <button class="test-button" onclick="testMiniPlayButtons()">🎵 Test Mini Play Buttons</button>
+        </div>
+        <div id="tracklist-status" class="status info">Track list ready...</div>
+    </div>
+    
+    <div class="test-section">
+        <h2>🔒 Preview System Test</h2>
+        <div>
+            <button class="test-button" onclick="testPreviewLimits()">⏱️ Test 30-Second Limit</button>
+            <button class="test-button" onclick="testPurchaseFlow()">💳 Test Purchase Flow</button>
+            <button class="test-button" onclick="resetPurchase()">🔄 Reset Purchase</button>
+        </div>
+        <div id="preview-status" class="status info">Preview system ready...</div>
+    </div>
+    
+    <div class="test-section">
+        <h2>📊 System Status</h2>
+        <div id="system-info" class="console-log">Initializing system check...</div>
+        <div>
+            <button class="test-button" onclick="runSystemCheck()">🔍 Run System Check</button>
+            <button class="test-button" onclick="clearLog()">🗑️ Clear Log</button>
+        </div>
+    </div>
+    
+    <div class="test-section">
+        <h2>📝 Test Log</h2>
+        <div id="test-log" class="console-log">Test log initialized...</div>
+    </div>
+
+    <script>
+        // Test logging system
+        function log(message, type = 'info') {
+            const timestamp = new Date().toLocaleTimeString();
+            const logElement = document.getElementById('test-log');
+            const color = type === 'error' ? '#ff6b6b' : type === 'success' ? '#10b981' : '#48cae4';
+            logElement.innerHTML += `<span style="color: ${color}">[${timestamp}] ${message}</span>\n`;
+            logElement.scrollTop = logElement.scrollHeight;
+            console.log(`[TEST] ${message}`);
+        }
+        
+        function updateStatus(elementId, message, type = 'info') {
+            const element = document.getElementById(elementId);
+            element.textContent = message;
+            element.className = `status ${type}`;
+        }
+        
+        // Test functions
+        function testMainPlayer() {
+            log('Testing main audio player...', 'info');
+            const player = document.querySelector('.featured-player .audio-player');
+            const playBtn = player?.querySelector('.play-btn');
+            
+            if (playBtn) {
+                log('Play button found, attempting to play...', 'success');
+                playBtn.click();
+                updateStatus('player-status', 'Play button clicked - check if audio plays', 'info');
+            } else {
+                log('Play button not found!', 'error');
+                updateStatus('player-status', 'Error: Play button not found', 'error');
+            }
+        }
+        
+        function testPreviewMode() {
+            log('Testing preview mode...', 'info');
+            const isPurchased = localStorage.getItem('mac-wayne-album-purchased') === 'true';
+            
+            if (isPurchased) {
+                log('Tracks are currently unlocked', 'success');
+                updateStatus('player-status', 'Tracks unlocked - no preview limit', 'success');
+            } else {
+                log('Preview mode active - 30 second limit', 'info');
+                updateStatus('player-status', 'Preview mode: 30-second limit active', 'info');
+            }
+        }
+        
+        function unlockTracks() {
+            log('Unlocking all tracks...', 'info');
+            localStorage.setItem('mac-wayne-album-purchased', 'true');
+            
+            // Update preview indicators
+            document.querySelectorAll('.preview-indicator').forEach(indicator => {
+                indicator.style.display = 'none';
+            });
+            
+            log('All tracks unlocked successfully!', 'success');
+            updateStatus('player-status', 'All tracks unlocked! Full playback enabled', 'success');
+            updateStatus('preview-status', 'Preview mode disabled - full access granted', 'success');
+        }
+        
+        function resetPurchase() {
+            log('Resetting purchase status...', 'info');
+            localStorage.removeItem('mac-wayne-album-purchased');
+            
+            // Show preview indicators
+            document.querySelectorAll('.preview-indicator').forEach(indicator => {
+                indicator.style.display = 'block';
+            });
+            
+            log('Purchase reset - preview mode reactivated', 'info');
+            updateStatus('preview-status', 'Preview mode reactivated - 30 second limit', 'info');
+        }
+        
+        function testTrackSwitching() {
+            log('Testing track switching functionality...', 'info');
+            const tracks = document.querySelectorAll('.track-item');
+            
+            if (tracks.length > 0) {
+                log(`Found ${tracks.length} tracks for testing`, 'success');
+                updateStatus('tracklist-status', `${tracks.length} tracks found and ready`, 'success');
+            } else {
+                log('No tracks found for testing', 'error');
+                updateStatus('tracklist-status', 'Error: No tracks found', 'error');
+            }
+        }
+        
+        function testMiniPlayButtons() {
+            log('Testing mini play buttons...', 'info');
+            const miniButtons = document.querySelectorAll('.mini-play-btn');
+            
+            if (miniButtons.length > 0) {
+                log(`Found ${miniButtons.length} mini play buttons`, 'success');
+                log('Click any mini play button to test track switching', 'info');
+                updateStatus('tracklist-status', `${miniButtons.length} mini play buttons ready`, 'success');
+            } else {
+                log('No mini play buttons found', 'error');
+                updateStatus('tracklist-status', 'Error: No mini play buttons found', 'error');
+            }
+        }
+        
+        function testPreviewLimits() {
+            log('Testing 30-second preview limits...', 'info');
+            const isPurchased = localStorage.getItem('mac-wayne-album-purchased') === 'true';
+            
+            if (!isPurchased) {
+                log('Preview mode: Tracks will stop after 30 seconds', 'info');
+                log('Try playing a track to test the limit', 'info');
+                updateStatus('preview-status', 'Preview limits active - test by playing a track', 'info');
+            } else {
+                log('Tracks are unlocked - no preview limits apply', 'success');
+                updateStatus('preview-status', 'No preview limits - tracks fully unlocked', 'success');
+            }
+        }
+        
+        function testPurchaseFlow() {
+            log('Testing purchase flow simulation...', 'info');
+            
+            // Simulate purchase process
+            setTimeout(() => {
+                log('Simulating purchase...', 'info');
+                unlockTracks();
+            }, 1000);
+        }
+        
+        function runSystemCheck() {
+            log('Running comprehensive system check...', 'info');
+            const systemInfo = document.getElementById('system-info');
+            systemInfo.innerHTML = '';
+            
+            // Check SimpleAudioPlayer
+            if (typeof SimpleAudioPlayer !== 'undefined') {
+                systemInfo.innerHTML += '✅ SimpleAudioPlayer class loaded\n';
+            } else {
+                systemInfo.innerHTML += '❌ SimpleAudioPlayer class not found\n';
+            }
+            
+            // Check audio elements
+            const audioPlayers = document.querySelectorAll('.audio-player');
+            systemInfo.innerHTML += `✅ Found ${audioPlayers.length} audio player(s)\n`;
+            
+            // Check file paths
+            const testPath = 'public/audio/Blind and Battered [Explicit]/01 - Gotta Split [Explicit].mp3';
+            fetch(testPath, { method: 'HEAD' })
+                .then(response => {
+                    if (response.ok) {
+                        systemInfo.innerHTML += `✅ Audio files accessible (${response.status})\n`;
+                    } else {
+                        systemInfo.innerHTML += `⚠️ Audio file check returned ${response.status}\n`;
+                    }
+                })
+                .catch(error => {
+                    systemInfo.innerHTML += `❌ Audio file check failed: ${error.message}\n`;
+                });
+            
+            // Check localStorage
+            const isPurchased = localStorage.getItem('mac-wayne-album-purchased');
+            systemInfo.innerHTML += `📱 Purchase status: ${isPurchased || 'not purchased'}\n`;
+            
+            systemInfo.innerHTML += `🌐 Page URL: ${window.location.href}\n`;
+            systemInfo.innerHTML += `🕒 System check completed at ${new Date().toLocaleTimeString()}\n`;
+        }
+        
+        function clearLog() {
+            document.getElementById('test-log').innerHTML = 'Test log cleared...\n';
+        }
+        
+        // Initialize on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            log('Test page loaded successfully', 'success');
+            log('Initializing SimpleAudioPlayer...', 'info');
+            
+            // Run initial system check
+            setTimeout(runSystemCheck, 500);
+        });
+    </script>
+    
+    <script src="js/simple-audio-player.js"></script>
+    <script>
+        // Initialize audio player after SimpleAudioPlayer loads
+        document.addEventListener('DOMContentLoaded', function() {
+            setTimeout(() => {
+                const audioPlayer = document.querySelector('.featured-player .audio-player');
+                if (audioPlayer && typeof SimpleAudioPlayer !== 'undefined') {
+                    window.testAudioPlayer = new SimpleAudioPlayer(audioPlayer);
+                    log('Test audio player initialized successfully', 'success');
+                } else {
+                    log('Failed to initialize test audio player', 'error');
+                }
+            }, 1000);
+        });
+    </script>
+</body>
+</html>
