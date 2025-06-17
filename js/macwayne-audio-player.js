@@ -94,7 +94,6 @@ document.addEventListener('DOMContentLoaded', () => {
         ];
         tracks = audioFiles.map(file => {
             const trackName = file.replace(/\.mp3$/, '').replace(/^\d+\s*-\s*/, '');
-            const trackNumber = file.substring(0, 2); // Extract the two-digit track number
             return {
                 name: trackName,
                 id: file, // Use filename as a unique ID for the track
@@ -144,21 +143,25 @@ document.addEventListener('DOMContentLoaded', () => {
             </div>
         `;
         document.body.appendChild(paypalModal);
-
         // Use PayPal SDK to create payment
         paypal.Buttons({
-            createOrder: function(data, actions) {
-                return actions.order.create({
-                    purchase_units: [{
-                        amount: {
-                            value: amount,
-                            currency_code: currency
-                        },
-                        description: `${itemType === 'track' ? 'Music Track' : 'Album'}: ${itemName}`,
-                        custom_id: `${itemType}_${itemId}_${userEmail}`,
-                        soft_descriptor: "Mac Wayne Music"
-                    }]
-                });
+            env: PAYPAL_SANDBOX_MODE ? 'sandbox' : 'production',
+            client: {
+                production: PAYPAL_CLIENT_ID,
+                sandbox: PAYPAL_CLIENT_ID
+            },
+            createOrder: function(actions) {
+            return actions.order.create({
+                purchase_units: [{
+                amount: {
+                    value: amount,
+                    currency_code: currency
+                },
+                description: `${itemType === 'track' ? 'Music Track' : 'Album'}: ${itemName}`,
+                custom_id: `${itemType}_${itemId}_${userEmail}`,
+                soft_descriptor: "Mac Wayne Music"
+                }]
+            });
             },
             onApprove: function(data, actions) {
                 return actions.order.capture().then(function(details) {
