@@ -124,6 +124,27 @@ document.addEventListener('DOMContentLoaded', () => {
         
         console.log('PayPal SDK loaded. Available methods:', Object.keys(paypal));
         
+        // First, test if ANY modal can be visible
+        const testModal = document.createElement('div');
+        testModal.style.cssText = `
+            position: fixed !important;
+            top: 50px !important;
+            left: 50px !important;
+            width: 200px !important;
+            height: 100px !important;
+            background: red !important;
+            z-index: 9999999 !important;
+            display: block !important;
+            color: white !important;
+            text-align: center !important;
+            line-height: 100px !important;
+            font-size: 20px !important;
+        `;
+        testModal.innerHTML = 'TEST MODAL';
+        testModal.onclick = () => testModal.remove();
+        document.body.appendChild(testModal);
+        console.log('Test modal created - can you see a red box?');
+        
         // Get user email for download delivery
         const userEmail = prompt("Enter your email address for download delivery:") || "";
         
@@ -204,6 +225,45 @@ document.addEventListener('DOMContentLoaded', () => {
         
         console.log('PayPal modal created with bulletproof styling');
         console.log('Modal element in DOM:', document.getElementById(paypalModal.id));
+        
+        // Debug: Check if modal is actually visible
+        setTimeout(() => {
+            const modalRect = paypalModal.getBoundingClientRect();
+            const computedStyle = window.getComputedStyle(paypalModal);
+            
+            console.log('=== MODAL DEBUG INFO ===');
+            console.log('Modal position:', modalRect);
+            console.log('Modal computed display:', computedStyle.display);
+            console.log('Modal computed visibility:', computedStyle.visibility);
+            console.log('Modal computed opacity:', computedStyle.opacity);
+            console.log('Modal computed z-index:', computedStyle.zIndex);
+            console.log('Modal offset dimensions:', {
+                width: paypalModal.offsetWidth,
+                height: paypalModal.offsetHeight,
+                left: paypalModal.offsetLeft,
+                top: paypalModal.offsetTop
+            });
+            
+            // Check if any parent elements are hiding it
+            let element = paypalModal;
+            while (element.parentElement) {
+                element = element.parentElement;
+                const parentStyle = window.getComputedStyle(element);
+                if (parentStyle.display === 'none' || parentStyle.visibility === 'hidden' || parentStyle.opacity === '0') {
+                    console.log('FOUND HIDING PARENT:', element, {
+                        display: parentStyle.display,
+                        visibility: parentStyle.visibility,
+                        opacity: parentStyle.opacity
+                    });
+                }
+            }
+            
+            // Try to make modal even more visible
+            paypalModal.style.backgroundColor = 'rgba(255, 0, 0, 0.9)'; // Red background for debugging
+            paypalModal.style.border = '10px solid yellow'; // Yellow border for visibility
+            
+            alert(`Modal created! Check console for debug info. Modal dimensions: ${modalRect.width}x${modalRect.height}`);
+        }, 1000);
         
         // Remove the test alert since we know the modal creation works
         const buttonContainerId = paypalModal.querySelector('[id^="paypal-button-container-modal"]').id;
