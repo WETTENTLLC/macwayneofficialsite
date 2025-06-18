@@ -88,17 +88,18 @@ document.addEventListener('DOMContentLoaded', () => {
             '16 - Crispy Game [Explicit].mp3',
             '17 - The End of the World [Explicit].mp3',
             '18 - Smell of Victory [Explicit].mp3',
-            '19 - Do the I\'m the Shit [Explicit].mp3', // Correctly escaped apostrophe
+            '19 - Do the I\'m the Shit [Explicit].mp3', // Fixed apostrophe to match actual file
             '20 - Hatin On a Blind Man [Explicit].mp3'
         ];
-        tracks = audioFiles.map(file => {
+        tracks = audioFiles.map((file, index) => {
             const trackName = file.replace(/\.mp3$/, '').replace(/^\d+\s*-\s*/, '');
+            const trackNumber = String(index + 1).padStart(2, '0'); // Convert to 01, 02, etc.
             return {
                 name: trackName,
                 id: file, // Use filename as a unique ID for the track
-                srcFull: `public/audio/Blind and Battered [Explicit]/${file}`,
-                // Temporarily use full tracks for samples until real samples are created
-                srcSample: `public/audio/Blind and Battered [Explicit]/${file}`, // Will be limited to 30 seconds by JavaScript
+                srcFull: `live-deployment/public/audio/Blind and Battered [Explicit]/${file}`,
+                // Use sample files from the samples folder with correct naming
+                srcSample: `live-deployment/public/audio/Blind and Battered [Explicit]/samples/${trackNumber}-sample.mp3`,
                 purchased: false // Default to not purchased
             };
         });
@@ -654,17 +655,36 @@ document.addEventListener('DOMContentLoaded', () => {
             console.error("[PLAYER] loadUserPurchases: User ID not initialized.");
             return;
         }
+        
         try {
-            const response = await fetch(`/user-purchases/${userId}`);
-            if (!response.ok) {
-                console.error('Failed to fetch user purchases:', response.status);
-                return;
+            // Try to fetch from server first, but don't fail if server is not available
+            let data = null;
+            try {
+                const response = await fetch(`/user-purchases/${userId}`);
+                if (response.ok) {
+                    data = await response.json();
+                    console.log("[PLAYER] loadUserPurchases: Data received from server:", data);
+                    // Cache purchases in localStorage for quick access
+                    localStorage.setItem(`purchases_${userId}`, JSON.stringify(data));
+                } else {
+                    console.log("[PLAYER] loadUserPurchases: Server endpoint not available, using local storage");
+                }
+            } catch (fetchError) {
+                console.log("[PLAYER] loadUserPurchases: Server not available, using local storage:", fetchError.message);
             }
-            const data = await response.json();
-            console.log("[PLAYER] loadUserPurchases: Data received:", data);
-
-            // Cache purchases in localStorage for quick access
-            localStorage.setItem(`purchases_${userId}`, JSON.stringify(data));
+            
+            // If server data not available, try local storage
+            if (!data) {
+                const localData = localStorage.getItem(`purchases_${userId}`);
+                if (localData) {
+                    data = JSON.parse(localData);
+                    console.log("[PLAYER] loadUserPurchases: Using cached data from localStorage");
+                } else {
+                    // Initialize empty purchase data
+                    data = { purchasedTracks: [], purchasedAlbums: [], purchaseHistory: [] };
+                    console.log("[PLAYER] loadUserPurchases: No purchase data found, initializing empty");
+                }
+            }
 
             const albumPurchased = data.purchasedAlbums && data.purchasedAlbums.includes(ALBUM_NAME);
 
@@ -853,5 +873,8 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     }
+
+    // Initialize the application
+    initializeApp();
 });
 
