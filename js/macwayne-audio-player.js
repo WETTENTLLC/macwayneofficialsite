@@ -168,8 +168,17 @@ document.addEventListener('DOMContentLoaded', () => {
             height: '100vh',
             backgroundColor: 'rgba(0, 0, 0, 0.9)',
             overflow: 'auto',
-            fontFamily: 'Arial, sans-serif'
+            fontFamily: 'Arial, sans-serif',
+            transform: 'none', // Prevent any transforms
+            margin: '0',
+            padding: '0'
         });
+        
+        // Force position after creation
+        paypalModal.style.setProperty('position', 'fixed', 'important');
+        paypalModal.style.setProperty('top', '0px', 'important');
+        paypalModal.style.setProperty('left', '0px', 'important');
+        paypalModal.style.setProperty('transform', 'none', 'important');
         
         paypalModal.innerHTML = `
             <div style="
@@ -222,6 +231,16 @@ document.addEventListener('DOMContentLoaded', () => {
         // Force modal to appear on top of everything
         document.body.style.overflow = 'hidden'; // Prevent body scroll
         document.body.appendChild(paypalModal);
+        
+        // FORCE the modal position after DOM insertion (something is moving it)
+        setTimeout(() => {
+            paypalModal.style.setProperty('position', 'fixed', 'important');
+            paypalModal.style.setProperty('top', '0px', 'important');
+            paypalModal.style.setProperty('left', '0px', 'important');
+            paypalModal.style.setProperty('transform', 'none', 'important');
+            paypalModal.style.setProperty('margin', '0px', 'important');
+            console.log('FORCED modal position back to 0,0');
+        }, 10);
         
         console.log('PayPal modal created with bulletproof styling');
         console.log('Modal element in DOM:', document.getElementById(paypalModal.id));
