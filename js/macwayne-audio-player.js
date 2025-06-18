@@ -342,6 +342,16 @@ document.addEventListener('DOMContentLoaded', () => {
                     });
                     localStorage.setItem('macwayne_purchases', JSON.stringify(purchases));
                     
+                    // Call backend to process purchase and send email
+                    processPurchaseOnServer(itemType, itemId, itemName, amount, currency, userEmail, details.id)
+                        .then(() => {
+                            console.log('Purchase processed on server, email sent');
+                        })
+                        .catch(error => {
+                            console.error('Error processing purchase on server:', error);
+                            // Still continue with local processing even if server fails
+                        });
+                    
                     // Close modal and restore body scroll
                     document.body.style.overflow = '';
                     paypalModal.remove();
@@ -389,6 +399,64 @@ document.addEventListener('DOMContentLoaded', () => {
             alert('Error initializing PayPal payment. Please try again.');
             document.body.style.overflow = '';
             paypalModal.remove();
+        }
+    }
+
+    // Process purchase on server and send email
+    async function processPurchaseOnServer(itemType, itemId, itemName, amount, currency, userEmail, orderId) {
+        try {
+            // Try to call local server first (if running)
+            const serverEndpoints = [
+                'http://localhost:3000/webhook/paypal',
+                'https://macwayneofficial.com/webhook/paypal'
+            ];
+            
+            const purchaseData = {
+                itemType,
+                itemId,
+                itemName,
+                amount,
+                currency,
+                userId: userId,
+                userEmail,
+                orderId,
+                timestamp: new Date().toISOString()
+            };
+            
+            console.log('Attempting to process purchase on server:', purchaseData);
+            
+            // Try each endpoint
+            for (const endpoint of serverEndpoints) {
+                try {
+                    const response = await fetch(endpoint, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify(purchaseData)
+                    });
+                    
+                    if (response.ok) {
+                        console.log('Purchase processed successfully on:', endpoint);
+                        return true;
+                    }
+                } catch (error) {
+                    console.log('Failed to reach:', endpoint, error.message);
+                    continue;
+                }
+            }
+            
+            // If no server endpoint worked, create a mock email notification
+            console.log('No server available, creating mock email notification');
+            setTimeout(() => {
+                if (userEmail) {
+                    alert(`📧 Email Notification:\n\nHi there!\n\nYour purchase of "${itemName}" has been processed. Download links would normally be sent to ${userEmail}.\n\nSince the backend server is not running, please contact support for your download links.\n\nThank you for supporting Mac Wayne!`);
+                }
+            }, 2000);
+            
+        } catch (error) {
+            console.error('Error processing purchase on server:', error);
+            throw error;
         }
     }
 
