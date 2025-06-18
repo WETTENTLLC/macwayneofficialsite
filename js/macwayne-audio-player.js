@@ -136,6 +136,13 @@ document.addEventListener('DOMContentLoaded', () => {
         const paypalModal = document.createElement('div');
         paypalModal.className = 'modal';
         paypalModal.style.display = 'block';
+        paypalModal.style.position = 'fixed';
+        paypalModal.style.zIndex = '99999';
+        paypalModal.style.left = '0';
+        paypalModal.style.top = '0';
+        paypalModal.style.width = '100%';
+        paypalModal.style.height = '100%';
+        paypalModal.style.backgroundColor = 'rgba(0, 0, 0, 0.8)';
         paypalModal.innerHTML = `
             <div class="modal-content">
                 <div class="modal-header">
@@ -152,10 +159,22 @@ document.addEventListener('DOMContentLoaded', () => {
         `;
         document.body.appendChild(paypalModal);
         
-        console.log('PayPal modal created, attempting to render buttons...');
+        console.log('PayPal modal created and added to DOM. Modal display:', paypalModal.style.display);
+        console.log('Modal z-index:', paypalModal.style.zIndex);
+        console.log('Modal element:', paypalModal);
         
-        // Add a loading message
-        document.getElementById('paypal-button-container-modal').innerHTML = '<p>Loading PayPal payment options...</p>';
+        // Add a temporary alert to confirm modal should be visible
+        setTimeout(() => {
+            alert('PayPal modal should now be visible. Do you see it?');
+        }, 500);
+        
+        // Add a loading message with better styling
+        const buttonContainer = document.getElementById('paypal-button-container-modal');
+        buttonContainer.innerHTML = '<p style="text-align: center; color: white; padding: 20px;">Loading PayPal payment options...</p>';
+        buttonContainer.style.minHeight = '100px';
+        buttonContainer.style.backgroundColor = '#2a2a2a';
+        buttonContainer.style.borderRadius = '5px';
+        buttonContainer.style.margin = '10px 0';
         
         // Use PayPal SDK to create payment
         try {
