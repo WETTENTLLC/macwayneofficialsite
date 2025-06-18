@@ -2,20 +2,7 @@ document.addEventListener('DOMContentLoaded', () => {
     console.log("[PLAYER] DOMContentLoaded event fired.");
 
     // Element checks
-    const albumArt = document.getElementById('        paypalModal.innerHTML = `
-            <div style="
-                background-color: #ffffff;
-                margin: 10vh auto;
-                padding: 30px;
-                border: 3px solid #007bff;
-                border-radius: 10px;
-                width: 90%;
-                max-width: 500px;
-                box-shadow: 0 10px 50px rgba(0, 0, 0, 0.9);
-                text-align: center;
-                color: #333;
-                position: relative;
-            ">`;    console.log("[PLAYER] albumArt element:", albumArt ? "Found" : "NOT FOUND");
+    const albumArt = document.getElementById('album-art');
     const trackTitle = document.getElementById('track-title');
     console.log("[PLAYER] trackTitle element:", trackTitle ? "Found" : "NOT FOUND");
     const audioElement = document.getElementById('audio-element');
