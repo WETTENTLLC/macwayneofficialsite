@@ -150,21 +150,28 @@ document.addEventListener('DOMContentLoaded', () => {
         `;
         document.body.appendChild(paypalModal);
         
+        console.log('PayPal modal created, attempting to render buttons...');
+        
+        // Add a loading message
+        document.getElementById('paypal-button-container-modal').innerHTML = '<p>Loading PayPal payment options...</p>';
+        
         // Use PayPal SDK to create payment
-        paypal.Buttons({
-            createOrder: function(data, actions) {
-                return actions.order.create({
-                    purchase_units: [{
-                        amount: {
-                            value: amount,
-                            currency_code: currency
-                        },
-                        description: `${itemType === 'track' ? 'Music Track' : 'Album'}: ${itemName}`,
-                        custom_id: `${itemType}_${itemId}_${userEmail}`,
-                        soft_descriptor: "Mac Wayne Music"
-                    }]
-                });
-            },
+        try {
+            paypal.Buttons({
+                createOrder: function(data, actions) {
+                    console.log('Creating PayPal order...');
+                    return actions.order.create({
+                        purchase_units: [{
+                            amount: {
+                                value: amount,
+                                currency_code: currency
+                            },
+                            description: `${itemType === 'track' ? 'Music Track' : 'Album'}: ${itemName}`,
+                            custom_id: `${itemType}_${itemId}_${userEmail}`,
+                            soft_descriptor: "Mac Wayne Music"
+                        }]
+                    });
+                },
             onApprove: function(data, actions) {
                 return actions.order.capture().then(function(details) {
                     console.log('Payment successful!', details);
@@ -209,11 +216,16 @@ document.addEventListener('DOMContentLoaded', () => {
                 alert('Payment was cancelled.');
                 paypalModal.remove();
             }
-        }).render('#paypal-button-container-modal').catch(function(err) {
-            console.error('PayPal render error:', err);
-            alert('Error loading PayPal payment. Please try again.');
+            }).render('#paypal-button-container-modal').catch(function(err) {
+                console.error('PayPal render error:', err);
+                alert('Error loading PayPal payment. Please try again.');
+                paypalModal.remove();
+            });
+        } catch (error) {
+            console.error('PayPal initialization error:', error);
+            alert('Error initializing PayPal payment. Please try again.');
             paypalModal.remove();
-        });
+        }
     }
 
     // Add download functionality for purchased items
