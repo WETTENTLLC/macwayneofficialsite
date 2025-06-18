@@ -2,8 +2,20 @@ document.addEventListener('DOMContentLoaded', () => {
     console.log("[PLAYER] DOMContentLoaded event fired.");
 
     // Element checks
-    const albumArt = document.getElementById('album-art');
-    console.log("[PLAYER] albumArt element:", albumArt ? "Found" : "NOT FOUND");
+    const albumArt = document.getElementById('        paypalModal.innerHTML = `
+            <div style="
+                background-color: #ffffff;
+                margin: 10vh auto;
+                padding: 30px;
+                border: 3px solid #007bff;
+                border-radius: 10px;
+                width: 90%;
+                max-width: 500px;
+                box-shadow: 0 10px 50px rgba(0, 0, 0, 0.9);
+                text-align: center;
+                color: #333;
+                position: relative;
+            ">`;    console.log("[PLAYER] albumArt element:", albumArt ? "Found" : "NOT FOUND");
     const trackTitle = document.getElementById('track-title');
     console.log("[PLAYER] trackTitle element:", trackTitle ? "Found" : "NOT FOUND");
     const audioElement = document.getElementById('audio-element');
@@ -159,7 +171,9 @@ document.addEventListener('DOMContentLoaded', () => {
         
         // Apply ALL styles inline to override any CSS conflicts
         Object.assign(paypalModal.style, {
-            display: 'block',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
             position: 'fixed',
             zIndex: '2147483647', // Maximum z-index value
             left: '0',
@@ -171,19 +185,21 @@ document.addEventListener('DOMContentLoaded', () => {
             fontFamily: 'Arial, sans-serif',
             transform: 'none', // Prevent any transforms
             margin: '0',
-            padding: '0'
+            padding: '20px',
+            boxSizing: 'border-box'
         });
         
         // Force position after creation
         paypalModal.style.setProperty('position', 'fixed', 'important');
         paypalModal.style.setProperty('top', '0px', 'important');
         paypalModal.style.setProperty('left', '0px', 'important');
-        paypalModal.style.setProperty('transform', 'none', 'important');
+        paypalModal.style.setProperty('display', 'flex', 'important');
+        paypalModal.style.setProperty('align-items', 'center', 'important');
+        paypalModal.style.setProperty('justify-content', 'center', 'important');
         
         paypalModal.innerHTML = `
             <div style="
                 background-color: #ffffff;
-                margin: 50px auto;
                 padding: 30px;
                 border: 3px solid #007bff;
                 border-radius: 10px;
@@ -192,9 +208,11 @@ document.addEventListener('DOMContentLoaded', () => {
                 box-shadow: 0 10px 50px rgba(0, 0, 0, 0.9);
                 text-align: center;
                 color: #333;
+                position: relative;
+                margin: 0;
             ">
                 <h2 style="color: #333; margin-bottom: 20px;">Complete Your Payment</h2>
-                <button onclick="this.closest('div[id^=paypal-payment-modal]').remove()" style="
+                <button onclick="this.closest('div[id^=paypal-payment-modal]').remove(); document.body.style.overflow = 'auto';" style="
                     position: absolute;
                     right: 15px;
                     top: 15px;
@@ -232,14 +250,17 @@ document.addEventListener('DOMContentLoaded', () => {
         document.body.style.overflow = 'hidden'; // Prevent body scroll
         document.body.appendChild(paypalModal);
         
-        // FORCE the modal position after DOM insertion (something is moving it)
+        // FORCE the modal position and centering after DOM insertion
         setTimeout(() => {
             paypalModal.style.setProperty('position', 'fixed', 'important');
             paypalModal.style.setProperty('top', '0px', 'important');
             paypalModal.style.setProperty('left', '0px', 'important');
+            paypalModal.style.setProperty('display', 'flex', 'important');
+            paypalModal.style.setProperty('align-items', 'center', 'important');
+            paypalModal.style.setProperty('justify-content', 'center', 'important');
             paypalModal.style.setProperty('transform', 'none', 'important');
             paypalModal.style.setProperty('margin', '0px', 'important');
-            console.log('FORCED modal position back to 0,0');
+            console.log('FORCED modal position and centering');
         }, 10);
         
         console.log('PayPal modal created with bulletproof styling');
