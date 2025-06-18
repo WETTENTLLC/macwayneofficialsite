@@ -132,49 +132,81 @@ document.addEventListener('DOMContentLoaded', () => {
             return;
         }
 
-        // Create a modal for PayPal payment
+        // Create a modal for PayPal payment with bulletproof styling
         const paypalModal = document.createElement('div');
-        paypalModal.className = 'modal';
-        paypalModal.style.display = 'block';
-        paypalModal.style.position = 'fixed';
-        paypalModal.style.zIndex = '99999';
-        paypalModal.style.left = '0';
-        paypalModal.style.top = '0';
-        paypalModal.style.width = '100%';
-        paypalModal.style.height = '100%';
-        paypalModal.style.backgroundColor = 'rgba(0, 0, 0, 0.8)';
+        paypalModal.id = 'paypal-payment-modal-' + Date.now(); // Unique ID
+        
+        // Apply ALL styles inline to override any CSS conflicts
+        Object.assign(paypalModal.style, {
+            display: 'block',
+            position: 'fixed',
+            zIndex: '2147483647', // Maximum z-index value
+            left: '0',
+            top: '0',
+            width: '100vw',
+            height: '100vh',
+            backgroundColor: 'rgba(0, 0, 0, 0.9)',
+            overflow: 'auto',
+            fontFamily: 'Arial, sans-serif'
+        });
+        
         paypalModal.innerHTML = `
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h2>Complete Payment</h2>
-                    <span class="close" onclick="this.closest('.modal').remove()">&times;</span>
+            <div style="
+                background-color: #ffffff;
+                margin: 50px auto;
+                padding: 30px;
+                border: 3px solid #007bff;
+                border-radius: 10px;
+                width: 90%;
+                max-width: 500px;
+                box-shadow: 0 10px 50px rgba(0, 0, 0, 0.9);
+                text-align: center;
+                color: #333;
+            ">
+                <h2 style="color: #333; margin-bottom: 20px;">Complete Your Payment</h2>
+                <button onclick="this.closest('div[id^=paypal-payment-modal]').remove()" style="
+                    position: absolute;
+                    right: 15px;
+                    top: 15px;
+                    background: #ff4444;
+                    color: white;
+                    border: none;
+                    border-radius: 50%;
+                    width: 30px;
+                    height: 30px;
+                    cursor: pointer;
+                    font-size: 18px;
+                ">&times;</button>
+                <div style="margin: 20px 0; padding: 15px; background: #f8f9fa; border-radius: 5px;">
+                    <h3 style="color: #333; margin: 10px 0;">Purchasing: ${itemName}</h3>
+                    <p style="color: #666; margin: 5px 0; font-size: 18px; font-weight: bold;">Price: $${amount} ${currency}</p>
+                    <p style="color: #666; margin: 5px 0;">Email: ${userEmail}</p>
                 </div>
-                <div class="modal-body">
-                    <h3>Purchasing: ${itemName}</h3>
-                    <p>Price: $${amount} ${currency}</p>
-                    <p>Email: ${userEmail}</p>
-                    <div id="paypal-button-container-modal"></div>
+                <div id="paypal-button-container-modal-${Date.now()}" style="
+                    min-height: 120px;
+                    background: #f0f0f0;
+                    border: 2px dashed #ccc;
+                    border-radius: 8px;
+                    padding: 20px;
+                    margin: 20px 0;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                ">
+                    <p style="color: #666; font-size: 16px;">Loading PayPal payment options...</p>
                 </div>
             </div>
         `;
+        
+        // Force modal to appear on top of everything
+        document.body.style.overflow = 'hidden'; // Prevent body scroll
         document.body.appendChild(paypalModal);
         
-        console.log('PayPal modal created and added to DOM. Modal display:', paypalModal.style.display);
-        console.log('Modal z-index:', paypalModal.style.zIndex);
-        console.log('Modal element:', paypalModal);
+        console.log('PayPal modal created with bulletproof styling');
+        console.log('Modal element in DOM:', document.getElementById(paypalModal.id));
         
-        // Add a temporary alert to confirm modal should be visible
-        setTimeout(() => {
-            alert('PayPal modal should now be visible. Do you see it?');
-        }, 500);
-        
-        // Add a loading message with better styling
-        const buttonContainer = document.getElementById('paypal-button-container-modal');
-        buttonContainer.innerHTML = '<p style="text-align: center; color: white; padding: 20px;">Loading PayPal payment options...</p>';
-        buttonContainer.style.minHeight = '100px';
-        buttonContainer.style.backgroundColor = '#2a2a2a';
-        buttonContainer.style.borderRadius = '5px';
-        buttonContainer.style.margin = '10px 0';
+        // Remove the test alert since we know the modal creation works
+        const buttonContainerId = paypalModal.querySelector('[id^="paypal-button-container-modal"]').id;
         
         // Use PayPal SDK to create payment
         try {
@@ -210,7 +242,8 @@ document.addEventListener('DOMContentLoaded', () => {
                     });
                     localStorage.setItem('macwayne_purchases', JSON.stringify(purchases));
                     
-                    // Close modal
+                    // Close modal and restore body scroll
+                    document.body.style.overflow = '';
                     paypalModal.remove();
                     
                     alert(`Payment successful! Thank you for purchasing ${itemName}. Download instructions will be sent to ${userEmail} shortly.`);
@@ -231,26 +264,30 @@ document.addEventListener('DOMContentLoaded', () => {
             onError: function(err) {
                 console.error('PayPal payment error:', err);
                 alert('Payment failed. Please try again or contact support.');
+                document.body.style.overflow = '';
                 paypalModal.remove();
             },
             onCancel: function(data) {
                 console.log('Payment cancelled:', data);
                 alert('Payment was cancelled.');
+                document.body.style.overflow = '';
                 paypalModal.remove();
             }
             });
             
             console.log('PayPal buttons object created, attempting to render...');
-            paypalButtons.render('#paypal-button-container-modal').then(function() {
+            paypalButtons.render('#' + buttonContainerId).then(function() {
                 console.log('PayPal buttons rendered successfully!');
             }).catch(function(err) {
                 console.error('PayPal render error:', err);
                 alert('Error loading PayPal payment. Please try again.');
+                document.body.style.overflow = '';
                 paypalModal.remove();
             });
         } catch (error) {
             console.error('PayPal initialization error:', error);
             alert('Error initializing PayPal payment. Please try again.');
+            document.body.style.overflow = '';
             paypalModal.remove();
         }
     }
