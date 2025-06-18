@@ -97,9 +97,9 @@ document.addEventListener('DOMContentLoaded', () => {
             return {
                 name: trackName,
                 id: file, // Use filename as a unique ID for the track
-                srcFull: `live-deployment/public/audio/Blind and Battered [Explicit]/${file}`,
+                srcFull: `public/audio/Blind and Battered [Explicit]/${file}`,
                 // Use sample files from the samples folder with correct naming
-                srcSample: `live-deployment/public/audio/Blind and Battered [Explicit]/samples/${trackNumber}-sample.mp3`,
+                srcSample: `public/audio/Blind and Battered [Explicit]/samples/${trackNumber}-sample.mp3`,
                 purchased: false // Default to not purchased
             };
         });
