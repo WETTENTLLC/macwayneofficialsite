@@ -122,6 +122,8 @@ document.addEventListener('DOMContentLoaded', () => {
             return;
         }
         
+        console.log('PayPal SDK loaded. Available methods:', Object.keys(paypal));
+        
         // Get user email for download delivery
         const userEmail = prompt("Enter your email address for download delivery:") || "";
         
@@ -157,7 +159,8 @@ document.addEventListener('DOMContentLoaded', () => {
         
         // Use PayPal SDK to create payment
         try {
-            paypal.Buttons({
+            console.log('About to call paypal.Buttons()...');
+            const paypalButtons = paypal.Buttons({
                 createOrder: function(data, actions) {
                     console.log('Creating PayPal order...');
                     return actions.order.create({
@@ -216,7 +219,12 @@ document.addEventListener('DOMContentLoaded', () => {
                 alert('Payment was cancelled.');
                 paypalModal.remove();
             }
-            }).render('#paypal-button-container-modal').catch(function(err) {
+            });
+            
+            console.log('PayPal buttons object created, attempting to render...');
+            paypalButtons.render('#paypal-button-container-modal').then(function() {
+                console.log('PayPal buttons rendered successfully!');
+            }).catch(function(err) {
                 console.error('PayPal render error:', err);
                 alert('Error loading PayPal payment. Please try again.');
                 paypalModal.remove();
