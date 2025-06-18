@@ -1,3 +1,6 @@
+// Load environment variables from .env file
+require('dotenv').config();
+
 const express = require('express');
 const bodyParser = require('body-parser');
 const fs = require('fs');
@@ -61,7 +64,7 @@ app.use(express.static(path.join(__dirname, 'deploy-clean')));
 const purchasesDBPath = path.join(__dirname, 'purchases.json');
 
 // Email transporter setup
-const emailTransporter = nodemailer.createTransporter({
+const emailTransporter = nodemailer.createTransport({
   service: 'gmail',
   auth: {
     user: EMAIL_USER,
