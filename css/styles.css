@@ -612,169 +612,834 @@ social-icons {
   flex-wrap: wrap;
 }
 
+/* Prevent text cutoff and improve readability */
+.album-relaunch-announcement,
+.purchase-info-main,
+.support-card-description,
+.story-intro,
+.album-details {
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    hyphens: auto;
+}
+
+/* Ensure long words don't break layout */
+* {
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+}
+
+/* Fix for text overflow in containers */
+.container {
+    overflow-x: hidden;
+}
+
+/* Better line height for readability on mobile */
+@media (max-width: 768px) {
+    p, .album-details, .story-intro, .purchase-info-main {
+        line-height: 1.6;
+        margin-bottom: 15px;
+    }
+    
+    /* Ensure buttons don't overflow */
+    .btn, .btn-paypal, .buy-track-paypal {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        box-sizing: border-box;
+    }
+    
+    /* Fix support cards layout */
+    .support-cards {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 20px;
+        padding: 0 10px;
+    }
+    
+    .support-card {
+        width: 100%;
+        box-sizing: border-box;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        padding: 20px 15px;
+    }
+    
+    .support-card-description {
+        text-align: center;
+        line-height: 1.5;
+        font-size: 14px;
+    }
+}
+
+@media (max-width: 480px) {
+    /* Ensure hero content doesn't overflow */
+    .hero-content {
+        padding: 0 10px;
+    }
+    
+    .hero h1 {
+        word-wrap: break-word;
+        overflow-wrap: break-word;
+        line-height: 1.2;
+    }
+    
+    .hero p {
+        word-wrap: break-word;
+        overflow-wrap: break-word;
+        line-height: 1.5;
+    }
+    
+    /* Fix album announcement text overflow */
+    .album-relaunch-announcement {
+        width: 100%;
+        box-sizing: border-box;
+        overflow: hidden;
+    }
+    
+    .album-relaunch-announcement h2 {
+        word-wrap: break-word;
+        overflow-wrap: break-word;
+        line-height: 1.3;
+    }
+    
+    /* Improve support section on mobile */
+    .support-section {
+        padding: 40px 0;
+    }
+    
+    .support-section h2 {
+        font-size: 1.6rem;
+        line-height: 1.3;
+        margin-bottom: 25px;
+        padding: 0 15px;
+    }
+    
+    .support-cards {
+        padding: 0 5px;
+    }
+    
+    .support-card {
+        margin-bottom: 15px;
+        padding: 18px 12px;
+    }
+    
+    .support-icon {
+        font-size: 2.5rem;
+        margin-bottom: 12px;
+    }
+    
+    .support-card-title {
+        font-size: 1.1rem;
+        margin-bottom: 8px;
+        line-height: 1.2;
+    }
+    
+    .support-card-description {
+        font-size: 13px;
+        line-height: 1.4;
+        margin-bottom: 10px;
+    }
+    
+    .support-card-action {
+        font-size: 13px;
+        font-weight: 600;
+    }
+}
+
 /* Responsive Design */
 @media screen and (max-width: 1024px) {
+  .container {
+    width: 95%;
+    padding: 0 20px;
+  }
+  
   h1 {
     font-size: 3rem;
   }
   
   h2 {
-    font-size: 2rem;
+    font-size: 2.2rem;
   }
   
-  .brand-story .container {
-    grid-template-columns: 1fr;
+  section {
+    padding: 60px 0;
   }
   
-  .story-image {
-    order: -1;
+  .hero {
+    padding: 120px 0 80px;
   }
-  
-  .story-content h2 {
-    text-align: center;
-  }
-}
-
-/* Mobile Navigation */
-.nav-toggle {
-  display: none;
-  background: none;
-  border: none;
-  cursor: pointer;
-  padding: 0;
-  z-index: 1001;
-}
-
-.hamburger {
-  display: block;
-  position: relative;
-  width: 30px;
-  height: 3px;
-  background: var(--primary-color);
-  transition: var(--transition);
-}
-
-.hamburger::before,
-.hamburger::after {
-  content: '';
-  position: absolute;
-  width: 30px;
-  height: 3px;
-  background: var(--primary-color);
-  transition: var(--transition);
-}
-
-.hamburger::before {
-  top: -8px;
-}
-
-.hamburger::after {
-  bottom: -8px;
-}
-
-.nav-toggle[aria-expanded="true"] .hamburger {
-  transform: rotate(45deg);
-}
-
-.nav-toggle[aria-expanded="true"] .hamburger::before {
-  top: 0;
-  opacity: 0;
-}
-
-.nav-toggle[aria-expanded="true"] .hamburger::after {
-  bottom: 0;
-  transform: rotate(-90deg);
 }
 
 @media screen and (max-width: 768px) {
-  .nav-toggle {
-    display: block;
+  .container {
+    width: 95%;
+    padding: 0 15px;
   }
   
-  .nav-links {
-    position: fixed;
-    top: 0;
-    right: -100%;
-    width: 80%;
-    max-width: 300px;
-    height: 100vh;
-    background-color: var(--background-color);
-    box-shadow: -5px 0 15px rgba(0, 0, 0, 0.1);
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    padding: 80px 0;
-    transition: var(--transition);
-    z-index: 1000;
-  }
-  
-  .nav-links.active {
-    right: 0;
-  }
-  
-  .nav-links li {
-    margin: 15px 0;
+  section {
+    padding: 50px 0;
   }
   
   h1 {
     font-size: 2.5rem;
+    line-height: 1.2;
+  }
+  
+  h2 {
+    font-size: 2rem;
+    margin-bottom: 30px;
+  }
+  
+  h3 {
+    font-size: 1.3rem;
+  }
+  
+  p {
+    font-size: 16px;
+    line-height: 1.6;
+    margin-bottom: 20px;
+  }
+  
+  .btn {
+    padding: 14px 24px;
+    font-size: 16px;
+    margin: 10px 5px;
+  }
+  
+  /* Hero Section */
+  .hero {
+    min-height: 85vh;
+    padding: 100px 0 60px;
+    text-align: center;
+  }
+  
+  .hero-content {
+    flex-direction: column;
+    align-items: center;
+    gap: 30px;
+  }
+  
+  .hero-content img {
+    max-height: 250px;
+    width: auto;
+    order: 1;
+  }
+  
+  .hero-text {
+    order: 2;
+    text-align: center;
   }
   
   .hero h1 {
     font-size: 2.5rem;
+    margin-bottom: 20px;
   }
   
   .hero p {
-    font-size: 1.2rem;
+    font-size: 1.1rem;
+    max-width: 100%;
   }
   
   .hero-ctas {
     flex-direction: column;
     align-items: center;
+    gap: 15px;
   }
   
+  /* Support Section Cards */
+  .support-cards {
+    grid-template-columns: 1fr;
+    gap: 20px;
+    margin-top: 40px;
+  }
+  
+  .support-card {
+    margin-bottom: 20px;
+    padding: 25px;
+  }
+  
+  .support-card-title {
+    font-size: 1.3rem;
+  }
+  
+  .support-card-description {
+    font-size: 14px;
+    line-height: 1.5;
+  }
+  
+  /* Music Section */
+  .album-relaunch-announcement {
+    padding: 30px 20px;
+    margin-bottom: 30px;
+  }
+  
+  .album-relaunch-announcement h2 {
+    font-size: 1.8rem;
+    line-height: 1.3;
+  }
+  
+  .album-relaunch-announcement p {
+    font-size: 15px;
+    margin-bottom: 15px;
+  }
+  
+  /* Newsletter */
   .newsletter-form {
     flex-direction: column;
+    gap: 15px;
+  }
+  
+  .newsletter-form input {
+    width: 100%;
+    margin-bottom: 10px;
+  }
+  
+  /* Footer */
+  .footer-content {
+    grid-template-columns: 1fr;
+    gap: 30px;
+    text-align: center;
   }
   
   .footer-bottom {
     flex-direction: column;
     text-align: center;
+    gap: 20px;
   }
   
   .footer-legal {
     justify-content: center;
-  }
-  
-  .coa-content {
-    grid-template-columns: 1fr;
-  }
-  
-  .coa-image {
-    grid-row: 1;
+    flex-wrap: wrap;
+    gap: 15px;
   }
 }
 
 @media screen and (max-width: 480px) {
+  .container {
+    width: 100%;
+    padding: 0 15px;
+  }
+  
   section {
-    padding: 60px 0;
+    padding: 40px 0;
   }
   
   h1 {
     font-size: 2rem;
+    line-height: 1.2;
   }
   
   h2 {
-    font-size: 1.8rem;
+    font-size: 1.6rem;
+    margin-bottom: 25px;
+    line-height: 1.3;
   }
   
+  h3 {
+    font-size: 1.2rem;
+    margin-bottom: 15px;
+  }
+  
+  p {
+    font-size: 15px;
+    line-height: 1.6;
+    margin-bottom: 18px;
+  }
+  
+  .btn {
+    padding: 12px 20px;
+    font-size: 15px;
+    margin: 8px 3px;
+    width: 100%;
+    text-align: center;
+  }
+  
+  /* Hero Section */
   .hero {
     min-height: 80vh;
-    padding: 100px 0 60px;
+    padding: 80px 0 50px;
+  }
+  
+  .hero h1 {
+    font-size: 1.8rem;
+    margin-bottom: 15px;
+  }
+  
+  .hero p {
+    font-size: 1rem;
   }
   
   .hero-content img {
-    max-height: 200px;
+    max-height: 180px;
     width: auto;
+  }
+  
+  .hero-ctas {
+    width: 100%;
+  }
+  
+  .hero-ctas .btn {
+    width: 100%;
+    margin: 8px 0;
+  }
+  
+  /* Support Cards */
+  .support-card {
+    padding: 20px 15px;
+    margin-bottom: 15px;
+  }
+  
+  .support-icon {
+    font-size: 2rem;
+    margin-bottom: 15px;
+  }
+  
+  .support-card-title {
+    font-size: 1.1rem;
+    margin-bottom: 10px;
+  }
+  
+  .support-card-description {
+    font-size: 13px;
+    line-height: 1.4;
+  }
+  
+  .support-card-action {
+    font-size: 13px;
+  }
+  
+  /* Album Announcement */
+  .album-relaunch-announcement {
+    padding: 20px 15px;
+    margin-bottom: 25px;
+  }
+  
+  .album-relaunch-announcement h2 {
+    font-size: 1.5rem;
+    line-height: 1.2;
+    margin-bottom: 15px;
+  }
+  
+  .album-relaunch-announcement .story-intro,
+  .album-relaunch-announcement .album-details,
+  .album-relaunch-announcement .purchase-info-main {
+    font-size: 14px;
+    line-height: 1.5;
+    margin-bottom: 12px;
+  }
+  
+  /* Navigation for small screens */
+  .nav-links {
+    padding: 60px 0;
+  }
+  
+  .nav-links li {
+    margin: 20px 0;
+  }
+  
+  .nav-links a {
+    font-size: 18px;
+  }
+  
+  /* Footer adjustments */
+  .footer-content h3 {
+    font-size: 1.1rem;
+  }
+  
+  .footer-content p,
+  .footer-content a {
+    font-size: 14px;
+  }
+  
+  .footer-bottom {
+    padding: 20px 0;
+  }
+  
+  .footer-legal a {
+    font-size: 13px;
+  }
+}
+
+@media screen and (max-width: 360px) {
+  .container {
+    padding: 0 10px;
+  }
+  
+  h1 {
+    font-size: 1.8rem;
+  }
+  
+  h2 {
+    font-size: 1.4rem;
+  }
+  
+  .hero h1 {
+    font-size: 1.6rem;
+  }
+  
+  .album-relaunch-announcement h2 {
+    font-size: 1.3rem;
+  }
+  
+  .btn {
+    padding: 10px 15px;
+    font-size: 14px;
+  }
+  
+  section {
+    padding: 30px 0;
+  }
+}
+
+/* Enhanced Mobile Responsiveness */
+
+/* Large Tablets and Small Desktop */
+@media screen and (max-width: 1024px) {
+  .container {
+    width: 95%;
+    padding: 0 20px;
+  }
+  
+  h1 {
+    font-size: 3rem;
+  }
+  
+  h2 {
+    font-size: 2.2rem;
+  }
+  
+  section {
+    padding: 60px 0;
+  }
+  
+  .hero {
+    padding: 120px 0 80px;
+  }
+}
+
+/* Tablet Responsiveness */
+@media screen and (max-width: 768px) {
+  .container {
+    width: 95%;
+    padding: 0 15px;
+  }
+  
+  section {
+    padding: 50px 0;
+  }
+  
+  h1 {
+    font-size: 2.5rem;
+    line-height: 1.2;
+  }
+  
+  h2 {
+    font-size: 2rem;
+    margin-bottom: 30px;
+  }
+  
+  h3 {
+    font-size: 1.3rem;
+  }
+  
+  p {
+    font-size: 16px;
+    line-height: 1.6;
+    margin-bottom: 20px;
+  }
+  
+  .btn {
+    padding: 14px 24px;
+    font-size: 16px;
+    margin: 10px 5px;
+  }
+  
+  /* Hero Section */
+  .hero {
+    min-height: 85vh;
+    padding: 100px 0 60px;
+    text-align: center;
+  }
+  
+  .hero-content {
+    flex-direction: column;
+    align-items: center;
+    gap: 30px;
+  }
+  
+  .hero-content img {
+    max-height: 250px;
+    width: auto;
+    order: 1;
+  }
+  
+  .hero-text {
+    order: 2;
+    text-align: center;
+  }
+  
+  .hero h1 {
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+  }
+  
+  .hero p {
+    font-size: 1.1rem;
+    max-width: 100%;
+  }
+  
+  .hero-ctas {
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+  }
+  
+  /* Support Section Cards */
+  .support-cards {
+    grid-template-columns: 1fr;
+    gap: 20px;
+    margin-top: 40px;
+  }
+  
+  .support-card {
+    margin-bottom: 20px;
+    padding: 25px;
+  }
+  
+  .support-card-title {
+    font-size: 1.3rem;
+  }
+  
+  .support-card-description {
+    font-size: 14px;
+    line-height: 1.5;
+  }
+  
+  /* Music Section */
+  .album-relaunch-announcement {
+    padding: 30px 20px;
+    margin-bottom: 30px;
+  }
+  
+  .album-relaunch-announcement h2 {
+    font-size: 1.8rem;
+    line-height: 1.3;
+  }
+  
+  .album-relaunch-announcement p {
+    font-size: 15px;
+    margin-bottom: 15px;
+  }
+  
+  /* Newsletter */
+  .newsletter-form {
+    flex-direction: column;
+    gap: 15px;
+  }
+  
+  .newsletter-form input {
+    width: 100%;
+    margin-bottom: 10px;
+  }
+  
+  /* Footer */
+  .footer-content {
+    grid-template-columns: 1fr;
+    gap: 30px;
+    text-align: center;
+  }
+  
+  .footer-bottom {
+    flex-direction: column;
+    text-align: center;
+    gap: 20px;
+  }
+  
+  .footer-legal {
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 15px;
+  }
+}
+
+/* Mobile Phones */
+@media screen and (max-width: 480px) {
+  .container {
+    width: 100%;
+    padding: 0 15px;
+  }
+  
+  section {
+    padding: 40px 0;
+  }
+  
+  h1 {
+    font-size: 2rem;
+    line-height: 1.2;
+  }
+  
+  h2 {
+    font-size: 1.6rem;
+    margin-bottom: 25px;
+    line-height: 1.3;
+  }
+  
+  h3 {
+    font-size: 1.2rem;
+    margin-bottom: 15px;
+  }
+  
+  p {
+    font-size: 15px;
+    line-height: 1.6;
+    margin-bottom: 18px;
+  }
+  
+  .btn {
+    padding: 12px 20px;
+    font-size: 15px;
+    margin: 8px 3px;
+    width: 100%;
+    text-align: center;
+  }
+  
+  /* Hero Section */
+  .hero {
+    min-height: 80vh;
+    padding: 80px 0 50px;
+  }
+  
+  .hero h1 {
+    font-size: 1.8rem;
+    margin-bottom: 15px;
+  }
+  
+  .hero p {
+    font-size: 1rem;
+  }
+  
+  .hero-content img {
+    max-height: 180px;
+    width: auto;
+  }
+  
+  .hero-ctas {
+    width: 100%;
+  }
+  
+  .hero-ctas .btn {
+    width: 100%;
+    margin: 8px 0;
+  }
+  
+  /* Support Cards */
+  .support-card {
+    padding: 20px 15px;
+    margin-bottom: 15px;
+  }
+  
+  .support-icon {
+    font-size: 2rem;
+    margin-bottom: 15px;
+  }
+  
+  .support-card-title {
+    font-size: 1.1rem;
+    margin-bottom: 10px;
+  }
+  
+  .support-card-description {
+    font-size: 13px;
+    line-height: 1.4;
+  }
+  
+  .support-card-action {
+    font-size: 13px;
+  }
+  
+  /* Album Announcement */
+  .album-relaunch-announcement {
+    padding: 20px 15px;
+    margin-bottom: 25px;
+  }
+  
+  .album-relaunch-announcement h2 {
+    font-size: 1.5rem;
+    line-height: 1.2;
+    margin-bottom: 15px;
+  }
+  
+  .album-relaunch-announcement .story-intro,
+  .album-relaunch-announcement .album-details,
+  .album-relaunch-announcement .purchase-info-main {
+    font-size: 14px;
+    line-height: 1.5;
+    margin-bottom: 12px;
+  }
+  
+  /* Navigation for small screens */
+  .nav-links {
+    padding: 60px 0;
+  }
+  
+  .nav-links li {
+    margin: 20px 0;
+  }
+  
+  .nav-links a {
+    font-size: 18px;
+  }
+  
+  /* Footer adjustments */
+  .footer-content h3 {
+    font-size: 1.1rem;
+  }
+  
+  .footer-content p,
+  .footer-content a {
+    font-size: 14px;
+  }
+  
+  .footer-bottom {
+    padding: 20px 0;
+  }
+  
+  .footer-legal a {
+    font-size: 13px;
+  }
+}
+
+/* Ultra-small screens */
+@media screen and (max-width: 360px) {
+  .container {
+    padding: 0 10px;
+  }
+  
+  h1 {
+    font-size: 1.8rem;
+  }
+  
+  h2 {
+    font-size: 1.4rem;
+  }
+  
+  .hero h1 {
+    font-size: 1.6rem;
+  }
+  
+  .album-relaunch-announcement h2 {
+    font-size: 1.3rem;
+  }
+  
+  .btn {
+    padding: 10px 15px;
+    font-size: 14px;
+  }
+  
+  section {
+    padding: 30px 0;
   }
 }
