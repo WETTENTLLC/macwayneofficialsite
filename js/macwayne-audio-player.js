@@ -135,6 +135,7 @@ document.addEventListener('DOMContentLoaded', () => {
         // Create a modal for PayPal payment with bulletproof styling
         const paypalModal = document.createElement('div');
         paypalModal.id = 'paypal-payment-modal-' + Date.now(); // Unique ID
+        const buttonContainerId = 'paypal-button-container-modal-' + Date.now(); // Define button container ID
         
         // Apply ALL styles inline to override any CSS conflicts
         Object.assign(paypalModal.style, {
@@ -275,7 +276,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }, 1000);
         
         // Remove the test alert since we know the modal creation works
-        const buttonContainerId = paypalModal.querySelector('[id^="paypal-button-container-modal"]').id;
+        // Button container ID already defined above
         
         // Use PayPal SDK to create payment
         try {
