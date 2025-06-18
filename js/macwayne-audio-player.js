@@ -116,6 +116,12 @@ document.addEventListener('DOMContentLoaded', () => {
     function initiatePayPalPayment(itemId, itemType, itemName, amount, currency) {
         console.log(`Initiating PayPal payment for ${itemType}: ${itemName} ($${amount} ${currency})`);
         
+        // Check if PayPal SDK is loaded
+        if (typeof paypal === 'undefined') {
+            alert('PayPal payment system is not available. Please refresh the page and try again.');
+            return;
+        }
+        
         // Get user email for download delivery
         const userEmail = prompt("Enter your email address for download delivery:") || "";
         
@@ -143,25 +149,21 @@ document.addEventListener('DOMContentLoaded', () => {
             </div>
         `;
         document.body.appendChild(paypalModal);
+        
         // Use PayPal SDK to create payment
         paypal.Buttons({
-            env: PAYPAL_SANDBOX_MODE ? 'sandbox' : 'production',
-            client: {
-                production: PAYPAL_CLIENT_ID,
-                sandbox: PAYPAL_CLIENT_ID
-            },
-            createOrder: function(actions) {
-            return actions.order.create({
-                purchase_units: [{
-                amount: {
-                    value: amount,
-                    currency_code: currency
-                },
-                description: `${itemType === 'track' ? 'Music Track' : 'Album'}: ${itemName}`,
-                custom_id: `${itemType}_${itemId}_${userEmail}`,
-                soft_descriptor: "Mac Wayne Music"
-                }]
-            });
+            createOrder: function(data, actions) {
+                return actions.order.create({
+                    purchase_units: [{
+                        amount: {
+                            value: amount,
+                            currency_code: currency
+                        },
+                        description: `${itemType === 'track' ? 'Music Track' : 'Album'}: ${itemName}`,
+                        custom_id: `${itemType}_${itemId}_${userEmail}`,
+                        soft_descriptor: "Mac Wayne Music"
+                    }]
+                });
             },
             onApprove: function(data, actions) {
                 return actions.order.capture().then(function(details) {
@@ -207,7 +209,11 @@ document.addEventListener('DOMContentLoaded', () => {
                 alert('Payment was cancelled.');
                 paypalModal.remove();
             }
-        }).render('#paypal-button-container-modal');
+        }).render('#paypal-button-container-modal').catch(function(err) {
+            console.error('PayPal render error:', err);
+            alert('Error loading PayPal payment. Please try again.');
+            paypalModal.remove();
+        });
     }
 
     // Add download functionality for purchased items
