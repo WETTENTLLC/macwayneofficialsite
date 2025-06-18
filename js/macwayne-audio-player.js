@@ -124,27 +124,6 @@ document.addEventListener('DOMContentLoaded', () => {
         
         console.log('PayPal SDK loaded. Available methods:', Object.keys(paypal));
         
-        // First, test if ANY modal can be visible
-        const testModal = document.createElement('div');
-        testModal.style.cssText = `
-            position: fixed !important;
-            top: 50px !important;
-            left: 50px !important;
-            width: 200px !important;
-            height: 100px !important;
-            background: red !important;
-            z-index: 9999999 !important;
-            display: block !important;
-            color: white !important;
-            text-align: center !important;
-            line-height: 100px !important;
-            font-size: 20px !important;
-        `;
-        testModal.innerHTML = 'TEST MODAL';
-        testModal.onclick = () => testModal.remove();
-        document.body.appendChild(testModal);
-        console.log('Test modal created - can you see a red box?');
-        
         // Get user email for download delivery
         const userEmail = prompt("Enter your email address for download delivery:") || "";
         
@@ -163,12 +142,12 @@ document.addEventListener('DOMContentLoaded', () => {
             alignItems: 'center',
             justifyContent: 'center',
             position: 'fixed',
-            zIndex: '2147483647', // Maximum z-index value
+            zIndex: '1000000', // High but not maximum - allow PayPal popups above
             left: '0',
             top: '0',
             width: '100vw',
             height: '100vh',
-            backgroundColor: 'rgba(0, 0, 0, 0.9)',
+            backgroundColor: 'rgba(0, 0, 0, 0.8)', // Less opaque to be less intrusive
             overflow: 'auto',
             fontFamily: 'Arial, sans-serif',
             transform: 'none', // Prevent any transforms
@@ -218,7 +197,10 @@ document.addEventListener('DOMContentLoaded', () => {
                     <p style="color: #666; margin: 5px 0; font-size: 18px; font-weight: bold;">Price: $${amount} ${currency}</p>
                     <p style="color: #666; margin: 5px 0;">Email: ${userEmail}</p>
                 </div>
-                <div id="paypal-button-container-modal-${Date.now()}" style="
+                <div style="margin: 15px 0; padding: 12px; background: #fff3cd; border: 1px solid #ffeaa7; border-radius: 5px; color: #856404; font-size: 14px;">
+                    <strong>💡 Note:</strong> PayPal may open a login window in a popup. Please allow popups for this site and complete your payment in the PayPal window that opens.
+                </div>
+                <div id="${buttonContainerId}" style="
                     min-height: 120px;
                     background: #f0f0f0;
                     border: 2px dashed #ccc;
@@ -234,8 +216,7 @@ document.addEventListener('DOMContentLoaded', () => {
             </div>
         `;
         
-        // Force modal to appear on top of everything
-        document.body.style.overflow = 'hidden'; // Prevent body scroll
+        // Add modal to page (don't block body scroll as aggressively to allow popup interaction)
         document.body.appendChild(paypalModal);
         
         // FORCE the modal position and centering after DOM insertion
@@ -300,6 +281,13 @@ document.addEventListener('DOMContentLoaded', () => {
         try {
             console.log('About to call paypal.Buttons()...');
             const paypalButtons = paypal.Buttons({
+                style: {
+                    layout: 'vertical',
+                    color: 'blue',
+                    shape: 'rect',
+                    label: 'paypal',
+                    height: 40
+                },
                 createOrder: function(data, actions) {
                     console.log('Creating PayPal order...');
                     return actions.order.create({
