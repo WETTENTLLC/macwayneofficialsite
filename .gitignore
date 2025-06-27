@@ -1,4 +1,7 @@
 ﻿node_modules/
 test-results/
 .env
+.env.*
+*.env
+.env.production
 *.log

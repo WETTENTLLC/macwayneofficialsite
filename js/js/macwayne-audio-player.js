@@ -101,8 +101,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 name: trackName,
                 id: file, // Use filename as a unique ID for the track
                 srcFull: `public/audio/Blind and Battered [Explicit]/${file}`,
-                // Temporarily use full tracks for samples until real samples are created
-                srcSample: `public/audio/Blind and Battered [Explicit]/${file}`, // Will be limited to 30 seconds by JavaScript
+                srcSample: `public/audio/Blind and Battered [Explicit]/${file}`, // Use the full track for samples, which will be limited to 30 seconds by JavaScript
                 purchased: false // Default to not purchased
             };
         });
@@ -609,4 +608,3 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 });
-

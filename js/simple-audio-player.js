@@ -269,25 +269,10 @@ class SimpleAudioPlayer {
     }
     
     async loadAudioSource() {
-        // Map of fallback CDN audio sources
-        const fallbackAudios = {
-            'track1.mp3': 'audio/track1.mp3',
-            'track2.mp3': 'audio/track2.mp3',
-            'track3.mp3': 'audio/track3.mp3',
-            'sample-preview.mp3': 'audio/sample-preview.mp3'
-        };
-        
-        // Try to determine if we need to use a fallback
-        const filename = this.src.split('/').pop();
-        const hasFileSize = await this.checkFileSize(this.src);
-        
-        if ((filename in fallbackAudios) && (!hasFileSize || hasFileSize < 1000)) {
-            console.log(`Local file ${filename} is missing or corrupt (${hasFileSize} bytes), using fallback`);
-            this.src = fallbackAudios[filename];
-        }
-        
+        // Set the audio source
         this.audioEl.src = this.src;
-        
+        console.log(`simple-audio-player.js: Setting audio source to: ${this.audioEl.src}`);
+
         // Add loading indicator
         this.showLoadingIndicator();
         
@@ -298,22 +283,8 @@ class SimpleAudioPlayer {
                 this.createTimeout(10000, 'Audio loading timeout')
             ]);
         } catch (error) {
-            console.error('Audio loading failed:', error);
-            
-            // Try using fallback directly as a last resort
-            if (filename in fallbackAudios && this.src !== fallbackAudios[filename]) {
-                console.log('Trying CDN fallback as last resort');
-                this.src = fallbackAudios[filename];
-                this.audioEl.src = this.src;
-                
-                // Wait again for the fallback to load
-                await Promise.race([
-                    this.waitForAudioLoad(),
-                    this.createTimeout(10000, 'Fallback audio loading timeout')
-                ]);
-            } else {
-                throw error; // Re-throw if we can't use fallback
-            }
+            console.error('simple-audio-player.js: Audio loading failed:', error);
+            throw error; // Re-throw the error to be handled by the play() method
         }
         
         // Remove loading indicator
@@ -746,37 +717,15 @@ class SimpleAudioPlayer {
     // Try fallback audio sources
     tryFallbackAudio() {
         if (this._triedFallback) {
-            this.showError('All audio sources failed. Please try again later.');
+            this.showError('Audio failed to load after retry. Please ensure the file exists and is accessible.');
             return;
         }
         this._triedFallback = true;
-        console.log('Trying fallback audio sources');
-        const fallbackAudios = {
-            'track1.mp3': 'audio/track1.mp3',
-            'track2.mp3': 'audio/track2.mp3',
-            'track3.mp3': 'audio/track3.mp3',
-            'sample-preview.mp3': 'audio/sample-preview.mp3'
-        };
-        let fallbackSrc = null;
-        if (this.src) {
-            const filename = this.src.split('/').pop();
-            if (fallbackAudios[filename]) {
-                fallbackSrc = fallbackAudios[filename];
-            } else {
-                fallbackSrc = fallbackAudios['sample-preview.mp3'];
-            }
-        } else {
-            fallbackSrc = fallbackAudios['sample-preview.mp3'];
-        }
-        console.log('Using fallback audio:', fallbackSrc);
-        this.src = fallbackSrc;
+        console.log('simple-audio-player.js: Retrying primary audio source.');
         if (this.audioEl) {
             this.audioEl.src = this.src;
-            // Only call play if not already in fallback mode
-            if (!this._fallbackTriedOnce) {
-                this._fallbackTriedOnce = true;
-                this.play();
-            }
+            this.audioEl.load(); // Reload the current source
+            this.play(); // Attempt to play again
         }
     }
     

@@ -1,14 +1,14 @@
 // Load environment variables from .env file
-require('dotenv').config();
-
-const express = require('express');
-const bodyParser = require('body-parser');
-const fs = require('fs');
-const path = require('path');
-const { v4: uuidv4 } = require('uuid');
-const nodemailer = require('nodemailer');
-const archiver = require('archiver');
-const axios = require('axios');
+import dotenv from 'dotenv';
+dotenv.config();
+import express from 'express';
+import bodyParser from 'body-parser';
+import fs from 'fs';
+import path from 'path';
+import { v4 as uuidv4 } from 'uuid';
+import nodemailer from 'nodemailer';
+import archiver from 'archiver';
+import axios from 'axios';
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -214,6 +214,25 @@ app.post('/execute-payment', async (req, res) => {
   }
 });
 
+// Record payment from PayPal JS SDK
+app.post('/record-payment', async (req, res) => {
+  try {
+    const { userId, itemType, itemId, paymentData } = req.body;
+    if (!userId || !itemType || !itemId || !paymentData) {
+      return res.status(400).json({ error: 'Missing required parameters for recording payment' });
+    }
+
+    // The payment is already approved and captured on the client by the SDK.
+    // We just need to record it and send the confirmation email.
+    await recordPurchase(userId, itemType, itemId, paymentData);
+
+    res.json({ success: true, message: 'Purchase recorded successfully.' });
+  } catch (error) {
+    console.error('Error recording payment:', error);
+    res.status(500).json({ error: 'Failed to record payment' });
+  }
+});
+
 // Record purchase in database
 async function recordPurchase(userId, itemType, itemId, paymentData) {
   const purchases = readPurchases();
@@ -226,13 +245,26 @@ async function recordPurchase(userId, itemType, itemId, paymentData) {
     };
   }
 
+  // Adapt to v2 Orders API (from JS SDK) or v1 Payments API (from redirect flow)
+  const isV2Order = paymentData.purchase_units && Array.isArray(paymentData.purchase_units);
+  let amount, currency, customDataString;
+
+  if (isV2Order) {
+    const pu = paymentData.purchase_units[0];
+    amount = pu.amount.value;
+    currency = pu.amount.currency_code;
+    customDataString = pu.custom_id; // This will be a JSON string from the client
+  } else { // Assume v1 for backward compatibility with redirect flow
+    const tx = paymentData.transactions[0];
+    amount = tx.amount.total;
+    currency = tx.amount.currency;
+    customDataString = tx.custom; // This is also a JSON string from the redirect flow
+  }
+
   const purchaseRecord = {
     id: uuidv4(),
     paymentId: paymentData.id,
-    itemType,
-    itemId,
-    amount: paymentData.transactions[0].amount.total,
-    currency: paymentData.transactions[0].amount.currency,
+    itemType, itemId, amount, currency,
     timestamp: new Date().toISOString(),
     paypalData: paymentData
   };
@@ -257,14 +289,14 @@ async function recordPurchase(userId, itemType, itemId, paymentData) {
   console.log('Purchase recorded for user:', userId, 'Item:', itemId);
   
   // Send download links via email if email provided
-  const customData = JSON.parse(paymentData.transactions[0].custom || '{}');
+  const customData = JSON.parse(customDataString || '{}');
   if (customData.userEmail) {
-    await sendDownloadEmail(customData.userEmail, userId, itemType, itemId, purchaseRecord.id);
+    await sendDownloadEmail(customData.userEmail, userId, itemType, itemId, purchaseRecord.id, amount, currency);
   }
 }
 
 // Send download email
-async function sendDownloadEmail(email, userId, itemType, itemId, purchaseId) {
+async function sendDownloadEmail(email, userId, itemType, itemId, purchaseId, amount, currency) {
   try {
     const downloadUrl = `${SITE_URL}/download/${userId}/${purchaseId}`;
     
@@ -277,6 +309,7 @@ async function sendDownloadEmail(email, userId, itemType, itemId, purchaseId) {
         <p>Your download is ready:</p>
         <p><strong>Item:</strong> ${itemId}</p>
         <p><strong>Type:</strong> ${itemType === 'album' ? 'Full Album' : 'Single Track'}</p>
+        <p><strong>Amount Paid:</strong> ${amount} ${currency}</p>
         <p><a href="${downloadUrl}" style="background-color: #0070ba; color: white; padding: 10px 20px; text-decoration: none; border-radius: 5px;">Download Your Music</a></p>
         <p>This download link will be valid for 30 days.</p>
         <p>Thank you for supporting Mac Wayne!</p>

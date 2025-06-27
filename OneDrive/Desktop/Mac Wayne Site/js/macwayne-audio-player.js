@@ -41,11 +41,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const ALBUM_PRICE = "25.00";
     const TRACK_PRICE = "2.00";
     const CURRENCY = "USD";
-    // IMPORTANT: Replace with your actual PayPal Merchant ID for live payments
-    const PAYPAL_MERCHANT_ID = "YOUR_PAYPAL_MERCHANT_ID"; 
     // IMPORTANT: Set to false for live environment
-    const PAYPAL_SANDBOX_MODE = true; 
-    const PAYPAL_IPN_URL = '/paypal-ipn'; // Our backend IPN listener
 
     // Function to get or generate a unique user ID
     async function initUser() {
@@ -96,13 +92,11 @@ document.addEventListener('DOMContentLoaded', () => {
         ];
         tracks = audioFiles.map(file => {
             const trackName = file.replace(/\.mp3$/, '').replace(/^\d+\s*-\s*/, '');
-            const trackNumber = file.substring(0, 2); // Extract the two-digit track number
             return {
                 name: trackName,
                 id: file, // Use filename as a unique ID for the track
                 srcFull: `public/audio/Blind and Battered [Explicit]/${file}`,
-                // Temporarily use full tracks for samples until real samples are created
-                srcSample: `public/audio/Blind and Battered [Explicit]/${file}`, // Will be limited to 30 seconds by JavaScript
+                srcSample: `public/audio/Blind and Battered [Explicit]/${file}`, // Use the full track for samples, which will be limited to 30 seconds by JavaScript
                 purchased: false // Default to not purchased
             };
         });
@@ -609,4 +603,3 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 });
-

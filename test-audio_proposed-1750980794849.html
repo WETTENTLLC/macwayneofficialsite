@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Audio Test</title>
+    <style>
+        body { background: #222; color: white; font-family: Arial; padding: 20px; }
+        .audio-player { background: #333; padding: 20px; border-radius: 10px; }
+        .play-btn { background: #c00; color: white; border: none; padding: 10px; border-radius: 50%; cursor: pointer; }
+        .track-item { padding: 10px; border: 1px solid #555; margin: 5px 0; cursor: pointer; }
+        .track-item:hover { background: #444; }
+        .progress-bar { height: 8px; background: #555; border-radius: 4px; margin: 10px 0; }
+        .progress-fill { height: 100%; background: #c00; border-radius: 4px; width: 0%; }
+        .purchase-album { background: #28a745; color: white; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer; margin: 10px 0; }
+    </style>
+</head>
+<body>
+    <div class="audio-player">
+        <button class="play-btn"><i class="fas fa-play"></i></button>
+        <div class="progress-bar"><div class="progress-fill"></div></div>
+        <div><span class="current-time">0:00</span> / <span class="duration">0:00</span></div>
+    </div>
+    
+    <div class="track-item" data-src="audio/Blind and Battered [Explicit]/samples/01-sample.mp3">Track 1 - Gotta Split</div>
+    <div class="track-item" data-src="audio/Blind and Battered [Explicit]/samples/02-sample.mp3">Track 2 - I Think</div>
+    <div class="track-item" data-src="audio/Blind and Battered [Explicit]/samples/04-sample.mp3">Track 3 - Just a Player</div>
+    <div class="track-item" data-src="audio/Blind and Battered [Explicit]/10 - Blind and Battered [Explicit].mp3">Sample Preview - Blind and Battered</div>
+    
+    <button class="purchase-album">Purchase Album - $9.99</button>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/js/all.min.js"></script>
+    <script src="js/simple-audio-player.js"></script>
+</body>
+</html>

@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mac Wayne Audio Test</title>
+    <style>
+        body { font-family: Arial, sans-serif; background: #1a1a1a; color: white; padding: 20px; }
+        .audio-player { background: #333; padding: 20px; border-radius: 10px; margin: 20px 0; }
+        .track-list { margin: 20px 0; }
+        .track-item { padding: 10px; border: 1px solid #555; margin: 5px 0; cursor: pointer; display: flex; justify-content: space-between; align-items: center; }
+        .track-item:hover { background: #444; }
+        .track-item.playing { background: rgba(204, 0, 0, 0.2); border-left: 3px solid #cc0000; }
+        .player-controls { display: flex; align-items: center; gap: 15px; margin: 15px 0; }
+        .play-btn { background: #cc0000; color: white; border: none; padding: 10px 15px; border-radius: 50%; cursor: pointer; }
+        .progress-container { flex: 1; }
+        .progress-bar { height: 8px; background: #555; border-radius: 4px; cursor: pointer; position: relative; }
+        .progress-fill { height: 100%; background: #cc0000; border-radius: 4px; width: 0%; }
+        .time-display { display: flex; gap: 10px; font-size: 14px; }
+        .mini-play-btn { background: #cc0000; color: white; border: none; padding: 5px 10px; border-radius: 3px; cursor: pointer; }
+        .purchase-btn { background: #28a745; color: white; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer; margin: 10px 0; }
+    </style>
+</head>
+<body>
+    <h1>Mac Wayne Audio Player Test</h1>
+    
+    <div class="audio-player">
+        <div class="track-info">
+            <h3 class="track-title">Select a track to play</h3>
+            <p class="track-artist">Mac Wayne</p>
+        </div>
+        
+        <div class="player-controls">
+            <button class="play-btn" aria-label="Play">
+                <i class="fas fa-play"></i>
+            </button>
+            
+            <div class="progress-container">
+                <div class="progress-bar">
+                    <div class="progress-fill"></div>
+                </div>
+                <div class="time-display">
+                    <span class="current-time">0:00</span>
+                    <span class="duration">0:00</span>
+                </div>
+            </div>
+        </div>
+        
+        <audio id="audio-element" preload="metadata"></audio>
+    </div>
+
+    <div class="track-list">
+        <h3>Blind and Battered - Tracks</h3>
+        <div class="track-item" data-src="public/audio/Blind and Battered [Explicit]/samples/01-sample.mp3">
+            <div>
+                <span class="track-number">1</span>
+                <span class="track-name">Gotta Split</span>
+                <span class="track-duration">Sample</span>
+            </div>
+            <button class="mini-play-btn">Play</button>
+        </div>
+        <div class="track-item" data-src="public/audio/Blind and Battered [Explicit]/samples/02-sample.mp3">
+            <div>
+                <span class="track-number">2</span>
+                <span class="track-name">I Think</span>
+                <span class="track-duration">Sample</span>
+            </div>
+            <button class="mini-play-btn">Play</button>
+        </div>
+        <div class="track-item" data-src="public/audio/Blind and Battered [Explicit]/samples/03-sample.mp3">
+            <div>
+                <span class="track-number">3</span>
+                <span class="track-name">Keep Your Mouth Shut (Skit)</span>
+                <span class="track-duration">Sample</span>
+            </div>
+            <button class="mini-play-btn">Play</button>
+        </div>
+    </div>
+
+    <button class="purchase-btn purchase-album">Purchase Album - $9.99</button>
+
+    <script src="js/audio-player-fixed.js"></script>
+    <script src="js/purchase-system.js"></script>
+    
+    <div style="margin-top: 20px; padding: 20px; background: #333; border-radius: 10px;">
+        <h3>Debug Controls</h3>
+        <button onclick="resetPurchase()" style="background: #dc3545; color: white; border: none; padding: 10px; margin: 5px; border-radius: 5px; cursor: pointer;">Reset Purchase</button>
+        <button onclick="simulatePurchase()" style="background: #28a745; color: white; border: none; padding: 10px; margin: 5px; border-radius: 5px; cursor: pointer;">Simulate Purchase</button>
+        <p style="font-size: 14px; color: #ccc;">Use these buttons to test the purchase system functionality.</p>
+    </div>
+</body>
+</html>

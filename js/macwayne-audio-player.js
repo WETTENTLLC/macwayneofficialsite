@@ -100,9 +100,12 @@ document.addEventListener('DOMContentLoaded', () => {
                 srcFull: `public/audio/Blind and Battered [Explicit]/${file}`,
                 // Use sample files from the samples folder with correct naming
                 srcSample: `public/audio/Blind and Battered [Explicit]/samples/${trackNumber}-sample.mp3`,
+                // Use the full track for samples, which will be limited to 30 seconds by JavaScript
+                srcSample: `public/audio/Blind and Battered [Explicit]/${file}`,
                 purchased: false // Default to not purchased
             };
         });
+
         console.log("[PLAYER] fetchTracks: Tracks mapped:", tracks.length, "tracks");
         await loadUserPurchases(); // Load purchase status after fetching tracks
         renderPlaylist();
@@ -135,9 +138,8 @@ document.addEventListener('DOMContentLoaded', () => {
         // Create a modal for PayPal payment with bulletproof styling
         const paypalModal = document.createElement('div');
         paypalModal.id = 'paypal-payment-modal-' + Date.now(); // Unique ID
-        const buttonContainerId = 'paypal-button-container-modal-' + Date.now(); // Define button container ID
         
-        // Apply ALL styles inline to override any CSS conflicts with mobile-first responsive design
+        // Apply ALL styles inline to override any CSS conflicts
         Object.assign(paypalModal.style, {
             display: 'flex',
             alignItems: 'center',
@@ -153,7 +155,7 @@ document.addEventListener('DOMContentLoaded', () => {
             fontFamily: 'Arial, sans-serif',
             transform: 'none', // Prevent any transforms
             margin: '0',
-            padding: window.innerWidth <= 480 ? '10px' : '20px', // Less padding on mobile
+            padding: '20px',
             boxSizing: 'border-box'
         });
         
@@ -168,57 +170,51 @@ document.addEventListener('DOMContentLoaded', () => {
         paypalModal.innerHTML = `
             <div style="
                 background-color: #ffffff;
-                padding: ${window.innerWidth <= 480 ? '20px 15px' : '30px'};
+                padding: 30px;
                 border: 3px solid #007bff;
                 border-radius: 10px;
-                width: ${window.innerWidth <= 480 ? '95%' : '90%'};
-                max-width: ${window.innerWidth <= 480 ? '380px' : '500px'};
-                max-height: 90vh;
-                overflow-y: auto;
+                width: 90%;
+                max-width: 500px;
                 box-shadow: 0 10px 50px rgba(0, 0, 0, 0.9);
                 text-align: center;
                 color: #333;
                 position: relative;
                 margin: 0;
             ">
-                <h2 style="color: #333; margin-bottom: 20px; font-size: ${window.innerWidth <= 480 ? '1.3rem' : '1.5rem'};">Complete Your Payment</h2>
+                <h2 style="color: #333; margin-bottom: 20px;">Complete Your Payment</h2>
                 <button onclick="this.closest('div[id^=paypal-payment-modal]').remove(); document.body.style.overflow = 'auto';" style="
                     position: absolute;
-                    right: ${window.innerWidth <= 480 ? '10px' : '15px'};
-                    top: ${window.innerWidth <= 480 ? '10px' : '15px'};
+                    right: 15px;
+                    top: 15px;
                     background: #ff4444;
                     color: white;
                     border: none;
                     border-radius: 50%;
-                    width: ${window.innerWidth <= 480 ? '25px' : '30px'};
-                    height: ${window.innerWidth <= 480 ? '25px' : '30px'};
+                    width: 30px;
+                    height: 30px;
                     cursor: pointer;
-                    font-size: ${window.innerWidth <= 480 ? '14px' : '18px'};
-                    line-height: 1;
-                    display: flex;
-                    align-items: center;
-                    justify-content: center;
+                    font-size: 18px;
                 ">&times;</button>
-                <div style="margin: 15px 0; padding: ${window.innerWidth <= 480 ? '12px' : '15px'}; background: #f8f9fa; border-radius: 5px;">
-                    <h3 style="color: #333; margin: 10px 0; font-size: ${window.innerWidth <= 480 ? '1.1rem' : '1.2rem'};">Purchasing: ${itemName}</h3>
-                    <p style="color: #666; margin: 5px 0; font-size: ${window.innerWidth <= 480 ? '16px' : '18px'}; font-weight: bold;">Price: $${amount} ${currency}</p>
-                    <p style="color: #666; margin: 5px 0; font-size: ${window.innerWidth <= 480 ? '14px' : '16px'}; word-break: break-word;">Email: ${userEmail}</p>
+                <div style="margin: 20px 0; padding: 15px; background: #f8f9fa; border-radius: 5px;">
+                    <h3 style="color: #333; margin: 10px 0;">Purchasing: ${itemName}</h3>
+                    <p style="color: #666; margin: 5px 0; font-size: 18px; font-weight: bold;">Price: $${amount} ${currency}</p>
+                    <p style="color: #666; margin: 5px 0;">Email: ${userEmail}</p>
                 </div>
-                <div style="margin: 15px 0; padding: ${window.innerWidth <= 480 ? '10px' : '12px'}; background: #fff3cd; border: 1px solid #ffeaa7; border-radius: 5px; color: #856404; font-size: ${window.innerWidth <= 480 ? '12px' : '14px'}; line-height: 1.4;">
+                <div style="margin: 15px 0; padding: 12px; background: #fff3cd; border: 1px solid #ffeaa7; border-radius: 5px; color: #856404; font-size: 14px;">
                     <strong>💡 Note:</strong> PayPal may open a login window in a popup. Please allow popups for this site and complete your payment in the PayPal window that opens.
                 </div>
                 <div id="${buttonContainerId}" style="
-                    min-height: ${window.innerWidth <= 480 ? '100px' : '120px'};
+                    min-height: 120px;
                     background: #f0f0f0;
                     border: 2px dashed #ccc;
                     border-radius: 8px;
-                    padding: ${window.innerWidth <= 480 ? '15px' : '20px'};
-                    margin: ${window.innerWidth <= 480 ? '15px 0' : '20px 0'};
+                    padding: 20px;
+                    margin: 20px 0;
                     display: flex;
                     align-items: center;
                     justify-content: center;
                 ">
-                    <p style="color: #666; font-size: ${window.innerWidth <= 480 ? '14px' : '16px'}; text-align: center;">Loading PayPal payment options...</p>
+                    <p style="color: #666; font-size: 16px;">Loading PayPal payment options...</p>
                 </div>
             </div>
         `;
@@ -282,7 +278,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }, 1000);
         
         // Remove the test alert since we know the modal creation works
-        // Button container ID already defined above
+        const buttonContainerId = paypalModal.querySelector('[id^="paypal-button-container-modal"]').id;
         
         // Use PayPal SDK to create payment
         try {
@@ -293,14 +289,11 @@ document.addEventListener('DOMContentLoaded', () => {
                     color: 'blue',
                     shape: 'rect',
                     label: 'paypal',
-                    height: window.innerWidth <= 480 ? 35 : 40,
-                    tagline: false
+                    height: 40
                 },
-                fundingSource: paypal.FUNDING.PAYPAL, // Default to PayPal, but allow cards
                 createOrder: function(data, actions) {
                     console.log('Creating PayPal order...');
                     return actions.order.create({
-                        intent: 'CAPTURE',
                         purchase_units: [{
                             amount: {
                                 value: amount,
@@ -309,14 +302,7 @@ document.addEventListener('DOMContentLoaded', () => {
                             description: `${itemType === 'track' ? 'Music Track' : 'Album'}: ${itemName}`,
                             custom_id: `${itemType}_${itemId}_${userEmail}`,
                             soft_descriptor: "Mac Wayne Music"
-                        }],
-                        application_context: {
-                            brand_name: "Mac Wayne Official",
-                            locale: "en-US",
-                            landing_page: "BILLING",
-                            shipping_preference: "NO_SHIPPING",
-                            user_action: "PAY_NOW"
-                        }
+                        }]
                     });
                 },
             onApprove: function(data, actions) {
@@ -543,9 +529,7 @@ document.addEventListener('DOMContentLoaded', () => {
         } else {
             audioElement.play().catch(e => console.error("[PLAYER] Playback error:", e)); // Add error handling
         }
-        isPlaying = !isPlaying;
-        updatePlayPauseButton();
-        console.log("[PLAYER] togglePlayPause: New isPlaying state:", isPlaying);
+        // isPlaying state and button updates are now handled by the 'play' and 'pause' event listeners on the audio element.
     }
 
     // Function to update the Play/Pause button icon
@@ -785,10 +769,21 @@ document.addEventListener('DOMContentLoaded', () => {
     // Make downloadPurchasedItem globally available
     window.downloadPurchasedItem = downloadPurchasedItem;
 
-    // Event Listeners - CRITICAL: These were missing!
+    // Event Listeners
     playPauseButton.addEventListener('click', togglePlayPause);
     prevButton.addEventListener('click', prevTrack);
     nextButton.addEventListener('click', nextTrack);
+
+    audioElement.addEventListener('play', () => {
+        isPlaying = true;
+        updatePlayPauseButton();
+    });
+
+    audioElement.addEventListener('pause', () => {
+        isPlaying = false;
+        updatePlayPauseButton();
+    });
+
     audioElement.addEventListener('ended', nextTrack);
     audioElement.addEventListener('timeupdate', updateProgressBar);
     progressBar.addEventListener('input', () => {
@@ -798,29 +793,6 @@ document.addEventListener('DOMContentLoaded', () => {
         audioElement.volume = e.target.value / 100; // Convert percentage to decimal
     });
 
-    // Enhanced initialization
-    async function initializeApp() {
-        console.log("[PLAYER] initializeApp: Started.");
-        await initUser(); 
-        await fetchTracks(); 
-        updateAlbumDownloadSection(); // Add this line
-        console.log("[PLAYER] initializeApp: Player setup potentially complete.");
-        // Dark mode and other initializations
-        const darkModeToggle = document.getElementById('dark-mode-toggle');
-        if (darkModeToggle) {
-            darkModeToggle.addEventListener('click', () => {
-                document.body.classList.toggle('dark-mode');
-                localStorage.setItem('darkMode', document.body.classList.contains('dark-mode'));
-            });
-        }
-        if (localStorage.getItem('darkMode') === 'true') {
-            document.body.classList.add('dark-mode');
-            if (darkModeToggle) darkModeToggle.checked = true;
-        }
-        console.log("[PLAYER] initializeApp: Finished.");
-    }
-
-    initializeApp();
     console.log("[PLAYER] Script execution finished.");
 
     // Show Notifications Form Handler
@@ -879,7 +851,5 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Initialize the application
     initializeApp();
 });
-

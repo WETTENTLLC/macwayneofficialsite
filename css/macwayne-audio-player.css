@@ -1956,110 +1956,25 @@
     }
 }
 
-/* Enhanced Mobile Responsiveness for Audio Player */
-
-/* Large Tablet and Desktop adjustments */
-@media (max-width: 1024px) {
-    .macwayne-audio-player {
-        margin: 30px auto;
-        padding: 25px;
-    }
-    
-    .player-header {
-        gap: 20px;
-    }
-    
-    .album-art {
-        width: 120px;
-        height: 120px;
-    }
-    
-    .track-info h3 {
-        font-size: 1.3rem;
-    }
-    
-    .purchase-options-player {
-        gap: 15px;
-    }
-}
-
-/* Tablet Responsiveness */
+/* Mobile Responsiveness */
 @media (max-width: 768px) {
-    .macwayne-audio-player {
-        margin: 20px auto;
-        padding: 20px 15px;
-        border-radius: 12px;
-    }
-    
-    .album-relaunch-announcement {
-        padding: 20px 15px;
-        margin-bottom: 25px;
-    }
-    
     .album-relaunch-announcement h2 {
         font-size: 1.6rem;
-        line-height: 1.3;
-        margin-bottom: 15px;
-    }
-    
-    .album-relaunch-announcement p {
-        font-size: 15px;
-        line-height: 1.5;
-        margin-bottom: 12px;
-    }
-    
-    .purchase-info-main {
-        font-size: 14px;
-        padding: 15px;
-        background: #f8f9fa;
-        border-radius: 8px;
-        margin-top: 15px;
     }
     
     .player-header {
         flex-direction: column;
         text-align: center;
-        gap: 15px;
-        margin-bottom: 20px;
     }
     
     .album-art {
         width: 100px;
         height: 100px;
-        margin: 0 auto;
-    }
-    
-    .track-info-container {
-        width: 100%;
-    }
-    
-    .track-info h3 {
-        font-size: 1.2rem;
-        margin-bottom: 8px;
-    }
-    
-    .track-info p {
-        font-size: 14px;
-    }
-    
-    .playback-time {
-        justify-content: center;
-        margin-top: 10px;
-    }
-    
-    .progress-container {
-        margin: 15px 0;
-    }
-    
-    .progress-bar {
-        height: 8px;
     }
     
     .player-controls-main {
         gap: 15px;
-        flex-wrap: wrap;
-        justify-content: center;
-        margin-bottom: 20px;
+        flex-wrap: wrap; /* Allow wrapping for smaller screens */
     }
     
     .control-button {
@@ -2069,336 +1984,163 @@
     }
     
     .control-button.play-button {
-        width: 65px;
-        height: 65px;
-        font-size: 1.4rem;
+        width: 70px;
+        height: 70px;
+        font-size: 1.5rem;
     }
     
     .volume-control-area {
         margin-left: 0;
-        margin-top: 15px;
+        margin-top: 15px; /* Space when wrapped */
         width: 100%;
         justify-content: center;
-    }
-    
-    .volume-slider {
-        width: 150px;
     }
     
     .purchase-options-player {
         flex-direction: column;
-        gap: 15px;
-        margin-top: 20px;
-    }
-    
-    .btn-paypal {
-        width: 100%;
-        padding: 14px 20px;
-        font-size: 16px;
-        justify-content: center;
-    }
-    
-    /* Playlist styles */
-    .playlist-section {
-        margin-top: 25px;
-    }
-    
-    .playlist-section h3 {
-        font-size: 1.3rem;
-        margin-bottom: 15px;
-        text-align: center;
-    }
-    
-    .track-item {
-        padding: 12px;
-        margin-bottom: 8px;
-    }
-    
-    .track-item-info h4 {
-        font-size: 15px;
-        margin-bottom: 5px;
-    }
-    
-    .track-item-info p {
-        font-size: 13px;
-    }
-    
-    .track-duration {
-        font-size: 13px;
-    }
-    
-    .buy-track-paypal {
-        padding: 8px 12px;
-        font-size: 13px;
-        min-width: 90px;
-    }
-}
-
-/* Mobile Phone Responsiveness */
-@media (max-width: 480px) {
-    .macwayne-audio-player {
-        margin: 15px auto;
-        padding: 15px 12px;
-        border-radius: 10px;
-    }
-    
-    .album-relaunch-announcement {
-        padding: 15px 12px;
-        margin-bottom: 20px;
-    }
-    
-    .album-relaunch-announcement h2 {
-        font-size: 1.4rem;
-        line-height: 1.2;
-        margin-bottom: 12px;
-    }
-    
-    .album-relaunch-announcement p {
-        font-size: 14px;
-        line-height: 1.4;
-        margin-bottom: 10px;
-    }
-    
-    .story-intro {
-        font-size: 13px !important;
-    }
-    
-    .album-details {
-        font-size: 13px !important;
-        line-height: 1.4;
-    }
-    
-    .purchase-info-main {
-        font-size: 13px;
-        padding: 12px;
-        margin-top: 12px;
-    }
-    
-    .player-header {
-        gap: 12px;
-        margin-bottom: 15px;
-    }
-    
-    .album-art {
-        width: 80px;
-        height: 80px;
-    }
-    
-    .track-info h3 {
-        font-size: 1.1rem;
-        margin-bottom: 5px;
-        line-height: 1.3;
-    }
-    
-    .track-info p {
-        font-size: 13px;
-    }
-    
-    .playback-time {
-        margin-top: 8px;
-    }
-    
-    .playback-time .time {
-        font-size: 12px;
-    }
-    
-    .progress-container {
-        margin: 12px 0;
-    }
-    
-    .progress-bar {
-        height: 6px;
-    }
-    
-    .player-controls-main {
-        gap: 12px;
-        margin-bottom: 15px;
-    }
-    
-    .control-button {
-        width: 45px;
-        height: 45px;
-        font-size: 0.9rem;
-    }
-    
-    .control-button.play-button {
-        width: 55px;
-        height: 55px;
-        font-size: 1.2rem;
-    }
-    
-    .volume-control-area {
-        margin-top: 12px;
-    }
-    
-    .volume-button {
-        width: 35px;
-        height: 35px;
-        font-size: 0.8rem;
-    }
-    
-    .volume-slider {
-        width: 120px;
-        height: 4px;
-    }
-    
-    .purchase-options-player {
-        gap: 12px;
-        margin-top: 15px;
-    }
-    
-    .btn-paypal {
-        width: 100%;
-        padding: 12px 16px;
-        font-size: 15px;
-        min-height: 45px;
-        display: flex;
         align-items: center;
-        justify-content: center;
     }
-    
-    .btn-paypal i {
-        margin-right: 8px;
-        font-size: 16px;
-    }
-    
-    /* Playlist mobile styles */
-    .playlist-section h3 {
-        font-size: 1.2rem;
-        margin-bottom: 12px;
-    }
-    
-    .track-item {
-        padding: 10px 8px;
-        margin-bottom: 6px;
-        border-radius: 6px;
-    }
-    
-    .track-item-content {
-        gap: 8px;
-    }
-    
-    .track-item-info {
-        flex: 1;
-        min-width: 0;
-    }
-    
-    .track-item-info h4 {
-        font-size: 14px;
-        margin-bottom: 3px;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        white-space: nowrap;
-    }
-    
-    .track-item-info p {
-        font-size: 12px;
-        margin: 0;
-    }
-    
-    .track-duration {
-        font-size: 12px;
-        flex-shrink: 0;
-        min-width: 35px;
-        text-align: right;
-    }
-    
-    .buy-track-paypal {
-        padding: 6px 10px;
-        font-size: 12px;
-        min-width: 80px;
-        flex-shrink: 0;
-    }
-    
-    .buy-track-paypal i {
-        font-size: 11px;
-    }
-}
 
-/* Ultra-small screens */
-@media (max-width: 360px) {
-    .macwayne-audio-player {
-        margin: 10px auto;
-        padding: 12px 8px;
+    .playlist li.active::before {
+        left: 5px;
+    }
+
+    .download-btn,
+    .buy-track-paypal {
+        margin-top: 8px;
+        margin-left: 0;
     }
     
-    .album-relaunch-announcement {
-        padding: 12px 8px;
-        margin-bottom: 15px;
+    .purchased-status {
+        margin-left: 0;
+        margin-top: 4px;
+    }
+
+    .coming-soon-title {
+        font-size: 2rem;
     }
     
-    .album-relaunch-announcement h2 {
-        font-size: 1.2rem;
+    .coming-soon-icon {
+        font-size: 2.5rem;
     }
     
-    .album-art {
-        width: 70px;
-        height: 70px;
+    .signup-form-grid {
+        grid-template-columns: 1fr;
     }
     
-    .track-info h3 {
-        font-size: 1rem;
+    .notification-preferences {
+        gap: 15px;
     }
     
-    .control-button {
-        width: 40px;
-        height: 40px;
-        font-size: 0.8rem;
+    .coming-soon-announcement {
+        padding: 20px;
     }
     
-    .control-button.play-button {
+    .show-notifications-signup {
+        padding: 20px;
+    }
+
+    .support-title {
+        font-size: 1.8rem;
+    }
+    
+    .support-card {
+        padding: 20px;
+    }
+    
+    .support-icon {
         width: 50px;
         height: 50px;
-        font-size: 1.1rem;
+        margin-bottom: 15px;
     }
     
-    .btn-paypal {
-        padding: 10px 12px;
-        font-size: 14px;
-        min-height: 40px;
+    .support-icon i {
+        font-size: 1.5rem;
     }
     
-    .track-item-info h4 {
-        font-size: 13px;
+    .support-card-title {
+        font-size: 1.2rem;
     }
     
-    .track-item-info p {
-        font-size: 11px;
+    .support-mac-wayne-links {
+        padding: 20px;
+    }
+
+    .licensing-hero .container {
+        flex-direction: column;
+        text-align: center;
+        gap: 40px;
     }
     
-    .buy-track-paypal {
-        font-size: 11px;
-        padding: 5px 8px;
-        min-width: 70px;
+    .hero-title {
+        font-size: 2.5rem;
+    }
+    
+    .hero-buttons {
+        justify-content: center;
+    }
+    
+    .hero-visual {
+        flex: none;
+    }
+    
+    .options-grid {
+        grid-template-columns: 1fr;
+        gap: 30px;
+    }
+    
+    .tracks-grid {
+        grid-template-columns: 1fr;
+        gap: 30px;
+    }
+    
+    .benefits-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+    
+    .contact-content {
+        grid-template-columns: 1fr;
+        gap: 40px;
+    }
+    
+    .form-row {
+        grid-template-columns: 1fr;
+        gap: 15px;
+    }
+    
+    .contact-form-container {
+        padding: 30px 20px;
+    }
+    
+    .modal-content {
+        width: 95%;
+        margin: 20px;
+    }
+    
+    .modal-header,
+    .modal-body {
+        padding: 20px;
     }
 }
 
-/* Landscape mobile orientation */
-@media (max-width: 768px) and (orientation: landscape) {
-    .macwayne-audio-player {
-        margin: 10px auto;
-        padding: 15px;
+@media (max-width: 480px) {
+    .hero-title {
+        font-size: 2rem;
     }
     
-    .player-header {
-        flex-direction: row;
-        gap: 20px;
-        text-align: left;
+    .section-title {
+        font-size: 2rem;
     }
     
-    .album-art {
-        width: 80px;
-        height: 80px;
-        margin: 0;
+    .option-card,
+    .benefit-item {
+        padding: 25px 20px;
     }
     
-    .track-info-container {
-        flex: 1;
-    }
-    
-    .playback-time {
-        justify-content: flex-start;
-        margin-top: 5px;
+    .cta-button {
+        padding: 12px 25px;
+        font-size: 1rem;
     }
 }
 
