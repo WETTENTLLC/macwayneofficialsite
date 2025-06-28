@@ -15,7 +15,7 @@ document.addEventListener('DOMContentLoaded', () => {
     console.log("[PLAYER] nextButton:", nextButton ? "Found" : "NOT FOUND");
     const progressBar = document.getElementById('progress-bar');
     console.log("[PLAYER] progressBar:", progressBar ? "Found" : "NOT FOUND");
-    const currentTimeDisplay = document.getElementById('current
+    const currentTimeDisplay = document.getElementById('current-time');
     console.log("[PLAYER] currentTimeDisplay:", currentTimeDisplay ? "Found" : "NOT FOUND");
     const durationDisplay = document.getElementById('duration');
     console.log("[PLAYER] durationDisplay:", durationDisplay ? "Found" : "NOT FOUND");
@@ -778,9 +778,6 @@ document.addEventListener('DOMContentLoaded', () => {
         updatePlayPauseButton();
     });
 
-    audioElement.addEventListener('pause',
-    });
-
     audioElement.addEventListener('pause', () => {
         isPlaying = false;
         updatePlayPauseButton();
@@ -848,7 +845,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 
             } catch (error) {
                 console.error('Error processing show notification signup:', error);
-                alert
+                alert('Error processing show notification signup.');
             }
         });
     }
