@@ -41,8 +41,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const TRACK_PRICE = "2.00";
     const CURRENCY = "USD";
     // Live PayPal Client ID for production payments
-    const PAYPAL_CLIENT_ID = "ATefxKUHVrxyBM7_sudRHvnbUXV-nznDOJD9ZwO_nRMOSZlYCfrHA6SouCz9K7Uk3X0phjvkj_Yo0STn";
-    const PAYPAL_SANDBOX_MODE = false; // Set to false for live payments
 
     // Function to get or generate a unique user ID
     async function initUser() {

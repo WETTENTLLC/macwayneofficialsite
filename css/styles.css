@@ -778,3 +778,59 @@ social-icons {
     width: auto;
   }
 }
+
+/* Merged payment improvements and mobile enhancements from commit 3846ab0 */
+
+/* Payment Section */
+.payment-section {
+  background-color: var(--light-background);
+  padding: 80px 0;
+}
+
+.payment-options {
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  flex-wrap: wrap;
+}
+
+.payment-option {
+  background-color: var(--background-color);
+  border-radius: 10px;
+  padding: 20px;
+  text-align: center;
+  box-shadow: var(--shadow);
+  transition: var(--transition);
+}
+
+.payment-option:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+
+.payment-option img {
+  max-width: 100px;
+  margin-bottom: 15px;
+}
+
+.payment-option h4 {
+  margin-bottom: 10px;
+}
+
+.payment-option p {
+  color: #666;
+  margin-bottom: 0;
+}
+
+/* Mobile Enhancements */
+@media screen and (max-width: 768px) {
+  .payment-options {
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .payment-option {
+    width: 100%;
+    max-width: 300px;
+  }
+}
