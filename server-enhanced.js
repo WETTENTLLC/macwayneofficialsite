@@ -9,6 +9,10 @@ import { v4 as uuidv4 } from 'uuid';
 import nodemailer from 'nodemailer';
 import archiver from 'archiver';
 import axios from 'axios';
+import { fileURLToPath } from 'url';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 const app = express();
 const PORT = process.env.PORT || 3000;
