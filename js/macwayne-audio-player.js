@@ -15,7 +15,7 @@ document.addEventListener('DOMContentLoaded', () => {
     console.log("[PLAYER] nextButton:", nextButton ? "Found" : "NOT FOUND");
     const progressBar = document.getElementById('progress-bar');
     console.log("[PLAYER] progressBar:", progressBar ? "Found" : "NOT FOUND");
-    const currentTimeDisplay = document.getElementById('current-time');
+    const currentTimeDisplay = document.getElementById('current
     console.log("[PLAYER] currentTimeDisplay:", currentTimeDisplay ? "Found" : "NOT FOUND");
     const durationDisplay = document.getElementById('duration');
     console.log("[PLAYER] durationDisplay:", durationDisplay ? "Found" : "NOT FOUND");
@@ -167,6 +167,8 @@ document.addEventListener('DOMContentLoaded', () => {
         paypalModal.style.setProperty('align-items', 'center', 'important');
         paypalModal.style.setProperty('justify-content', 'center', 'important');
         
+        // Create a unique ID for the PayPal button container
+        const buttonContainerId = 'paypal-button-container-modal-' + Date.now();
         paypalModal.innerHTML = `
             <div style="
                 background-color: #ffffff;
@@ -196,7 +198,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     font-size: 18px;
                 ">&times;</button>
                 <div style="margin: 20px 0; padding: 15px; background: #f8f9fa; border-radius: 5px;">
-                    <h3 style="color: #333; margin: 10px 0;">Purchasing: ${itemName}</h3>
+                    <h3 style="color: #333; margin: 10px 0;">
                     <p style="color: #666; margin: 5px 0; font-size: 18px; font-weight: bold;">Price: $${amount} ${currency}</p>
                     <p style="color: #666; margin: 5px 0;">Email: ${userEmail}</p>
                 </div>
@@ -277,9 +279,6 @@ document.addEventListener('DOMContentLoaded', () => {
             alert(`Modal created! Check console for debug info. Modal dimensions: ${modalRect.width}x${modalRect.height}`);
         }, 1000);
         
-        // Remove the test alert since we know the modal creation works
-        const buttonContainerId = paypalModal.querySelector('[id^="paypal-button-container-modal"]').id;
-        
         // Use PayPal SDK to create payment
         try {
             console.log('About to call paypal.Buttons()...');
@@ -305,63 +304,63 @@ document.addEventListener('DOMContentLoaded', () => {
                         }]
                     });
                 },
-            onApprove: function(data, actions) {
-                return actions.order.capture().then(function(details) {
-                    console.log('Payment successful!', details);
-                    
-                    // Store purchase info locally
-                    const purchases = JSON.parse(localStorage.getItem('macwayne_purchases') || '[]');
-                    purchases.push({
-                        itemId,
-                        itemType,
-                        itemName,
-                        purchaseDate: new Date().toISOString(),
-                        orderId: details.id,
-                        email: userEmail
-                    });
-                    localStorage.setItem('macwayne_purchases', JSON.stringify(purchases));
-                    
-                    // Call backend to process purchase and send email
-                    processPurchaseOnServer(itemType, itemId, itemName, amount, currency, userEmail, details.id)
-                        .then(() => {
-                            console.log('Purchase processed on server, email sent');
-                        })
-                        .catch(error => {
-                            console.error('Error processing purchase on server:', error);
-                            // Still continue with local processing even if server fails
+                onApprove: function(data, actions) {
+                    return actions.order.capture().then(function(details) {
+                        console.log('Payment successful!', details);
+                        
+                        // Store purchase info locally
+                        const purchases = JSON.parse(localStorage.getItem('macwayne_purchases') || '[]');
+                        purchases.push({
+                            itemId,
+                            itemType,
+                            itemName,
+                            purchaseDate: new Date().toISOString(),
+                            orderId: details.id,
+                            email: userEmail
                         });
-                    
-                    // Close modal and restore body scroll
+                        localStorage.setItem('macwayne_purchases', JSON.stringify(purchases));
+                        
+                        // Call backend to process purchase and send email
+                        processPurchaseOnServer(itemType, itemId, itemName, amount, currency, userEmail, details.id)
+                            .then(() => {
+                                console.log('Purchase processed on server, email sent');
+                            })
+                            .catch(error => {
+                                console.error('Error processing purchase on server:', error);
+                                // Still continue with local processing even if server fails
+                            });
+                        
+                        // Close modal and restore body scroll
+                        document.body.style.overflow = '';
+                        paypalModal.remove();
+                        
+                        alert(`Payment successful! Thank you for purchasing ${itemName}. Download instructions will be sent to ${userEmail} shortly.`);
+                        
+                        // Refresh purchase status
+                        loadUserPurchases();
+                        
+                        // If it's a track purchase, enable the track
+                        if (itemType === 'track') {
+                            const track = tracks.find(t => t.id === itemId);
+                            if (track) {
+                                track.purchased = true;
+                                updatePlaylistDisplay();
+                            }
+                        }
+                    });
+                },
+                onError: function(err) {
+                    console.error('PayPal payment error:', err);
+                    alert('Payment failed. Please try again or contact support.');
                     document.body.style.overflow = '';
                     paypalModal.remove();
-                    
-                    alert(`Payment successful! Thank you for purchasing ${itemName}. Download instructions will be sent to ${userEmail} shortly.`);
-                    
-                    // Refresh purchase status
-                    loadUserPurchases();
-                    
-                    // If it's a track purchase, enable the track
-                    if (itemType === 'track') {
-                        const track = tracks.find(t => t.id === itemId);
-                        if (track) {
-                            track.purchased = true;
-                            updatePlaylistDisplay();
-                        }
-                    }
-                });
-            },
-            onError: function(err) {
-                console.error('PayPal payment error:', err);
-                alert('Payment failed. Please try again or contact support.');
-                document.body.style.overflow = '';
-                paypalModal.remove();
-            },
-            onCancel: function(data) {
-                console.log('Payment cancelled:', data);
-                alert('Payment was cancelled.');
-                document.body.style.overflow = '';
-                paypalModal.remove();
-            }
+                },
+                onCancel: function(data) {
+                    console.log('Payment cancelled:', data);
+                    alert('Payment was cancelled.');
+                    document.body.style.overflow = '';
+                    paypalModal.remove();
+                }
             });
             
             console.log('PayPal buttons object created, attempting to render...');
@@ -761,7 +760,7 @@ document.addEventListener('DOMContentLoaded', () => {
             
             // Update album purchase button
             buyAlbumButton.innerHTML = '<i class="fas fa-check"></i> Album Owned';
-            buyAlbumButton.disabled = true;
+            buyAlbumButton.disabled =
             buyAlbumButton.style.background = '#4CAF50';
         }
     }
@@ -777,6 +776,9 @@ document.addEventListener('DOMContentLoaded', () => {
     audioElement.addEventListener('play', () => {
         isPlaying = true;
         updatePlayPauseButton();
+    });
+
+    audioElement.addEventListener('pause',
     });
 
     audioElement.addEventListener('pause', () => {
@@ -846,10 +848,11 @@ document.addEventListener('DOMContentLoaded', () => {
                 
             } catch (error) {
                 console.error('Error processing show notification signup:', error);
-                alert('There was an error processing your signup. Please try again.');
+                alert
             }
         });
     }
 
     initializeApp();
 });
+// Merged payment improvements and mobile enhancements from commit 3846ab0
