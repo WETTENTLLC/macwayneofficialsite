@@ -64,6 +64,7 @@ const ALBUM_CONFIG = {
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, 'deploy-clean')));
+app.use('/public', express.static(path.join(__dirname, 'public'))); // Serve /public URLs from the main public folder
 
 const purchasesDBPath = path.join(__dirname, 'purchases.json');
 

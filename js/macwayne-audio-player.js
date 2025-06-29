@@ -42,6 +42,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const CURRENCY = "USD";
     // Live PayPal Client ID for production payments
 
+    // === NGROK SERVER BASE URL ===
+    const SERVER_BASE_URL = "https://7527-2607-fb91-7925-c541-a161-632f-2e78-9e9.ngrok-free.app";
+
     // Function to get or generate a unique user ID
     async function initUser() {
         console.log("[PLAYER] initUser: Started");
@@ -98,8 +101,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 srcFull: `public/audio/Blind and Battered [Explicit]/${file}`,
                 // Use sample files from the samples folder with correct naming
                 srcSample: `public/audio/Blind and Battered [Explicit]/samples/${trackNumber}-sample.mp3`,
-                // Use the full track for samples, which will be limited to 30 seconds by JavaScript
-                srcSample: `public/audio/Blind and Battered [Explicit]/${file}`,
                 purchased: false // Default to not purchased
             };
         });
@@ -381,9 +382,9 @@ document.addEventListener('DOMContentLoaded', () => {
     // Process purchase on server and send email
     async function processPurchaseOnServer(itemType, itemId, itemName, amount, currency, userEmail, orderId) {
         try {
-            // Try to call local server first (if running)
+            // Use ngrok endpoint first
             const serverEndpoints = [
-                'http://localhost:3000/webhook/paypal',
+                `${SERVER_BASE_URL}/webhook/paypal`,
                 'https://macwayneofficial.com/webhook/paypal'
             ];
             
@@ -439,7 +440,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Add download functionality for purchased items
     async function downloadPurchasedItem(itemType, itemId, purchaseId) {
         try {
-            const downloadUrl = `/download/${userId}/${purchaseId}`;
+            const downloadUrl = `${SERVER_BASE_URL}/download/${userId}/${purchaseId}`;
             
             // Create a temporary link to trigger download
             const link = document.createElement('a');
@@ -646,7 +647,7 @@ document.addEventListener('DOMContentLoaded', () => {
             // Try to fetch from server first, but don't fail if server is not available
             let data = null;
             try {
-                const response = await fetch(`/user-purchases/${userId}`);
+                const response = await fetch(`${SERVER_BASE_URL}/user-purchases/${userId}`);
                 if (response.ok) {
                     data = await response.json();
                     console.log("[PLAYER] loadUserPurchases: Data received from server:", data);
@@ -828,7 +829,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     
                     // Optional: Send to server
                     try {
-                        await fetch('/signup-show-notifications', {
+                        await fetch(`${SERVER_BASE_URL}/signup-show-notifications`, {
                             method: 'POST',
                             headers: {
                                 'Content-Type': 'application/json'
