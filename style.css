@@ -1,0 +1,204 @@
+/* style.css */
+
+section {
+    padding: 40px 20px;
+    margin-bottom: 30px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    max-width: 500px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 5px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+}
+
+.track-status {
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: 12px;
+    font-size: 0.85em;
+    font-weight: 500;
+}
+
+.track-status.demo {
+    background-color: #FFB74D;
+    color: #000;
+}
+
+form label {
+    margin-bottom: 8px;
+    font-weight: bold;
+}
+
+form input[type="text"],
+form input[type="email"],
+form input[type="tel"],
+form input[type="number"],
+form textarea,
+form select {
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 16px;
+}
+
+form button {
+    background-color: #007bff;
+    color: white;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 18px;
+    transition: background-color 0.3s ease;
+}
+
+form button:hover {
+    background-color: #0056b3;
+}
+
+form button:disabled {
+    background-color: #cccccc;
+    cursor: not-allowed;
+}
+
+#donation-message, #volunteer-message, #contact-message-status,
+#donation-error, #volunteer-error, #contact-error, #resources-error, #stories-error {
+    margin-top: 10px;
+    padding: 10px;
+    border-radius: 4px;
+    font-weight: bold;
+}
+
+#donation-message, #volunteer-message, #contact-message-status {
+    background-color: #e6ffe6;
+    border: 1px solid #00cc00;
+    color: #008000;
+}
+
+#donation-error, #volunteer-error, #contact-error, #resources-error, #stories-error {
+    background-color: #ffe6e6;
+    border: 1px solid #cc0000;
+    color: #800000;
+}
+
+/* Community Support Section Overrides for Dark Theme Integration */
+#donate-section, #volunteer-section, #resources-section, #stories-section, #contact-section {
+    background: var(--glass-effect);
+    color: var(--text-white);
+    border-radius: 15px;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+    border: 1px solid rgba(255,255,255,0.08);
+    margin: 2rem 0;
+    padding: 2rem 1.5rem;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+}
+#donate-section h2, #volunteer-section h2, #resources-section h2, #stories-section h2, #contact-section h2 {
+    color: var(--highlight-orange);
+    font-family: var(--font-bebas);
+    font-size: 2.2rem;
+    margin-bottom: 1rem;
+    letter-spacing: 1px;
+}
+#donate-section form, #volunteer-section form, #contact-section form {
+    background: rgba(0,0,0,0.7);
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+    padding: 1.5rem;
+    color: var(--text-white);
+}
+#donate-section label, #volunteer-section label, #contact-section label {
+    color: var(--highlight-yellow);
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+}
+#donate-section input, #donate-section select, #donate-section textarea,
+#volunteer-section input, #volunteer-section select, #volunteer-section textarea,
+#contact-section input, #contact-section select, #contact-section textarea {
+    background: #181818;
+    color: var(--text-white);
+    border: 1px solid var(--highlight-orange);
+    border-radius: 5px;
+    margin-bottom: 1rem;
+    padding: 0.75rem;
+    font-size: 1rem;
+}
+#donate-section button, #volunteer-section button, #contact-section button {
+    background: var(--highlight-orange);
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    padding: 0.75rem 1.5rem;
+    font-size: 1.1rem;
+    font-family: var(--font-bebas);
+    letter-spacing: 1px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background 0.2s;
+    margin-top: 0.5rem;
+}
+#donate-section button:hover, #volunteer-section button:hover, #contact-section button:hover {
+    background: var(--highlight-yellow);
+    color: var(--strange-black);
+}
+#donation-message, #volunteer-message, #contact-message-status {
+    background: #1a3d1a;
+    border: 1px solid #00cc00;
+    color: #b6ffb6;
+}
+#donation-error, #volunteer-error, #contact-error, #resources-error, #stories-error {
+    background: #3d1a1a;
+    border: 1px solid #cc0000;
+    color: #ffb6b6;
+}
+.resource-item, .story-item {
+    background: rgba(0,0,0,0.7);
+    border: 1px solid var(--highlight-orange);
+    color: var(--text-white);
+    border-radius: 8px;
+    padding: 1.25rem;
+    margin-bottom: 1.5rem;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+}
+.resource-item h3, .story-item h3 {
+    color: var(--highlight-yellow);
+    margin-bottom: 0.5rem;
+}
+.story-author {
+    color: var(--highlight-orange);
+    font-style: italic;
+    margin-bottom: 0.5rem;
+}
+@media (max-width: 600px) {
+    #donate-section, #volunteer-section, #resources-section, #stories-section, #contact-section {
+        padding: 1rem 0.5rem;
+    }
+    #donate-section form, #volunteer-section form, #contact-section form {
+        padding: 1rem 0.5rem;
+    }
+}
+
+/* Modern forced colors mode for accessibility */
+@media (forced-colors: active) {
+  body, .audio-player, .playlist-item, .purchase-options-player {
+    forced-color-adjust: none;
+    background: Window !important;
+    color: WindowText !important;
+    border-color: GrayText !important;
+  }
+  button, input, select {
+    background: ButtonFace !important;
+    color: ButtonText !important;
+    border-color: ButtonBorder !important;
+  }
+}

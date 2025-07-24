@@ -1,0 +1,663 @@
+/* Mac Wayne Official Website - Accessibility Enhanced CSS */
+
+/* Skip Link Styles */
+.skip-link {
+    position: absolute;
+    top: -40px;
+    left: 6px;
+    background: #cc0000;
+    color: white;
+    padding: 8px;
+    z-index: 10000;
+    text-decoration: none;
+    border-radius: 0 0 5px 0;
+    font-weight: bold;
+    transition: top 0.3s;
+}
+
+.skip-link:focus {
+    top: 0;
+}
+
+/* Accessibility Helper Classes */
+.visually-hidden {
+    position: absolute !important;
+    width: 1px !important;
+    height: 1px !important;
+    padding: 0 !important;
+    margin: -1px !important;
+    overflow: hidden !important;
+    clip: rect(0, 0, 0, 0) !important;
+    white-space: nowrap !important;
+    border: 0 !important;
+}
+
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}
+
+/* Focus Management */
+*:focus {
+    outline: 3px solid #cc0000;
+    outline-offset: 2px;
+}
+
+*:focus:not(:focus-visible) {
+    outline: none;
+}
+
+*:focus-visible {
+    outline: 3px solid #cc0000;
+    outline-offset: 2px;
+}
+
+/* High Contrast Mode Support */
+@media (prefers-contrast: high) {
+    .strange-section {
+        background-color: #000000 !important;
+        color: #ffffff !important;
+    }
+    
+    .strange-button {
+        background-color: #ffffff !important;
+        color: #000000 !important;
+        border: 2px solid #ffffff !important;
+    }
+    
+    .nav-menu a {
+        color: #ffffff !important;
+    }
+    
+    .audio-player {
+        border: 2px solid #ffffff !important;
+    }
+}
+
+/* Reduced Motion Support */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+}
+
+/* Enhanced Button Focus States */
+button:focus,
+.strange-button:focus,
+.nav-menu a:focus {
+    outline: 3px solid #cc0000;
+    outline-offset: 2px;
+    background-color: rgba(204, 0, 0, 0.1);
+}
+
+/* Form Accessibility */
+input:focus,
+textarea:focus,
+select:focus {
+    outline: 3px solid #cc0000;
+    outline-offset: 2px;
+    border-color: #cc0000;
+}
+
+/* Error States */
+.error {
+    border-color: #ff0000 !important;
+    background-color: rgba(255, 0, 0, 0.1);
+}
+
+.error-message {
+    color: #ff0000;
+    font-weight: bold;
+    margin-top: 4px;
+}
+
+/* ARIA Live Regions */
+[aria-live] {
+    position: relative;
+}
+
+/* Modal Accessibility */
+.modal[aria-hidden="true"] {
+    display: none;
+}
+
+.modal[aria-hidden="false"] {
+    display: block;
+}
+
+/* Your existing CSS continues here... */
+
+/* Reset and Base Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Atkinson Hyperlegible', Arial, sans-serif;
+    background-color: #0a0a0a;
+    color: #ffffff;
+    line-height: 1.6;
+    overflow-x: hidden;
+}
+
+/* Navigation */
+.main-nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    background: rgba(0, 0, 0, 0.95);
+    backdrop-filter: blur(10px);
+    z-index: 1000;
+    padding: 1rem 0;
+    border-bottom: 1px solid rgba(204, 0, 0, 0.3);
+}
+
+.nav-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 2rem;
+}
+
+.nav-logo .logo-img {
+    height: 40px;
+    width: auto;
+}
+
+.nav-menu {
+    display: flex;
+    list-style: none;
+    gap: 2rem;
+    align-items: center;
+}
+
+.nav-menu a {
+    color: #ffffff;
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.3s;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+}
+
+.nav-menu a:hover,
+.nav-menu a.active {
+    color: #cc0000;
+}
+
+.mobile-menu-toggle {
+    display: none;
+    flex-direction: column;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0.5rem;
+}
+
+.mobile-menu-toggle span {
+    width: 25px;
+    height: 3px;
+    background: #ffffff;
+    margin: 3px 0;
+    transition: 0.3s;
+}
+
+/* Hero Logo */
+.hero-logo-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 50vh;
+    padding: 120px 2rem 2rem;
+    background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 100%);
+}
+
+.hero-logo {
+    max-width: 400px;
+    height: auto;
+    filter: drop-shadow(0 10px 30px rgba(204, 0, 0, 0.3));
+    animation: float 6s ease-in-out infinite;
+}
+
+/* Sections */
+.strange-section {
+    padding: 80px 2rem;
+    background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 100%);
+    border-bottom: 1px solid rgba(204, 0, 0, 0.1);
+}
+
+.strange-header {
+    font-family: 'Bebas Neue', Arial, sans-serif;
+    font-size: 3rem;
+    text-align: center;
+    margin-bottom: 3rem;
+    color: #cc0000;
+    text-shadow: 0 0 20px rgba(204, 0, 0, 0.5);
+    letter-spacing: 2px;
+}
+
+/* Buttons */
+.strange-button {
+    background: linear-gradient(135deg, #cc0000 0%, #aa0000 100%);
+    color: white;
+    border: none;
+    padding: 1rem 2rem;
+    font-family: 'Bebas Neue', Arial, sans-serif;
+    font-size: 1.1rem;
+    letter-spacing: 1px;
+    cursor: pointer;
+    border-radius: 8px;
+    text-decoration: none;
+    display: inline-block;
+    transition: all 0.3s ease;
+    text-align: center;
+    box-shadow: 0 4px 15px rgba(204, 0, 0, 0.3);
+}
+
+.strange-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(204, 0, 0, 0.5);
+    background: linear-gradient(135deg, #ee0000 0%, #cc0000 100%);
+}
+
+/* Audio Player Styles */
+.audio-player {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    background: rgba(0, 0, 0, 0.8);
+    padding: 1rem;
+    border-radius: 12px;
+    border: 1px solid rgba(204, 0, 0, 0.3);
+    backdrop-filter: blur(10px);
+    margin: 1rem 0;
+}
+
+.audio-player .play-btn {
+    cursor: pointer;
+    background-color: rgba(204, 0, 0, 0.8);
+    border-radius: 50%;
+    width: 48px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+    transition: all 0.2s ease;
+    position: relative;
+    z-index: 10;
+}
+
+.audio-player .play-btn:hover {
+    transform: scale(1.1);
+    background-color: rgb(204, 0, 0);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.7);
+}
+
+.audio-player .play-icon,
+.audio-player .pause-icon {
+    width: 26px;
+    height: 26px;
+    fill: white;
+}
+
+.audio-player .progress-container {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.audio-player .progress-bar {
+    position: relative;
+    height: 10px;
+    background-color: rgba(255, 255, 255, 0.2);
+    border-radius: 5px;
+    overflow: hidden;
+    cursor: pointer;
+}
+
+.audio-player .progress-fill {
+    background-color: #cc0000;
+    height: 100%;
+    width: 0;
+    border-radius: 5px;
+    transition: width 0.1s linear;
+}
+
+.time-display {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.9rem;
+    color: #ccc;
+}
+
+.track-info {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+}
+
+.track-title {
+    font-weight: bold;
+    color: #ffffff;
+}
+
+.track-artist {
+    color: #ccc;
+    font-size: 0.9rem;
+}
+
+.preview-indicator {
+    display: inline-block;
+    background-color: rgba(204, 0, 0, 0.2);
+    color: #cc0000;
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-size: 0.8em;
+    margin-left: 8px;
+    font-weight: bold;
+}
+
+/* Track List Styles */
+.track-list {
+    margin-top: 2rem;
+}
+
+.track-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 8px;
+    margin-bottom: 0.5rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border: 1px solid transparent;
+}
+
+.track-item:hover {
+    background: rgba(204, 0, 0, 0.1);
+    border-color: rgba(204, 0, 0, 0.3);
+    transform: translateX(5px);
+}
+
+.mini-play-btn {
+    background-color: #cc0000;
+    border-radius: 50%;
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    cursor: pointer;
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.3);
+    transition: all 0.2s ease;
+}
+
+.mini-play-btn svg {
+    width: 20px;
+    height: 20px;
+    fill: white;
+}
+
+.mini-play-btn:hover {
+    transform: scale(1.1);
+    background-color: #ee0000;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+}
+
+/* Form Styles */
+.strange-input {
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(204, 0, 0, 0.3);
+    color: #ffffff;
+    padding: 1rem;
+    border-radius: 8px;
+    width: 100%;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+}
+
+.strange-input:focus {
+    outline: none;
+    border-color: #cc0000;
+    box-shadow: 0 0 0 3px rgba(204, 0, 0, 0.2);
+    background: rgba(255, 255, 255, 0.15);
+}
+
+.strange-input::placeholder {
+    color: rgba(255, 255, 255, 0.6);
+}
+
+/* Modal Styles */
+.modal {
+    position: fixed;
+    z-index: 10000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(5px);
+}
+
+.modal-content {
+    background: linear-gradient(135deg, #1a1a1a 0%, #2a2a2a 100%);
+    margin: 5% auto;
+    padding: 0;
+    border: 1px solid rgba(204, 0, 0, 0.3);
+    border-radius: 12px;
+    width: 90%;
+    max-width: 600px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8);
+    animation: modalSlideIn 0.3s ease-out;
+}
+
+.modal-header {
+    padding: 2rem 2rem 1rem;
+    border-bottom: 1px solid rgba(204, 0, 0, 0.2);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.modal-header h3 {
+    color: #cc0000;
+    font-family: 'Bebas Neue', Arial, sans-serif;
+    font-size: 1.5rem;
+    margin: 0;
+}
+
+.close-modal {
+    background: none;
+    border: none;
+    color: #ffffff;
+    font-size: 2rem;
+    cursor: pointer;
+    padding: 0;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    transition: all 0.3s ease;
+}
+
+.close-modal:hover {
+    background: rgba(204, 0, 0, 0.2);
+    color: #cc0000;
+}
+
+.modal-body {
+    padding: 1rem 2rem 2rem;
+}
+
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    color: #ffffff;
+    font-weight: 500;
+}
+
+/* Animations */
+@keyframes float {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-20px); }
+}
+
+@keyframes modalSlideIn {
+    from {
+        opacity: 0;
+        transform: translateY(-50px) scale(0.9);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes scaleIn {
+    from { transform: scale(0.9); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+}
+
+/* Utility Classes */
+.hidden {
+    display: none !important;
+}
+
+.loading {
+    opacity: 0.6;
+    pointer-events: none;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .nav-menu {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        background: rgba(0, 0, 0, 0.95);
+        flex-direction: column;
+        padding: 1rem;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    }
+
+    .nav-menu.active {
+        display: flex;
+    }
+
+    .mobile-menu-toggle {
+        display: flex;
+    }
+
+    .strange-header {
+        font-size: 2rem;
+    }
+
+    .hero-logo {
+        max-width: 300px;
+    }
+
+    .modal-content {
+        width: 95%;
+        margin: 10% auto;
+    }
+
+    .audio-player {
+        flex-direction: column;
+        gap: 1rem;
+    }
+}
+
+/* Print Styles */
+@media print {
+    .skip-link,
+    .main-nav,
+    .mobile-menu-toggle,
+    .modal {
+        display: none !important;
+    }
+    
+    body {
+        background: white !important;
+        color: black !important;
+    }
+}
+
+/* Accessible Star Rating Styles */
+.rating-stars {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin: 1rem 0;
+}
+
+.rating-stars[role="img"] {
+    outline: none;
+}
+
+.rating-stars[role="img"]:focus {
+    outline: 2px solid #cc0000;
+    outline-offset: 2px;
+    border-radius: 4px;
+    padding: 2px;
+}
+
+.rating-stars .fas {
+    color: #ffd700;
+    margin-right: 2px;
+}
+
+.rating-stars .fa-star-half-alt {
+    color: #ffd700;
+}
+
+.rating-text {
+    font-size: 0.9rem;
+    color: #ccc;
+    font-weight: 500;
+}
+
+@media (prefers-contrast: high) {
+    .rating-stars .fas {
+        color: #ffffff !important;
+    }
+    
+    .rating-text {
+        color: #ffffff !important;
+    }
+}

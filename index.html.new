@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mac Wayne Official - Blind Hip Hop Visionary | Accessibility Innovation Through Music</title>
+    <meta name="description" content="Experience Mac Wayne's revolutionary accessibility-focused music platform. Blind hip-hop artist showcasing innovative audio technology, accessible design, and assistive music experiences. Perfect for accessibility tech partnerships and inclusive digital innovation.">
+    
+    <!-- Advanced SEO for Accessibility Tech Companies -->
+    <meta name="keywords" content="blind rapper, accessibility technology, assistive technology, accessible music platform, inclusive design, disability tech innovation, accessible audio player, screen reader compatible, visually impaired artist, accessibility partnerships, inclusive technology, assistive music technology, digital accessibility, WCAG compliance, inclusive entertainment, accessibility consulting, disabled artists, accessible web design, audio accessibility, inclusive user experience">
+    
+    <!-- Accessibility & Tech Company Targeting -->
+    <meta name="subject" content="Accessibility Innovation in Music Technology">
+    <meta name="audience" content="Accessibility Technology Companies, Assistive Technology Developers, Inclusive Design Teams">
+    <meta name="target-companies" content="MetaView, Aris Technologies, Google Accessibility, Microsoft Accessibility, Apple Accessibility, NVDA, JAWS, Voice Dream, Be My Eyes, Aira">
+    
+    <!-- Schema.org structured data for accessibility -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Person",
+      "name": "Mac Wayne",
+      "alternateName": "The Blind Kingpin",
+      "description": "Blind hip-hop artist and accessibility technology advocate",
+      "url": "https://macwayneofficial.com",
+      "sameAs": [
+        "https://www.youtube.com/watch?v=CkDPQkDTxC8",
+        "https://www.amazon.com/gp/video/detail/B07QXJZX8M"
+      ],
+      "hasDisability": "Visual impairment",
+      "knowsAbout": [
+        "Accessibility Technology",
+        "Assistive Technology",
+        "Inclusive Design",
+        "Audio Technology",
+        "Screen Reader Technology",
+        "Accessible Entertainment"
+      ],
+      "workLocation": {
+        "@type": "Place",
+        "name": "Global Digital Accessibility Community"
+      },
+      "seeks": {
+        "@type": "BusinessEntityType",
+        "name": "Technology Partnership",
+        "description": "Collaboration opportunities with accessibility technology companies for innovative inclusive entertainment solutions"
+      }
+    }
+    </script>
+    
+    <!-- Styles -->
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="styles/audio-player.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+</head>
+<body>
+    <!-- Hero Logo Section -->
+    <div class="hero-logo-container">
+        <img 
+            src="public/Images/macwayne-logo.png" 
+            alt="Mac Wayne" 
+            class="hero-logo"
+            loading="eager"
+        />
+    </div>
+
+    <!-- Main Navigation -->
+    <nav class="main-nav">
+        <ul>
+            <li><a href="#music">Music</a></li>
+            <li><a href="#tour">Tour</a></li>
+            <li><a href="shop.html">Shop</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+    </nav>
+
+    <div class="main-content">
+        <!-- Hero Section -->
+        <section class="strange-section hero-section">
+            <div class="hero-content">
+                <p class="hero-subtitle">OFFICIAL WEBSITE</p>
+                <div class="hero-buttons">
+                    <a href="#help-blind-man" class="strange-button">HELP THE BLIND MAN</a>
+                    <a href="shop.html" class="strange-button">SHOP MUSIC</a>
+                    <a href="#video-section" class="strange-button">WATCH VIDEOS</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Music Player Section -->
+        <section id="music" class="strange-section music-section">
+            <h2 class="strange-header">BLIND AND BATTERED</h2>
+            
+            <!-- Main audio player interface -->
+            <div class="audio-player">
+                <div class="player-controls">
+                    <button class="play-btn"><i class="fas fa-play"></i></button>
+                </div>
+                <div class="track-info">
+                    <div class="track-title">Select a track to play</div>
+                    <div class="track-artist">Mac Wayne</div>
+                    <div class="track-status preview">Preview (30 sec)</div>
+                </div>
+                <div class="progress-bar">
+                    <div class="progress-fill"></div>
+                </div>
+                <div class="time-info">
+                    <span class="current-time">0:00</span> / <span class="duration">0:00</span>
+                </div>
+            </div>
+
+            <!-- Track List -->
+            <div class="track-list">
+                <!-- Track items with updated data -->
+                <div class="track-item" data-id="track-1" data-src="public/audio/Blind and Battered [Explicit]/samples/01-sample.mp3" data-full-src="public/audio/Blind and Battered [Explicit]/01 - Gotta Split [Explicit].mp3">
+                    <div><span class="track-number">1.</span><span class="track-name">Gotta Split</span><span class="track-status preview">Preview</span></div>
+                    <div><button class="purchase-track">Buy - $1.99</button><button class="mini-play-btn">▶ Play</button></div>
+                </div>
+                <!-- Add remaining tracks 2-20 here -->
+            </div>
+
+            <button class="purchase-btn purchase-album">Buy Album - $9.99</button>
+            
+            <!-- PayPal Containers -->
+            <div id="paypal-album-container" class="paypal-container" style="display:none">
+                <h3>Complete Album Purchase</h3>
+                <p>Click the PayPal button below to purchase the full album for $9.99</p>
+            </div>
+            <div id="paypal-track-container" class="paypal-container" style="display:none">
+                <h3>Complete Track Purchase</h3>
+                <p>Click the PayPal button below to purchase this track for $1.99</p>
+            </div>
+        </section>
+
+        <!-- Rest of the original sections -->
+        <!-- Video Section -->
+        <section id="video-section" class="strange-section video-section">
+            <h2 class="strange-header">WATCH NOW</h2>
+            <div class="video-container">
+                <div class="video-wrapper">
+                    <iframe 
+                        src="https://www.youtube.com/embed/CkDPQkDTxC8"
+                        title="Mac Wayne - Blind & Battered"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                        allowfullscreen
+                    ></iframe>
+                </div>
+                <p class="video-description">
+                    "Blind & Battered" - The official music video from Mac Wayne
+                </p>
+            </div>
+        </section>
+
+        <!-- Help The Blind Man Section -->
+        <section id="help-blind-man" class="strange-section help-blind-man-section">
+            <h2 class="strange-header">HELP THE BLIND MAN</h2>
+            <div class="help-content">
+                <p>Support Mac Wayne's mission to make music more accessible for everyone.</p>
+                <div class="help-options">
+                    <a href="community-support.html" class="strange-button">Learn More</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Newsletter -->
+        <section id="contact" class="strange-section newsletter-section">
+            <h2 class="strange-header">JOIN THE FANBASE</h2>
+            <div class="newsletter-form">
+                <p class="newsletter-description">Subscribe to get updates on new music, videos, tour dates, and exclusive content.</p>
+                <form class="newsletter-form-grid" id="newsletter-form">
+                    <div class="form-group">
+                        <input type="text" placeholder="Your Name" class="strange-input" name="name" required />
+                    </div>
+                    <div class="form-group">
+                        <input type="email" placeholder="Your Email" class="strange-input" name="email" required />
+                    </div>
+                    <div class="form-submit">
+                        <button type="submit" class="strange-button">SUBSCRIBE</button>
+                    </div>
+                </form>
+            </div>
+        </section>
+    </div>
+
+    <!-- Social Media Links -->
+    <div class="social-links">
+        <a href="https://youtube.com/@MacWayneOfficial" target="_blank" rel="noopener">
+            <i class="fab fa-youtube"></i> YouTube
+        </a>
+        <a href="https://twitter.com/MacWayneOfficial" target="_blank" rel="noopener">
+            <i class="fab fa-twitter"></i> Twitter
+        </a>
+        <a href="https://instagram.com/macwayneofficial" target="_blank" rel="noopener">
+            <i class="fab fa-instagram"></i> Instagram
+        </a>
+    </div>
+
+    <!-- Scripts -->
+    <script src="js/main.js"></script>
+    <script src="js/new-audio-player.js"></script>
+    <script src="js/animations.js"></script>
+</body>
+</html>

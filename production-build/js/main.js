@@ -7,8 +7,74 @@ document.addEventListener('DOMContentLoaded', function() {
     initializeNewsletterForm();
     initializeVideoPlayer();
     initializeLazyLoading();
-    initializeAudioPlayers();
+    enhanceAccessibility(); // Call accessibility enhancements
+    initializeModals();
+    initializeFormHandling();
 });
+
+// Modal functionality
+function initializeModals() {
+    // Close modal when clicking outside
+    window.onclick = function(event) {
+        if (event.target.classList.contains('modal')) {
+            event.target.style.display = 'none';
+        }
+    }
+
+    // Close modal when clicking X
+    document.querySelectorAll('.close').forEach(closeBtn => {
+        closeBtn.onclick = function() {
+            const modalId = this.getAttribute('data-modal');
+            document.getElementById(modalId).style.display = 'none';
+        }
+    });
+}
+
+// Open modal function (called by buttons)
+window.openModal = function(modalId) {
+    document.getElementById(modalId).style.display = 'block';
+}
+
+// Form handling
+function initializeFormHandling() {
+    // Quote form handling
+    const quoteForm = document.getElementById('quoteForm');
+    if (quoteForm) {
+        quoteForm.addEventListener('submit', function() {
+            const submitBtn = this.querySelector('button[type="submit"]');
+            submitBtn.textContent = 'Sending...';
+            submitBtn.disabled = true;
+
+            // Formspree will handle the actual submission
+            setTimeout(() => {
+                alert('Thank you! Your quote request has been submitted. We\'ll get back to you within 24 hours.');
+                document.getElementById('quoteModal').style.display = 'none';
+                quoteForm.reset();
+                submitBtn.textContent = 'Submit Request';
+                submitBtn.disabled = false;
+            }, 1000);
+        });
+    }
+
+    // Affiliate form handling
+    const affiliateForm = document.getElementById('affiliateForm');
+    if (affiliateForm) {
+        affiliateForm.addEventListener('submit', function() {
+            const submitBtn = this.querySelector('button[type="submit"]');
+            submitBtn.textContent = 'Sending...';
+            submitBtn.disabled = true;
+
+            // Formspree will handle the actual submission
+            setTimeout(() => {
+                alert('Thank you for your affiliate application! We\'ll review it and get back to you within 48 hours.');
+                document.getElementById('affiliateModal').style.display = 'none';
+                affiliateForm.reset();
+                submitBtn.textContent = 'Submit Application';
+                submitBtn.disabled = false;
+            }, 1000);
+        });
+    }
+}
 
 // Scroll animations
 function initializeScrollAnimations() {
@@ -194,52 +260,6 @@ function initializeLazyLoading() {
     images.forEach(img => imageObserver.observe(img));
 }
 
-// Audio player initialization
-function initializeAudioPlayers() {
-    console.log('Initializing simple audio players...');
-    
-    // Initialize featured player
-    const featuredPlayer = document.querySelector('.featured-player .audio-player');
-    if (featuredPlayer) {
-        console.log('Found featured player, initializing with SimpleAudioPlayer...');
-        window.featuredAudioPlayer = new SimpleAudioPlayer(featuredPlayer);
-    }
-    
-    // Initialize any other audio players on the page
-    const audioPlayers = document.querySelectorAll('.audio-player:not(.featured-player .audio-player)');
-    audioPlayers.forEach((player, index) => {
-        console.log(`Initializing simple audio player ${index + 1}...`);
-        new SimpleAudioPlayer(player);
-    });
-    
-    // Add click handlers for mini play buttons in track list
-    const miniPlayBtns = document.querySelectorAll('.mini-play-btn');
-    miniPlayBtns.forEach(btn => {
-        btn.addEventListener('click', function(e) {
-            e.preventDefault();
-            e.stopPropagation();
-            
-            const trackItem = this.closest('.track-item');
-            if (trackItem && window.featuredAudioPlayer) {
-                const trackSrc = trackItem.dataset.src;
-                const trackTitle = trackItem.dataset.title;
-                const trackDuration = trackItem.dataset.duration;
-                
-                console.log('Loading new track:', { trackSrc, trackTitle, trackDuration });
-                
-                // Update the featured player with this track
-                window.featuredAudioPlayer.loadNewTrack({
-                    src: trackSrc,
-                    title: trackTitle,
-                    duration: trackDuration
-                });
-            }
-        });
-    });
-    
-    console.log('Simple audio players initialization complete');
-}
-
 // Utility functions
 function debounce(func, wait) {
     let timeout;
@@ -282,6 +302,44 @@ window.addEventListener('scroll', throttle(() => {
         document.body.classList.remove('scrolled');
     }
 }, 100));
+
+// Accessibility Enhancements
+function enhanceAccessibility() {
+    // Add ARIA attributes to interactive elements
+    document.querySelectorAll('button, [role="button"], a[href]').forEach(el => {
+        if (!el.hasAttribute('aria-label') && !el.textContent.trim() && el.querySelector('i[class*="fa-"]')) {
+            const iconClass = el.querySelector('i[class*="fa-"]').className;
+            let label = iconClass.replace(/fas? fa-/g, '').replace(/-/g, ' ');
+            label = label.charAt(0).toUpperCase() + label.slice(1);
+            el.setAttribute('aria-label', label);
+        }
+    });
+
+    // Fix for low contrast elements (example, can be adapted or removed if not used)
+    // const lowContrastElements = document.querySelectorAll('.low-contrast-text');
+    // lowContrastElements.forEach(el => {
+    //     // Example: Increase font weight or change color for better contrast
+    //     // This is a placeholder for actual accessibility improvements
+    // });
+
+    // Dark mode toggle
+    const darkModeToggle = document.querySelector('#dark-mode-toggle');
+    const currentTheme = localStorage.getItem('theme') || 'light';
+
+    if (currentTheme === 'dark') {
+        document.body.classList.add('dark');
+    }
+
+    if (darkModeToggle) { // Add this check
+        darkModeToggle.addEventListener('click', () => {
+            document.body.classList.toggle('dark');
+            const isDarkMode = document.body.classList.contains('dark');
+            localStorage.setItem('theme', isDarkMode ? 'dark' : 'light');
+        });
+    } // End of check
+
+    console.log('Accessibility enhancements applied.');
+}
 
 // Export functions for use in other modules
 window.MacWayneUtils = {

@@ -54,7 +54,7 @@ const ALBUM_CONFIG = {
       '16 - Crispy Game [Explicit].mp3',
       '17 - The End of the World [Explicit].mp3',
       '18 - Smell of Victory [Explicit].mp3',
-      '19 - Do the I\'m the Shit [Explicit].mp3',
+      "19 - Do the I'm the Shit [Explicit].mp3",
       '20 - Hatin On a Blind Man [Explicit].mp3'
     ]
   }
@@ -63,8 +63,21 @@ const ALBUM_CONFIG = {
 // Middleware
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(express.static(path.join(__dirname, 'deploy-clean')));
-app.use('/public', express.static(path.join(__dirname, 'public'))); // Serve /public URLs from the main public folder
+// Serve all files in the root directory (css, js, public, etc.)
+// This makes it easy to run locally without a separate build step.
+app.use(express.static(__dirname));
+
+// === CORS HEADERS FOR ALL ROUTES ===
+app.use((req, res, next) => {
+  res.header('Access-Control-Allow-Origin', '*');
+  res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
+  res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization');
+  // Handle preflight requests
+  if (req.method === 'OPTIONS') {
+    return res.sendStatus(200);
+  }
+  next();
+});
 
 const purchasesDBPath = path.join(__dirname, 'purchases.json');
 
@@ -149,8 +162,8 @@ app.post('/create-payment', async (req, res) => {
         payment_method: 'paypal'
       },
       redirect_urls: {
-        return_url: `${SITE_URL}/payment-success?userId=${userId}&itemType=${itemType}&itemId=${itemId}`,
-        cancel_url: `${SITE_URL}/payment-cancelled`
+        return_url: `/payment-success?userId=&itemType=&itemId=`,
+        cancel_url: `/payment-cancelled`
       },
       transactions: [{
         item_list: {
@@ -158,23 +171,23 @@ app.post('/create-payment', async (req, res) => {
             name: itemName,
             sku: itemId,
             price: amount,
-            currency: currency,
+            currency: currency || 'USD',
             quantity: 1
           }]
         },
         amount: {
-          currency: currency,
+          currency: currency || 'USD',
           total: amount
         },
-        description: `Purchase of ${itemName} by Mac Wayne`,
+        description: `Purchase of  by Mac Wayne`,
         custom: JSON.stringify({ userId, itemType, itemId, userEmail })
       }]
     };
 
-    const response = await axios.post(`${PAYPAL_API_BASE}/v1/payments/payment`, payment, {
+    const response = await axios.post(`/v1/payments/payment`, payment, {
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': `Bearer ${accessToken}`
+        'Authorization': `Bearer `
       }
     });
 
@@ -198,10 +211,10 @@ app.post('/execute-payment', async (req, res) => {
       payer_id: PayerID
     };
 
-    const response = await axios.post(`${PAYPAL_API_BASE}/v1/payments/payment/${paymentId}/execute`, execution, {
+    const response = await axios.post(`/v1/payments/payment//execute`, execution, {
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': `Bearer ${accessToken}`
+        'Authorization': `Bearer `
       }
     });
 
@@ -218,7 +231,6 @@ app.post('/execute-payment', async (req, res) => {
     res.status(500).json({ error: 'Failed to execute payment' });
   }
 });
-
 // Record payment from PayPal JS SDK
 app.post('/record-payment', async (req, res) => {
   try {
@@ -244,13 +256,15 @@ async function recordPurchase(userId, itemType, itemId, paymentData) {
   
   if (!purchases[userId]) {
     purchases[userId] = { 
-      purchasedTracks: [], 
-      purchasedAlbums: [],
+      downloadableTracks: [], 
+      downloadableAlbums: [],
+      streamableAlbums: [],
       purchaseHistory: []
     };
   }
 
   // Adapt to v2 Orders API (from JS SDK) or v1 Payments API (from redirect flow)
+  // NOTE: The new player uses the v2 Orders API via the PayPal JS SDK.
   const isV2Order = paymentData.purchase_units && Array.isArray(paymentData.purchase_units);
   let amount, currency, customDataString;
 
@@ -276,18 +290,20 @@ async function recordPurchase(userId, itemType, itemId, paymentData) {
 
   purchases[userId].purchaseHistory.push(purchaseRecord);
 
-  if (itemType === 'track' && !purchases[userId].purchasedTracks.includes(itemId)) {
-    purchases[userId].purchasedTracks.push(itemId);
-  } else if (itemType === 'album' && !purchases[userId].purchasedAlbums.includes(itemId)) {
-    purchases[userId].purchasedAlbums.push(itemId);
+  if (itemType === 'download-track' && !purchases[userId].downloadableTracks.includes(itemId)) {
+    purchases[userId].downloadableTracks.push(itemId);
+  } else if (itemType === 'download-album' && !purchases[userId].downloadableAlbums.includes(itemId)) {
+    purchases[userId].downloadableAlbums.push(itemId);
     
     // Unlock all tracks in the album
     const albumTracks = ALBUM_CONFIG[itemId]?.tracks || [];
     albumTracks.forEach(track => {
-      if (!purchases[userId].purchasedTracks.includes(track)) {
-        purchases[userId].purchasedTracks.push(track);
+      if (!purchases[userId].downloadableTracks.includes(track)) {
+        purchases[userId].downloadableTracks.push(track);
       }
     });
+  } else if (itemType === 'stream-album' && !purchases[userId].streamableAlbums.includes(itemId)) {
+    purchases[userId].streamableAlbums.push(itemId);
   }
 
   writePurchases(purchases);
@@ -302,20 +318,26 @@ async function recordPurchase(userId, itemType, itemId, paymentData) {
 
 // Send download email
 async function sendDownloadEmail(email, userId, itemType, itemId, purchaseId, amount, currency) {
+  // Only send download links for downloadable items
+  if (!itemType.startsWith('download-')) {
+    return;
+  }
+
   try {
-    const downloadUrl = `${SITE_URL}/download/${userId}/${purchaseId}`;
+    const downloadUrl = `${SITE_URL}/download//`;
+    const isAlbum = itemType === 'download-album';
     
     const mailOptions = {
       from: EMAIL_USER,
       to: email,
-      subject: `Your Mac Wayne Music Download - ${itemType === 'album' ? 'Album' : 'Track'}: ${itemId}`,
+      subject: `Your Mac Wayne Music Download - ${isAlbum ? 'Album' : 'Track'}: `,
       html: `
         <h2>Thank you for your purchase!</h2>
         <p>Your download is ready:</p>
-        <p><strong>Item:</strong> ${itemId}</p>
-        <p><strong>Type:</strong> ${itemType === 'album' ? 'Full Album' : 'Single Track'}</p>
-        <p><strong>Amount Paid:</strong> ${amount} ${currency}</p>
-        <p><a href="${downloadUrl}" style="background-color: #0070ba; color: white; padding: 10px 20px; text-decoration: none; border-radius: 5px;">Download Your Music</a></p>
+        <p><strong>Item:</strong> </p>
+        <p><strong>Type:</strong> ${isAlbum ? 'Full Album' : 'Single Track'}</p>
+        <p><strong>Amount Paid:</strong>  </p>
+        <p><a href="" style="background-color: #0070ba; color: white; padding: 10px 20px; text-decoration: none; border-radius: 5px;">Download Your Music</a></p>
         <p>This download link will be valid for 30 days.</p>
         <p>Thank you for supporting Mac Wayne!</p>
         <hr>
@@ -353,9 +375,9 @@ app.get('/download/:userId/:purchaseId', async (req, res) => {
     }
 
     const { itemType, itemId } = purchase;
-    const audioDir = path.join(__dirname, 'deploy-clean', 'public', 'audio', 'Blind and Battered [Explicit]');
+    const audioDir = path.join(__dirname, 'public', 'audio', 'Blind and Battered [Explicit]');
 
-    if (itemType === 'track') {
+    if (itemType === 'download-track') {
       // Download single track
       const trackPath = path.join(audioDir, itemId);
       if (fs.existsSync(trackPath)) {
@@ -363,7 +385,7 @@ app.get('/download/:userId/:purchaseId', async (req, res) => {
       } else {
         res.status(404).json({ error: 'Track file not found' });
       }
-    } else if (itemType === 'album') {
+    } else if (itemType === 'download-album') {
       // Create zip file for album download
       const zipName = `${itemId.replace(/[^a-zA-Z0-9]/g, '_')}.zip`;
       
@@ -386,6 +408,8 @@ app.get('/download/:userId/:purchaseId', async (req, res) => {
       }
       
       archive.finalize();
+    } else {
+      return res.status(403).json({ error: 'This purchase is not downloadable.' });
     }
 
   } catch (error) {
@@ -401,7 +425,7 @@ app.get('/user-purchases/:userId', (req, res) => {
   if (purchases[userId]) {
     res.json(purchases[userId]);
   } else {
-    res.json({ purchasedTracks: [], purchasedAlbums: [], purchaseHistory: [] });
+    res.json({ downloadableTracks: [], downloadableAlbums: [], streamableAlbums: [], purchaseHistory: [] });
   }
 });
 
@@ -411,8 +435,8 @@ app.get('/payment-success', async (req, res) => {
   
   if (paymentId && PayerID) {
     try {
-      // Execute the payment
-      await axios.post(`${SITE_URL}/execute-payment`, {
+      // Execute the payment by calling our own endpoint
+      await axios.post(`/execute-payment`, {
         paymentId,
         PayerID,
         userId,
@@ -428,30 +452,18 @@ app.get('/payment-success', async (req, res) => {
             <p>Thank you for your purchase. Your music has been unlocked!</p>
             <p><a href="/">Return to Mac Wayne Official</a></p>
             <script>
-              // Notify parent window and close after delay
-              if (window.opener) {
-                window.opener.postMessage({ type: 'PAYMENT_SUCCESS', userId: '${userId}', itemType: '${itemType}', itemId: '${itemId}' }, '*');
-                setTimeout(() => window.close(), 3000);
-              }
+              // Use localStorage as a fallback to notify main window
+              localStorage.setItem('paymentStatus', 'success');
+              setTimeout(() => window.close(), 3000);
             </script>
           </body>
         </html>
       `);
     } catch (error) {
-      console.error('Payment execution error:', error);
-      res.send(`
-        <html>
-          <head><title>Payment Error</title></head>
-          <body>
-            <h1>Payment Error</h1>
-            <p>There was an issue processing your payment. Please contact support.</p>
-            <p><a href="/">Return to Mac Wayne Official</a></p>
-          </body>
-        </html>
-      `);
+      res.status(500).send('<h1>Payment Execution Failed</h1><p>There was an error processing your payment. Please contact support.</p>');
     }
   } else {
-    res.redirect('/');
+    res.status(400).send('<h1>Invalid Payment Information</h1><p>Missing payment details.</p>');
   }
 });
 
@@ -462,135 +474,45 @@ app.get('/payment-cancelled', (req, res) => {
       <head><title>Payment Cancelled</title></head>
       <body>
         <h1>Payment Cancelled</h1>
-        <p>Your payment was cancelled. No charges were made.</p>
+        <p>Your payment was cancelled. You have not been charged.</p>
         <p><a href="/">Return to Mac Wayne Official</a></p>
         <script>
-          if (window.opener) {
-            window.opener.postMessage({ type: 'PAYMENT_CANCELLED' }, '*');
-            setTimeout(() => window.close(), 3000);
-          }
+          setTimeout(() => window.close(), 3000);
         </script>
       </body>
     </html>
   `);
 });
 
-// Show notification signup endpoint
-app.post('/signup-show-notifications', async (req, res) => {
-  try {
-    const signupData = req.body;
-    
-    // Validate required fields
-    if (!signupData.name || !signupData.email || !signupData.showType) {
-      return res.status(400).json({ error: 'Missing required fields' });
-    }
-    
-    // In a real implementation, you would:
-    // 1. Store in a database
-    // 2. Add to email marketing list
-    // 3. Send confirmation email
-    
-    console.log('Show notification signup received:', {
-      name: signupData.name,
-      email: signupData.email,
-      showType: signupData.showType,
-      city: signupData.city,
-      preferences: {
-        earlyAccess: signupData.earlyAccess,
-        backstageUpdates: signupData.backstageUpdates,
-        streamingAlerts: signupData.streamingAlerts
-      },
-      timestamp: signupData.timestamp
-    });
-    
-    // Store in a simple JSON file for now
-    const showSignupsPath = path.join(__dirname, 'show-signups.json');
-    let signups = [];
-    
-    try {
-      if (fs.existsSync(showSignupsPath)) {
-        const data = fs.readFileSync(showSignupsPath);
-        signups = JSON.parse(data);
-      }
-    } catch (error) {
-      console.error('Error reading show signups:', error);
-    }
-    
-    signups.push({
-      id: uuidv4(),
-      ...signupData,
-      ipAddress: req.ip,
-      userAgent: req.get('User-Agent')
-    });
-    
-    try {
-      fs.writeFileSync(showSignupsPath, JSON.stringify(signups, null, 2));
-    } catch (error) {
-      console.error('Error writing show signups:', error);
-    }
-    
-    // Send confirmation email (optional)
-    if (emailTransporter && signupData.email) {
-      const mailOptions = {
-        from: EMAIL_USER,
-        to: signupData.email,
-        subject: 'Mac Wayne - Show Notifications Confirmed!',
-        html: `
-          <h2>You're All Set for Mac Wayne Show Notifications!</h2>
-          <p>Hi ${signupData.name},</p>
-          <p>Thank you for signing up to receive notifications about Mac Wayne's upcoming shows!</p>
-          
-          <h3>Your Preferences:</h3>
-          <ul>
-            <li><strong>Show Type:</strong> ${signupData.showType}</li>
-            ${signupData.city ? `<li><strong>City:</strong> ${signupData.city}</li>` : ''}
-            ${signupData.earlyAccess ? '<li>✓ Early access to tickets</li>' : ''}
-            ${signupData.backstageUpdates ? '<li>✓ Behind-the-scenes updates</li>' : ''}
-            ${signupData.streamingAlerts ? '<li>✓ Live streaming notifications</li>' : ''}
-          </ul>
-          
-          <p>We'll notify you as soon as Mac Wayne announces his comeback tour and streaming events!</p>
-          
-          <p>Stay tuned and keep supporting great music!</p>
-          
-          <hr>
-          <p><small>Mac Wayne Official - macwayneofficial.com</small></p>
-        `
-      };
-      
-      try {
-        await emailTransporter.sendMail(mailOptions);
-        console.log('Show notification confirmation email sent to:', signupData.email);
-      } catch (error) {
-        console.error('Error sending confirmation email:', error);
-      }
-    }
-    
-    res.json({ 
-      success: true, 
-      message: 'Show notification signup successful!',
-      id: signups[signups.length - 1].id
-    });
-    
-  } catch (error) {
-    console.error('Error processing show notification signup:', error);
-    res.status(500).json({ error: 'Internal server error' });
+// === AUDIO FILE INTEGRITY CHECK ===
+function checkAudioFiles() {
+  const audioDir = path.join(__dirname, 'public', 'audio', 'Blind and Battered [Explicit]');
+  const album = ALBUM_CONFIG['Blind and Battered [Explicit]'];
+  if (!album) {
+    console.warn('No album config found for Blind and Battered [Explicit]');
+    return;
   }
-});
-
-// Root route
-app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname, 'deploy-clean', 'index.html'));
-});
+  album.tracks.forEach((trackFile, index) => {
+    const fullPath = path.join(audioDir, trackFile);
+    if (!fs.existsSync(fullPath)) {
+      console.error(`[MISSING FILE] Full track not found: `);
+    }
+    const sampleNumber = String(index + 1).padStart(2, '0');
+    const samplePath = path.join(audioDir, 'samples', `-sample.mp3`);
+    if (!fs.existsSync(samplePath)) {
+      console.error(`[MISSING FILE] Sample track not found: `);
+    }
+  });
+}
 
 // Start server
 app.listen(PORT, () => {
-  console.log(`Server running on http://localhost:${PORT}`);
+  console.log(`Server running on http://localhost:`);
   console.log(`PayPal Mode: ${PAYPAL_SANDBOX_MODE ? 'SANDBOX' : 'PRODUCTION'}`);
-  
   // Initialize purchases.json if it doesn't exist
   if (!fs.existsSync(purchasesDBPath)) {
     writePurchases({});
-    console.log('Initialized empty purchases.json');
   }
+  checkAudioFiles();
 });
+

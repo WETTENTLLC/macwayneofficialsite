@@ -1,4 +1,4 @@
-// Service Worker for Mac Wayne Battered Coin System
+﻿// Service Worker for Mac Wayne Battered Coin System
 // Provides offline functionality and performance caching for cryptocurrency features
 
 const CACHE_NAME = 'mac-wayne-crypto-v1.0.0';
@@ -31,26 +31,26 @@ const API_CACHE_PATTERNS = [
 
 // Install event - cache static files
 self.addEventListener('install', (event) => {
-    console.log('🔧 Service Worker installing...');
+    console.log('ðŸ”§ Service Worker installing...');
     
     event.waitUntil(
         caches.open(STATIC_CACHE)
             .then((cache) => {
-                console.log('📦 Caching static files');
+                console.log('ðŸ“¦ Caching static files');
                 return cache.addAll(STATIC_FILES);
             })
             .then(() => {
                 return self.skipWaiting();
             })
             .catch((error) => {
-                console.error('❌ Failed to cache static files:', error);
+                console.error('âŒ Failed to cache static files:', error);
             })
     );
 });
 
 // Activate event - clean up old caches
 self.addEventListener('activate', (event) => {
-    console.log('✅ Service Worker activating...');
+    console.log('âœ… Service Worker activating...');
     
     event.waitUntil(
         caches.keys()
@@ -60,7 +60,7 @@ self.addEventListener('activate', (event) => {
                         if (cacheName !== STATIC_CACHE && 
                             cacheName !== DYNAMIC_CACHE && 
                             cacheName !== CACHE_NAME) {
-                            console.log('🗑️ Deleting old cache:', cacheName);
+                            console.log('ðŸ—‘ï¸ Deleting old cache:', cacheName);
                             return caches.delete(cacheName);
                         }
                     })
@@ -265,7 +265,7 @@ function createOfflineFallback(request) {
 
 // Background Sync for when connection is restored
 self.addEventListener('sync', (event) => {
-    console.log('🔄 Background sync triggered:', event.tag);
+    console.log('ðŸ”„ Background sync triggered:', event.tag);
     
     if (event.tag === 'crypto-data-sync') {
         event.waitUntil(syncCryptoData());
@@ -279,7 +279,7 @@ self.addEventListener('sync', (event) => {
 // Sync cryptocurrency data when connection is restored
 async function syncCryptoData() {
     try {
-        console.log('📊 Syncing cryptocurrency data...');
+        console.log('ðŸ“Š Syncing cryptocurrency data...');
         
         // Fetch latest market data
         const marketDataResponse = await fetch('/api/market-data');
@@ -304,16 +304,16 @@ async function syncCryptoData() {
             });
         });
         
-        console.log('✅ Cryptocurrency data synced successfully');
+        console.log('âœ… Cryptocurrency data synced successfully');
     } catch (error) {
-        console.error('❌ Failed to sync cryptocurrency data:', error);
+        console.error('âŒ Failed to sync cryptocurrency data:', error);
     }
 }
 
 // Sync pending wallet operations when connection is restored
 async function syncWalletOperations() {
     try {
-        console.log('💰 Syncing pending wallet operations...');
+        console.log('ðŸ’° Syncing pending wallet operations...');
         
         // Get pending operations from IndexedDB or localStorage
         const pendingOperations = await getPendingOperations();
@@ -336,9 +336,9 @@ async function syncWalletOperations() {
             });
         });
         
-        console.log('✅ Wallet operations synced successfully');
+        console.log('âœ… Wallet operations synced successfully');
     } catch (error) {
-        console.error('❌ Failed to sync wallet operations:', error);
+        console.error('âŒ Failed to sync wallet operations:', error);
     }
 }
 
@@ -363,7 +363,7 @@ async function removePendingOperation(operationId) {
 
 // Push notification handler
 self.addEventListener('push', (event) => {
-    console.log('📬 Push notification received:', event);
+    console.log('ðŸ“¬ Push notification received:', event);
     
     let data = {};
     if (event.data) {
@@ -400,7 +400,7 @@ self.addEventListener('push', (event) => {
 
 // Notification click handler
 self.addEventListener('notificationclick', (event) => {
-    console.log('🔔 Notification clicked:', event);
+    console.log('ðŸ”” Notification clicked:', event);
     
     event.notification.close();
     
@@ -421,7 +421,7 @@ self.addEventListener('notificationclick', (event) => {
 
 // Message handler for communication with main thread
 self.addEventListener('message', (event) => {
-    console.log('💬 Message received:', event.data);
+    console.log('ðŸ’¬ Message received:', event.data);
     
     const { type, data } = event.data;
     
@@ -458,9 +458,9 @@ async function cacheCryptoData(data) {
             headers: { 'Content-Type': 'application/json' }
         });
         await cache.put(data.url, response);
-        console.log('✅ Cached crypto data for:', data.url);
+        console.log('âœ… Cached crypto data for:', data.url);
     } catch (error) {
-        console.error('❌ Failed to cache crypto data:', error);
+        console.error('âŒ Failed to cache crypto data:', error);
     }
 }
 
@@ -468,9 +468,9 @@ async function cacheCryptoData(data) {
 async function clearSpecificCache(cacheName) {
     try {
         const deleted = await caches.delete(cacheName);
-        console.log(`🗑️ Cache ${cacheName} deleted:`, deleted);
+        console.log(`ðŸ—‘ï¸ Cache ${cacheName} deleted:`, deleted);
     } catch (error) {
-        console.error('❌ Failed to clear cache:', error);
+        console.error('âŒ Failed to clear cache:', error);
     }
 }
 
@@ -491,7 +491,7 @@ async function getCacheStatus() {
         
         return cacheStatus;
     } catch (error) {
-        console.error('❌ Failed to get cache status:', error);
+        console.error('âŒ Failed to get cache status:', error);
         return {};
     }
 }
@@ -511,15 +511,13 @@ setInterval(async () => {
             // Remove entries older than 24 hours
             if (hoursDiff > 24) {
                 await cache.delete(request);
-                console.log('🗑️ Removed old cache entry:', request.url);
+                console.log('ðŸ—‘ï¸ Removed old cache entry:', request.url);
             }
         }
     } catch (error) {
-        console.error('❌ Cache cleanup failed:', error);
+        console.error('âŒ Cache cleanup failed:', error);
     }
 }, 1000 * 60 * 60); // Run every hour
 
-console.log('🚀 Mac Wayne Crypto Service Worker loaded successfully');
-
-
+console.log('ðŸš€ Mac Wayne Crypto Service Worker loaded successfully');
 

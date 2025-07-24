@@ -1,0 +1,193 @@
+/* Download System Styles */
+
+.purchase-modal, .download-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.8);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+.purchase-modal .modal-content,
+.download-modal .modal-content {
+    background: #333;
+    padding: 30px;
+    border-radius: 10px;
+    max-width: 500px;
+    width: 90%;
+    color: white;
+    text-align: center;
+}
+
+.modal-buttons {
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.confirm-purchase, .cancel-purchase, .close-modal {
+    padding: 12px 24px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.confirm-purchase {
+    background: #28a745;
+    color: white;
+}
+
+.cancel-purchase, .close-modal {
+    background: #666;
+    color: white;
+}
+
+.download-btn {
+    background: #007bff;
+    color: white;
+    border: none;
+    padding: 15px 30px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    margin: 15px 0;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.download-btn:hover {
+    background: #0056b3;
+}
+
+.individual-tracks {
+    margin-top: 20px;
+    text-align: left;
+}
+
+.track-download-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    border-bottom: 1px solid #555;
+}
+
+.mini-download-btn {
+    background: #007bff;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 3px;
+    cursor: pointer;
+}
+
+.download-track, .download-album {
+    background: #28a745 !important;
+    color: white !important;
+}
+
+.download-track:hover, .download-album:hover {
+    background: #218838 !important;
+}
+
+.track-status.owned {
+    background: #28a745;
+    color: white;
+}
+
+.download-toast, .payment-success-toast, .payment-error-toast {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    color: white;
+    padding: 15px 20px;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    z-index: 1001;
+    animation: slideIn 0.3s ease-out;
+    max-width: 350px;
+}
+
+.download-toast, .payment-success-toast {
+    background: #28a745;
+}
+
+.payment-error-toast {
+    background: #dc3545;
+}
+
+.payment-success-toast div, .payment-error-toast div {
+    flex: 1;
+}
+
+.payment-success-toast p, .payment-error-toast p {
+    margin: 5px 0;
+    font-size: 14px;
+}
+
+.payment-success-toast small {
+    font-size: 11px;
+    opacity: 0.8;
+}
+
+@keyframes slideIn {
+    from {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+/* Debug Panel */
+.debug-panel {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background: #333;
+    padding: 15px;
+    border-radius: 8px;
+    color: white;
+    font-size: 12px;
+    z-index: 999;
+}
+
+.debug-panel h4 {
+    margin: 0 0 10px 0;
+    color: #ccc;
+}
+
+.debug-panel button {
+    background: #007bff;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    margin: 2px;
+    border-radius: 3px;
+    cursor: pointer;
+    font-size: 11px;
+}
+
+.debug-panel button:hover {
+    background: #0056b3;
+}
+
+.debug-panel button.reset {
+    background: #dc3545;
+}
+
+.debug-panel button.reset:hover {
+    background: #c82333;
+}

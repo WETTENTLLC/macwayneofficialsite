@@ -58,28 +58,41 @@ body {
   contain: layout style paint;
 }
 
+/* Global Container Class for Content Centering */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+    width: 100%;
+}
+
+@media (max-width: 768px) {
+    .container {
+        padding: 0 15px;
+    }
+}
+
+@media (max-width: 480px) {
+    .container {
+        padding: 0 10px;
+    }
+}
+
 /* Background Effects */
 body::before {
-  content: '';
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  z-index: -2;
-  background-color: #000000;  background-image: 
-    url('public/Images/macwayne-background.png'),
-    radial-gradient(circle at 30% 30%, rgba(204, 0, 0, 0.7) 0%, transparent 50%),
-    radial-gradient(circle at 70% 60%, rgba(255, 102, 0, 0.6) 0%, transparent 60%);
-  background-blend-mode: overlay;
-  background-size: contain, cover, cover;
-  background-repeat: no-repeat, no-repeat, no-repeat;
-  background-position: center, center, center;
-  opacity: 0.7;
-  pointer-events: none;
-  will-change: transform;
-  filter: blur(2px);
-  animation: smokeEffect 20s infinite alternate ease-in-out;
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('../public/Images/macwayne-background.png'); /* Corrected path */
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    opacity: 0.05; 
+    z-index: -1;
+    animation: subtlePulse 15s infinite alternate ease-in-out;
 }
 
 .strange-theme::after {
@@ -800,7 +813,7 @@ body::before {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 1rem 2rem;
+    padding: 1rem 0.5rem 1rem 0;
     height: 70px;
 }
 
@@ -809,10 +822,12 @@ body::before {
     align-items: center;
     text-decoration: none;
     z-index: 1001;
+    margin-left: -2rem;
+    position: relative;
 }
 
 .logo-img {
-    height: 40px;
+    height: 60px;
     width: auto;
     filter: brightness(1.1) contrast(1.1);
     transition: all 0.3s ease;
@@ -970,9 +985,8 @@ body::before {
     .mobile-menu-toggle {
         display: flex;
     }
-    
-    .nav-container {
-        padding: 1rem;
+      .nav-container {
+        padding: 1rem 0.5rem 1rem 0;
     }
 }
 
