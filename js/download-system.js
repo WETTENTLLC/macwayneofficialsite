@@ -112,7 +112,9 @@ class DownloadSystem {
         document.body.appendChild(modal);
         
         // Initialize PayPal button
-        this.initPayPalButton(type, trackId, finalPrice, itemName, modal, purchaseType);
+        setTimeout(() => {
+            this.initPayPalButton(type, trackId, finalPrice, itemName, modal, purchaseType);
+        }, 100);
         
         modal.querySelector('.cancel-purchase').onclick = () => {
             document.body.removeChild(modal);
@@ -224,20 +226,28 @@ class DownloadSystem {
     }
 
     // Initialize PayPal button
-    initPayPalButton(type, trackId, price, itemName, modal) {
+    initPayPalButton(type, trackId, price, itemName, modal, purchaseType) {
         if (!window.paypal) {
             // Load PayPal SDK if not already loaded
             const script = document.createElement('script');
             script.src = 'https://www.paypal.com/sdk/js?client-id=ATefxKUHVrxyBM7_sudRHvnbUXV-nznDOJD9ZwO_nRMOSZlYCfrHA6SouCz9K7Uk3X0phjvkj_Yo0STn&currency=USD';
-            script.onload = () => this.renderPayPalButton(type, trackId, price, itemName, modal);
+            script.onload = () => this.renderPayPalButton(type, trackId, price, itemName, modal, purchaseType);
             document.head.appendChild(script);
         } else {
-            this.renderPayPalButton(type, trackId, price, itemName, modal);
+            this.renderPayPalButton(type, trackId, price, itemName, modal, purchaseType);
         }
     }
 
     // Render PayPal button
-    renderPayPalButton(type, trackId, price, itemName, modal) {
+    renderPayPalButton(type, trackId, price, itemName, modal, purchaseType = 'download') {
+        const containerId = `paypal-button-container-${type}-${purchaseType}`;
+        const container = modal.querySelector(`#${containerId}`);
+        
+        if (!container) {
+            console.error('PayPal container not found:', containerId);
+            return;
+        }
+        
         paypal.Buttons({
             createOrder: (data, actions) => {
                 return actions.order.create({
@@ -266,7 +276,7 @@ class DownloadSystem {
                 // User cancelled payment
                 document.body.removeChild(modal);
             }
-        }).render(`#paypal-button-container-${type}`);
+        }).render(`#${containerId}`);
     }
 
     // Show payment success message

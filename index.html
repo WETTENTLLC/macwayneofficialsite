@@ -750,46 +750,15 @@
         <!-- Upcoming Shows -->
         <section class="strange-section shows-section">
             <h2 class="strange-header">UPCOMING SHOWS</h2>
-            <div class="tour-dates">
-                <div class="event-item">
-                    <div class="event-date">
-                        <div class="event-day">15</div>
-                        <div class="event-month">JUN</div>
-                    </div>
-                    <div class="event-info">
-                        <h3>The Underground</h3>
-                        <div class="event-venue">Live Performance</div>
-                        <div class="event-city">Charlotte, NC</div>
-                    </div>
-                    <button class="ticket-button">Tickets</button>
-                </div>
-                <div class="event-item">
-                    <div class="event-date">
-                        <div class="event-day">22</div>
-                        <div class="event-month">JUN</div>
-                    </div>
-                    <div class="event-info">
-                        <h3>The Fillmore</h3>
-                        <div class="event-venue">Live Performance</div>
-                        <div class="event-city">Detroit, MI</div>
-                    </div>
-                    <button class="ticket-button">Tickets</button>
-                </div>
-                <div class="event-item">
-                    <div class="event-date">
-                        <div class="event-day">29</div>
-                        <div class="event-month">JUN</div>
-                    </div>
-                    <div class="event-info">
-                        <h3>House of Blues</h3>
-                        <div class="event-venue">Live Performance</div>
-                        <div class="event-city">Chicago, IL</div>
-                    </div>
-                    <button class="ticket-button">Tickets</button>
+            <div class="shows-coming-soon">
+                <div class="coming-soon-content">
+                    <i class="fas fa-calendar-alt" style="font-size: 3rem; color: #cc0000; margin-bottom: 1rem;"></i>
+                    <h3 style="color: #fff; margin-bottom: 1rem;">Shows Coming Soon</h3>
+                    <p style="color: #ccc; font-size: 1.1rem; max-width: 500px; margin: 0 auto;">Mac Wayne is planning his return to the stage. Stay tuned for upcoming tour dates and live performance announcements.</p>
                 </div>
             </div>
             <div class="shows-cta">
-                <button class="strange-button">VIEW ALL SHOWS</button>
+                <button class="strange-button" onclick="document.getElementById('newsletter-form').scrollIntoView()">GET NOTIFIED</button>
             </div>
         </section>
         
@@ -807,6 +776,8 @@
                     </div>
                     <div class="form-submit">
                         <button type="submit" class="strange-button">SUBSCRIBE</button>
+                        <input type="hidden" name="_to" value="officialmacwayne@gmail.com">
+                        <input type="hidden" name="_subject" value="Newsletter Subscription">
                     </div>
                 </form>
             </div>
@@ -837,6 +808,8 @@
                             </label>
                         </div>
                         <button type="submit" class="strange-button">SEND ENCOURAGEMENT</button>
+                        <input type="hidden" name="_to" value="officialmacwayne@gmail.com">
+                        <input type="hidden" name="_subject" value="Fan Encouragement for Mac Wayne">
                     </form>
                 </div>
             </div>
