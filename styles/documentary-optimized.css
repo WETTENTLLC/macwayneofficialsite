@@ -1,0 +1,138 @@
+/* Documentary Page Optimization */
+
+.documentary-page {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.documentary-page .container {
+    max-width: 100%;
+    margin: 0 auto;
+    padding: 0 15px;
+}
+
+/* Center all content */
+.documentary-hero,
+.video-section,
+.story-behind-film,
+.director-statement,
+.awards-recognition,
+.gallery-section,
+.audio-documentary-series,
+.cta-section {
+    text-align: center;
+}
+
+.story-content-grid {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 30px;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.story-text {
+    text-align: center;
+}
+
+.story-image {
+    display: flex;
+    justify-content: center;
+}
+
+/* Gallery grid optimization */
+.gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+    justify-items: center;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.gallery-item {
+    display: flex;
+    justify-content: center;
+}
+
+/* Awards grid centering */
+.awards-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 30px;
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+/* Director statement centering */
+.statement-content {
+    max-width: 700px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+}
+
+/* Video wrapper centering */
+.video-wrapper {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+/* Hero content centering */
+.hero-content {
+    max-width: 800px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+/* Coming soon content */
+.coming-soon-content {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+/* Progress bar centering */
+.progress-bar-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .documentary-page {
+        padding: 0 10px;
+    }
+    
+    .story-content-grid {
+        gap: 20px;
+    }
+    
+    .gallery-grid {
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 15px;
+    }
+    
+    .awards-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+}
+
+/* Image optimization */
+.img-fluid {
+    max-width: 100%;
+    height: auto;
+}
+
+/* Ensure all images are properly sized */
+.documentary-page img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    margin: 0 auto;
+}
