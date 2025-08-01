@@ -1,12 +1,12 @@
 // Enhanced Audio Player with PayPal Integration
-window.NewAudioPlayer = class NewAudioPlayer {
+class NewAudioPlayer {
     constructor() {
         this.audio = new Audio();
         this.isPlaying = false;
-        this.isPurchased = false; // Default to preview mode
+        this.isPurchased = localStorage.getItem('purchased') === 'true';
         this.purchasedTracks = JSON.parse(localStorage.getItem('purchasedTracks') || '[]');
         this.currentTrack = null;
-        this.previewDuration = 30; // 30 second preview
+        this.previewDuration = 30; // 30 seconds preview
         this.albumPrice = 9.99;
         this.trackPrice = 1.99;
         this.tracks = [];
@@ -22,10 +22,12 @@ window.NewAudioPlayer = class NewAudioPlayer {
 
         // Setup track list and store track data
         const trackElements = document.querySelectorAll('.track-item');
+        this.tracks = [];
         trackElements.forEach((track, index) => {
-            // Store track data
+            // Ensure track id matches HTML markup (track-1, track-2, ... track-20)
+            const trackId = track.dataset.id || `track-${index + 1}`;
             const trackData = {
-                id: track.dataset.id || `track-${index}`,
+                id: trackId,
                 title: track.querySelector('.track-name')?.textContent || `Track ${index + 1}`,
                 sampleSrc: track.dataset.src,
                 fullSrc: track.dataset.fullSrc,
@@ -33,19 +35,19 @@ window.NewAudioPlayer = class NewAudioPlayer {
                 index: index
             };
             this.tracks.push(trackData);
-            
-            // Setup click handlers
-            track.addEventListener('click', () => this.loadTrack(trackData));
-            
+
+            // Setup play button handler (mini-play-btn)
             const miniBtn = track.querySelector('.mini-play-btn');
             if (miniBtn) {
                 miniBtn.addEventListener('click', (e) => {
                     e.stopPropagation();
                     this.loadTrack(trackData);
+                    this.audio.load();  // Ensure audio is loaded
+                    this.play();  // Start playback immediately
                 });
             }
-            
-            // Add purchase track button
+
+            // Setup purchase button handler
             const purchaseTrackBtn = track.querySelector('.purchase-track');
             if (purchaseTrackBtn) {
                 purchaseTrackBtn.addEventListener('click', (e) => {
@@ -73,7 +75,16 @@ window.NewAudioPlayer = class NewAudioPlayer {
     }
 
     loadTrack(trackData) {
-        if (!trackData) return;
+        if (!trackData) {
+            console.error('No track data provided');
+            return;
+        }
+        
+        console.log('Loading track:', trackData.title);
+        console.log('Track data:', trackData);
+        
+        // Pause current playback first
+        this.pause();
         
         // Remove previous active track
         document.querySelectorAll('.track-item').forEach(t => t.classList.remove('playing'));
@@ -85,28 +96,43 @@ window.NewAudioPlayer = class NewAudioPlayer {
         }
         
         // Determine if we should play full track or sample
-        const isTrackPurchased = this.purchasedTracks.includes(trackData.id);
-        const src = isTrackPurchased ? trackData.fullSrc : trackData.sampleSrc;
+        const isTrackPurchased = this.isPurchased || this.purchasedTracks.includes(trackData.id);
+        const src = isTrackPurchased && trackData.fullSrc ? trackData.fullSrc : trackData.sampleSrc;
+        
+        console.log('Audio source:', src);
+        console.log('Is purchased:', isTrackPurchased);
         
         if (!src) {
             console.error('No audio source available for track:', trackData.title);
             return;
         }
         
-        this.audio.src = src;
-        this.updateTrackInfo(trackData);
-        
-        // Set preview duration if not purchased
-        if (!isTrackPurchased) {
-            this.audio.addEventListener('timeupdate', () => {
-                if (this.audio.currentTime >= this.previewDuration) {
-                    this.audio.pause();
-                    this.audio.currentTime = 0;
-                }
-            });
+        try {
+            // Set new source and update info
+            this.audio.src = src;
+            this.audio.preload = 'auto';  // Ensure audio is preloaded
+            
+            // Add error handler for loading
+            this.audio.onerror = (e) => {
+                console.error('Error loading audio:', e);
+                console.error('Audio error code:', this.audio.error?.code);
+                console.error('Audio error message:', this.audio.error?.message);
+            };
+            
+            this.updateTrackInfo(trackData);
+            
+            // Load and play
+            console.log('Loading audio...');
+            this.audio.load();
+            
+            // Wait for load before playing
+            this.audio.oncanplay = () => {
+                console.log('Audio loaded, starting playback...');
+                this.play();
+            };
+        } catch (error) {
+            console.error('Error in loadTrack:', error);
         }
-        
-        this.play();
     }
 
     updateTrackInfo(trackData) {
@@ -138,60 +164,26 @@ window.NewAudioPlayer = class NewAudioPlayer {
     }
 
     play() {
-        if (!this.audio.src) {
-            console.error('No audio source set');
-            return;
-        }
-
-        // Set loading state
-        this.setLoadingState(true);
-
-        // Check if file exists first
-        const checkAudio = new Audio();
-        checkAudio.src = this.audio.src;
-
-        checkAudio.addEventListener('loadedmetadata', () => {
-            // File exists and can be played
-            this.setLoadingState(false);
-            this.audio.play()
-                .then(() => {
+        if (!this.audio.src) return;
+        
+        try {
+            this.audio.load();  // Ensure audio is properly loaded
+            const playPromise = this.audio.play();
+            
+            if (playPromise !== undefined) {
+                playPromise.then(() => {
                     this.isPlaying = true;
                     this.updatePlayButton();
-                })
-                .catch(error => {
+                }).catch(error => {
                     console.error('Playback failed:', error);
-                    this.handlePlayError();
+                    // Reset state if playback fails
+                    this.isPlaying = false;
+                    this.updatePlayButton();
                 });
-        });
-
-        checkAudio.addEventListener('error', () => {
-            console.error('Audio file not found or not supported');
-            this.setLoadingState(false);
-            this.handlePlayError('Audio file not available in demo mode');
-        });
-    }
-
-    setLoadingState(isLoading) {
-        const statusEl = document.querySelector('.track-status');
-        if (statusEl) {
-            if (isLoading) {
-                statusEl.textContent = 'Loading...';
-                statusEl.className = 'track-status loading';
-            } else {
-                statusEl.textContent = this.isPurchased ? 'Full Track' : 'Preview';
-                statusEl.className = `track-status ${this.isPurchased ? 'full' : 'preview'}`;
             }
+        } catch (error) {
+            console.error('Error starting playback:', error);
         }
-    }
-
-    handlePlayError(message = 'Error loading audio') {
-        const statusEl = document.querySelector('.track-status');
-        if (statusEl) {
-            statusEl.textContent = message;
-            statusEl.className = 'track-status error';
-        }
-        this.isPlaying = false;
-        this.updatePlayButton();
     }
 
     pause() {
@@ -454,21 +446,18 @@ window.NewAudioPlayer = class NewAudioPlayer {
         // Update album purchase button
         const purchaseBtn = document.querySelector('.purchase-album');
         if (purchaseBtn) {
-            const allPurchased = this.tracks.every(track => this.purchasedTracks.includes(track.id));
-            if (allPurchased) {
+            if (this.isPurchased) {
                 purchaseBtn.textContent = '✓ Album Purchased';
                 purchaseBtn.disabled = true;
                 purchaseBtn.style.background = '#28a745';
             } else {
                 purchaseBtn.textContent = `Buy Album - $${this.albumPrice.toFixed(2)}`;
-                purchaseBtn.disabled = false;
-                purchaseBtn.style.background = '';
             }
         }
         
         // Update individual track purchase buttons
         this.tracks.forEach(track => {
-            const isPurchased = this.purchasedTracks.includes(track.id);
+            const isPurchased = this.isPurchased || this.purchasedTracks.includes(track.id);
             const purchaseTrackBtn = track.element.querySelector('.purchase-track');
             const trackStatus = track.element.querySelector('.track-status');
             
@@ -479,13 +468,11 @@ window.NewAudioPlayer = class NewAudioPlayer {
                     purchaseTrackBtn.style.background = '#28a745';
                 } else {
                     purchaseTrackBtn.textContent = `Buy - $${this.trackPrice.toFixed(2)}`;
-                    purchaseTrackBtn.disabled = false;
-                    purchaseTrackBtn.style.background = '';
                 }
             }
             
             if (trackStatus) {
-                trackStatus.textContent = isPurchased ? 'Full Track' : '30-Sec Preview';
+                trackStatus.textContent = isPurchased ? 'Full Track' : 'Preview';
                 trackStatus.className = 'track-status ' + (isPurchased ? 'full' : 'preview');
             }
         });
@@ -503,14 +490,13 @@ window.NewAudioPlayer = class NewAudioPlayer {
             this.setupPayPalButtons();
             return;
         }
-        
-        // Load PayPal script if not already loaded
+        // Load PayPal script
         const script = document.createElement('script');
-        script.src = 'https://www.paypal.com/sdk/js?client-id=ATefxKUHVrxyBM7_sudRHvnbUXV-nznDOJD9ZwO_nRMOSZlYCfrHA6SouCz9K7Uk3X0phjvkj_Yo0STn&currency=USD';
+        script.src = 'https://www.paypal.com/sdk/js?client-id=test&currency=USD';
         script.onload = () => this.setupPayPalButtons();
         document.body.appendChild(script);
     }
-    
+
     setupPayPalButtons() {
         // Setup album purchase PayPal buttons
         const albumContainer = document.getElementById('paypal-album-container');
@@ -533,7 +519,6 @@ window.NewAudioPlayer = class NewAudioPlayer {
                 }
             }).render(albumContainer);
         }
-        
         // Setup track purchase PayPal buttons
         const trackContainer = document.getElementById('paypal-track-container');
         if (trackContainer && window.paypal) {
@@ -541,7 +526,6 @@ window.NewAudioPlayer = class NewAudioPlayer {
                 createOrder: (data, actions) => {
                     const trackId = trackContainer.dataset.trackId;
                     const track = this.tracks.find(t => t.id === trackId);
-                    
                     return actions.order.create({
                         purchase_units: [{
                             amount: {

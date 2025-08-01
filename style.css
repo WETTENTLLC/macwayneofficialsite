@@ -19,19 +19,6 @@ form {
     box-shadow: 0 1px 3px rgba(0,0,0,0.08);
 }
 
-.track-status {
-    display: inline-block;
-    padding: 2px 8px;
-    border-radius: 12px;
-    font-size: 0.85em;
-    font-weight: 500;
-}
-
-.track-status.demo {
-    background-color: #FFB74D;
-    color: #000;
-}
-
 form label {
     margin-bottom: 8px;
     font-weight: bold;

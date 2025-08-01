@@ -1,63 +1,40 @@
 // Audio Fix Script
-// This script ensures audio paths are correct and validates playback
+// This script ensures the audio player is properly initialized and working
 
 document.addEventListener('DOMContentLoaded', function() {
-    // Audio fix script loaded
+    console.log('Audio fix script loaded');
     
-    // Wait for audio player to be initialized
+    // Check if audio player is initialized
     setTimeout(() => {
-        // Verify audio player exists
         if (!window.audioPlayer) {
-            // Audio player not initialized
-            return;
+            console.log('Audio player not initialized, creating now');
+            window.audioPlayer = new NewAudioPlayer();
+        } else {
+            console.log('Audio player already initialized');
         }
-
+        
         // Verify track paths
-        document.querySelectorAll('.track-item').forEach(track => {
-        const audioPath = track.dataset.src;
-        if (audioPath) {
-            // Create an audio element to test loading
-            const audio = new Audio();
-            audio.src = audioPath;
-            
-            audio.addEventListener('canplaythrough', () => {
-                // Audio file verified
-            });
-            
-            audio.addEventListener('error', () => {
-                // Demo mode: Audio file not loaded
-                // Update track status to show demo mode
-                const trackItem = track.closest('.track-item');
-                if (trackItem) {
-                    const statusEl = trackItem.querySelector('.track-status');
-                    if (statusEl) {
-                        statusEl.textContent = 'Demo Mode';
-                        statusEl.className = 'track-status demo';
-                    }
-                }
-            });
-        }
-    });
         const tracks = document.querySelectorAll('.track-item');
         if (tracks.length === 0) {
-            // No tracks found on page
+            console.error('No tracks found on page');
         } else {
-            // Found ${tracks.length} tracks
+            console.log(`Found ${tracks.length} tracks`);
             
             // Check first track
             const firstTrack = tracks[0];
             const sampleSrc = firstTrack.dataset.src;
             const fullSrc = firstTrack.dataset.fullSrc;
             
-            // First track paths verified
+            console.log('First track sample path:', sampleSrc);
+            console.log('First track full path:', fullSrc);
             
             // Test loading first track
             const testAudio = new Audio(sampleSrc);
             testAudio.addEventListener('canplaythrough', () => {
-                // Sample audio loaded successfully
+                console.log('✅ Sample audio loaded successfully');
             });
             testAudio.addEventListener('error', () => {
-                // Sample audio failed to load
+                console.error('❌ Sample audio failed to load');
             });
         }
     }, 1000);
@@ -75,7 +52,9 @@ document.addEventListener('DOMContentLoaded', function() {
                     const fullSrc = trackItem.dataset.fullSrc;
                     const trackName = trackItem.querySelector('.track-name').textContent;
                     
-                    // Playing track: ${trackName}
+                    console.log(`Playing track: ${trackName}`);
+                    console.log(`Sample: ${sampleSrc}`);
+                    console.log(`Full: ${fullSrc}`);
                     
                     // Create track data object
                     const trackData = {

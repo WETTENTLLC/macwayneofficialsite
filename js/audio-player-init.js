@@ -2,15 +2,12 @@
 document.addEventListener('DOMContentLoaded', function() {
     console.log('Audio player initialization script loaded');
     
-    // Initialize audio player immediately
+    // Initialize audio player only once
     if (!window.audioPlayer) {
-        console.log('Creating new audio player instance');
-        try {
+        setTimeout(() => {
+            console.log('Creating new audio player instance');
             window.audioPlayer = new NewAudioPlayer();
-            console.log('Audio player created successfully');
-        } catch (error) {
-            console.error('Error creating audio player:', error);
-        }
+        }, 500);
     } else {
         console.log('Audio player already initialized');
     }
