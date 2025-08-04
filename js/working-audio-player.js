@@ -17,8 +17,9 @@ class WorkingAudioPlayer {
                 const trackId = trackItem.dataset.id;
                 const trackName = trackItem.querySelector('.track-name').textContent;
                 
-                // Use simple audio URLs that work with GitHub Pages
-                const audioUrl = `https://www.soundjay.com/misc/sounds/bell-ringing-05.wav`;
+                // Try to use local samples first, fallback to external
+                const samplePath = trackItem.dataset.src;
+                const audioUrl = samplePath || 'https://www.soundjay.com/misc/sounds/bell-ringing-05.wav';
                 
                 this.playPreview(audioUrl, trackName);
             });
@@ -49,7 +50,12 @@ class WorkingAudioPlayer {
             
         }).catch(error => {
             console.error('Audio playback failed:', error);
-            alert('Audio preview temporarily unavailable. Purchase to download full track.');
+            // Try fallback audio if local fails
+            if (url !== 'https://www.soundjay.com/misc/sounds/bell-ringing-05.wav') {
+                this.playPreview('https://www.soundjay.com/misc/sounds/bell-ringing-05.wav', trackName);
+            } else {
+                alert('Audio preview temporarily unavailable. Purchase to download full track.');
+            }
         });
     }
 }
