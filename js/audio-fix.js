@@ -28,14 +28,8 @@ document.addEventListener('DOMContentLoaded', function() {
             console.log('First track sample path:', sampleSrc);
             console.log('First track full path:', fullSrc);
             
-            // Test loading first track
-            const testAudio = new Audio(sampleSrc);
-            testAudio.addEventListener('canplaythrough', () => {
-                console.log('✅ Sample audio loaded successfully');
-            });
-            testAudio.addEventListener('error', () => {
-                console.error('❌ Sample audio failed to load');
-            });
+            // Audio testing disabled due to GitHub Pages issues
+            console.log('Audio testing disabled - files not accessible on GitHub Pages');
         }
     }, 1000);
     
@@ -65,8 +59,8 @@ document.addEventListener('DOMContentLoaded', function() {
                         element: trackItem
                     };
                     
-                    // Load track
-                    window.audioPlayer.loadTrack(trackData);
+                    // Show message instead of loading track
+                    alert('Audio preview temporarily unavailable. Purchase track to download.');
                 }
             });
         }
