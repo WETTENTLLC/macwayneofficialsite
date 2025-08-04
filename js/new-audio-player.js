@@ -109,9 +109,28 @@ class NewAudioPlayer {
             return;
         }
         
-        // Show audio unavailable message
-        alert('Audio preview temporarily unavailable. Please purchase to download the full track.');
-        this.updateTrackInfo(trackData);
+        try {
+            // Use direct path without encoding for GitHub Pages
+            this.audio.src = src;
+            this.audio.preload = 'metadata';
+            
+            // Add error handler
+            this.audio.onerror = (e) => {
+                console.error('Audio error:', this.audio.error);
+                alert('Audio preview unavailable. Purchase to download full track.');
+            };
+            
+            this.updateTrackInfo(trackData);
+            
+            // Try to load and play
+            this.audio.load();
+            this.audio.oncanplaythrough = () => {
+                this.play();
+            };
+        } catch (error) {
+            console.error('Error loading track:', error);
+            alert('Audio preview unavailable. Purchase to download full track.');
+        }
     }
 
     updateTrackInfo(trackData) {
