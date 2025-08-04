@@ -110,8 +110,9 @@ class NewAudioPlayer {
         }
         
         try {
-            // Set new source and update info
-            this.audio.src = src;
+            // URL encode the source path to handle spaces and special characters
+            const encodedSrc = encodeURI(src);
+            this.audio.src = encodedSrc;
             this.audio.preload = 'auto';  // Ensure audio is preloaded
             
             // Add error handler for loading
