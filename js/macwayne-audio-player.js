@@ -149,9 +149,9 @@ document.addEventListener('DOMContentLoaded', () => {
             return {
                 name: trackName,
                 id: file, // Use filename as a unique ID for the track
-                srcFull: `${SERVER_BASE_URL}/public/audio/${encodeURIComponent(albumFolder)}/${encodeURIComponent(file)}`,
+                srcFull: `./audio/${encodeURIComponent(albumFolder)}/${encodeURIComponent(file)}`,
                 // Use sample files from the samples folder with correct naming
-                srcSample: `${SERVER_BASE_URL}/public/audio/${encodeURIComponent(albumFolder)}/samples/${encodeURIComponent(trackNumber + '-sample.mp3')}`,
+                srcSample: `./audio/${encodeURIComponent(albumFolder)}/samples/${encodeURIComponent(trackNumber + '-sample.mp3')}`,
                 purchased: false // Default to not purchased
             };
         });
@@ -533,7 +533,7 @@ document.addEventListener('DOMContentLoaded', () => {
         currentTrackIndex = index;
         const track = tracks[currentTrackIndex];
         
-        albumArt.src = 'public/Images/macwayne-background.png'; // Update if dynamic art is needed
+        albumArt.src = './Images/macwayne-background.png'; // Update if dynamic art is needed
         trackTitle.textContent = track.name;
         console.log(`[PLAYER] Set audio source to: ${track.purchased ? track.srcFull : track.srcSample}`);
         const newSrc = track.purchased ? track.srcFull : track.srcSample;

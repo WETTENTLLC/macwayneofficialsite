@@ -29,32 +29,32 @@ class NewAudioPlayer {
             const trackData = {
                 id: trackId,
                 title: track.querySelector('.track-name')?.textContent || `Track ${index + 1}`,
-                sampleSrc: track.dataset.src,
-                fullSrc: track.dataset.fullSrc,
-                element: track,
-                index: index
-            };
-            this.tracks.push(trackData);
+            sampleSrc: track.dataset.src,
+            fullSrc: track.dataset.fullSrc,
+            element: track,
+            index: index
+        };
+        this.tracks.push(trackData);
 
-            // Setup play button handler (mini-play-btn)
-            const miniBtn = track.querySelector('.mini-play-btn');
-            if (miniBtn) {
-                miniBtn.addEventListener('click', (e) => {
-                    e.stopPropagation();
-                    this.loadTrack(trackData);
-                    this.audio.load();  // Ensure audio is loaded
-                    this.play();  // Start playback immediately
-                });
-            }
+        // Setup play button handler (mini-play-btn)
+        const miniBtn = track.querySelector('.mini-play-btn');
+        if (miniBtn) {
+            miniBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                this.loadTrack(trackData);
+                this.audio.load();  // Ensure audio is loaded
+                this.play();  // Start playback immediately
+            });
+        }
 
-            // Setup purchase button handler
-            const purchaseTrackBtn = track.querySelector('.purchase-track');
-            if (purchaseTrackBtn) {
-                purchaseTrackBtn.addEventListener('click', (e) => {
-                    e.stopPropagation();
-                    this.purchaseTrack(trackData);
-                });
-            }
+        // Setup purchase button handler
+        const purchaseTrackBtn = track.querySelector('.purchase-track');
+        if (purchaseTrackBtn) {
+            purchaseTrackBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                this.purchaseTrack(trackData);
+            });
+        }
         });
 
         // Audio events
