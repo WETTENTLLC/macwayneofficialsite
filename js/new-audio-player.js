@@ -82,6 +82,8 @@ class NewAudioPlayer {
         
         console.log('Loading track:', trackData.title);
         console.log('Track data:', trackData);
+        console.log('Sample src:', trackData.sampleSrc);
+        console.log('Full src:', trackData.fullSrc);
         
         // Pause current playback first
         this.pause();
