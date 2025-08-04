@@ -36,15 +36,10 @@ class NewAudioPlayer {
         };
         this.tracks.push(trackData);
 
-        // Setup play button handler (mini-play-btn)
+        // Disable mini play buttons - handled by fallback system
         const miniBtn = track.querySelector('.mini-play-btn');
         if (miniBtn) {
-            miniBtn.addEventListener('click', (e) => {
-                e.stopPropagation();
-                this.loadTrack(trackData);
-                this.audio.load();  // Ensure audio is loaded
-                this.play();  // Start playback immediately
-            });
+            // Remove default handler - fallback system handles this
         }
 
         // Setup purchase button handler
@@ -57,10 +52,7 @@ class NewAudioPlayer {
         }
         });
 
-        // Audio events
-        this.audio.addEventListener('timeupdate', () => this.updateProgress());
-        this.audio.addEventListener('ended', () => this.onEnded());
-        this.audio.addEventListener('error', () => this.onError());
+        // Audio events disabled
 
         // Purchase album button
         const purchaseBtn = document.querySelector('.purchase-album');
@@ -109,26 +101,9 @@ class NewAudioPlayer {
             return;
         }
         
-        try {
-            // Use direct path without encoding for GitHub Pages
-            this.audio.src = src;
-            this.audio.preload = 'metadata';
-            
-            // Add error handler
-            this.audio.onerror = (e) => {
-                console.error('Audio error:', this.audio.error);
-                alert('Audio preview unavailable. Purchase to download full track.');
-            };
-            
-            this.updateTrackInfo(trackData);
-            
-            // Skip audio loading - fallback system will handle
-            console.log('Audio loading skipped - using fallback system');
-            alert('Audio preview unavailable. Purchase to download full track.');
-        } catch (error) {
-            console.error('Error loading track:', error);
-            alert('Audio preview unavailable. Purchase to download full track.');
-        }
+        // Audio loading completely disabled
+        this.updateTrackInfo(trackData);
+        console.log('Audio loading disabled - using fallback system');
     }
 
     updateTrackInfo(trackData) {
