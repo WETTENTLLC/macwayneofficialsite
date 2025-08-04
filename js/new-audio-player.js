@@ -122,11 +122,9 @@ class NewAudioPlayer {
             
             this.updateTrackInfo(trackData);
             
-            // Try to load and play
-            this.audio.load();
-            this.audio.oncanplaythrough = () => {
-                this.play();
-            };
+            // Skip audio loading - fallback system will handle
+            console.log('Audio loading skipped - using fallback system');
+            alert('Audio preview unavailable. Purchase to download full track.');
         } catch (error) {
             console.error('Error loading track:', error);
             alert('Audio preview unavailable. Purchase to download full track.');
