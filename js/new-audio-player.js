@@ -489,7 +489,7 @@ class NewAudioPlayer {
         }
         // Load PayPal script
         const script = document.createElement('script');
-        script.src = 'https://www.paypal.com/sdk/js?client-id=test&currency=USD';
+        script.src = 'https://www.paypal.com/sdk/js?client-id=ATefxKUHVrxyBM7_sudRHvnbUXV-nznDOJD9ZwO_nRMOSZlYCfrHA6SouCz9K7Uk3X0phjvkj_Yo0STn&currency=USD';
         script.onload = () => this.setupPayPalButtons();
         document.body.appendChild(script);
     }
