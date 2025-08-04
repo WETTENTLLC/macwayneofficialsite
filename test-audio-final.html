@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Audio Test - Mac Wayne</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; background: #222; color: white; }
+        .track-item { margin: 10px 0; padding: 10px; background: #333; border-radius: 5px; }
+        .mini-play-btn { background: #cc0000; color: white; border: none; padding: 5px 10px; border-radius: 3px; cursor: pointer; }
+        .track-name { font-weight: bold; margin: 0 10px; }
+        .playing { background: #444; }
+    </style>
+</head>
+<body>
+    <h1>Mac Wayne Audio Test</h1>
+    <p>Testing audio playback with sample files:</p>
+    
+    <div class="track-item" data-id="track-1" data-src="samples/01-sample.mp3">
+        <span class="track-name">Track 1 - Gotta Split</span>
+        <button class="mini-play-btn">▶ Play</button>
+    </div>
+    
+    <div class="track-item" data-id="track-2" data-src="samples/02-sample.mp3">
+        <span class="track-name">Track 2 - I Think</span>
+        <button class="mini-play-btn">▶ Play</button>
+    </div>
+    
+    <div class="track-item" data-id="track-3" data-src="samples/03-sample.mp3">
+        <span class="track-name">Track 3 - Keep Your Mouth Shut</span>
+        <button class="mini-play-btn">▶ Play</button>
+    </div>
+
+    <script src="js/working-audio-system.js"></script>
+    
+    <script>
+        // Test function
+        function testFirstTrack() {
+            const firstBtn = document.querySelector('.mini-play-btn');
+            if (firstBtn) {
+                console.log('Testing first track...');
+                firstBtn.click();
+            }
+        }
+        
+        // Auto-test after 2 seconds
+        setTimeout(testFirstTrack, 2000);
+    </script>
+</body>
+</html>
