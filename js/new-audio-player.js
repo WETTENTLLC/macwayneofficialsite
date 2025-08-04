@@ -109,33 +109,9 @@ class NewAudioPlayer {
             return;
         }
         
-        try {
-            // URL encode the source path to handle spaces and special characters
-            const encodedSrc = encodeURI(src);
-            this.audio.src = encodedSrc;
-            this.audio.preload = 'auto';  // Ensure audio is preloaded
-            
-            // Add error handler for loading
-            this.audio.onerror = (e) => {
-                console.error('Error loading audio:', e);
-                console.error('Audio error code:', this.audio.error?.code);
-                console.error('Audio error message:', this.audio.error?.message);
-            };
-            
-            this.updateTrackInfo(trackData);
-            
-            // Load and play
-            console.log('Loading audio...');
-            this.audio.load();
-            
-            // Wait for load before playing
-            this.audio.oncanplay = () => {
-                console.log('Audio loaded, starting playback...');
-                this.play();
-            };
-        } catch (error) {
-            console.error('Error in loadTrack:', error);
-        }
+        // Show audio unavailable message
+        alert('Audio preview temporarily unavailable. Please purchase to download the full track.');
+        this.updateTrackInfo(trackData);
     }
 
     updateTrackInfo(trackData) {
