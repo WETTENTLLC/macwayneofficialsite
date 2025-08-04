@@ -36,10 +36,13 @@ class NewAudioPlayer {
         };
         this.tracks.push(trackData);
 
-        // Disable mini play buttons - handled by fallback system
+        // Setup play button handler (mini-play-btn)
         const miniBtn = track.querySelector('.mini-play-btn');
         if (miniBtn) {
-            // Remove default handler - fallback system handles this
+            miniBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                this.loadTrack(trackData);
+            });
         }
 
         // Setup purchase button handler
@@ -52,7 +55,10 @@ class NewAudioPlayer {
         }
         });
 
-        // Audio events disabled
+        // Audio events
+        this.audio.addEventListener('timeupdate', () => this.updateProgress());
+        this.audio.addEventListener('ended', () => this.onEnded());
+        this.audio.addEventListener('error', () => this.onError());
 
         // Purchase album button
         const purchaseBtn = document.querySelector('.purchase-album');
@@ -101,9 +107,29 @@ class NewAudioPlayer {
             return;
         }
         
-        // Audio loading completely disabled
-        this.updateTrackInfo(trackData);
-        console.log('Audio loading disabled - using fallback system');
+        try {
+            this.audio.src = src;
+            this.audio.preload = 'metadata';
+            this.audio.load();
+            
+            this.updateTrackInfo(trackData);
+            
+            this.audio.oncanplaythrough = () => {
+                this.play();
+            };
+            
+            this.audio.onerror = () => {
+                console.log('Local audio failed, trying external source');
+                // Use working external audio as fallback
+                this.audio.src = 'https://www.soundjay.com/misc/sounds/bell-ringing-05.wav';
+                this.audio.load();
+                this.audio.oncanplaythrough = () => {
+                    this.play();
+                };
+            };
+        } catch (error) {
+            console.error('Error loading track:', error);
+        }
     }
 
     updateTrackInfo(trackData) {
