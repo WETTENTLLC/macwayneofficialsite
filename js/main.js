@@ -10,8 +10,7 @@ document.addEventListener('DOMContentLoaded', function() {
     enhanceAccessibility(); // Call accessibility enhancements
     initializeModals();
     initializeFormHandling();
-    // Initialize the new audio player
-    window.audioPlayer = new NewAudioPlayer();
+    // Audio player is initialized by working-audio-system.js
 });
 
 // Modal functionality
