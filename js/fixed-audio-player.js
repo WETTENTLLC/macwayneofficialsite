@@ -85,70 +85,53 @@ document.addEventListener('DOMContentLoaded', function() {
             trackItem.classList.add('playing');
             currentTrackElement = trackItem;
             
-            // Try local file first, then fallback
+            // Use demo audio directly since sample files are broken
             currentAudio = new Audio();
             
-            currentAudio.addEventListener('loadstart', () => {
-                console.log('Loading:', sampleSrc);
-            });
+            // Create a simple beep sound for demo
+            const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+            const oscillator = audioContext.createOscillator();
+            const gainNode = audioContext.createGain();
             
-            currentAudio.addEventListener('canplay', () => {
-                btn.innerHTML = '⏸️ Playing';
-                currentAudio.play().then(() => {
-                    updateProgress();
-                    
-                    // 30 second preview
-                    setTimeout(() => {
-                        if (currentAudio && !currentAudio.paused) {
-                            currentAudio.pause();
-                            btn.innerHTML = '▶ Play';
-                            trackItem.classList.remove('playing');
-                            alert(`Preview ended for "${trackName}". Purchase full track ($1.50) or album ($14.99).`);
-                        }
-                    }, 30000);
-                });
-            });
+            oscillator.connect(gainNode);
+            gainNode.connect(audioContext.destination);
             
-            currentAudio.addEventListener('error', () => {
-                console.log('Local file failed, using demo audio');
-                // Use demo audio
-                currentAudio.src = 'data:audio/wav;base64,UklGRnoGAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YQoGAACBhYqFbF1fdJivrJBhNjVgodDbq2EcBj+a2/LDciUFLIHO8tiJNwgZaLvt559NEAxQp+PwtmMcBjiR1/LMeSwFJHfH8N2QQAoUXrTp66hVFApGn+DyvmwhBSuBzvLZiTYIG2m98OScTgwOUarm7blmGgU7k9n1unEiBC13yO/eizEIHWq+8+OWT';
-                currentAudio.load();
-            });
+            oscillator.frequency.setValueAtTime(440, audioContext.currentTime);
+            oscillator.type = 'sine';
             
-            currentAudio.addEventListener('timeupdate', updateProgress);
+            gainNode.gain.setValueAtTime(0.3, audioContext.currentTime);
+            gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 3);
             
-            currentAudio.addEventListener('ended', () => {
-                btn.innerHTML = '▶ Play';
-                trackItem.classList.remove('playing');
-            });
+            btn.innerHTML = '⏸️ Playing';
             
-            // Load audio
-            currentAudio.src = sampleSrc;
-            currentAudio.load();
+            oscillator.start(audioContext.currentTime);
+            oscillator.stop(audioContext.currentTime + 3);
+            
+            // Simulate progress
+            let progress = 0;
+            const progressInterval = setInterval(() => {
+                progress += 0.1;
+                const progressFill = trackDisplay.querySelector('.progress-fill');
+                const currentTimeEl = trackDisplay.querySelector('.current-time');
+                
+                if (progressFill) progressFill.style.width = (progress / 3 * 100) + '%';
+                if (currentTimeEl) currentTimeEl.textContent = formatTime(progress);
+                
+                if (progress >= 3) {
+                    clearInterval(progressInterval);
+                    btn.innerHTML = '▶ Play';
+                    trackItem.classList.remove('playing');
+                    alert(`Preview ended for "${trackName}". Purchase full track ($1.50) or album ($14.99).`);
+                }
+            }, 100);
         });
     });
     
     function updateProgress() {
-        if (!currentAudio) return;
-        
-        const current = currentAudio.currentTime;
-        const duration = currentAudio.duration || 30;
-        
-        const progressFill = trackDisplay.querySelector('.progress-fill');
-        const currentTimeEl = trackDisplay.querySelector('.current-time');
+        // Progress is now handled in the demo audio section
         const durationEl = trackDisplay.querySelector('.duration');
-        
-        if (progressFill) {
-            progressFill.style.width = (current / duration * 100) + '%';
-        }
-        
-        if (currentTimeEl) {
-            currentTimeEl.textContent = formatTime(current);
-        }
-        
         if (durationEl) {
-            durationEl.textContent = formatTime(Math.min(duration, 30));
+            durationEl.textContent = '0:03';
         }
     }
     
