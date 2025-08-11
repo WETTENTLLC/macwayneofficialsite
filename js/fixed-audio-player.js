@@ -85,53 +85,67 @@ document.addEventListener('DOMContentLoaded', function() {
             trackItem.classList.add('playing');
             currentTrackElement = trackItem;
             
-            // Use demo audio directly since sample files are broken
-            currentAudio = new Audio();
+            // Use actual sample files
+            currentAudio = new Audio(sampleSrc);
             
-            // Create a simple beep sound for demo
-            const audioContext = new (window.AudioContext || window.webkitAudioContext)();
-            const oscillator = audioContext.createOscillator();
-            const gainNode = audioContext.createGain();
+            currentAudio.addEventListener('canplay', () => {
+                btn.innerHTML = '⏸️ Playing';
+                currentAudio.play().then(() => {
+                    // Update progress every 100ms
+                    const progressInterval = setInterval(() => {
+                        if (!currentAudio || currentAudio.paused) {
+                            clearInterval(progressInterval);
+                            return;
+                        }
+                        
+                        const current = currentAudio.currentTime;
+                        const progressFill = trackDisplay.querySelector('.progress-fill');
+                        const currentTimeEl = trackDisplay.querySelector('.current-time');
+                        
+                        if (progressFill) progressFill.style.width = (current / 30 * 100) + '%';
+                        if (currentTimeEl) currentTimeEl.textContent = formatTime(current);
+                        
+                        // Stop at 30 seconds
+                        if (current >= 30) {
+                            currentAudio.pause();
+                            clearInterval(progressInterval);
+                            btn.innerHTML = '▶ Play';
+                            trackItem.classList.remove('playing');
+                            alert(`Preview ended for "${trackName}". Purchase full track ($1.50) or album ($14.99).`);
+                        }
+                    }, 100);
+                }).catch(error => {
+                    console.error('Play failed:', error);
+                    btn.innerHTML = '❌ Error';
+                    setTimeout(() => {
+                        btn.innerHTML = '▶ Play';
+                        trackItem.classList.remove('playing');
+                    }, 2000);
+                });
+            });
             
-            oscillator.connect(gainNode);
-            gainNode.connect(audioContext.destination);
-            
-            oscillator.frequency.setValueAtTime(440, audioContext.currentTime);
-            oscillator.type = 'sine';
-            
-            gainNode.gain.setValueAtTime(0.3, audioContext.currentTime);
-            gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 3);
-            
-            btn.innerHTML = '⏸️ Playing';
-            
-            oscillator.start(audioContext.currentTime);
-            oscillator.stop(audioContext.currentTime + 3);
-            
-            // Simulate progress
-            let progress = 0;
-            const progressInterval = setInterval(() => {
-                progress += 0.1;
-                const progressFill = trackDisplay.querySelector('.progress-fill');
-                const currentTimeEl = trackDisplay.querySelector('.current-time');
-                
-                if (progressFill) progressFill.style.width = (progress / 3 * 100) + '%';
-                if (currentTimeEl) currentTimeEl.textContent = formatTime(progress);
-                
-                if (progress >= 3) {
-                    clearInterval(progressInterval);
+            currentAudio.addEventListener('error', (e) => {
+                console.error('Audio error:', e);
+                btn.innerHTML = '❌ Error';
+                setTimeout(() => {
                     btn.innerHTML = '▶ Play';
                     trackItem.classList.remove('playing');
-                    alert(`Preview ended for "${trackName}". Purchase full track ($1.50) or album ($14.99).`);
-                }
-            }, 100);
+                }, 2000);
+            });
+            
+            currentAudio.addEventListener('ended', () => {
+                btn.innerHTML = '▶ Play';
+                trackItem.classList.remove('playing');
+            });
+            
+            currentAudio.load();
         });
     });
     
     function updateProgress() {
-        // Progress is now handled in the demo audio section
         const durationEl = trackDisplay.querySelector('.duration');
         if (durationEl) {
-            durationEl.textContent = '0:03';
+            durationEl.textContent = '0:30';
         }
     }
     
