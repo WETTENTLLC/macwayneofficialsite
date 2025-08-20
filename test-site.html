@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Mac Wayne Site Test</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; background: #222; color: white; }
+        .result { margin: 10px 0; padding: 10px; border-radius: 5px; }
+        .pass { background: #28a745; }
+        .fail { background: #dc3545; }
+        button { background: #007bff; color: white; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer; }
+    </style>
+</head>
+<body>
+    <h1>Mac Wayne Site Quick Test</h1>
+    <button onclick="runTest()">Run Quick Test</button>
+    <div id="results"></div>
+
+    <script>
+        async function runTest() {
+            const results = document.getElementById('results');
+            results.innerHTML = '<div class="result">Testing...</div>';
+            
+            const tests = [];
+            
+            // Test main page
+            try {
+                const response = await fetch('index.html');
+                const html = await response.text();
+                
+                tests.push({
+                    name: 'Main Page',
+                    status: response.ok ? 'PASS' : 'FAIL'
+                });
+                
+                tests.push({
+                    name: 'Audio Player Script',
+                    status: html.includes('fixed-audio-player.js') ? 'PASS' : 'FAIL'
+                });
+                
+                tests.push({
+                    name: 'PayPal Integration',
+                    status: html.includes('paypal.com/sdk/js') ? 'PASS' : 'FAIL'
+                });
+                
+                tests.push({
+                    name: 'Purchase Buttons',
+                    status: html.includes('purchase-track') ? 'PASS' : 'FAIL'
+                });
+                
+            } catch (error) {
+                tests.push({
+                    name: 'Main Page Test',
+                    status: 'FAIL - ' + error.message
+                });
+            }
+            
+            // Test sample files
+            for (let i = 1; i <= 3; i++) {
+                try {
+                    const response = await fetch(`samples/${i.toString().padStart(2, '0')}-sample.mp3`, { method: 'HEAD' });
+                    tests.push({
+                        name: `Sample ${i}`,
+                        status: response.ok ? 'PASS' : 'FAIL'
+                    });
+                } catch (error) {
+                    tests.push({
+                        name: `Sample ${i}`,
+                        status: 'FAIL'
+                    });
+                }
+            }
+            
+            results.innerHTML = tests.map(test => 
+                `<div class="result ${test.status.includes('PASS') ? 'pass' : 'fail'}">${test.name}: ${test.status}</div>`
+            ).join('');
+        }
+    </script>
+</body>
+</html>
