@@ -76,9 +76,9 @@ document.addEventListener('DOMContentLoaded', function() {
         albumDesc.parentNode.insertBefore(trackDisplay, albumDesc.nextSibling);
     }
     
-    // Load PayPal SDK
+    // Load PayPal SDK (sandbox for testing)
     const paypalScript = document.createElement('script');
-    paypalScript.src = 'https://www.paypal.com/sdk/js?client-id=ATefxKUHVrxyBM7_sudRHvnbUXV-nznDOJD9ZwO_nRMOSZlYCfrHA6SouCz9K7Uk3X0phjvkj_Yo0STn&currency=USD';
+    paypalScript.src = 'https://www.paypal.com/sdk/js?client-id=AZDxjDScFpQtjWTOUtWKbyN_bDt4OgqaF4eYXlewfBP4-8aqX3PiV8e1GWU6liB2CUXlkA59kJXE7M6R&currency=USD';
     paypalScript.onload = setupPayPalButtons;
     document.head.appendChild(paypalScript);
     
@@ -274,13 +274,17 @@ document.addEventListener('DOMContentLoaded', function() {
                 createOrder: (data, actions) => {
                     return actions.order.create({
                         purchase_units: [{
-                            amount: { value: price },
+                            amount: { 
+                                value: price,
+                                currency_code: 'USD'
+                            },
                             description: `Mac Wayne - ${itemName}`
                         }]
                     });
                 },
                 onApprove: (data, actions) => {
                     return actions.order.capture().then(details => {
+                        console.log('Payment successful:', details);
                         if (type === 'album') {
                             localStorage.setItem('albumPurchased', 'true');
                             alert('Album purchased successfully! All tracks unlocked.');
@@ -295,6 +299,10 @@ document.addEventListener('DOMContentLoaded', function() {
                         closePayPalModal();
                         location.reload();
                     });
+                },
+                onError: (err) => {
+                    console.error('PayPal error:', err);
+                    alert('Payment failed. Please try again.');
                 }
             }).render(`#paypal-button-container-${type}`);
         }
