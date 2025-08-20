@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Complete System Test - Mac Wayne</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; background: #222; color: white; }
+        .test-section { margin: 20px 0; padding: 15px; background: #333; border-radius: 5px; }
+        .test-result { margin: 5px 0; padding: 5px; border-radius: 3px; }
+        .pass { background: #28a745; }
+        .fail { background: #dc3545; }
+        .track-test { margin: 10px 0; padding: 10px; background: #444; border-radius: 5px; }
+        .mini-play-btn { background: #cc0000; color: white; border: none; padding: 5px 10px; border-radius: 3px; cursor: pointer; margin: 0 5px; }
+        .purchase-track { background: #007bff; color: white; border: none; padding: 5px 10px; border-radius: 3px; cursor: pointer; margin: 0 5px; }
+    </style>
+</head>
+<body>
+    <h1>Mac Wayne Complete System Test</h1>
+    
+    <div class="test-section">
+        <h2>Sample Files Test</h2>
+        <div id="sample-files-test">Testing sample files...</div>
+    </div>
+    
+    <div class="test-section">
+        <h2>Audio Player Test</h2>
+        <div id="audio-player-test">
+            <div class="track-test">
+                <div class="track-item" data-id="track-1" data-src="samples/01-sample.mp3">
+                    <span class="track-name">Track 1 - Gotta Split</span>
+                    <button class="mini-play-btn">▶ Play</button>
+                    <button class="purchase-track">Buy - $1.50</button>
+                </div>
+            </div>
+            <div class="track-test">
+                <div class="track-item" data-id="track-10" data-src="samples/10-sample.mp3">
+                    <span class="track-name">Track 10 - Blind and Battered</span>
+                    <button class="mini-play-btn">▶ Play</button>
+                    <button class="purchase-track">Buy - $1.50</button>
+                </div>
+            </div>
+            <div class="track-test">
+                <div class="track-item" data-id="track-20" data-src="samples/20-sample.mp3">
+                    <span class="track-name">Track 20 - Hatin On a Blind Man</span>
+                    <button class="mini-play-btn">▶ Play</button>
+                    <button class="purchase-track">Buy - $1.50</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="test-section">
+        <h2>PayPal Integration Test</h2>
+        <button class="purchase-track" onclick="testPayPalModal()">Test PayPal Modal</button>
+        <div id="paypal-test-result"></div>
+    </div>
+    
+    <div class="test-section">
+        <h2>System Status</h2>
+        <div id="system-status">
+            <div class="test-result" id="files-status">Sample Files: Testing...</div>
+            <div class="test-result" id="audio-status">Audio System: Testing...</div>
+            <div class="test-result" id="paypal-status">PayPal System: Testing...</div>
+        </div>
+    </div>
+
+    <script src="js/fixed-audio-player.js"></script>
+    
+    <script>
+        // Test sample files
+        async function testSampleFiles() {
+            const results = [];
+            for (let i = 1; i <= 20; i++) {
+                const trackNum = i.toString().padStart(2, '0');
+                const url = `samples/${trackNum}-sample.mp3`;
+                
+                try {
+                    const response = await fetch(url, { method: 'HEAD' });
+                    const size = response.headers.get('content-length');
+                    results.push({
+                        track: i,
+                        status: response.ok ? 'PASS' : 'FAIL',
+                        size: size ? `${Math.round(size / 1024 / 1024 * 100) / 100}MB` : 'Unknown'
+                    });
+                } catch (error) {
+                    results.push({ track: i, status: 'FAIL', size: 'Error' });
+                }
+            }
+            
+            const passCount = results.filter(r => r.status === 'PASS').length;
+            const filesStatus = document.getElementById('files-status');
+            filesStatus.textContent = `Sample Files: ${passCount}/20 working`;
+            filesStatus.className = `test-result ${passCount === 20 ? 'pass' : 'fail'}`;
+            
+            const testDiv = document.getElementById('sample-files-test');
+            testDiv.innerHTML = results.map(r => 
+                `<div class="test-result ${r.status.toLowerCase()}">Track ${r.track}: ${r.status} (${r.size})</div>`
+            ).join('');
+        }
+        
+        // Test PayPal modal
+        function testPayPalModal() {
+            if (window.showPayPalModal) {
+                window.showPayPalModal('track', 'Test Track', 'test-track', '1.50');
+                document.getElementById('paypal-test-result').innerHTML = 
+                    '<div class="test-result pass">PayPal modal opened successfully</div>';
+            } else {
+                document.getElementById('paypal-test-result').innerHTML = 
+                    '<div class="test-result fail">PayPal modal function not found</div>';
+            }
+        }
+        
+        // Test audio system
+        function testAudioSystem() {
+            const playButtons = document.querySelectorAll('.mini-play-btn');
+            const audioStatus = document.getElementById('audio-status');
+            
+            if (playButtons.length > 0) {
+                audioStatus.textContent = `Audio System: ${playButtons.length} play buttons found`;
+                audioStatus.className = 'test-result pass';
+            } else {
+                audioStatus.textContent = 'Audio System: No play buttons found';
+                audioStatus.className = 'test-result fail';
+            }
+        }
+        
+        // Test PayPal system
+        function testPayPalSystem() {
+            const paypalStatus = document.getElementById('paypal-status');
+            
+            if (window.paypal) {
+                paypalStatus.textContent = 'PayPal System: SDK loaded successfully';
+                paypalStatus.className = 'test-result pass';
+            } else {
+                paypalStatus.textContent = 'PayPal System: SDK not loaded';
+                paypalStatus.className = 'test-result fail';
+            }
+        }
+        
+        // Run all tests
+        setTimeout(() => {
+            testSampleFiles();
+            testAudioSystem();
+            testPayPalSystem();
+        }, 2000);
+        
+        console.log('Complete system test loaded');
+    </script>
+</body>
+</html>

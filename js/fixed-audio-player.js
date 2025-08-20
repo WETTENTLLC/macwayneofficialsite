@@ -227,9 +227,10 @@ document.addEventListener('DOMContentLoaded', function() {
                 position: fixed;
                 top: 0;
                 left: 0;
-                width: 100%;
-                height: 100%;
+                width: 100vw;
+                height: 100vh;
                 z-index: 10000;
+                overflow: hidden;
             }
             .modal-overlay {
                 background: rgba(0,0,0,0.8);
@@ -238,6 +239,9 @@ document.addEventListener('DOMContentLoaded', function() {
                 display: flex;
                 align-items: center;
                 justify-content: center;
+                position: fixed;
+                top: 0;
+                left: 0;
             }
             .modal-content {
                 background: #333;
@@ -267,6 +271,9 @@ document.addEventListener('DOMContentLoaded', function() {
         
         document.head.appendChild(modalStyle);
         document.body.appendChild(modal);
+        
+        // Prevent body scrolling
+        document.body.style.overflow = 'hidden';
         
         // Setup PayPal button in modal
         if (window.paypal) {
@@ -310,7 +317,11 @@ document.addEventListener('DOMContentLoaded', function() {
     
     window.closePayPalModal = function() {
         const modal = document.getElementById('paypal-modal');
-        if (modal) modal.remove();
+        if (modal) {
+            modal.remove();
+            // Restore body scrolling
+            document.body.style.overflow = '';
+        }
     }
     
     function setupPayPalButtons() {
