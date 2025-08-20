@@ -145,8 +145,14 @@
                 }
             }
             
-            // Test audio player script
-            const audioPlayerExists = !!document.querySelector('script[src*="audio-player"]');
+            // Test audio player script (check if it exists on main site)
+            let audioPlayerExists = false;
+            try {
+                const response = await fetch('js/fixed-audio-player.js', { method: 'HEAD' });
+                audioPlayerExists = response.ok;
+            } catch (error) {
+                audioPlayerExists = false;
+            }
             
             tests.push(`
                 <div class="check-result ${audioPlayerExists ? 'pass' : 'fail'}">
@@ -167,35 +173,45 @@
             updateOverallHealth();
         }
         
-        function checkPaymentSystem() {
+        async function checkPaymentSystem() {
             const resultsDiv = document.getElementById('payment-check-results');
-            resultsDiv.innerHTML = ''; // Clear previous results
+            resultsDiv.innerHTML = '<div class="check-result warning">Testing payment system...</div>';
             
             const tests = [];
             
-            // Check PayPal SDK
-            const paypalLoaded = !!window.paypal;
-            tests.push(`
-                <div class="check-result ${paypalLoaded ? 'pass' : 'fail'}">
-                    PayPal SDK: ${paypalLoaded ? 'LOADED' : 'NOT LOADED'}
-                </div>
-            `);
-            
-            // Check modal function
-            const modalFunction = typeof showPayPalModal === 'function';
-            tests.push(`
-                <div class="check-result ${modalFunction ? 'pass' : 'fail'}">
-                    PayPal Modal Function: ${modalFunction ? 'AVAILABLE' : 'MISSING'}
-                </div>
-            `);
-            
-            // Check purchase buttons
-            const purchaseButtons = document.querySelectorAll('.purchase-track, .purchase-album').length;
-            tests.push(`
-                <div class="check-result ${purchaseButtons > 0 ? 'pass' : 'fail'}">
-                    Purchase Buttons: ${purchaseButtons} found
-                </div>
-            `);
+            // Check if PayPal script exists
+            try {
+                const response = await fetch('index.html');
+                const html = await response.text();
+                const hasPayPalScript = html.includes('paypal.com/sdk/js');
+                
+                tests.push(`
+                    <div class="check-result ${hasPayPalScript ? 'pass' : 'fail'}">
+                        PayPal SDK Integration: ${hasPayPalScript ? 'FOUND IN HTML' : 'MISSING'}
+                    </div>
+                `);
+                
+                const hasPurchaseButtons = html.includes('purchase-track') || html.includes('purchase-album');
+                tests.push(`
+                    <div class="check-result ${hasPurchaseButtons ? 'pass' : 'fail'}">
+                        Purchase Buttons: ${hasPurchaseButtons ? 'FOUND IN HTML' : 'MISSING'}
+                    </div>
+                `);
+                
+                const hasAudioPlayer = html.includes('fixed-audio-player.js');
+                tests.push(`
+                    <div class="check-result ${hasAudioPlayer ? 'pass' : 'fail'}">
+                        Audio Player Integration: ${hasAudioPlayer ? 'FOUND' : 'MISSING'}
+                    </div>
+                `);
+                
+            } catch (error) {
+                tests.push(`
+                    <div class="check-result fail">
+                        Payment System Check: ERROR - ${error.message}
+                    </div>
+                `);
+            }
             
             resultsDiv.innerHTML = tests.join('');
             checkResults.payment = tests.filter(t => t.includes('pass')).length;
@@ -284,34 +300,47 @@
             updateOverallHealth();
         }
         
-        function checkResponsiveness() {
+        async function checkResponsiveness() {
             const resultsDiv = document.getElementById('responsive-check-results');
+            resultsDiv.innerHTML = '<div class="check-result warning">Testing mobile responsiveness...</div>';
             
             const tests = [];
             
-            // Check viewport meta tag
-            const viewport = document.querySelector('meta[name="viewport"]');
-            tests.push(`
-                <div class="check-result ${viewport ? 'pass' : 'fail'}">
-                    Viewport Meta Tag: ${viewport ? 'PRESENT' : 'MISSING'}
-                </div>
-            `);
-            
-            // Check mobile menu
-            const mobileMenu = document.querySelector('.mobile-menu-toggle');
-            tests.push(`
-                <div class="check-result ${mobileMenu ? 'pass' : 'warning'}">
-                    Mobile Menu: ${mobileMenu ? 'PRESENT' : 'MISSING'}
-                </div>
-            `);
-            
-            // Check responsive CSS
-            const responsiveCSS = document.querySelector('link[href*="main.css"]');
-            tests.push(`
-                <div class="check-result ${responsiveCSS ? 'pass' : 'warning'}">
-                    Responsive CSS: ${responsiveCSS ? 'LOADED' : 'CHECK MANUALLY'}
-                </div>
-            `);
+            try {
+                const response = await fetch('index.html');
+                const html = await response.text();
+                
+                // Check viewport meta tag
+                const hasViewport = html.includes('name="viewport"');
+                tests.push(`
+                    <div class="check-result ${hasViewport ? 'pass' : 'fail'}">
+                        Viewport Meta Tag: ${hasViewport ? 'PRESENT' : 'MISSING'}
+                    </div>
+                `);
+                
+                // Check mobile menu
+                const hasMobileMenu = html.includes('mobile-menu-toggle');
+                tests.push(`
+                    <div class="check-result ${hasMobileMenu ? 'pass' : 'warning'}">
+                        Mobile Menu: ${hasMobileMenu ? 'PRESENT' : 'MISSING'}
+                    </div>
+                `);
+                
+                // Check responsive CSS
+                const hasResponsiveCSS = html.includes('main.css');
+                tests.push(`
+                    <div class="check-result ${hasResponsiveCSS ? 'pass' : 'warning'}">
+                        Responsive CSS: ${hasResponsiveCSS ? 'LOADED' : 'MISSING'}
+                    </div>
+                `);
+                
+            } catch (error) {
+                tests.push(`
+                    <div class="check-result fail">
+                        Responsiveness Check: ERROR - ${error.message}
+                    </div>
+                `);
+            }
             
             resultsDiv.innerHTML = tests.join('');
             checkResults.responsive = tests.filter(t => t.includes('pass')).length;

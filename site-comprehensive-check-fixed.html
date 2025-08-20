@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Mac Wayne Site Comprehensive Check - Fixed</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; background: #222; color: white; }
+        .check-section { margin: 20px 0; padding: 15px; background: #333; border-radius: 5px; }
+        .check-result { margin: 5px 0; padding: 5px; border-radius: 3px; }
+        .pass { background: #28a745; }
+        .fail { background: #dc3545; }
+        .warning { background: #ffc107; color: #000; }
+        button { background: #007bff; color: white; border: none; padding: 8px 15px; border-radius: 3px; cursor: pointer; margin: 5px; }
+    </style>
+</head>
+<body>
+    <h1>🔍 Mac Wayne Site Comprehensive Check - FIXED</h1>
+    
+    <div class="check-section">
+        <h2>🎵 Audio & Payment System Status</h2>
+        <button onclick="runFullCheck()">Run Complete Check</button>
+        <div id="full-check-results"></div>
+    </div>
+    
+    <div class="check-section">
+        <h2>📧 Email System Fix Needed</h2>
+        <div class="check-result warning">
+            <strong>ACTION REQUIRED:</strong> Replace YOUR_FORM_ID in js/shop-coming-soon.js with actual Formspree form ID
+        </div>
+    </div>
+    
+    <div class="check-section">
+        <h2>🔧 Quick Fixes Needed</h2>
+        <div id="fixes-needed">
+            <div class="check-result fail">1. Audio player script not loading on main site</div>
+            <div class="check-result fail">2. PayPal SDK not loading on main site</div>
+            <div class="check-result fail">3. Purchase buttons not found on main site</div>
+            <div class="check-result warning">4. Mobile viewport meta tag missing</div>
+        </div>
+    </div>
+
+    <script>
+        async function runFullCheck() {
+            const resultsDiv = document.getElementById('full-check-results');
+            resultsDiv.innerHTML = '<div class="check-result warning">Running comprehensive check...</div>';
+            
+            const results = [];
+            
+            // Check main page for audio player
+            try {
+                const response = await fetch('index.html');
+                const html = await response.text();
+                
+                const hasAudioPlayer = html.includes('fixed-audio-player.js');
+                results.push(`Audio Player Script: ${hasAudioPlayer ? 'FOUND' : 'MISSING'}`);
+                
+                const hasPayPal = html.includes('paypal.com/sdk/js');
+                results.push(`PayPal Integration: ${hasPayPal ? 'FOUND' : 'MISSING'}`);
+                
+                const hasPurchaseButtons = html.includes('purchase-track');
+                results.push(`Purchase Buttons: ${hasPurchaseButtons ? 'FOUND' : 'MISSING'}`);
+                
+                const hasViewport = html.includes('name="viewport"');
+                results.push(`Viewport Meta: ${hasViewport ? 'FOUND' : 'MISSING'}`);
+                
+            } catch (error) {
+                results.push(`Error checking main page: ${error.message}`);
+            }
+            
+            // Check sample files
+            for (let i = 1; i <= 3; i++) {
+                try {
+                    const response = await fetch(`samples/${i.toString().padStart(2, '0')}-sample.mp3`, { method: 'HEAD' });
+                    const size = response.headers.get('content-length');
+                    results.push(`Sample ${i}: ${response.ok ? 'OK' : 'MISSING'} (${size ? Math.round(size/1024/1024*100)/100 + 'MB' : 'Unknown size'})`);
+                } catch (error) {
+                    results.push(`Sample ${i}: ERROR`);
+                }
+            }
+            
+            resultsDiv.innerHTML = results.map(r => `<div class="check-result ${r.includes('FOUND') || r.includes('OK') ? 'pass' : 'fail'}">${r}</div>`).join('');
+        }
+        
+        // Auto-run on load
+        setTimeout(runFullCheck, 1000);
+    </script>
+</body>
+</html>
