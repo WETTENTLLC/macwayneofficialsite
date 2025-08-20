@@ -18,7 +18,7 @@
 ## 2. Modal Forms - Request Quote
 - [x] "REQUEST QUOTE" button triggers modal
 - [x] Modal form loads properly with all fields
-- [x] Form uses Formspree for email routing (https://formspree.io/f/xgveaarg)
+- [x] Form uses Formspree for email routing (https://formspree.io/f/mldlyaln)
 - [x] Form validation works
 - [x] Success/error messages display
 - [x] Modal closes properly
@@ -26,7 +26,7 @@
 ## 3. Modal Forms - Apply Now (Affiliate)
 - [x] "APPLY NOW" button triggers affiliate modal
 - [x] Affiliate application form loads
-- [x] Form uses Formspree for email routing (https://formspree.io/f/xgveaarg)
+- [x] Form uses Formspree for email routing (https://formspree.io/f/mldlyaln)
 - [x] All required fields present
 - [x] Form submission works
 - [x] Modal functionality complete

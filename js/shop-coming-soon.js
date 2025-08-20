@@ -74,7 +74,8 @@ class ShopComingSoon {
             formData.append('message', `New email signup for shop notifications: ${email}`);
             formData.append('_replyto', 'officialmacwayne@gmail.com');
             
-            const response = await fetch('https://formspree.io/f/xpwagqko', {
+            // TODO: Replace 'YOUR_FORM_ID' with your actual Formspree form ID
+            const response = await fetch('https://formspree.io/f/YOUR_FORM_ID', {
                 method: 'POST',
                 body: formData,
                 headers: {
@@ -94,7 +95,7 @@ class ShopComingSoon {
                 confirmData.append('message', `Thank you for signing up for Mac Wayne shop notifications! We'll email you at ${email} when our merchandise store launches.`);
                 confirmData.append('_replyto', email);
                 
-                await fetch('https://formspree.io/f/xpwagqko', {
+                await fetch('https://formspree.io/f/YOUR_FORM_ID', {
                     method: 'POST',
                     body: confirmData,
                     headers: {
