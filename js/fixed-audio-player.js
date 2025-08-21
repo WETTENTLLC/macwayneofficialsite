@@ -214,6 +214,15 @@ document.addEventListener('DOMContentLoaded', function() {
                     </div>
                     <div class="modal-body">
                         <p>Price: $${price}</p>
+                        <div class="payment-options">
+                            <p><strong>Having trouble with PayPal SMS verification?</strong></p>
+                            <ul style="text-align: left; margin: 10px 0;">
+                                <li>Try "Pay with Debit or Credit Card" (guest checkout)</li>
+                                <li>Use a different phone number in PayPal</li>
+                                <li>Check your phone's blocked messages</li>
+                                <li>Try PayPal mobile app instead</li>
+                            </ul>
+                        </div>
                         <div id="paypal-button-container-${type}"></div>
                     </div>
                 </div>
@@ -286,7 +295,11 @@ document.addEventListener('DOMContentLoaded', function() {
                                 currency_code: 'USD'
                             },
                             description: `Mac Wayne - ${itemName}`
-                        }]
+                        }],
+                        application_context: {
+                            shipping_preference: 'NO_SHIPPING',
+                            user_action: 'PAY_NOW'
+                        }
                     });
                 },
                 onApprove: (data, actions) => {
