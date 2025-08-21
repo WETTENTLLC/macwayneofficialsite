@@ -76,9 +76,9 @@ document.addEventListener('DOMContentLoaded', function() {
         albumDesc.parentNode.insertBefore(trackDisplay, albumDesc.nextSibling);
     }
     
-    // Load PayPal SDK (sandbox for testing)
+    // Load PayPal SDK (live production)
     const paypalScript = document.createElement('script');
-    paypalScript.src = 'https://www.paypal.com/sdk/js?client-id=AZDxjDScFpQtjWTOUtWKbyN_bDt4OgqaF4eYXlewfBP4-8aqX3PiV8e1GWU6liB2CUXlkA59kJXE7M6R&currency=USD';
+    paypalScript.src = 'https://www.paypal.com/sdk/js?client-id=ATefxKUHVrxyBM7_sudRHvnbUXV-nznDOJD9ZwO_nRMOSZlYCfrHA6SouCz9K7Uk3X0phjvkj_Yo0STn&currency=USD';
     paypalScript.onload = setupPayPalButtons;
     document.head.appendChild(paypalScript);
     
