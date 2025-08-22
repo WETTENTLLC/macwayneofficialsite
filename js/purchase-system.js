@@ -99,7 +99,12 @@ class PurchaseSystem {
         };
         this.savePurchaseStatus();
 
-        // Show success
+        // Update download system
+        if (window.downloadSystem) {
+            window.downloadSystem.completePurchase('album');
+        }
+
+        // Show success with download option
         this.showSuccessModal(type, price);
 
         // Update UI
@@ -126,9 +131,20 @@ class PurchaseSystem {
                     <p><strong>Status:</strong> ${type === 'digital' ? 'Available for download' : 'Will ship within 3-5 business days'}</p>
                 </div>
                 <p class="unlock-notice">🔓 All tracks are now unlocked!</p>
-                <button class="btn-close">Start Listening</button>
+                <div class="download-actions">
+                    <button class="btn-download" onclick="this.startDownload()">📥 Download Album Now</button>
+                    <button class="btn-close">Start Listening</button>
+                </div>
             </div>
         `;
+
+        // Add download functionality
+        modal.querySelector('.btn-download').addEventListener('click', () => {
+            if (window.downloadSystem) {
+                window.downloadSystem.downloadAlbum();
+            }
+            modal.remove();
+        });
 
         modal.querySelector('.btn-close').addEventListener('click', () => {
             modal.remove();
@@ -183,29 +199,16 @@ class PurchaseSystem {
         return this.purchaseStatus.purchased;
     }
 
-    // Debug functions
-    resetPurchase() {
-        this.purchaseStatus = { purchased: false };
-        this.savePurchaseStatus();
-        this.updateUI();
-        if (window.macWaynePlayer) {
-            window.macWaynePlayer.isPreviewMode = true;
-            window.macWaynePlayer.updatePurchaseStatus();
-        }
-        console.log('Purchase status reset');
-    }
 
-    simulatePurchase() {
-        this.completePurchase('digital', '9.99');
-        console.log('Purchase simulated');
-    }
 }
 
 // Initialize purchase system
 document.addEventListener('DOMContentLoaded', () => {
     window.purchaseSystem = new PurchaseSystem();
+    
+    // Ensure download system is available
+    if (!window.downloadSystem && window.DownloadSystem) {
+        window.downloadSystem = new DownloadSystem();
+    }
 });
 
-// Debug functions for console
-window.resetPurchase = () => window.purchaseSystem?.resetPurchase();
-window.simulatePurchase = () => window.purchaseSystem?.simulatePurchase();

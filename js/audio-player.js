@@ -28,11 +28,7 @@ class AudioPlayer {    constructor(container) {
         this.setupTracks();
         this.setupEventListeners();
         this.setupProgressBar();
-        console.log('AudioPlayer initialized:', {
-            previewMode: this.previewMode,
-            previewDuration: this.previewDuration,
-            tracksCount: this.tracks.length
-        });
+
     }    setupTracks() {
         const trackElements = this.container.querySelectorAll('.track-item') || [];
         this.tracks = Array.from(trackElements).map((element, index) => ({
@@ -55,7 +51,7 @@ class AudioPlayer {    constructor(container) {
             this.previewMode = true;
         }
         
-        console.log('Tracks setup complete:', this.tracks.length, 'tracks found');
+
     }
       setupEventListeners() {
         // Store event handlers for cleanup
@@ -108,7 +104,7 @@ class AudioPlayer {    constructor(container) {
             this.eventHandlers.set('volume', this.volumeListener);
         }
         
-        console.log('Event listeners setup complete');
+
     }
     
     setupProgressBar() {
@@ -146,7 +142,7 @@ class AudioPlayer {    constructor(container) {
     
     // Load a new track into the player
     async loadNewTrack(trackData) {
-        console.log('Loading new track:', trackData);
+
         
         // Update the audio element's data attributes
         if (this.container.dataset) {
@@ -192,7 +188,7 @@ class AudioPlayer {    constructor(container) {
             return;
         }
         
-        console.log('Loading audio from:', audioSrc);
+
         this.audio = new Audio(audioSrc);
         
         // Audio event listeners
@@ -288,7 +284,7 @@ class AudioPlayer {    constructor(container) {
         
         // Handle preview mode time limit - strictly enforce 30 seconds
         if (this.previewMode && !this.isPurchased() && currentTime >= this.previewDuration) {
-            console.log('AudioPlayer: Preview limit reached', currentTime, 'seconds');
+
             // Force the time to exactly the preview duration
             this.audio.currentTime = this.previewDuration;
             this.audio.pause();
@@ -298,7 +294,7 @@ class AudioPlayer {    constructor(container) {
             this.showPreviewEndedMessage();
             
             // Log for debugging
-            console.log('Preview ended at exactly:', this.previewDuration, 'seconds');
+
             return;
         }
         
@@ -398,7 +394,7 @@ class AudioPlayer {    constructor(container) {
         this.previewMode = false;
         this.hidePreviewEndedMessage();
         this.updateProgress();
-        console.log('AudioPlayer: Full tracks unlocked');
+
     }
       showPreviewEndedMessage() {
         // Remove any existing message
@@ -613,7 +609,7 @@ class AudioPlayer {    constructor(container) {
             });
         }
         
-        console.log('AudioPlayer destroyed and events cleaned up');
+
     }
     showPurchaseModal() {
         // Create a nice purchase modal
@@ -764,7 +760,7 @@ function unlockAllTracks() {
         track.classList.add('purchased');
     });
     
-    console.log('All tracks unlocked for user');
+
 }
 
 function updatePurchaseUI() {
@@ -798,32 +794,4 @@ function updatePurchaseUI() {
     }
 }
 
-// Global functions for testing
-window.testPreviewMode = function() {
-    console.log('Testing preview mode...');
-    if (window.audioPlayer) {
-        console.log('Preview status:', window.audioPlayer.getPreviewStatus());
-    }
-    
-    // Test preview limit
-    const audioElements = document.querySelectorAll('audio');
-    audioElements.forEach(audio => {
-        if (audio.currentTime > 0) {
-            console.log(`Audio currentTime: ${audio.currentTime}s`);
-        }
-    });
-};
 
-window.unlockTracks = function() {
-    console.log('Unlocking all tracks...');
-    localStorage.setItem('mac-wayne-album-purchased', 'true');
-    unlockAllTracks();
-    updatePurchaseUI();
-};
-
-window.resetPurchase = function() {
-    console.log('Resetting purchase status...');
-    localStorage.removeItem('mac-wayne-album-purchased');
-    localStorage.removeItem('mac-wayne-purchase-date');
-    location.reload();
-};

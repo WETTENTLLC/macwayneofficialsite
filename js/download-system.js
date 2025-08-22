@@ -180,11 +180,60 @@ class DownloadSystem {
 
     // Download individual track
     downloadTrack(trackId) {
-        const trackEl = document.querySelector(`[data-id="${trackId}"]`);
-        if (!trackEl) return;
+        // Map track IDs to actual file paths
+        const trackFiles = {
+            'track-1': 'public/audio/Blind and Battered [Explicit]/01 - Gotta Split [Explicit].mp3',
+            'track-2': 'public/audio/Blind and Battered [Explicit]/02 - I Think [Explicit].mp3',
+            'track-3': 'public/audio/Blind and Battered [Explicit]/03 - Keep Your Mouth Shut (Skit) [Explicit].mp3',
+            'track-4': 'public/audio/Blind and Battered [Explicit]/04 - Just a Player [Explicit].mp3',
+            'track-5': 'public/audio/Blind and Battered [Explicit]/05 - Ziplocks [Explicit].mp3',
+            'track-6': 'public/audio/Blind and Battered [Explicit]/06 - Where You Been (Skit) [Explicit].mp3',
+            'track-7': 'public/audio/Blind and Battered [Explicit]/07 - Cant Tell Me [Explicit].mp3',
+            'track-8': 'public/audio/Blind and Battered [Explicit]/08 - Just a Gimmick [Explicit].mp3',
+            'track-9': 'public/audio/Blind and Battered [Explicit]/09 - Wish I Knew Then [Explicit].mp3',
+            'track-10': 'public/audio/Blind and Battered [Explicit]/10 - Blind and Battered [Explicit].mp3',
+            'track-11': 'public/audio/Blind and Battered [Explicit]/11 - Smoother Than Woodgrain [Explicit].mp3',
+            'track-12': 'public/audio/Blind and Battered [Explicit]/12 - Touch You [Explicit].mp3',
+            'track-13': 'public/audio/Blind and Battered [Explicit]/13 - Life of Magic [Explicit].mp3',
+            'track-14': 'public/audio/Blind and Battered [Explicit]/14 - Its Going Down [Explicit].mp3',
+            'track-15': 'public/audio/Blind and Battered [Explicit]/15 - One Way In [Explicit].mp3',
+            'track-16': 'public/audio/Blind and Battered [Explicit]/16 - Crispy Game [Explicit].mp3',
+            'track-17': 'public/audio/Blind and Battered [Explicit]/17 - The End of the World [Explicit].mp3',
+            'track-18': 'public/audio/Blind and Battered [Explicit]/18 - Smell of Victory [Explicit].mp3',
+            'track-19': 'public/audio/Blind and Battered [Explicit]/19 - Do the I\'m the Shit [Explicit].mp3',
+            'track-20': 'public/audio/Blind and Battered [Explicit]/20 - Hatin On a Blind Man [Explicit].mp3'
+        };
         
-        const audioSrc = trackEl.dataset.fullSrc;
-        const trackName = trackEl.querySelector('.track-name').textContent;
+        const trackNames = {
+            'track-1': 'Gotta Split',
+            'track-2': 'I Think',
+            'track-3': 'Keep Your Mouth Shut (Skit)',
+            'track-4': 'Just a Player',
+            'track-5': 'Ziplocks',
+            'track-6': 'Where You Been (Skit)',
+            'track-7': 'Cant Tell Me',
+            'track-8': 'Just a Gimmick',
+            'track-9': 'Wish I Knew Then',
+            'track-10': 'Blind and Battered',
+            'track-11': 'Smoother Than Woodgrain',
+            'track-12': 'Touch You',
+            'track-13': 'Life of Magic',
+            'track-14': 'Its Going Down',
+            'track-15': 'One Way In',
+            'track-16': 'Crispy Game',
+            'track-17': 'The End of the World',
+            'track-18': 'Smell of Victory',
+            'track-19': 'Do the I\'m the Shit',
+            'track-20': 'Hatin On a Blind Man'
+        };
+        
+        const audioSrc = trackFiles[trackId];
+        const trackName = trackNames[trackId];
+        
+        if (!audioSrc || !trackName) {
+            this.showDownloadError(`Track ${trackId} not found`);
+            return;
+        }
         
         // Create download link
         const link = document.createElement('a');
@@ -201,10 +250,73 @@ class DownloadSystem {
 
     // Download full album as ZIP
     downloadAlbum() {
-        // For demo purposes, download first track
-        // In production, this would create a ZIP file
-        this.downloadTrack('track-1');
-        this.showDownloadSuccess('Album download started! (Demo: downloading first track)');
+        // Create a download modal with all tracks
+        const modal = document.createElement('div');
+        modal.className = 'album-download-modal';
+        modal.innerHTML = `
+            <div class="modal-content">
+                <h3>Download Full Album</h3>
+                <p>Click on any track to download individually, or download all:</p>
+                <div class="album-tracks-list">
+                    ${this.generateFullTrackList()}
+                </div>
+                <div class="album-actions">
+                    <button class="download-all-btn" onclick="downloadSystem.downloadAllTracks()">Download All Tracks</button>
+                    <button class="close-modal" onclick="document.body.removeChild(this.closest('.album-download-modal'))">Close</button>
+                </div>
+            </div>
+        `;
+        
+        document.body.appendChild(modal);
+    }
+    
+    // Generate full track list for album download
+    generateFullTrackList() {
+        const tracks = [
+            { id: 'track-1', name: 'Gotta Split' },
+            { id: 'track-2', name: 'I Think' },
+            { id: 'track-3', name: 'Keep Your Mouth Shut (Skit)' },
+            { id: 'track-4', name: 'Just a Player' },
+            { id: 'track-5', name: 'Ziplocks' },
+            { id: 'track-6', name: 'Where You Been (Skit)' },
+            { id: 'track-7', name: 'Cant Tell Me' },
+            { id: 'track-8', name: 'Just a Gimmick' },
+            { id: 'track-9', name: 'Wish I Knew Then' },
+            { id: 'track-10', name: 'Blind and Battered' },
+            { id: 'track-11', name: 'Smoother Than Woodgrain' },
+            { id: 'track-12', name: 'Touch You' },
+            { id: 'track-13', name: 'Life of Magic' },
+            { id: 'track-14', name: 'Its Going Down' },
+            { id: 'track-15', name: 'One Way In' },
+            { id: 'track-16', name: 'Crispy Game' },
+            { id: 'track-17', name: 'The End of the World' },
+            { id: 'track-18', name: 'Smell of Victory' },
+            { id: 'track-19', name: 'Do the I\'m the Shit' },
+            { id: 'track-20', name: 'Hatin On a Blind Man' }
+        ];
+        
+        return tracks.map(track => `
+            <div class="track-download-item">
+                <span class="track-number">${track.id.replace('track-', '')}</span>
+                <span class="track-name">${track.name}</span>
+                <button class="mini-download-btn" onclick="downloadSystem.downloadTrack('${track.id}')">
+                    <i class="fas fa-download"></i> Download
+                </button>
+            </div>
+        `).join('');
+    }
+    
+    // Download all tracks sequentially
+    downloadAllTracks() {
+        const tracks = ['track-1', 'track-2', 'track-3', 'track-4', 'track-5', 'track-6', 'track-7', 'track-8', 'track-9', 'track-10', 'track-11', 'track-12', 'track-13', 'track-14', 'track-15', 'track-16', 'track-17', 'track-18', 'track-19', 'track-20'];
+        
+        tracks.forEach((trackId, index) => {
+            setTimeout(() => {
+                this.downloadTrack(trackId);
+            }, index * 1000); // Stagger downloads by 1 second
+        });
+        
+        this.showDownloadSuccess('All tracks download started! Files will download one by one.');
     }
 
     // Show download success message
@@ -321,15 +433,26 @@ class DownloadSystem {
             }
         }, 5000);
     }
-
-    // Reset purchases (for testing)
-    resetPurchases() {
-        localStorage.removeItem('purchasedTracks');
-        localStorage.removeItem('albumPurchased');
-        this.purchasedTracks = [];
-        this.albumPurchased = false;
-        this.updateTrackButtons();
+    
+    // Show download error message
+    showDownloadError(message) {
+        const toast = document.createElement('div');
+        toast.className = 'download-error-toast';
+        toast.innerHTML = `
+            <i class="fas fa-exclamation-circle"></i>
+            <span>${message}</span>
+        `;
+        
+        document.body.appendChild(toast);
+        
+        setTimeout(() => {
+            if (document.body.contains(toast)) {
+                document.body.removeChild(toast);
+            }
+        }, 3000);
     }
+
+
 }
 
 // Initialize download system
@@ -338,15 +461,3 @@ document.addEventListener('DOMContentLoaded', function() {
     downloadSystem = new DownloadSystem();
 });
 
-// Global functions for testing
-function simulateTrackPurchase(trackId) {
-    downloadSystem.completePurchase('track', trackId);
-}
-
-function simulateAlbumPurchase() {
-    downloadSystem.completePurchase('album');
-}
-
-function resetAllPurchases() {
-    downloadSystem.resetPurchases();
-}

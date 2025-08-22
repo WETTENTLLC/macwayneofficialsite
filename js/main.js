@@ -288,7 +288,7 @@ function throttle(func, limit) {
 // Handle window resize
 window.addEventListener('resize', debounce(() => {
     // Handle any resize-specific logic here
-    console.log('Window resized');
+
 }, 250));
 
 // Handle scroll events
@@ -339,7 +339,7 @@ function enhanceAccessibility() {
         });
     } // End of check
 
-    console.log('Accessibility enhancements applied.');
+
 }
 
 // Export functions for use in other modules
