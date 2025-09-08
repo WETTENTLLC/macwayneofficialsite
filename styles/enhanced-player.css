@@ -1,0 +1,341 @@
+/* Enhanced Audio Player Styles */
+
+.album-info-section {
+    background: linear-gradient(135deg, #2c2c2c 0%, #1a1a1a 100%);
+    padding: 25px;
+    border-radius: 12px;
+    margin-bottom: 25px;
+    border-left: 4px solid #cc0000;
+}
+
+.album-story-title {
+    color: #cc0000;
+    font-size: 1.4rem;
+    font-weight: bold;
+    margin-bottom: 15px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.album-story {
+    color: #e0e0e0;
+    line-height: 1.6;
+    margin-bottom: 20px;
+    font-size: 1rem;
+}
+
+.album-details {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.detail-item {
+    color: #ccc;
+    font-size: 0.9rem;
+}
+
+.detail-item strong {
+    color: #fff;
+}
+
+/* Enhanced Audio Player Widget */
+.enhanced-audio-player {
+    background: linear-gradient(145deg, #2a2a2a 0%, #1e1e1e 100%);
+    border-radius: 15px;
+    padding: 20px;
+    margin-bottom: 25px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
+    border: 1px solid #333;
+}
+
+.player-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.now-playing-info .track-title {
+    color: #fff;
+    font-size: 1.1rem;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.now-playing-info .track-artist {
+    color: #999;
+    font-size: 0.9rem;
+}
+
+.track-status-indicator {
+    background: #cc0000;
+    color: white;
+    padding: 4px 12px;
+    border-radius: 15px;
+    font-size: 0.8rem;
+    font-weight: bold;
+}
+
+/* Waveform Visualization */
+.waveform-container {
+    position: relative;
+    height: 60px;
+    background: #1a1a1a;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    overflow: hidden;
+}
+
+.waveform-visualization {
+    display: flex;
+    align-items: end;
+    height: 100%;
+    padding: 10px;
+    gap: 2px;
+}
+
+.wave-bar {
+    background: linear-gradient(to top, #cc0000 0%, #ff3333 50%, #ff6666 100%);
+    width: 3px;
+    border-radius: 2px;
+    transition: all 0.3s ease;
+    opacity: 0.7;
+}
+
+.wave-bar:hover {
+    opacity: 1;
+    transform: scaleY(1.1);
+}
+
+.progress-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    background: linear-gradient(90deg, rgba(204, 0, 0, 0.3) 0%, transparent 100%);
+    width: 0%;
+    transition: width 0.1s linear;
+    pointer-events: none;
+}
+
+/* Enhanced Player Controls */
+.player-controls-enhanced {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+}
+
+.control-btn {
+    background: #333;
+    border: none;
+    color: #fff;
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.control-btn:hover {
+    background: #cc0000;
+    transform: scale(1.1);
+}
+
+.play-pause-btn {
+    background: #cc0000;
+    width: 55px;
+    height: 55px;
+    font-size: 1.2rem;
+}
+
+.play-pause-btn:hover {
+    background: #ff3333;
+    transform: scale(1.05);
+}
+
+.time-info {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    color: #999;
+    font-size: 0.9rem;
+    margin: 0 15px;
+    min-width: 80px;
+}
+
+.separator {
+    color: #666;
+}
+
+/* Purchase Options */
+.track-purchase-options {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+/* Shows Coming Soon Styles */
+.shows-coming-soon {
+    text-align: center;
+    padding: 60px 20px;
+    background: linear-gradient(135deg, #2a2a2a 0%, #1a1a1a 100%);
+    border-radius: 12px;
+    margin: 20px 0;
+}
+
+.coming-soon-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.purchase-option {
+    padding: 6px 12px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.8rem;
+    font-weight: bold;
+    transition: all 0.2s;
+}
+
+.stream-btn {
+    background: #28a745;
+    color: white;
+}
+
+.stream-btn:hover {
+    background: #218838;
+}
+
+.download-btn {
+    background: #007bff;
+    color: white;
+}
+
+.download-btn:hover {
+    background: #0056b3;
+}
+
+/* Album Purchase Options */
+.album-purchase-section {
+    background: #2a2a2a;
+    padding: 20px;
+    border-radius: 10px;
+    margin-top: 20px;
+}
+
+.album-purchase-options {
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.album-option {
+    padding: 15px 25px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: all 0.3s;
+    text-align: center;
+    min-width: 150px;
+}
+
+.stream-album {
+    background: #28a745;
+    color: white;
+}
+
+.stream-album:hover {
+    background: #218838;
+    transform: translateY(-2px);
+}
+
+.download-album {
+    background: #007bff;
+    color: white;
+}
+
+.download-album:hover {
+    background: #0056b3;
+    transform: translateY(-2px);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .album-details {
+        flex-direction: column;
+        gap: 10px;
+    }
+    
+    .player-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+    }
+    
+    .track-status-indicator {
+        align-self: flex-end;
+    }
+    
+    .player-controls-enhanced {
+        gap: 10px;
+    }
+    
+    .control-btn {
+        width: 40px;
+        height: 40px;
+    }
+    
+    .play-pause-btn {
+        width: 50px;
+        height: 50px;
+    }
+    
+    .time-info {
+        margin: 0 10px;
+        min-width: 70px;
+    }
+    
+    .track-purchase-options {
+        flex-direction: column;
+        gap: 5px;
+    }
+    
+    .album-purchase-options {
+        flex-direction: column;
+        gap: 10px;
+    }
+}
+
+/* Animation for playing state */
+.enhanced-audio-player.playing .wave-bar {
+    animation: waveAnimation 1s ease-in-out infinite alternate;
+}
+
+.enhanced-audio-player.playing .wave-bar:nth-child(2n) {
+    animation-delay: 0.1s;
+}
+
+.enhanced-audio-player.playing .wave-bar:nth-child(3n) {
+    animation-delay: 0.2s;
+}
+
+@keyframes waveAnimation {
+    0% {
+        transform: scaleY(0.5);
+        opacity: 0.7;
+    }
+    100% {
+        transform: scaleY(1.2);
+        opacity: 1;
+    }
+}

@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Quick Audio Debug</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; background: #f0f0f0; }
+        .section { background: white; margin: 20px 0; padding: 20px; border-radius: 8px; }
+        .success { color: green; } .error { color: red; } .warning { color: orange; }
+        button { padding: 10px 20px; margin: 5px; background: #007bff; color: white; border: none; border-radius: 4px; cursor: pointer; }
+    </style>
+</head>
+<body>
+    <h1>🎵 Mac Wayne Quick Debug</h1>
+    
+    <div class="section">
+        <h2>Quick Test</h2>
+        <button onclick="window.open('https://macwayneofficial.com', '_blank')">Open Live Site</button>
+        <button onclick="testAudioPlayer()">Test Audio Player Elements</button>
+    </div>
+    
+    <div class="section">
+        <h2>Debug Instructions</h2>
+        <ol>
+            <li>Open <a href="https://macwayneofficial.com" target="_blank">macwayneofficial.com</a></li>
+            <li>Press <strong>F12</strong> to open Developer Tools</li>
+            <li>Go to <strong>Console</strong> tab</li>
+            <li>Look for messages starting with <strong>"[PLAYER]"</strong></li>
+            <li>Check for any red error messages</li>
+        </ol>
+    </div>
+    
+    <div class="section">
+        <h2>What to Look For</h2>
+        <p class="success"><strong>✅ Good signs:</strong></p>
+        <ul>
+            <li>"[PLAYER] renderPlaylist: Started. Number of tracks: 20"</li>
+            <li>"[PLAYER] fetchTracks: Tracks mapped: 20 tracks"</li>
+            <li>No red errors in console</li>
+        </ul>
+        
+        <p class="error"><strong>❌ Problem signs:</strong></p>
+        <ul>
+            <li>Any red JavaScript errors</li>
+            <li>"Playlist element not found!"</li>
+            <li>"Number of tracks: 0"</li>
+            <li>PayPal-related errors</li>
+        </ul>
+    </div>
+    
+    <div class="section">
+        <h2>Common Fixes</h2>
+        <p class="warning"><strong>⚠️ If no tracks show:</strong></p>
+        <ul>
+            <li>Hard refresh the page (Ctrl+F5)</li>
+            <li>Check if JavaScript is enabled</li>
+            <li>Clear browser cache</li>
+        </ul>
+        
+        <p class="warning"><strong>⚠️ If buy buttons don't work:</strong></p>
+        <ul>
+            <li>Check PayPal SDK is loaded</li>
+            <li>Look for modal-related errors</li>
+            <li>Try clicking without ad blockers</li>
+        </ul>
+    </div>
+
+    <script>
+        function testAudioPlayer() {
+            // This will help identify what to check
+            const checks = [
+                "1. Do you see a list of 20 music tracks?",
+                "2. Does each track have a 'Buy Track ($2.00)' button?", 
+                "3. Are there play controls (play/pause, previous, next)?",
+                "4. When you click 'Buy Track', does a modal appear?",
+                "5. Does the modal appear centered on screen?"
+            ];
+            
+            alert("Audio Player Checklist:\n\n" + checks.join("\n") + "\n\nCheck each item on the live site!");
+        }
+        
+        console.log("Debug tool ready - open macwayneofficial.com and check console for [PLAYER] messages");
+    </script>
+</body>
+</html>

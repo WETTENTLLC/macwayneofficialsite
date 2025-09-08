@@ -334,7 +334,7 @@ class CryptoOptimizer {
         if ('serviceWorker' in navigator) {
             navigator.serviceWorker.register('/sw.js')
                 .then(registration => {
-                    console.log('Service Worker registered:', registration);
+
                 })
                 .catch(error => {
                     console.error('Service Worker registration failed:', error);
@@ -853,7 +853,7 @@ class CryptoOptimizer {
 // Initialize optimizer when DOM is loaded
 document.addEventListener('DOMContentLoaded', () => {
     window.cryptoOptimizer = new CryptoOptimizer();
-    console.log('🚀 Crypto Performance Optimizer initialized');
+
 });
 
 // Export for use in other modules

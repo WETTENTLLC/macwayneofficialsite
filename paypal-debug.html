@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PayPal Debug Test - Mac Wayne</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .debug-section {
+            background: white;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .debug-button {
+            background: #007bff;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 5px;
+            font-size: 16px;
+        }
+        .debug-button:hover {
+            background: #0056b3;
+        }
+        .debug-log {
+            background: #f8f9fa;
+            border: 1px solid #dee2e6;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 5px;
+            font-family: monospace;
+            white-space: pre-wrap;
+            max-height: 400px;
+            overflow-y: auto;
+        }
+        .error {
+            color: #dc3545;
+            font-weight: bold;
+        }
+        .success {
+            color: #28a745;
+            font-weight: bold;
+        }
+        .modal-test {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(0,0,0,0.8);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000000;
+        }
+        .modal-content-test {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            max-width: 500px;
+            width: 90%;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <h1>PayPal Debug Test Page</h1>
+    
+    <div class="debug-section">
+        <h2>PayPal SDK Status</h2>
+        <button class="debug-button" onclick="checkPayPalSDK()">Check PayPal SDK</button>
+        <button class="debug-button" onclick="testSimplePayPal()">Test Simple PayPal Button</button>
+        <div id="paypal-status" class="debug-log">Click "Check PayPal SDK" to test...</div>
+    </div>
+
+    <div class="debug-section">
+        <h2>Modal Test</h2>
+        <button class="debug-button" onclick="testModal()">Test Modal Creation</button>
+        <button class="debug-button" onclick="testPayPalModal()">Test PayPal Modal</button>
+        <div id="modal-status" class="debug-log">Click "Test Modal Creation" to test...</div>
+    </div>
+
+    <div class="debug-section">
+        <h2>Full Payment Flow Test</h2>
+        <button class="debug-button" onclick="testFullFlow()">Test Complete Payment Flow</button>
+        <div id="flow-status" class="debug-log">Click "Test Complete Payment Flow" to test...</div>
+    </div>
+
+    <div class="debug-section">
+        <h2>Simple PayPal Container</h2>
+        <div id="simple-paypal-container" style="min-height: 100px; border: 1px solid #ccc; padding: 20px;">
+            PayPal buttons will appear here...
+        </div>
+    </div>
+
+    <!-- Modal for testing -->
+    <div id="test-modal" class="modal-test">
+        <div class="modal-content-test">
+            <h3>Test Modal</h3>
+            <p>This is a test modal to verify modal creation works.</p>
+            <div id="test-paypal-container" style="min-height: 100px; border: 1px solid #ccc; padding: 20px; margin: 20px 0;">
+                PayPal buttons will be created here...
+            </div>
+            <button onclick="closeTestModal()">Close</button>
+        </div>
+    </div>
+
+    <!-- PayPal SDK -->
+    <script src="https://www.paypal.com/sdk/js?client-id=ATefxKUHVrxyBM7_sudRHvnbUXV-nznDOJD9ZwO_nRMOSZlYCfrHA6SouCz9K7Uk3X0phjvkj_Yo0STn&currency=USD&intent=capture&enable-funding=venmo,paylater&disable-funding=card"></script>
+
+    <script>
+        function log(message, isError = false, isSuccess = false) {
+            console.log(message);
+            const timestamp = new Date().toLocaleTimeString();
+            const className = isError ? 'error' : (isSuccess ? 'success' : '');
+            return `[${timestamp}] ${message}`;
+        }
+
+        function updateLog(elementId, message, isError = false, isSuccess = false) {
+            const element = document.getElementById(elementId);
+            const logEntry = log(message, isError, isSuccess);
+            element.innerHTML += logEntry + '\n';
+            element.scrollTop = element.scrollHeight;
+            
+            if (isError) {
+                element.innerHTML = element.innerHTML.replace(logEntry, `<span class="error">${logEntry}</span>`);
+            } else if (isSuccess) {
+                element.innerHTML = element.innerHTML.replace(logEntry, `<span class="success">${logEntry}</span>`);
+            }
+        }
+
+        function clearLog(elementId) {
+            document.getElementById(elementId).innerHTML = '';
+        }
+
+        function checkPayPalSDK() {
+            clearLog('paypal-status');
+            updateLog('paypal-status', 'Checking PayPal SDK...');
+            
+            if (typeof paypal === 'undefined') {
+                updateLog('paypal-status', 'ERROR: PayPal SDK not loaded!', true);
+                return false;
+            }
+            
+            updateLog('paypal-status', 'SUCCESS: PayPal SDK is loaded!', false, true);
+            updateLog('paypal-status', 'Available PayPal methods: ' + Object.keys(paypal).join(', '));
+            
+            if (typeof paypal.Buttons === 'function') {
+                updateLog('paypal-status', 'SUCCESS: paypal.Buttons() is available!', false, true);
+            } else {
+                updateLog('paypal-status', 'ERROR: paypal.Buttons() is not available!', true);
+            }
+            
+            return true;
+        }
+
+        function testSimplePayPal() {
+            if (!checkPayPalSDK()) return;
+            
+            updateLog('paypal-status', 'Creating simple PayPal button...');
+            
+            // Clear any existing buttons
+            const container = document.getElementById('simple-paypal-container');
+            container.innerHTML = 'Loading PayPal buttons...';
+            
+            try {
+                paypal.Buttons({
+                    style: {
+                        layout: 'vertical',
+                        color: 'blue',
+                        shape: 'rect',
+                        label: 'paypal'
+                    },
+                    createOrder: function(data, actions) {
+                        updateLog('paypal-status', 'createOrder called!', false, true);
+                        return actions.order.create({
+                            purchase_units: [{
+                                amount: {
+                                    value: '2.00',
+                                    currency_code: 'USD'
+                                },
+                                description: 'Test Purchase',
+                                custom_id: 'test_track_debug@test.com'
+                            }]
+                        });
+                    },
+                    onApprove: function(data, actions) {
+                        updateLog('paypal-status', 'Payment approved!', false, true);
+                        return actions.order.capture().then(function(details) {
+                            updateLog('paypal-status', 'Payment captured: ' + JSON.stringify(details), false, true);
+                            alert('Test payment successful!');
+                        });
+                    },
+                    onError: function(err) {
+                        updateLog('paypal-status', 'PayPal error: ' + JSON.stringify(err), true);
+                    },
+                    onCancel: function(data) {
+                        updateLog('paypal-status', 'Payment cancelled: ' + JSON.stringify(data));
+                    }
+                }).render('#simple-paypal-container').then(function() {
+                    updateLog('paypal-status', 'SUCCESS: PayPal buttons rendered!', false, true);
+                }).catch(function(err) {
+                    updateLog('paypal-status', 'ERROR rendering PayPal buttons: ' + JSON.stringify(err), true);
+                });
+            } catch (error) {
+                updateLog('paypal-status', 'ERROR creating PayPal buttons: ' + error.message, true);
+            }
+        }
+
+        function testModal() {
+            clearLog('modal-status');
+            updateLog('modal-status', 'Testing modal creation...');
+            
+            const modal = document.getElementById('test-modal');
+            modal.style.display = 'flex';
+            updateLog('modal-status', 'SUCCESS: Modal displayed!', false, true);
+        }
+
+        function closeTestModal() {
+            document.getElementById('test-modal').style.display = 'none';
+            updateLog('modal-status', 'Modal closed.');
+        }
+
+        function testPayPalModal() {
+            if (!checkPayPalSDK()) return;
+            
+            updateLog('modal-status', 'Testing PayPal in modal...');
+            
+            const modal = document.getElementById('test-modal');
+            modal.style.display = 'flex';
+            
+            const container = document.getElementById('test-paypal-container');
+            container.innerHTML = 'Loading PayPal buttons in modal...';
+            
+            try {
+                paypal.Buttons({
+                    style: {
+                        layout: 'vertical',
+                        color: 'blue',
+                        shape: 'rect',
+                        label: 'paypal'
+                    },
+                    createOrder: function(data, actions) {
+                        updateLog('modal-status', 'Modal PayPal createOrder called!', false, true);
+                        return actions.order.create({
+                            purchase_units: [{
+                                amount: {
+                                    value: '2.00',
+                                    currency_code: 'USD'
+                                },
+                                description: 'Test Modal Purchase',
+                                custom_id: 'test_modal_debug@test.com'
+                            }]
+                        });
+                    },
+                    onApprove: function(data, actions) {
+                        updateLog('modal-status', 'Modal payment approved!', false, true);
+                        return actions.order.capture().then(function(details) {
+                            updateLog('modal-status', 'Modal payment captured: ' + JSON.stringify(details), false, true);
+                            alert('Test modal payment successful!');
+                            closeTestModal();
+                        });
+                    },
+                    onError: function(err) {
+                        updateLog('modal-status', 'Modal PayPal error: ' + JSON.stringify(err), true);
+                    },
+                    onCancel: function(data) {
+                        updateLog('modal-status', 'Modal payment cancelled: ' + JSON.stringify(data));
+                    }
+                }).render('#test-paypal-container').then(function() {
+                    updateLog('modal-status', 'SUCCESS: Modal PayPal buttons rendered!', false, true);
+                }).catch(function(err) {
+                    updateLog('modal-status', 'ERROR rendering modal PayPal buttons: ' + JSON.stringify(err), true);
+                });
+            } catch (error) {
+                updateLog('modal-status', 'ERROR creating modal PayPal buttons: ' + error.message, true);
+            }
+        }
+
+        function testFullFlow() {
+            clearLog('flow-status');
+            updateLog('flow-status', 'Testing full payment flow...');
+            
+            if (!checkPayPalSDK()) {
+                updateLog('flow-status', 'Cannot test full flow - PayPal SDK not available', true);
+                return;
+            }
+            
+            // Simulate the email prompt
+            const userEmail = prompt("Enter your email address for download delivery:") || "";
+            
+            if (!userEmail || !userEmail.includes('@')) {
+                updateLog('flow-status', 'No valid email provided', true);
+                return;
+            }
+            
+            updateLog('flow-status', 'Email provided: ' + userEmail);
+            updateLog('flow-status', 'Creating payment modal...');
+            
+            // Create modal similar to the main application
+            const paypalModal = document.createElement('div');
+            paypalModal.id = 'paypal-payment-modal-' + Date.now();
+            
+            Object.assign(paypalModal.style, {
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                position: 'fixed',
+                zIndex: '1000000',
+                left: '0',
+                top: '0',
+                width: '100vw',
+                height: '100vh',
+                backgroundColor: 'rgba(0, 0, 0, 0.8)',
+                overflow: 'auto',
+                fontFamily: 'Arial, sans-serif'
+            });
+            
+            const buttonContainerId = 'paypal-button-container-modal-' + Date.now();
+            
+            paypalModal.innerHTML = `
+                <div style="
+                    background-color: #ffffff;
+                    padding: 30px;
+                    border: 3px solid #007bff;
+                    border-radius: 10px;
+                    width: 90%;
+                    max-width: 500px;
+                    box-shadow: 0 10px 50px rgba(0, 0, 0, 0.9);
+                    text-align: center;
+                    color: #333;
+                    position: relative;
+                ">
+                    <h2>Complete Your Payment</h2>
+                    <button onclick="this.closest('div[id^=paypal-payment-modal]').remove();" style="
+                        position: absolute;
+                        right: 15px;
+                        top: 15px;
+                        background: #ff4444;
+                        color: white;
+                        border: none;
+                        border-radius: 50%;
+                        width: 30px;
+                        height: 30px;
+                        cursor: pointer;
+                        font-size: 18px;
+                    ">&times;</button>
+                    <div style="margin: 20px 0; padding: 15px; background: #f8f9fa; border-radius: 5px;">
+                        <h3>Purchasing: Test Track</h3>
+                        <p style="font-size: 18px; font-weight: bold;">Price: $2.00 USD</p>
+                        <p>Email: ${userEmail}</p>
+                    </div>
+                    <div id="${buttonContainerId}" style="
+                        min-height: 120px;
+                        background: #f0f0f0;
+                        border: 2px dashed #ccc;
+                        border-radius: 8px;
+                        padding: 20px;
+                        margin: 20px 0;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                    ">
+                        <p style="color: #666; font-size: 16px;">Loading PayPal payment options...</p>
+                    </div>
+                </div>
+            `;
+            
+            document.body.appendChild(paypalModal);
+            updateLog('flow-status', 'Modal added to page');
+            
+            // Create PayPal buttons
+            try {
+                updateLog('flow-status', 'Creating PayPal buttons...');
+                
+                paypal.Buttons({
+                    style: {
+                        layout: 'vertical',
+                        color: 'blue',
+                        shape: 'rect',
+                        label: 'paypal'
+                    },
+                    createOrder: function(data, actions) {
+                        updateLog('flow-status', 'Creating PayPal order...', false, true);
+                        return actions.order.create({
+                            purchase_units: [{
+                                amount: {
+                                    value: '2.00',
+                                    currency_code: 'USD'
+                                },
+                                description: 'Music Track: Test Track',
+                                custom_id: `track_test_${userEmail}`,
+                                soft_descriptor: "Mac Wayne Music"
+                            }]
+                        });
+                    },
+                    onApprove: function(data, actions) {
+                        updateLog('flow-status', 'Payment approved, capturing...', false, true);
+                        return actions.order.capture().then(function(details) {
+                            updateLog('flow-status', 'Payment successful!', false, true);
+                            paypalModal.remove();
+                            alert(`Payment successful! Download instructions will be sent to ${userEmail}`);
+                        });
+                    },
+                    onError: function(err) {
+                        updateLog('flow-status', 'PayPal error: ' + JSON.stringify(err), true);
+                        paypalModal.remove();
+                    },
+                    onCancel: function(data) {
+                        updateLog('flow-status', 'Payment cancelled');
+                        paypalModal.remove();
+                    }
+                }).render('#' + buttonContainerId).then(function() {
+                    updateLog('flow-status', 'SUCCESS: PayPal buttons rendered in modal!', false, true);
+                }).catch(function(err) {
+                    updateLog('flow-status', 'ERROR rendering PayPal buttons: ' + JSON.stringify(err), true);
+                    paypalModal.remove();
+                });
+            } catch (error) {
+                updateLog('flow-status', 'ERROR creating PayPal buttons: ' + error.message, true);
+                paypalModal.remove();
+            }
+        }
+
+        // Auto-check PayPal SDK when page loads
+        window.addEventListener('load', function() {
+            setTimeout(checkPayPalSDK, 1000);
+        });
+    </script>
+</body>
+</html>

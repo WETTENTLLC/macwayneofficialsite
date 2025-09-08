@@ -340,13 +340,15 @@ class BatteredCoinApp {
                 announcement.parentNode.removeChild(announcement);
             }
         }, 1000);
-    }    /**
+    }
+
+    /**
      * Download whitepaper functionality
      */
     downloadWhitepaper() {
-        // Download actual whitepaper file
+        // Simulate whitepaper download
         const link = document.createElement('a');
-        link.href = 'public/documents/mac-wayne-battered-coin-whitepaper.pdf';
+        link.href = 'data:application/pdf;base64,'; // Would be actual PDF data
         link.download = 'mac-wayne-battered-coin-whitepaper.pdf';
         link.click();
         

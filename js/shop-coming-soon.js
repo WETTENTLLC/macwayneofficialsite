@@ -58,32 +58,65 @@ class ShopComingSoon {
         }
         
         try {
-            // Store email in localStorage for now (can be replaced with API call)
+            // Check if already signed up
             const existingEmails = JSON.parse(localStorage.getItem('shop-notify-emails') || '[]');
-            
             if (existingEmails.includes(email)) {
                 this.showMessage('You\'re already on our notify list!', 'info');
                 return;
             }
             
-            existingEmails.push(email);
-            localStorage.setItem('shop-notify-emails', JSON.stringify(existingEmails));
-            
-            // Simulate API call delay
             this.showLoading();
-            await new Promise(resolve => setTimeout(resolve, 1500));
             
-            this.showMessage('Success! You\'ll be the first to know when we launch.', 'success');
-            this.emailInput.value = '';
+            // Send email notification using Formspree
+            const formData = new FormData();
+            formData.append('email', email);
+            formData.append('_subject', 'New Shop Notification Signup - Mac Wayne Official');
+            formData.append('message', `New email signup for shop notifications: ${email}`);
+            formData.append('_replyto', 'officialmacwayne@gmail.com');
             
-            // Auto-hide overlay after successful signup
-            setTimeout(() => {
-                this.hideOverlay();
-            }, 2000);
+            // TODO: Replace 'YOUR_FORM_ID' with your actual Formspree form ID
+            const response = await fetch('https://formspree.io/f/mldlyaln', {
+                method: 'POST',
+                body: formData,
+                headers: {
+                    'Accept': 'application/json'
+                }
+            });
+            
+            if (response.ok) {
+                // Store locally to prevent duplicates
+                existingEmails.push(email);
+                localStorage.setItem('shop-notify-emails', JSON.stringify(existingEmails));
+                
+                // Send confirmation email to user
+                const confirmData = new FormData();
+                confirmData.append('email', 'officialmacwayne@gmail.com');
+                confirmData.append('_subject', 'Shop Notification Confirmation');
+                confirmData.append('message', `Thank you for signing up for Mac Wayne shop notifications! We'll email you at ${email} when our merchandise store launches.`);
+                confirmData.append('_replyto', email);
+                
+                await fetch('https://formspree.io/f/mldlyaln', {
+                    method: 'POST',
+                    body: confirmData,
+                    headers: {
+                        'Accept': 'application/json'
+                    }
+                });
+                
+                this.showMessage('Success! Check your email for confirmation. You\'ll be notified when we launch!', 'success');
+                this.emailInput.value = '';
+                
+                // Auto-hide overlay after successful signup
+                setTimeout(() => {
+                    this.hideOverlay();
+                }, 3000);
+            } else {
+                throw new Error('Failed to send notification');
+            }
             
         } catch (error) {
             console.error('Email signup error:', error);
-            this.showMessage('Something went wrong. Please try again.', 'error');
+            this.showMessage('Something went wrong. Please try again later.', 'error');
         }
     }
     

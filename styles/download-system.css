@@ -1,0 +1,337 @@
+/* Download System Styles */
+
+/* Download Modal */
+.download-modal, .album-download-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 10000;
+    animation: fadeIn 0.3s ease;
+}
+
+.download-modal .modal-content,
+.album-download-modal .modal-content {
+    background: #1a1a1a;
+    border: 2px solid #cc0000;
+    border-radius: 10px;
+    padding: 30px;
+    max-width: 600px;
+    width: 90%;
+    max-height: 80vh;
+    overflow-y: auto;
+    text-align: center;
+    color: #fff;
+}
+
+.download-modal h3,
+.album-download-modal h3 {
+    color: #cc0000;
+    margin-bottom: 20px;
+    font-size: 1.5em;
+}
+
+/* Download Button */
+.download-btn {
+    background: linear-gradient(45deg, #cc0000, #ff3333);
+    color: white;
+    border: none;
+    padding: 15px 30px;
+    border-radius: 25px;
+    font-size: 1.1em;
+    font-weight: bold;
+    cursor: pointer;
+    margin: 10px;
+    transition: all 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.download-btn:hover {
+    background: linear-gradient(45deg, #ff3333, #cc0000);
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(204, 0, 0, 0.4);
+}
+
+.download-btn i {
+    font-size: 1.2em;
+}
+
+/* Album Tracks List */
+.album-tracks-list {
+    max-height: 400px;
+    overflow-y: auto;
+    margin: 20px 0;
+    border: 1px solid #333;
+    border-radius: 8px;
+    background: #0f0f0f;
+}
+
+.track-download-item {
+    display: flex;
+    align-items: center;
+    padding: 12px 15px;
+    border-bottom: 1px solid #333;
+    transition: background 0.2s ease;
+}
+
+.track-download-item:hover {
+    background: #222;
+}
+
+.track-download-item:last-child {
+    border-bottom: none;
+}
+
+.track-number {
+    background: #cc0000;
+    color: white;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 0.9em;
+    margin-right: 15px;
+    flex-shrink: 0;
+}
+
+.track-name {
+    flex: 1;
+    text-align: left;
+    font-weight: 500;
+}
+
+.mini-download-btn {
+    background: #333;
+    color: #cc0000;
+    border: 1px solid #cc0000;
+    padding: 8px 12px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-size: 0.9em;
+}
+
+.mini-download-btn:hover {
+    background: #cc0000;
+    color: white;
+}
+
+/* Album Actions */
+.album-actions {
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+    margin-top: 20px;
+    flex-wrap: wrap;
+}
+
+.download-all-btn {
+    background: linear-gradient(45deg, #28a745, #20c997);
+    color: white;
+    border: none;
+    padding: 12px 25px;
+    border-radius: 20px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.download-all-btn:hover {
+    background: linear-gradient(45deg, #20c997, #28a745);
+    transform: translateY(-2px);
+}
+
+.close-modal {
+    background: #666;
+    color: white;
+    border: none;
+    padding: 12px 25px;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.close-modal:hover {
+    background: #777;
+}
+
+/* Toast Notifications */
+.download-toast,
+.payment-success-toast,
+.payment-error-toast,
+.download-error-toast {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background: #1a1a1a;
+    border: 2px solid;
+    border-radius: 8px;
+    padding: 15px 20px;
+    color: white;
+    z-index: 10001;
+    animation: slideInRight 0.3s ease;
+    max-width: 350px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.download-toast {
+    border-color: #28a745;
+}
+
+.payment-success-toast {
+    border-color: #28a745;
+}
+
+.payment-error-toast,
+.download-error-toast {
+    border-color: #dc3545;
+}
+
+.download-toast i,
+.payment-success-toast i {
+    color: #28a745;
+    font-size: 1.2em;
+}
+
+.payment-error-toast i,
+.download-error-toast i {
+    color: #dc3545;
+    font-size: 1.2em;
+}
+
+/* Purchase Success Modal Updates */
+.purchase-modal.success .download-actions {
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+    margin-top: 20px;
+    flex-wrap: wrap;
+}
+
+.purchase-modal.success .btn-download {
+    background: linear-gradient(45deg, #28a745, #20c997);
+    color: white;
+    border: none;
+    padding: 12px 25px;
+    border-radius: 20px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.purchase-modal.success .btn-download:hover {
+    background: linear-gradient(45deg, #20c997, #28a745);
+    transform: translateY(-2px);
+}
+
+/* Animations */
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes slideInRight {
+    from {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .download-modal .modal-content,
+    .album-download-modal .modal-content {
+        padding: 20px;
+        margin: 20px;
+    }
+    
+    .album-actions {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .download-btn,
+    .download-all-btn,
+    .close-modal {
+        width: 100%;
+        max-width: 250px;
+    }
+    
+    .track-download-item {
+        padding: 10px;
+    }
+    
+    .track-name {
+        font-size: 0.9em;
+    }
+    
+    .download-toast,
+    .payment-success-toast,
+    .payment-error-toast,
+    .download-error-toast {
+        right: 10px;
+        left: 10px;
+        max-width: none;
+    }
+}
+
+/* Individual Track Downloads */
+.individual-tracks {
+    margin-top: 25px;
+    padding-top: 20px;
+    border-top: 1px solid #333;
+}
+
+.individual-tracks h4 {
+    color: #cc0000;
+    margin-bottom: 15px;
+}
+
+/* Accessibility Improvements */
+.download-btn:focus,
+.mini-download-btn:focus,
+.download-all-btn:focus,
+.close-modal:focus {
+    outline: 2px solid #cc0000;
+    outline-offset: 2px;
+}
+
+/* Loading State */
+.download-btn.loading {
+    opacity: 0.7;
+    cursor: not-allowed;
+}
+
+.download-btn.loading::after {
+    content: '';
+    width: 16px;
+    height: 16px;
+    border: 2px solid transparent;
+    border-top: 2px solid currentColor;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin-left: 8px;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}

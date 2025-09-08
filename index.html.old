@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mac Wayne Official - Blind Hip Hop Visionary | Accessibility Innovation Through Music</title>
+    <meta name="description" content="Experience Mac Wayne's revolutionary accessibility-focused music platform. Blind hip-hop artist showcasing innovative audio technology, accessible design, and assistive music experiences. Perfect for accessibility tech partnerships and inclusive digital innovation.">
+    
+    <!-- Advanced SEO for Accessibility Tech Companies -->
+    <meta name="keywords" content="blind rapper, accessibility technology, assistive technology, accessible music platform, inclusive design, disability tech innovation, accessible audio player, screen reader compatible, visually impaired artist, accessibility partnerships, inclusive technology, assistive music technology, digital accessibility, WCAG compliance, inclusive entertainment, accessibility consulting, disabled artists, accessible web design, audio accessibility, inclusive user experience">
+    
+    <!-- Accessibility & Tech Company Targeting -->
+    <meta name="subject" content="Accessibility Innovation in Music Technology">
+    <meta name="audience" content="Accessibility Technology Companies, Assistive Technology Developers, Inclusive Design Teams">
+    <meta name="target-companies" content="MetaView, Aris Technologies, Google Accessibility, Microsoft Accessibility, Apple Accessibility, NVDA, JAWS, Voice Dream, Be My Eyes, Aira">
+    
+    <!-- All your existing meta tags and CSS -->
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="styles/audio-player.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+</head>
+<body>
+    <!-- Main audio player interface -->
+    <div class="audio-player">
+        <div class="player-controls">
+            <button class="play-btn"><i class="fas fa-play"></i></button>
+        </div>
+        <div class="track-info">
+            <div class="track-title">Select a track to play</div>
+            <div class="track-artist">Mac Wayne</div>
+            <div class="track-status preview">Preview (30 sec)</div>
+        </div>
+        <div class="progress-bar">
+            <div class="progress-fill"></div>
+        </div>
+        <div class="time-info">
+            <span class="current-time">0:00</span> / <span class="duration">0:00</span>
+        </div>
+    </div>
+
+    <div class="track-list">
+        <!-- 20 tracks, in correct order -->
+        <div class="track-item" data-id="track-1" data-src="public/audio/Blind and Battered [Explicit]/samples/01-sample.mp3" data-full-src="public/audio/Blind and Battered [Explicit]/01 - Gotta Split [Explicit].mp3">
+            <div><span class="track-number">1.</span><span class="track-name">Gotta Split</span><span class="track-status preview">Preview</span></div>
+            <div><button class="purchase-track">Buy - $1.99</button><button class="mini-play-btn">▶ Play</button></div>
+        </div>
+        <div class="track-item" data-id="track-2" data-src="public/audio/Blind and Battered [Explicit]/samples/02-sample.mp3" data-full-src="public/audio/Blind and Battered [Explicit]/02 - I Think [Explicit].mp3">
+            <div><span class="track-number">2.</span><span class="track-name">I Think</span><span class="track-status preview">Preview</span></div>
+            <div><button class="purchase-track">Buy - $1.99</button><button class="mini-play-btn">▶ Play</button></div>
+        </div>
+        <div class="track-item" data-id="track-3" data-src="public/audio/Blind and Battered [Explicit]/samples/03-sample.mp3" data-full-src="public/audio/Blind and Battered [Explicit]/03 - Keep Your Mouth Shut (Skit) [Explicit].mp3">
+            <div><span class="track-number">3.</span><span class="track-name">Keep Your Mouth Shut (Skit)</span><span class="track-status preview">Preview</span></div>
+            <div><button class="purchase-track">Buy - $1.99</button><button class="mini-play-btn">▶ Play</button></div>
+        </div>
+        <div class="track-item" data-id="track-4" data-src="public/audio/Blind and Battered [Explicit]/samples/04-sample.mp3" data-full-src="public/audio/Blind and Battered [Explicit]/04 - Life of Magic [Explicit].mp3">
+            <div><span class="track-number">4.</span><span class="track-name">Life of Magic</span><span class="track-status preview">Preview</span></div>
+            <div><button class="purchase-track">Buy - $1.99</button><button class="mini-play-btn">▶ Play</button></div>
+        </div>
+        <div class="track-item" data-id="track-5" data-src="public/audio/Blind and Battered [Explicit]/samples/05-sample.mp3" data-full-src="public/audio/Blind and Battered [Explicit]/05 - Touch You [Explicit].mp3">
+            <div><span class="track-number">5.</span><span class="track-name">Touch You</span><span class="track-status preview">Preview</span></div>
+            <div><button class="purchase-track">Buy - $1.99</button><button class="mini-play-btn">▶ Play</button></div>
+        </div>
+        <div class="track-item" data-id="track-6" data-src="public/audio/Blind and Battered [Explicit]/samples/06-sample.mp3" data-full-src="public/audio/Blind and Battered [Explicit]/06 - Its Going Down [Explicit].mp3">
+            <div><span class="track-number">6.</span><span class="track-name">Its Going Down</span><span class="track-status preview">Preview</span></div>
+            <div><button class="purchase-track">Buy - $1.99</button><button class="mini-play-btn">▶ Play</button></div>
+        </div>
+        <div class="track-item" data-id="track-7" data-src="public/audio/Blind and Battered [Explicit]/samples/07-sample.mp3" data-full-src="public/audio/Blind and Battered [Explicit]/07 - Cant Tell Me [Explicit].mp3">
+            <div><span class="track-number">7.</span><span class="track-name">Cant Tell Me</span><span class="track-status preview">Preview</span></div>
+            <div><button class="purchase-track">Buy - $1.99</button><button class="mini-play-btn">▶ Play</button></div>
+        </div>
+        <div class="track-item" data-id="track-8" data-src="public/audio/Blind and Battered [Explicit]/samples/08-sample.mp3" data-full-src="public/audio/Blind and Battered [Explicit]/08 - Just a Gimmick [Explicit].mp3">
+            <div><span class="track-number">8.</span><span class="track-name">Just a Gimmick</span><span class="track-status preview">Preview</span></div>
+            <div><button class="purchase-track">Buy - $1.99</button><button class="mini-play-btn">▶ Play</button></div>
+        </div>
+        <div class="track-item" data-id="track-9" data-src="public/audio/Blind and Battered [Explicit]/samples/09-sample.mp3" data-full-src="public/audio/Blind and Battered [Explicit]/09 - Wish I Knew Then [Explicit].mp3">
+            <div><span class="track-number">9.</span><span class="track-name">Wish I Knew Then</span><span class="track-status preview">Preview</span></div>
+            <div><button class="purchase-track">Buy - $1.99</button><button class="mini-play-btn">▶ Play</button></div>
+        </div>
+        <div class="track-item" data-id="track-10" data-src="public/audio/Blind and Battered [Explicit]/samples/10-sample.mp3" data-full-src="public/audio/Blind and Battered [Explicit]/10 - Blind and Battered [Explicit].mp3">
+            <div><span class="track-number">10.</span><span class="track-name">Blind and Battered</span><span class="track-status preview">Preview</span></div>
+            <div><button class="purchase-track">Buy - $1.99</button><button class="mini-play-btn">▶ Play</button></div>
+        </div>
+        <div class="track-item" data-id="track-11" data-src="public/audio/Blind and Battered [Explicit]/samples/11-sample.mp3" data-full-src="public/audio/Blind and Battered [Explicit]/11 - Smoother Than Woodgrain [Explicit].mp3">
+            <div><span class="track-number">11.</span><span class="track-name">Smoother Than Woodgrain</span><span class="track-status preview">Preview</span></div>
+            <div><button class="purchase-track">Buy - $1.99</button><button class="mini-play-btn">▶ Play</button></div>
+        </div>
+        <div class="track-item" data-id="track-12" data-src="public/audio/Blind and Battered [Explicit]/samples/12-sample.mp3" data-full-src="public/audio/Blind and Battered [Explicit]/12 - Touch You [Explicit].mp3">
+            <div><span class="track-number">12.</span><span class="track-name">Touch You</span><span class="track-status preview">Preview</span></div>
+            <div><button class="purchase-track">Buy - $1.99</button><button class="mini-play-btn">▶ Play</button></div>
+        </div>
+        <div class="track-item" data-id="track-13" data-src="public/audio/Blind and Battered [Explicit]/samples/13-sample.mp3" data-full-src="public/audio/Blind and Battered [Explicit]/13 - Life of Magic [Explicit].mp3">
+            <div><span class="track-number">13.</span><span class="track-name">Life of Magic</span><span class="track-status preview">Preview</span></div>
+            <div><button class="purchase-track">Buy - $1.99</button><button class="mini-play-btn">▶ Play</button></div>
+        </div>
+        <div class="track-item" data-id="track-14" data-src="public/audio/Blind and Battered [Explicit]/samples/14-sample.mp3" data-full-src="public/audio/Blind and Battered [Explicit]/14 - Its Going Down [Explicit].mp3">
+            <div><span class="track-number">14.</span><span class="track-name">Its Going Down</span><span class="track-status preview">Preview</span></div>
+            <div><button class="purchase-track">Buy - $1.99</button><button class="mini-play-btn">▶ Play</button></div>
+        </div>
+        <div class="track-item" data-id="track-15" data-src="public/audio/Blind and Battered [Explicit]/samples/15-sample.mp3" data-full-src="public/audio/Blind and Battered [Explicit]/15 - One Way In [Explicit].mp3">
+            <div><span class="track-number">15.</span><span class="track-name">One Way In</span><span class="track-status preview">Preview</span></div>
+            <div><button class="purchase-track">Buy - $1.99</button><button class="mini-play-btn">▶ Play</button></div>
+        </div>
+        <div class="track-item" data-id="track-16" data-src="public/audio/Blind and Battered [Explicit]/samples/16-sample.mp3" data-full-src="public/audio/Blind and Battered [Explicit]/16 - Crispy Game [Explicit].mp3">
+            <div><span class="track-number">16.</span><span class="track-name">Crispy Game</span><span class="track-status preview">Preview</span></div>
+            <div><button class="purchase-track">Buy - $1.99</button><button class="mini-play-btn">▶ Play</button></div>
+        </div>
+        <div class="track-item" data-id="track-17" data-src="public/audio/Blind and Battered [Explicit]/samples/17-sample.mp3" data-full-src="public/audio/Blind and Battered [Explicit]/17 - The End of the World [Explicit].mp3">
+            <div><span class="track-number">17.</span><span class="track-name">The End of the World</span><span class="track-status preview">Preview</span></div>
+            <div><button class="purchase-track">Buy - $1.99</button><button class="mini-play-btn">▶ Play</button></div>
+        </div>
+        <div class="track-item" data-id="track-18" data-src="public/audio/Blind and Battered [Explicit]/samples/18-sample.mp3" data-full-src="public/audio/Blind and Battered [Explicit]/18 - Smell of Victory [Explicit].mp3">
+            <div><span class="track-number">18.</span><span class="track-name">Smell of Victory</span><span class="track-status preview">Preview</span></div>
+            <div><button class="purchase-track">Buy - $1.99</button><button class="mini-play-btn">▶ Play</button></div>
+        </div>
+        <div class="track-item" data-id="track-19" data-src="public/audio/Blind and Battered [Explicit]/samples/19-sample.mp3" data-full-src="public/audio/Blind and Battered [Explicit]/19 - Do the I'm the Shit [Explicit].mp3">
+            <div><span class="track-number">19.</span><span class="track-name">Do the I'm the Shit</span><span class="track-status preview">Preview</span></div>
+            <div><button class="purchase-track">Buy - $1.99</button><button class="mini-play-btn">▶ Play</button></div>
+        </div>
+        <div class="track-item" data-id="track-20" data-src="public/audio/Blind and Battered [Explicit]/samples/20-sample.mp3" data-full-src="public/audio/Blind and Battered [Explicit]/20 - Hatin On a Blind Man [Explicit].mp3">
+            <div><span class="track-number">20.</span><span class="track-name">Hatin On a Blind Man</span><span class="track-status preview">Preview</span></div>
+            <div><button class="purchase-track">Buy - $1.99</button><button class="mini-play-btn">▶ Play</button></div>
+        </div>
+    </div>
+    <button class="purchase-btn purchase-album">Buy Album - $9.99</button>
+    <!-- PayPal Containers -->
+    <div id="paypal-album-container" class="paypal-container" style="display:none">
+        <h3>Complete Album Purchase</h3>
+        <p>Click the PayPal button below to purchase the full album for $9.99</p>
+    </div>
+    <div id="paypal-track-container" class="paypal-container" style="display:none">
+        <h3>Complete Track Purchase</h3>
+        <p>Click the PayPal button below to purchase this track for $1.99</p>
+    </div>
+
+    <!-- Social Media Links -->
+    <div class="social-links">
+        <a href="https://youtube.com/@MacWayneOfficial" target="_blank" rel="noopener">
+            <i class="fab fa-youtube"></i> YouTube
+        </a>
+        <a href="https://twitter.com/MacWayneOfficial" target="_blank" rel="noopener">
+            <i class="fab fa-twitter"></i> Twitter
+        </a>
+        <a href="https://instagram.com/macwayneofficial" target="_blank" rel="noopener">
+            <i class="fab fa-instagram"></i> Instagram
+        </a>
+    </div>
+
+    <!-- Scripts -->
+    <script src="js/new-audio-player.js"></script>
+    <script src="js/animations.js"></script>
+</body>
+</html>

@@ -35,7 +35,7 @@ class CryptoMasterController {
 
     async _performInitialization() {
         try {
-            console.log('🚀 Initializing Mac Wayne Crypto Master Controller...');
+
             
             // Show loading indicator
             this.showLoadingIndicator();
@@ -67,7 +67,7 @@ class CryptoMasterController {
             this.isInitialized = true;
             this.hideLoadingIndicator();
             
-            console.log('✅ Mac Wayne Crypto System initialized successfully');
+
             this.emit('system:initialized', this.systemState);
             
         } catch (error) {
@@ -78,7 +78,7 @@ class CryptoMasterController {
     }
 
     async loadCoreModules() {
-        console.log('📦 Loading core cryptocurrency modules...');
+
         
         const modulePromises = [
             this.loadModule('walletIntegration', '/js/wallet-integration.js'),
@@ -90,7 +90,7 @@ class CryptoMasterController {
         ];
         
         await Promise.all(modulePromises);
-        console.log('✅ All core modules loaded');
+
     }
 
     async loadModule(moduleName, scriptPath) {
@@ -108,7 +108,7 @@ class CryptoMasterController {
             await this.waitForModule(moduleName);
             
             this.modules[moduleName] = window[moduleName];
-            console.log(`✅ Module ${moduleName} loaded`);
+
             
         } catch (error) {
             console.error(`❌ Failed to load module ${moduleName}:`, error);
@@ -152,7 +152,7 @@ class CryptoMasterController {
     }
 
     async initializeWalletSystem() {
-        console.log('💰 Initializing wallet system...');
+
         
         if (this.modules.walletIntegration) {
             // Initialize wallet providers
@@ -177,14 +177,14 @@ class CryptoMasterController {
                 try {
                     await this.modules.walletIntegration.connectWallet(lastWallet);
                 } catch (error) {
-                    console.log('Failed to auto-connect wallet:', error.message);
+
                 }
             }
         }
     }
 
     async initializeMarketData() {
-        console.log('📊 Initializing market data system...');
+
         
         if (this.modules.marketData) {
             // Initialize market data fetching
@@ -212,7 +212,7 @@ class CryptoMasterController {
     }
 
     async initializeSmartContracts() {
-        console.log('📋 Initializing smart contracts...');
+
         
         if (this.modules.smartContracts) {
             // Initialize contract connections
@@ -236,7 +236,7 @@ class CryptoMasterController {
     }
 
     async initializeValueGeneration() {
-        console.log('💎 Initializing value generation systems...');
+
         
         if (this.modules.valueGeneration) {
             // Initialize staking pools
@@ -262,7 +262,7 @@ class CryptoMasterController {
     }
 
     async initializeMarketplace() {
-        console.log('🏪 Initializing marketplace integration...');
+
         
         if (this.modules.marketplaceIntegration) {
             // Initialize exchange connections
@@ -286,7 +286,7 @@ class CryptoMasterController {
     }
 
     async initializeUserExperience() {
-        console.log('👤 Initializing user experience system...');
+
         
         if (this.modules.userExperience) {
             // Initialize UX optimizations
@@ -306,7 +306,7 @@ class CryptoMasterController {
     }
 
     setupModuleCommunication() {
-        console.log('🔗 Setting up inter-module communication...');
+
         
         // Wallet connection affects all other modules
         this.on('wallet:connected', async (walletInfo) => {
@@ -344,7 +344,7 @@ class CryptoMasterController {
     }
 
     initializeUI() {
-        console.log('🎨 Initializing UI components...');
+
         
         // Setup main navigation
         this.setupMainNavigation();
@@ -580,7 +580,7 @@ class CryptoMasterController {
     }
 
     async performSystemCheck() {
-        console.log('🔍 Performing system health check...');
+
         
         const checks = [
             this.checkWalletSystem(),
@@ -600,7 +600,7 @@ class CryptoMasterController {
                 console.warn(`Check ${index + 1} failed:`, failure.reason);
             });
         } else {
-            console.log('✅ All system checks passed');
+
         }
     }
 
@@ -977,7 +977,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         // Make controller globally available
         window.cryptoSystem = cryptoMasterController;
         
-        console.log('🎉 Mac Wayne Crypto System ready!');
+
     } catch (error) {
         console.error('🚨 Failed to initialize crypto system:', error);
     }

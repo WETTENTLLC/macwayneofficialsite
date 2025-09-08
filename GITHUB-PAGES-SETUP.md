@@ -15,7 +15,7 @@ To enable GitHub Pages for your Mac Wayne website, you need to configure it in y
 
 3. **Configure GitHub Pages:**
    - Under **"Source"**, select **"GitHub Actions"**
-   - This will use our existing workflow file (`.github/workflows/deploy.yml`)
+   - This will use our existing workflow file (`.github/workflows/pagesdeploy.yml`)
 
 4. **Save and Deploy:**
    - The site will automatically deploy using our GitHub Actions workflow

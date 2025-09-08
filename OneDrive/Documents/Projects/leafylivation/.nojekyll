@@ -1,0 +1,1 @@
+// This file disables Jekyll on GitHub Pages to allow folders like /next/ to be served as static assets.

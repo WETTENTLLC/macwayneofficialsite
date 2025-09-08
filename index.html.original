@@ -1,0 +1,887 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mac Wayne Official - Blind and Battered</title>
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+    
+    <!-- Advanced SEO for Accessibility Tech Companies -->
+    <meta name="keywords" content="blind rapper, accessibility technology, assistive technology, accessible music platform, inclusive design, disability tech innovation, accessible audio player, screen reader compatible, visually impaired artist, accessibility partnerships, inclusive technology, assistive music technology, digital accessibility, WCAG compliance, inclusive entertainment, accessibility consulting, disabled artists, accessible web design, audio accessibility, inclusive user experience">
+    
+    <!-- Accessibility & Tech Company Targeting -->
+    <meta name="subject" content="Accessibility Innovation in Music Technology">
+    <meta name="audience" content="Accessibility Technology Companies, Assistive Technology Developers, Inclusive Design Teams">
+    <meta name="target-companies" content="MetaView, Aris Technologies, Google Accessibility, Microsoft Accessibility, Apple Accessibility, NVDA, JAWS, Voice Dream, Be My Eyes, Aira">
+    
+    <!-- Schema.org structured data for accessibility -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Person",
+      "name": "Mac Wayne",
+      "alternateName": "The Blind Kingpin",
+      "description": "Blind hip-hop artist and accessibility technology advocate",
+      "url": "https://macwayneofficial.com",
+      "sameAs": [
+        "https://www.youtube.com/watch?v=CkDPQkDTxC8",
+        "https://www.amazon.com/gp/video/detail/B07QXJZX8M"
+      ],
+      "hasDisability": "Visual impairment",
+      "knowsAbout": [
+        "Accessibility Technology",
+        "Assistive Technology",
+        "Inclusive Design",
+        "Audio Technology",
+        "Screen Reader Technology",
+        "Accessible Entertainment"
+      ],
+      "workLocation": {
+        "@type": "Place",
+        "name": "Global Digital Accessibility Community"
+      },
+      "seeks": {
+        "@type": "BusinessEntityType",
+        "name": "Technology Partnership",
+        "description": "Collaboration opportunities with accessibility technology companies for innovative inclusive entertainment solutions"
+      }
+    }
+    </script>
+    
+    <!-- Open Graph for Social Media -->
+    <meta property="og:title" content="Mac Wayne - Blind Hip Hop Visionary | Accessibility Innovation">
+    <meta property="og:description" content="Revolutionary accessible music platform by blind hip-hop artist Mac Wayne. Experience cutting-edge accessibility technology in entertainment.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://macwayneofficial.com">
+    <meta property="og:image" content="https://macwayneofficial.com/public/Images/macwayne-logo.png">
+    
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Mac Wayne - Accessibility Innovation in Music">
+    <meta name="twitter:description" content="Blind hip-hop artist showcasing revolutionary accessibility technology">
+    <meta name="twitter:image" content="https://macwayneofficial.com/public/Images/macwayne-logo.png">
+    
+    <!-- Accessibility Tech Company Discovery -->
+    <meta name="business-collaboration" content="Seeking partnerships with accessibility technology companies">
+    <meta name="innovation-focus" content="Inclusive entertainment technology, accessible audio experiences, assistive music platforms">
+    <meta name="target-markets" content="Accessibility technology, assistive technology, inclusive design, digital accessibility consulting">
+    
+    <!-- Robot instructions for better indexing -->
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
+    <meta name="googlebot" content="index, follow">
+    
+    <!-- Language and geographic targeting -->
+    <meta name="language" content="en-US">
+    <meta name="geo.region" content="US">
+    <meta name="geo.placename" content="United States">
+    
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://macwayneofficial.com/">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Atkinson+Hyperlegible:wght@400;700&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    
+    <!-- Main Site Styles -->
+    <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="styles/components.css">
+    <link rel="stylesheet" href="styles/animations.css">
+    <!-- New Player Styles -->
+    <link rel="stylesheet" href="css/new-macwayne-player.css">
+    
+    <!-- Preload key resources -->
+    <link rel="preload" href="public/Images/macwayne-logo.png" as="image">
+    <link rel="preload" href="public/Images/macwayne-background.png" as="image">
+    
+    <!-- Content Security Policy -->
+    <meta http-equiv="Content-Security-Policy" content="
+  default-src 'self';
+  connect-src 'self' http://localhost:3000 https://www.paypal.com https://www.sandbox.paypal.com https://www.gstatic.com https://*.firebaseio.com https://7527-2607-fb91-7925-c541-a161-632f-2e78-9e9.ngrok-free.app https://firestore.googleapis.com;
+  media-src 'self' http://localhost:3000;
+  img-src 'self' data: https://www.paypalobjects.com;
+  style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdnjs.cloudflare.com;
+  font-src 'self' https://fonts.gstatic.com https://cdnjs.cloudflare.com;
+  script-src 'self' 'unsafe-inline' https://mainnet.infura.io https://rpc.walletconnect.com wss://*.bridge.walletconnect.org https://www.paypal.com https://www.gstatic.com;
+  frame-src 'self' https://www.youtube.com https://www.paypal.com https://www.sandbox.paypal.com;">
+</head>
+<body class="strange-theme">
+    <!-- Navigation -->
+    <nav class="main-nav" role="navigation" aria-label="Main Navigation">
+    <div class="nav-container">
+        <a href="index.html" class="nav-logo">
+            <img src="public/logo.svg" alt="Mac Wayne Official Logo" width="180" height="60" class="logo-img">
+        </a>
+        <ul class="nav-menu" id="main-nav-menu">
+            <li><a href="index.html" class="active" aria-current="page">Home</a></li>
+            <li><a href="index.html#music">Music</a></li>
+            <li><a href="premium.html">Premium</a></li>
+            <li><a href="live.html">Live</a></li>
+            <li><a href="shop.html">Shop</a></li>                    <li><a href="battered-coin.html">Battered Coin</a></li>
+            <li><a href="documentary.html">Documentary</a></li>
+            <li><a href="affiliate.html">Affiliates</a></li>
+            <li><a href="consulting.html">Consulting</a></li>
+            <li><a href="licensing.html">Music Licensing</a></li>
+            <li><a href="index.html#contact">Contact</a></li>
+        </ul>
+        <button class="mobile-menu-toggle" aria-label="Toggle Mobile Menu" aria-expanded="false">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+    </div>
+</nav>
+
+    <!-- Hero Logo Section -->
+    <div class="hero-logo-container">
+        <img 
+            src="public/Images/macwayne-logo.png" 
+            alt="Mac Wayne" 
+            class="hero-logo"
+            loading="eager"
+        />
+    </div>
+    
+    <div class="main-content">
+        <!-- Hero Section -->
+        <section class="strange-section hero-section">
+            <div class="hero-content">
+                <p class="hero-subtitle">OFFICIAL WEBSITE</p>
+                <div class="hero-buttons">
+                    <a href="#help-blind-man" class="strange-button">HELP THE BLIND MAN</a>
+                    <a href="shop.html" class="strange-button">SHOP MUSIC</a>
+                    <a href="#video-section" class="strange-button">WATCH VIDEOS</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Battered Coin Feature Section -->
+        <section class="strange-section battered-coin-promo">
+            <div class="coin-promo-container">
+                <div class="coin-announcement">
+                    <span class="new-badge">NEW</span>
+                    <h2 class="coin-title">INTRODUCING MAC WAYNE BATTERED COIN</h2>
+                </div>
+                <div class="coin-content">
+                    <div class="coin-info">
+                        <p class="coin-description">
+                            The world's first accessibility-focused cryptocurrency. Built by the blind community, for the blind community.
+                        </p>
+                        <div class="coin-features">
+                            <div class="feature">
+                                <i class="fas fa-universal-access"></i>
+                                <span>Accessibility First</span>
+                            </div>
+                            <div class="feature">
+                                <i class="fas fa-coins"></i>
+                                <span>Community Driven</span>
+                            </div>
+                            <div class="feature">
+                                <i class="fas fa-chart-line"></i>
+                                <span>Growing Value</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="coin-actions">
+                        <div class="coin-ticker-preview">
+                            <span class="ticker-symbol">MWB</span>
+                            <span class="ticker-price">$0.15</span>
+                            <span class="ticker-change positive">+12.5%</span>
+                        </div>
+                        <a href="battered-coin.html" class="strange-button coin-cta">
+                            EXPLORE BATTERED COIN
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Featured Video Section -->
+        <section id="video-section" class="strange-section video-section">
+            <h2 class="strange-header">WATCH NOW</h2>
+            <div class="video-container">
+                <div class="video-wrapper">
+                    <iframe 
+                        src="https://www.youtube.com/embed/CkDPQkDTxC8"
+                        title="Mac Wayne - Blind & Battered"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                        allowfullscreen
+                    ></iframe>
+                </div>
+                <p class="video-description">
+                    "Blind & Battered" - The official music video from Mac Wayne
+                </p>
+                <div class="video-cta">
+                    <a href="documentary.html" class="strange-button">
+                        VIEW FULL DOCUMENTARY
+                    </a>
+                </div>
+            </div>
+        </section>
+          
+        <!-- Help The Blind Man Section - Key Interactive Feature -->
+        <section class="strange-section help-blind-man-section" id="help-blind-man" aria-labelledby="help-blind-man-heading">
+            <div class="help-container">
+                <h2 class="strange-header">HELP THE BLIND MAN</h2>
+                <div class="help-content">
+                    <div class="story-section">
+                        <div class="blind-story">
+                            <h3 class="story-title">MAC WAYNE'S JOURNEY</h3>
+                            <p class="story-text">
+                                Mac Wayne lost his sight but never lost his vision. After going blind, he discovered his true calling in music, 
+                                using his other senses to create powerful lyrics and vocal delivery that touch the soul. His blindness isn't a limitation - 
+                                it's his superpower.
+                            </p>
+                            <div class="story-audio">
+                                <a href="documentary.html" class="story-play-btn">
+                                    <i class="fas fa-play"></i>
+                                    HEAR HIS STORY
+                                </a>
+                                <!-- <audio id="going-blind-audio" preload="metadata">
+                                    <source src="public/audio/going-blind-story.mp3" type="audio/mpeg">
+                                </audio> -->
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="interaction-section">
+                        <h3 class="interaction-title">GUIDE MAC WAYNE</h3>
+                        <p class="interaction-description">
+                            Experience what it's like to navigate the world without sight. Help guide Mac Wayne through different scenarios 
+                            and understand his daily challenges.
+                        </p>
+                        
+                        <div class="interaction-game">
+                            <div class="game-screen" id="guidance-game">
+                                <div class="scene active" data-scene="studio">
+                                    <h4>STUDIO SESSION</h4>
+                                    <p>Mac Wayne needs to find his way to the recording booth. Help guide him:</p>
+                                    <div class="direction-buttons">
+                                        <button class="direction-btn" data-direction="left" data-correct="false">
+                                            <i class="fas fa-arrow-left"></i> LEFT
+                                        </button>
+                                        <button class="direction-btn" data-direction="forward" data-correct="true">
+                                            <i class="fas fa-arrow-up"></i> STRAIGHT
+                                        </button>
+                                        <button class="direction-btn" data-direction="right" data-correct="false">
+                                            <i class="fas fa-arrow-right"></i> RIGHT
+                                        </button>
+                                    </div>
+                                    <div class="feedback" id="scene-feedback"></div>
+                                </div>
+                                
+                                <div class="scene" data-scene="stage">
+                                    <h4>ON STAGE</h4>
+                                    <p>Mac Wayne is performing. Help him locate the microphone:</p>
+                                    <div class="direction-buttons">
+                                        <button class="direction-btn" data-direction="left" data-correct="true">
+                                            <i class="fas fa-arrow-left"></i> LEFT
+                                        </button>
+                                        <button class="direction-btn" data-direction="forward" data-correct="false">
+                                            <i class="fas fa-arrow-up"></i> STRAIGHT
+                                        </button>
+                                        <button class="direction-btn" data-direction="right" data-correct="false">
+                                            <i class="fas fa-arrow-right"></i> RIGHT
+                                        </button>
+                                    </div>
+                                    <div class="feedback" id="scene-feedback-stage"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>                    
+                    <!-- Community Support Features Start -->
+                    <section id="donate-section">
+                        <h2>Make a Donation</h2>
+                        <p>Your contribution helps us provide vital support to the visually impaired.</p>
+                        <form id="donation-form">
+                            <label for="donation-amount">Donation Amount:</label>
+                            <select id="donation-amount" name="amount">
+                                <option value="10">USD $10</option>
+                                <option value="25">USD $25</option>
+                                <option value="50">USD $50</option>
+                                <option value="100">USD $100</option>
+                                <option value="custom">Custom Amount</option>
+                            </select>
+                            <input type="number" id="custom-amount" placeholder="Enter custom amount" style="display: none;">
+                            <label for="donation-type">Donation Type:</label>
+                            <select id="donation-type" name="type">
+                                <option value="one-time">One-Time</option>
+                                <option value="recurring">Monthly Recurring</option>
+                            </select>
+                            <div id="payment-element"></div>
+                            <button type="submit" id="donate-button">Donate Now</button>
+                            <div id="donation-message"></div>
+                            <div id="donation-error"></div>
+                        </form>
+                    </section>
+                    <section id="volunteer-section">
+                        <h2>Become a Volunteer</h2>
+                        <p>Your time and effort can make a significant difference. Sign up to volunteer!</p>
+                        <form id="volunteer-form">
+                            <label for="volunteer-name">Your Name:</label>
+                            <input type="text" id="volunteer-name" required>
+                            <label for="volunteer-email">Your Email:</label>
+                            <input type="email" id="volunteer-email" required>
+                            <label for="volunteer-phone">Phone Number (Optional):</label>
+                            <input type="tel" id="volunteer-phone">
+                            <label for="volunteer-availability">Availability/Preferences:</label>
+                            <textarea id="volunteer-availability" rows="4" placeholder="Tell us about your availability, skills, or what kind of volunteering you're interested in."></textarea>
+                            <button type="submit" id="volunteer-submit-button">Sign Up to Volunteer</button>
+                            <div id="volunteer-message"></div>
+                            <div id="volunteer-error"></div>
+                        </form>
+                    </section>
+                    <section id="resources-section">
+                        <h2>Educational Resources</h2>
+                        <p>Learn more about supporting individuals with visual impairments.</p>
+                        <div id="resources-list">
+                            <p>Loading resources...</p>
+                        </div>
+                        <div id="resources-error"></div>
+                    </section>
+                    <section id="stories-section">
+                        <h2>Impact Stories & Testimonials</h2>
+                        <p>Read about the difference your support makes.</p>
+                        <div id="stories-list">
+                            <p>Loading stories...</p>
+                        </div>
+                        <div id="stories-error"></div>
+                    </section>
+                    <section id="contact-section">
+                        <h2>Contact Us</h2>
+                        <p>Have questions or want to get in touch? Send us a message.</p>
+                        <form id="contact-form">
+                            <label for="contact-name">Your Name:</label>
+                            <input type="text" id="contact-name" required>
+                            <label for="contact-email">Your Email:</label>
+                            <input type="email" id="contact-email" required>
+                            <label for="contact-message">Your Message:</label>
+                            <textarea id="contact-message" rows="6" required></textarea>
+                            <button type="submit" id="contact-submit-button">Send Message</button>
+                            <div id="contact-message-status"></div>
+                            <div id="contact-error"></div>
+                        </form>
+                    </section>
+                    <!-- Community Support Features End -->
+                    <div class="support-mac-wayne-links">
+                        <h3 class="support-title">MORE WAYS TO SUPPORT</h3>
+                        <p class="support-description">
+                            Your support empowers Mac Wayne to continue breaking barriers and creating impactful art. Explore these avenues to contribute to his journey:
+                        </p>
+                        <div class="support-grid">
+                            <a href="index.html#macwayne-audio-player" class="support-card music-card">
+                                <div class="support-icon">
+                                    <i class="fas fa-music"></i>
+                                </div>
+                                <div class="support-content">
+                                    <h4 class="support-card-title">Purchase Music</h4>
+                                    <p class="support-card-description">Buy tracks & albums to directly support Mac Wayne's artistry</p>
+                                    <span class="support-card-action">Shop Music <i class="fas fa-arrow-right"></i></span>
+                                </div>
+                            </a>
+                            
+                            <a href="licensing.html" class="support-card licensing-card">
+                                <div class="support-icon">
+                                    <i class="fas fa-copyright"></i>
+                                </div>
+                                <div class="support-content">
+                                    <h4 class="support-card-title">License Tracks</h4>
+                                    <p class="support-card-description">Use Mac Wayne's music in your projects and productions</p>
+                                    <span class="support-card-action">Get License <i class="fas fa-arrow-right"></i></span>
+                                </div>
+                            </a>
+                            
+                            <a href="consulting.html" class="support-card consulting-card">
+                                <div class="support-icon">
+                                    <i class="fas fa-universal-access"></i>
+                                </div>
+                                <div class="support-content">
+                                    <h4 class="support-card-title">Accessibility Consulting</h4>
+                                    <p class="support-card-description">Book Mac Wayne for accessibility and inclusion consulting</p>
+                                    <span class="support-card-action">Book Session <i class="fas fa-arrow-right"></i></span>
+                                </div>
+                            </a>
+                              <a href="battered-coin.html" class="support-card tokens-card">
+                                <div class="support-icon">
+                                    <i class="fas fa-star"></i>
+                                </div>
+                                <div class="support-content">
+                                    <h4 class="support-card-title">Fan Rewards Program</h4>
+                                    <p class="support-card-description">Earn points and unlock exclusive perks through fan engagement</p>
+                                    <span class="support-card-action">Join Program <i class="fas fa-arrow-right"></i></span>
+                                </div>
+                            </a>
+                            
+                            <a href="battered-coin.html" class="support-card crypto-card">
+                                <div class="support-icon">
+                                    <i class="fas fa-coins"></i>
+                                </div>
+                                <div class="support-content">
+                                    <h4 class="support-card-title">Battered Coin Crypto</h4>
+                                    <p class="support-card-description">Mac Wayne's cryptocurrency & NFT ecosystem on Ethereum</p>
+                                    <span class="support-card-action">Explore BTRC <i class="fas fa-arrow-right"></i></span>
+                                </div>
+                            </a>
+                            
+                            <a href="affiliate.html" class="support-card affiliate-card">
+                                <div class="support-icon">
+                                    <i class="fas fa-handshake"></i>
+                                </div>
+                                <div class="support-content">
+                                    <h4 class="support-card-title">Affiliate Program</h4>
+                                    <p class="support-card-description">Earn by promoting Mac Wayne's music and mission</p>
+                                    <span class="support-card-action">Join Program <i class="fas fa-arrow-right"></i></span>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- Music Section -->
+        <section id="music" class="strange-section music-section">
+            <div class="container">
+                <div class="album-relaunch-announcement">
+                    <h2>THE LEGEND RETURNS: "Blind and Battered" - The Re-Release</h2>
+                    <p class="story-intro">Originally unleashed in 2010, Mac Wayne's iconic album "Blind and Battered" is back. After a long hiatus, Mac Wayne is out and ready to reclaim his throne. This re-release isn't just music; it's a testament to resilience, a story of a comeback, and a fresh chance to experience the raw energy that defines Mac Wayne. Every track tells a story, every verse hits harder. This is more than an album – it's a statement.</p>
+                    <p class="album-details"><strong>Album:</strong> Blind and Battered (Re-Release)<br>
+                    <strong>Artist:</strong> Mac Wayne<br>
+                    <strong>Original Release:</strong> 2010</p>
+                </div>
+        
+                <!-- New Audio Player -->
+                <div id="macwayne-player" class="macwayne-player-v2">
+                    <audio id="audio-element" preload="metadata"></audio>
+                    
+                    <div class="player-main-display">
+                        <img id="album-art" src="public/Images/macwayne-background.png" alt="Album Art for Blind and Battered" class="player-album-art">
+                        <div class="player-track-info">
+                            <h3 id="track-title">Select a track</h3>
+                            <p id="track-artist">Mac Wayne</p>
+                        </div>
+                    </div>
+
+                    <div class="player-progress-section">
+                        <input type="range" id="progress-bar" class="player-progress-bar" value="0" min="0" max="100" step="0.1" aria-label="Track Progress">
+                        <div class="player-time-display">
+                            <span id="current-time">0:00</span>
+                            <span id="duration">0:00</span>
+                        </div>
+                    </div>
+
+                    <div class="player-controls">
+                        <button id="prev-button" class="player-control-btn" aria-label="Previous Track"><i class="fas fa-step-backward"></i></button>
+                        <button id="play-pause-button" class="player-control-btn play-pause-btn" aria-label="Play Track"><i class="fas fa-play"></i></button>
+                        <button id="next-button" class="player-control-btn" aria-label="Next Track"><i class="fas fa-step-forward"></i></button>
+                        <input type="range" id="volume-control" class="player-volume-slider" value="100" min="0" max="100" step="1" aria-label="Volume Control">
+                    </div>
+
+                    <div class="player-purchase-options">
+                        <button id="stream-album-btn" class="purchase-btn stream"><i class="fas fa-stream"></i> Stream Full Album ($5.00)</button>
+                        <button id="download-album-btn" class="purchase-btn download"><i class="fas fa-download"></i> Download Full Album ($15.00)</button>
+                    </div>
+
+                    <ul id="playlist" class="player-playlist">
+                        <!-- Track items will be dynamically inserted here by JavaScript -->
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+          <!-- Upcoming Shows -->
+        <section id="tour" class="strange-section shows-section">
+            <h2 class="strange-header">UPCOMING SHOWS</h2>
+            
+            <!-- Coming Soon Message -->
+            <div class="coming-soon-container">
+                <div class="coming-soon-announcement">
+                    <i class="fas fa-calendar-alt coming-soon-icon"></i>
+                    <h3 class="coming-soon-title">COMING SOON</h3>
+                    <p class="coming-soon-description">
+                        Mac Wayne is planning his comeback tour! Live performances and exclusive streaming shows are in the works. 
+                        Be the first to know when tickets go on sale.
+                    </p>
+                </div>
+                
+                <!-- Show Notification Signup -->
+                <div class="show-notifications-signup">
+                    <h4 class="signup-title">GET NOTIFIED ABOUT SHOWS</h4>
+                    <p class="signup-description">
+                        Sign up to receive exclusive notifications about upcoming live performances, virtual concerts, and streaming events.
+                    </p>
+                    
+                    <form class="show-signup-form" id="show-notifications-form">
+                        <div class="signup-form-grid">
+                            <div class="form-group">
+                                <input type="text" placeholder="Your Name" class="strange-input" name="name" required />
+                            </div>
+                            <div class="form-group">
+                                <input type="email" placeholder="Your Email" class="strange-input" name="email" required />
+                            </div>
+                            <div class="form-group">
+                                <select class="strange-input" name="showType" required>
+                                    <option value="">Show Type Preference</option>
+                                    <option value="live">Live Performances</option>
+                                    <option value="streaming">Live Streaming</option>
+                                    <option value="both">Both Live & Streaming</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <input type="text" placeholder="City (Optional)" class="strange-input" name="city" />
+                            </div>
+                        </div>
+                        
+                        <div class="notification-preferences">
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="earlyAccess" value="yes">
+                                <span class="checkmark"></span>
+                                Early access to tickets
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="backstageUpdates" value="yes">
+                                <span class="checkmark"></span>
+                                Behind-the-scenes updates
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="streamingAlerts" value="yes" checked>
+                                <span class="checkmark"></span>
+                                Live streaming notifications
+                            </label>
+                        </div>
+                        
+                        <button type="submit" class="strange-button notification-signup-btn">
+                            <i class="fas fa-bell"></i> NOTIFY ME ABOUT SHOWS
+                        </button>
+                    </form>
+                    
+                    <div class="signup-success-message" id="show-signup-success" style="display: none;">
+                        <i class="fas fa-check-circle"></i>
+                        <p>You're all set! We'll notify you as soon as Mac Wayne announces upcoming shows.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Newsletter -->
+        <section id="contact" class="strange-section newsletter-section">
+            <h2 class="strange-header">JOIN THE FANBASE</h2>
+            <div class="newsletter-form">
+                <p class="newsletter-description">Subscribe to get updates on new music, videos, tour dates, and exclusive content.</p>
+                <form class="newsletter-form-grid" id="newsletter-form">
+                    <div class="form-group">
+                        <input type="text" placeholder="Your Name" class="strange-input" name="name" required />
+                    </div>
+                    <div class="form-group">
+                        <input type="email" placeholder="Your Email" class="strange-input" name="email" required />
+                    </div>
+                    <div class="form-submit">
+                        <button type="submit" class="strange-button">SUBSCRIBE</button>
+                    </div>
+                </form>
+            </div>
+        </section>
+        
+        <!-- Encouragement Modal -->
+        <div id="encouragement-modal" class="modal" style="display: none;">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3>Send Encouragement to Mac Wayne</h3>
+                    <span class="close-modal" onclick="closeEncouragementModal()">&times;</span>
+                </div>
+                <div class="modal-body">
+                    <p>Your words of encouragement mean everything to Mac Wayne. Share your thoughts, support, or just let him know you're listening!</p>
+                    <form id="encouragement-form">
+                        <div class="form-group">
+                            <label for="encourager-name">Your Name (optional):</label>
+                            <input type="text" id="encourager-name" class="strange-input" placeholder="Anonymous supporter">
+                        </div>
+                        <div class="form-group">
+                            <label for="encouragement-message">Your Message:</label>
+                            <textarea id="encouragement-message" class="strange-input" rows="4" placeholder="Write your encouraging message here..." required></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label>
+                                <input type="checkbox" id="share-publicly" style="margin-right: 0.5rem;">
+                                Allow this message to be shared publicly on the website
+                            </label>
+                        </div>
+                        <button type="submit" class="strange-button">SEND ENCOURAGEMENT</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- Development Note -->
+    <div class="dev-note" style="margin-top: 1rem; padding: 1rem; background: rgba(100, 100, 100, 0.2); border-radius: 8px; font-size: 0.875rem; color: #888;">
+            <strong>Development Note:</strong> All tracks are in 30-second preview mode. 
+            Open browser console and type <code>unlockTracks()</code> to test full playback.
+            Type <code>testPreviewMode()</code> to check preview status.
+        </div>
+    </div>    
+    
+    <!-- PayPal SDK (for payment buttons) -->
+    <script src="https://www.paypal.com/sdk/js?client-id=AXJxMSZ5Ab8qMfPIwXlRSsuDGOYzUzl-WELr5qI6h_2-R8TzlUCIqR-xAppjTv-WxVCPGDocJXM_YJ5M&currency=USD&intent=capture&disable-funding=card"></script>
+    <!-- JavaScript Files -->
+    <script src="js/main.js"></script>
+    <script src="js/macwayne-player.js" defer></script>
+    <script src="js/animations.js"></script>
+    <script src="js/help-blind-man.js"></script>
+    <!-- Firebase -->
+    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-firestore-compat.js"></script>
+    <script>
+    // --- Firebase Initialization ---
+    // IMPORTANT: Replace these placeholder values with your actual Firebase project configuration.
+    // You can find these in your Firebase project settings.
+    const firebaseConfig = {
+        apiKey: "AIzaSyArzPAcNlT1RJzIx7zCk4PbbHn71OAOQL8",
+        authDomain: "mac-wayne-site.firebaseapp.com",
+        projectId: "mac-wayne-site",
+        storageBucket: "mac-wayne-site.appspot.com",
+        messagingSenderId: "1042802261560",
+        appId: "1:1042802261560:web:0adf8bde78a5292f86f0cd"
+    };
+    const app = firebase.initializeApp(firebaseConfig);
+    const db = firebase.firestore();
+    const auth = firebase.auth();
+    // --- Real-Time Assistance Logic (Conceptual, see comments for production needs) ---
+    document.addEventListener('DOMContentLoaded', () => {
+        // --- Mac Wayne's Side ---
+        const requestHelpButton = document.getElementById('request-help-button');
+        const macwayneStatus = document.getElementById('macwayne-status');
+        const remoteAudio = document.getElementById('remote-audio');
+        let peerConnection, localStream, currentCallDocRef;
+        const servers = { iceServers: [{ urls: 'stun:stun.l.google.com:19302' }] };
+        async function createPeerConnection() {
+            peerConnection = new RTCPeerConnection(servers);
+            peerConnection.onicecandidate = async (event) => {
+                if (event.candidate && currentCallDocRef) {
+                    await currentCallDocRef.collection('iceCandidates').add({
+                        candidate: event.candidate.toJSON(),
+                        type: 'local'
+                    });
+                }
+            };
+            peerConnection.ontrack = (event) => {
+                if (remoteAudio) remoteAudio.srcObject = event.streams[0];
+            };
+        }
+        function listenForIceCandidates(callDocRef) {
+            callDocRef.collection('iceCandidates').onSnapshot(snapshot => {
+                snapshot.docChanges().forEach(async change => {
+                    if (change.type === 'added') {
+                        const candidate = new RTCIceCandidate(change.doc.data().candidate);
+                        if (peerConnection) await peerConnection.addIceCandidate(candidate);
+                    }
+                });
+            });
+        }
+        if (requestHelpButton) {
+            requestHelpButton.addEventListener('click', async () => {
+                macwayneStatus.textContent = 'Status: Requesting help...';
+                try {
+                    currentCallDocRef = await db.collection('calls').add({
+                        callerId: auth.currentUser ? auth.currentUser.uid : 'MacWayne123',
+                        status: 'ringing',
+                        timestamp: firebase.firestore.FieldValue.serverTimestamp()
+                    });
+                    currentCallDocRef.onSnapshot(async (snapshot) => {
+                        const data = snapshot.data();
+                        if (data && data.answer && !peerConnection) {
+                            macwayneStatus.textContent = 'Status: Connecting...';
+                            await createPeerConnection();
+                            await peerConnection.setRemoteDescription(new RTCSessionDescription(data.answer));
+                            listenForIceCandidates(currentCallDocRef);
+                        } else if (data && data.status === 'ended') {
+                            macwayneStatus.textContent = 'Status: Call ended by volunteer.';
+                            if (peerConnection) peerConnection.close();
+                            peerConnection = null;
+                            if (remoteAudio) remoteAudio.srcObject = null;
+                        }
+                    });
+                    listenForIceCandidates(currentCallDocRef);
+                } catch (error) {
+                    macwayneStatus.textContent = 'Status: Error requesting help.';
+                }
+            });
+        }
+        // --- Volunteer Dashboard ---
+        const assistanceRequestsDiv = document.getElementById('assistance-requests');
+        const activeCallPanel = document.getElementById('active-call-panel');
+        const connectedUserIdSpan = document.getElementById('connected-user-id');
+        const endCallButton = document.getElementById('end-call-button');
+        const volunteerEmailInput = document.getElementById('volunteer-email');
+        const volunteerPasswordInput = document.getElementById('volunteer-password');
+        const volunteerLoginButton = document.getElementById('volunteer-login-button');
+        const volunteerLogoutButton = document.getElementById('volunteer-logout-button');
+        const authStatus = document.getElementById('auth-status');
+        let unsubscribeRequests;
+        if (volunteerLoginButton) {
+            volunteerLoginButton.addEventListener('click', async () => {
+                const email = volunteerEmailInput.value;
+                const password = volunteerPasswordInput.value;
+                try {
+                    await auth.signInWithEmailAndPassword(email, password);
+                    authStatus.textContent = 'Logged in as Volunteer!';
+                    volunteerLoginButton.style.display = 'none';
+                    volunteerLogoutButton.style.display = 'inline';
+                    listenForHelpRequests();
+                } catch (error) {
+                    authStatus.textContent = `Login failed: ${error.message}`;
+                }
+            });
+            volunteerLogoutButton.addEventListener('click', async () => {
+                await auth.signOut();
+                authStatus.textContent = 'Logged out.';
+                volunteerLoginButton.style.display = 'inline';
+                volunteerLogoutButton.style.display = 'none';
+                if (unsubscribeRequests) unsubscribeRequests();
+            });
+            auth.onAuthStateChanged(user => {
+                if (user) {
+                    authStatus.textContent = `Logged in as ${user.email}`;
+                    volunteerLoginButton.style.display = 'none';
+                    volunteerLogoutButton.style.display = 'inline';
+                    listenForHelpRequests();
+                } else {
+                    authStatus.textContent = 'Please log in as a volunteer.';
+                    volunteerLoginButton.style.display = 'inline';
+                    volunteerLogoutButton.style.display = 'none';
+                }
+            });
+        }
+        function listenForHelpRequests() {
+            if (!auth.currentUser) return;
+            if (unsubscribeRequests) unsubscribeRequests();
+            unsubscribeRequests = db.collection('calls')
+                .where('status', '==', 'ringing')
+                .orderBy('timestamp', 'asc')
+                .onSnapshot((snapshot) => {
+                    assistanceRequestsDiv.innerHTML = '';
+                    if (snapshot.empty) {
+                        assistanceRequestsDiv.innerHTML = '<p>No active requests.</p>';
+                        return;
+                    }
+                    snapshot.forEach(doc => {
+                        const request = doc.data();
+                        const requestId = doc.id;
+                        const requestItem = document.createElement('div');
+                        requestItem.innerHTML = `<p>Help request from ${request.callerId}</p>`;
+                        const acceptButton = document.createElement('button');
+                        acceptButton.textContent = 'Accept Call';
+                        acceptButton.addEventListener('click', async () => {
+                            if (peerConnection) {
+                                alert('Already in a call. Please end current call first.');
+                                return;
+                            }
+                            activeCallPanel.style.display = 'block';
+                            connectedUserIdSpan.textContent = request.callerId;
+                            assistanceRequestsDiv.innerHTML = '';
+                            await doc.ref.update({ status: 'accepted', volunteerId: auth.currentUser.uid });
+                            doc.ref.onSnapshot(async (snapshotData) => {
+                                const data = snapshotData.data();
+                                if (data && data.offer && !peerConnection) {
+                                    await createPeerConnection();
+                                    await peerConnection.setRemoteDescription(new RTCSessionDescription(data.offer));
+                                    const answer = await peerConnection.createAnswer();
+                                    await peerConnection.setLocalDescription(answer);
+                                    await doc.ref.update({ answer: { type: answer.type, sdp: answer.sdp } });
+                                    listenForIceCandidates(doc.ref);
+                                } else if (data && data.status === 'ended') {
+                                    alert('Call ended by Mac Wayne.');
+                                    if (peerConnection) peerConnection.close();
+                                    peerConnection = null;
+                                }
+                            });
+                            listenForIceCandidates(doc.ref);
+                        });
+                        requestItem.appendChild(acceptButton);
+                        assistanceRequestsDiv.appendChild(requestItem);
+                    });
+                });
+        }
+        if (endCallButton) {
+            endCallButton.addEventListener('click', async () => {
+                if (currentCallDocRef) {
+                    await currentCallDocRef.update({ status: 'ended' });
+                    if (peerConnection) peerConnection.close();
+                    peerConnection = null;
+                    if (remoteAudio) remoteAudio.srcObject = null;
+                    if (activeCallPanel) activeCallPanel.style.display = 'none';
+                }
+            });
+        }
+        // --- Text-to-Speech for Prompts ---
+        const voicePromptInput = document.getElementById('voice-prompt-input');
+        const sendVoicePromptButton = document.getElementById('send-voice-prompt-button');
+        if (sendVoicePromptButton) {
+            sendVoicePromptButton.addEventListener('click', async () => {
+                const text = voicePromptInput.value;
+                if (text && currentCallDocRef) {
+                    await currentCallDocRef.collection('prompts').add({
+                        text: text,
+                        timestamp: firebase.firestore.FieldValue.serverTimestamp()
+                    });
+                    voicePromptInput.value = '';
+                }
+            });
+        }
+        // --- Mac Wayne's Side: Listen for Prompts and Speak ---
+        if (macwayneStatus) {
+            db.collection('calls').where('callerId', '==', auth.currentUser ? auth.currentUser.uid : 'MacWayne123')
+                .onSnapshot(querySnapshot => {
+                    querySnapshot.forEach(doc => {
+                        doc.ref.collection('prompts').orderBy('timestamp', 'desc').limit(1).onSnapshot(promptSnapshot => {
+                            promptSnapshot.forEach(promptDoc => {
+                                const prompt = promptDoc.data();
+                                if ('speechSynthesis' in window) {
+                                    const utterance = new SpeechSynthesisUtterance(prompt.text);
+                                    utterance.lang = 'en-US';
+                                    window.speechSynthesis.speak(utterance);
+                                }
+                            });
+                        });
+                    });
+                });
+        }
+    });
+    </script>
+    <!-- LIVE INTERACTIVE ASSISTANCE: Help the Blind Man -->
+            <section id="macwayne-help-section" class="strange-section">
+                <h2 class="strange-header">Mac Wayne's Live Assistance Panel</h2>
+                <p>Press the button below to request live voice assistance from a volunteer.</p>
+                <button id="request-help-button">Request Live Help</button>
+                <p id="macwayne-status">Status: Idle</p>
+                <audio id="remote-audio" autoplay></audio>
+            </section>
+            <!-- Volunteer Dashboard (for authenticated helpers) -->
+            <section id="volunteer-dashboard-section" class="strange-section">
+                <h2 class="strange-header">Volunteer Dashboard</h2>
+                <p>Live assistance requests:</p>
+                <div id="assistance-requests">
+                    <p>No active requests.</p>
+                </div>
+                <div id="active-call-panel" style="display: none;">
+                    <h3>Active Call</h3>
+                    <p>Connected to: <span id="connected-user-id"></span></p>
+                    <input type="text" id="voice-prompt-input" placeholder="Type prompt here for Mac Wayne">
+                    <button id="send-voice-prompt-button">Send Voice Prompt (TTS)</button>
+                    <button id="start-voice-stream-button">Start Live Voice Stream</button>
+                    <button id="end-call-button">End Call</button>
+                    <p>Mac Wayne says: <span id="macwayne-transcription"></span></p>
+                </div>
+                <div>
+                    <h3>Volunteer Login</h3>
+                    <input type="email" id="volunteer-email-login" placeholder="Email">
+                    <input type="password" id="volunteer-password" placeholder="Password">
+                    <button id="volunteer-login-button">Login</button>
+                    <button id="volunteer-logout-button" style="display:none;">Logout</button>
+                    <p id="auth-status"></p>
+                </div>
+            </section>
