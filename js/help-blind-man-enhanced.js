@@ -146,33 +146,47 @@ class HelpBlindManEnhanced {
     }
 
     showPayPalDonation() {
-        // Use the same modal system as the existing purchase system
+        // Show real payment options instead of demo
         const modal = document.createElement('div');
         modal.className = 'purchase-modal donation-modal';
         modal.innerHTML = `
             <div class="modal-content">
-                <h3>Support Mac Wayne</h3>
+                <h3>Support Mac Wayne - $${this.donationAmount}</h3>
                 <div class="donation-details">
-                    <div class="donation-amount-display">
-                        <h4>Donation Amount: $${this.donationAmount}</h4>
-                        <p>Your support helps keep Mac Wayne creating music and spreading awareness.</p>
+                    <div class="demo-notice">
+                        <p><strong>⚠️ Demo Mode:</strong> Payment processing is not yet active on this site.</p>
+                        <p>Please use one of these real payment methods to support Mac Wayne:</p>
                     </div>
-                    <div class="payment-options">
-                        <button class="btn-purchase donation-btn-process" data-amount="${this.donationAmount}">
-                            💳 Donate with Card/PayPal
-                        </button>
-                        <p class="payment-note">Secure payment via PayPal (credit/debit cards accepted)</p>
+                    <div class="real-payment-options">
+                        <a href="https://venmo.com/MacWayne425" target="_blank" class="payment-method venmo">
+                            <i class="fab fa-venmo"></i>
+                            <div>
+                                <strong>Venmo</strong>
+                                <span>@MacWayne425</span>
+                            </div>
+                        </a>
+                        <a href="https://cash.app/$MacWayne425" target="_blank" class="payment-method cashapp">
+                            <i class="fas fa-dollar-sign"></i>
+                            <div>
+                                <strong>Cash App</strong>
+                                <span>$MacWayne425</span>
+                            </div>
+                        </a>
+                        <a href="https://paypal.me/MacWayne425/${this.donationAmount}" target="_blank" class="payment-method paypal">
+                            <i class="fab fa-paypal"></i>
+                            <div>
+                                <strong>PayPal</strong>
+                                <span>Direct Link</span>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="manual-instructions">
+                        <p><strong>Manual Payment:</strong> Send $${this.donationAmount} to any of the above accounts with the note "Website Donation"</p>
                     </div>
                 </div>
-                <button class="btn-close">Cancel</button>
+                <button class="btn-close">Close</button>
             </div>
         `;
-
-        // Add event listeners using the same pattern as purchase system
-        modal.querySelector('.donation-btn-process').addEventListener('click', () => {
-            this.processDonationPayment(this.donationAmount);
-            modal.remove();
-        });
 
         modal.querySelector('.btn-close').addEventListener('click', () => {
             modal.remove();
@@ -201,39 +215,7 @@ class HelpBlindManEnhanced {
         this.showModal('Donation Options', message);
     }
 
-    processDonationPayment(amount) {
-        // Show processing modal using same pattern as purchase system
-        this.showProcessingModal();
-
-        // Simulate payment processing (same as purchase system)
-        setTimeout(() => {
-            this.completeDonation(amount);
-        }, 2000);
-    }
-
-    showProcessingModal() {
-        const modal = document.createElement('div');
-        modal.className = 'purchase-modal processing donation-processing';
-        modal.innerHTML = `
-            <div class="modal-content">
-                <div class="spinner"></div>
-                <h3>Processing Donation...</h3>
-                <p>Please wait while we process your donation.</p>
-            </div>
-        `;
-        document.body.appendChild(modal);
-    }
-
-    completeDonation(amount) {
-        // Remove processing modal
-        document.querySelector('.donation-processing')?.remove();
-        
-        // Show success modal
-        this.showDonationSuccess(amount);
-        
-        // Reset form
-        this.resetDonationForm();
-    }
+    // Removed fake payment processing - now shows real payment options only
 
     showDonationSuccess() {
         const message = `

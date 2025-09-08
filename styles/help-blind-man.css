@@ -638,6 +638,106 @@
     }
 }
 
+/* Real Payment Options Styles */
+.demo-notice {
+    background: rgba(255, 193, 7, 0.1);
+    border: 2px solid #ffc107;
+    border-radius: 8px;
+    padding: 1rem;
+    margin-bottom: 1.5rem;
+    text-align: center;
+}
+
+.demo-notice p {
+    margin: 0.5rem 0;
+    color: #ffc107;
+}
+
+.real-payment-options {
+    display: grid;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.payment-method {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem;
+    background: rgba(255, 255, 255, 0.1);
+    border: 2px solid transparent;
+    border-radius: 8px;
+    color: var(--text-white);
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.payment-method:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.payment-method i {
+    font-size: 2rem;
+    width: 40px;
+    text-align: center;
+}
+
+.payment-method div {
+    display: flex;
+    flex-direction: column;
+}
+
+.payment-method strong {
+    font-size: 1.1rem;
+    margin-bottom: 0.2rem;
+}
+
+.payment-method span {
+    font-size: 0.9rem;
+    opacity: 0.8;
+}
+
+.payment-method.venmo {
+    border-color: #3D95CE;
+}
+
+.payment-method.venmo:hover {
+    background: rgba(61, 149, 206, 0.2);
+    border-color: #3D95CE;
+}
+
+.payment-method.cashapp {
+    border-color: #00D632;
+}
+
+.payment-method.cashapp:hover {
+    background: rgba(0, 214, 50, 0.2);
+    border-color: #00D632;
+}
+
+.payment-method.paypal {
+    border-color: #0070BA;
+}
+
+.payment-method.paypal:hover {
+    background: rgba(0, 112, 186, 0.2);
+    border-color: #0070BA;
+}
+
+.manual-instructions {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 6px;
+    padding: 1rem;
+    text-align: center;
+}
+
+.manual-instructions p {
+    margin: 0;
+    font-size: 0.9rem;
+    color: var(--text-gray);
+}
+
 /* Reduced motion support */
 @media (prefers-reduced-motion: reduce) {
     .donation-btn::before,
