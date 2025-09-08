@@ -51,10 +51,7 @@ class PrintifyStore {
         if (!productGrid) return;
 
         if (products.length === 0) {
-            productGrid.innerHTML = '<div class="no-products"><h3>No Products Yet</h3><p>Products will appear here once added to your Printify store.</p></div>';
-            // Show coming soon overlay if no products
-            const overlay = document.getElementById('coming-soon-overlay');
-            if (overlay) overlay.style.display = 'flex';
+            productGrid.innerHTML = '<div class="no-products"><h3>Loading Products...</h3><p>Connecting to Printify store...</p></div>';
             return;
         }
 
@@ -93,11 +90,7 @@ class PrintifyStore {
             const products = await this.fetchProducts();
             this.renderProducts(products);
             
-            // Hide coming soon overlay if products loaded
-            if (products.length > 0) {
-                const overlay = document.getElementById('coming-soon-overlay');
-                if (overlay) overlay.style.display = 'none';
-            }
+
         } else {
             console.log('No shops found');
         }
