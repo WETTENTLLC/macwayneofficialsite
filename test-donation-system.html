@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Donation System Test - Mac Wayne</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="styles/help-blind-man.css">
+    <style>
+        body {
+            padding: 2rem;
+            background: var(--dark-bg);
+            color: var(--text-white);
+        }
+        .test-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: var(--glass-effect);
+            padding: 2rem;
+            border-radius: 15px;
+        }
+        .test-section {
+            margin-bottom: 2rem;
+            padding: 1rem;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+        }
+        .test-title {
+            color: var(--prison-orange);
+            margin-bottom: 1rem;
+            font-size: 1.2rem;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="test-container">
+        <h1>Donation System Test</h1>
+        <p>Test the enhanced "Help The Blind Man" donation and social sharing features.</p>
+        
+        <div class="test-section">
+            <div class="test-title">Donation Form Test</div>
+            <div class="donation-section">
+                <div class="donation-message">
+                    <p class="donation-text-primary">
+                        Your support helps keep Mac Wayne out of prison and empowers an independent blind artist.
+                    </p>
+                    <p class="donation-text-secondary">
+                        Every donation fuels his music, advocacy, and freedom.
+                    </p>
+                </div>
+                
+                <div class="donation-form">
+                    <div class="custom-amount-input">
+                        <input 
+                            type="number" 
+                            id="donation-amount" 
+                            class="amount-input" 
+                            placeholder="Enter amount" 
+                            min="1" 
+                            step="0.01"
+                        >
+                        <span class="currency-symbol">$</span>
+                    </div>
+                    
+                    <div class="quick-amounts">
+                        <button class="quick-amount-btn" data-amount="5">$5</button>
+                        <button class="quick-amount-btn" data-amount="10">$10</button>
+                        <button class="quick-amount-btn" data-amount="25">$25</button>
+                        <button class="quick-amount-btn" data-amount="50">$50</button>
+                    </div>
+                    
+                    <button class="donation-btn" id="donate-btn">
+                        <i class="fas fa-heart"></i>
+                        DONATE NOW
+                    </button>
+                    
+                    <div id="paypal-donation-container" class="paypal-container" style="display: none;"></div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="test-section">
+            <div class="test-title">Social Media Sharing Test</div>
+            <div class="social-sharing-section">
+                <h3 class="social-title">AMPLIFY HIS VOICE</h3>
+                <p class="social-cta">Share Mac's journey to amplify his voice.</p>
+                
+                <div class="social-links">
+                    <a href="https://instagram.com/MacWayne425" target="_blank" class="social-link instagram">
+                        <i class="fab fa-instagram"></i>
+                        <span>Instagram</span>
+                    </a>
+                    
+                    <a href="https://tiktok.com/@MacWayne425" target="_blank" class="social-link tiktok">
+                        <i class="fab fa-tiktok"></i>
+                        <span>TikTok</span>
+                    </a>
+                    
+                    <button class="social-link share-btn" id="share-website">
+                        <i class="fas fa-share-alt"></i>
+                        <span>Share Site</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <div class="test-section">
+            <div class="test-title">Test Controls</div>
+            <button class="strange-button" onclick="testDonationFlow()">Test Donation Flow</button>
+            <button class="strange-button" onclick="testSocialSharing()">Test Social Sharing</button>
+            <button class="strange-button" onclick="testAccessibility()">Test Accessibility</button>
+        </div>
+    </div>
+
+    <script src="js/help-blind-man-enhanced.js"></script>
+    <script>
+        function testDonationFlow() {
+            console.log('Testing donation flow...');
+            if (window.helpBlindMan) {
+                window.helpBlindMan.setDonationAmount(25);
+                window.helpBlindMan.processDonation();
+            }
+        }
+        
+        function testSocialSharing() {
+            console.log('Testing social sharing...');
+            if (window.helpBlindMan) {
+                window.helpBlindMan.shareWebsite();
+            }
+        }
+        
+        function testAccessibility() {
+            console.log('Testing accessibility features...');
+            if (window.helpBlindMan) {
+                window.helpBlindMan.announceToScreenReader('Accessibility test completed');
+                window.helpBlindMan.showToast('Accessibility features are working!');
+            }
+        }
+    </script>
+</body>
+</html>
