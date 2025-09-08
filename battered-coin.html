@@ -143,6 +143,11 @@
                     <button id="donate-btn" class="strange-button donate-button">
                         <i class="fas fa-heart"></i> DONATE NOW
                     </button>
+                    
+                    <!-- PayPal Integration Container -->
+                    <div id="paypal-donation-container" class="paypal-container" style="display: none;">
+                        <!-- PayPal buttons will render here -->
+                    </div>
                 </div>
             </div>
         </section>
@@ -236,23 +241,7 @@
         </section>
     </div>
 
-    <!-- Donation Modal -->
-    <div id="donation-modal" class="modal" style="display: none;">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h3>Support Battered Coin Launch</h3>
-                <span class="close-modal">&times;</span>
-            </div>
-            <div class="modal-body">
-                <div id="donation-content">
-                    <h4>Donation Amount: $<span id="donation-amount">0</span></h4>
-                    <p>Thank you for supporting Mac Wayne's Battered Coin project!</p>
-                    <div id="paypal-donation-container"></div>
-                    <button class="cancel-purchase">Cancel</button>
-                </div>
-            </div>
-        </div>
-    </div>
+
 
     <!-- JavaScript Files -->
     <script src="js/animations.js"></script>
@@ -273,9 +262,6 @@
         });
 
         // Donation system
-        const modal = document.getElementById('donation-modal');
-        const closeModal = modal.querySelector('.close-modal');
-        const cancelBtn = modal.querySelector('.cancel-purchase');
         const donateBtn = document.getElementById('donate-btn');
         const amountBtns = document.querySelectorAll('.amount-btn');
         const customAmount = document.getElementById('custom-amount');
@@ -297,58 +283,21 @@
 
         donateBtn.addEventListener('click', function() {
             if (selectedAmount > 0) {
-                document.getElementById('donation-amount').textContent = selectedAmount;
-                modal.style.display = 'block';
-                
-                // Initialize PayPal for donation
-                if (window.paypal) {
-                    initPayPalDonation(selectedAmount);
-                }
+                // Use same PayPal container system as main site
+                const container = document.getElementById('paypal-donation-container');
+                container.style.display = 'block';
+                container.innerHTML = `
+                    <h3>Complete Your Donation</h3>
+                    <p>Donating $${selectedAmount} to support Battered Coin launch</p>
+                    <div class="paypal-buttons-container" id="paypal-donation-buttons">
+                        <!-- PayPal buttons will render here -->
+                    </div>
+                `;
+                container.scrollIntoView({ behavior: 'smooth' });
             } else {
                 alert('Please select or enter a donation amount.');
             }
         });
-
-        closeModal.addEventListener('click', () => modal.style.display = 'none');
-        cancelBtn.addEventListener('click', () => modal.style.display = 'none');
-
-        function initPayPalDonation(amount) {
-            const container = document.getElementById('paypal-donation-container');
-            container.innerHTML = '';
-            
-            if (window.paypal) {
-                paypal.Buttons({
-                    createOrder: (data, actions) => {
-                        return actions.order.create({
-                            purchase_units: [{
-                                amount: {
-                                    value: amount.toString(),
-                                    currency_code: 'USD'
-                                },
-                                description: 'Battered Coin Launch Support'
-                            }]
-                        });
-                    },
-                    onApprove: (data, actions) => {
-                        return actions.order.capture().then((details) => {
-                            alert('Thank you for your donation! Transaction ID: ' + details.id);
-                            modal.style.display = 'none';
-                        });
-                    },
-                    onError: (err) => {
-                        console.error('PayPal Error:', err);
-                        alert('Payment failed. Please try again.');
-                    }
-                }).render('#paypal-donation-container');
-            }
-        }
-
-        // Load PayPal SDK
-        if (!window.paypal) {
-            const script = document.createElement('script');
-            script.src = 'https://www.paypal.com/sdk/js?client-id=ATefxKUHVrxyBM7_sudRHvnbUXV-nznDOJD9ZwO_nRMOSZlYCfrHA6SouCz9K7Uk3X0phjvkj_Yo0STn&currency=USD';
-            document.head.appendChild(script);
-        }
 
         // Roadmap animations
         document.addEventListener('DOMContentLoaded', function() {
