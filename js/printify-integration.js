@@ -48,10 +48,16 @@ class PrintifyStore {
 
     renderProducts(products) {
         const productGrid = document.querySelector('.product-grid');
-        if (!productGrid) return;
+        if (!productGrid) {
+            console.error('Product grid not found');
+            return;
+        }
 
+        console.log('Rendering', products.length, 'products');
+
+        // Always replace content, even if no products
         if (products.length === 0) {
-            productGrid.innerHTML = '<div class="no-products"><h3>Loading Products...</h3><p>Connecting to Printify store...</p></div>';
+            productGrid.innerHTML = '<div class="no-products"><h3>No Products Found</h3><p>Check Printify store or console for errors.</p></div>';
             return;
         }
 
@@ -63,7 +69,7 @@ class PrintifyStore {
                 <div class="product-card printify-product" data-product-id="${product.id}">
                     <div class="product-image">
                         <img src="${image}" alt="${product.title}" onerror="this.src='images/macwayne-logo.png'">
-                        <div class="product-badge">Official</div>
+                        <div class="product-badge">Printify</div>
                     </div>
                     <div class="product-info">
                         <h3 class="product-name">${product.title}</h3>
@@ -79,20 +85,21 @@ class PrintifyStore {
     }
 
     async init() {
-        // First get shops to find shop ID
+        console.log('Starting Printify integration...');
+        
         const shops = await this.fetchShops();
+        console.log('Shops response:', shops);
         
         if (shops.length > 0) {
-            this.shopId = shops[0].id; // Use first shop
-            console.log('Found shop ID:', this.shopId);
+            this.shopId = shops[0].id;
+            console.log('Using shop ID:', this.shopId);
             
-            // Now fetch products
             const products = await this.fetchProducts();
+            console.log('Products response:', products);
             this.renderProducts(products);
-            
-
         } else {
-            console.log('No shops found');
+            console.error('No shops found');
+            this.renderProducts([]);
         }
     }
 }
