@@ -110,9 +110,8 @@ class HelpBlindManEnhanced {
     }
 
     async loadPayPalSDK() {
-        // Use the same payment system as the existing purchase system
+        // Use the same PayPal system as existing purchase system
         this.paypalLoaded = true;
-        console.log('Using existing purchase system infrastructure for donations');
     }
 
     initializePayPal() {
@@ -146,53 +145,19 @@ class HelpBlindManEnhanced {
     }
 
     showPayPalDonation() {
-        // Show real payment options instead of demo
-        const modal = document.createElement('div');
-        modal.className = 'purchase-modal donation-modal';
-        modal.innerHTML = `
-            <div class="modal-content">
-                <h3>Support Mac Wayne - $${this.donationAmount}</h3>
-                <div class="donation-details">
-                    <div class="demo-notice">
-                        <p><strong>⚠️ Demo Mode:</strong> Payment processing is not yet active on this site.</p>
-                        <p>Please use one of these real payment methods to support Mac Wayne:</p>
-                    </div>
-                    <div class="real-payment-options">
-                        <a href="https://venmo.com/MacWayne425" target="_blank" class="payment-method venmo">
-                            <i class="fab fa-venmo"></i>
-                            <div>
-                                <strong>Venmo</strong>
-                                <span>@MacWayne425</span>
-                            </div>
-                        </a>
-                        <a href="https://cash.app/$MacWayne425" target="_blank" class="payment-method cashapp">
-                            <i class="fas fa-dollar-sign"></i>
-                            <div>
-                                <strong>Cash App</strong>
-                                <span>$MacWayne425</span>
-                            </div>
-                        </a>
-                        <a href="https://paypal.me/MacWayne425/${this.donationAmount}" target="_blank" class="payment-method paypal">
-                            <i class="fab fa-paypal"></i>
-                            <div>
-                                <strong>PayPal</strong>
-                                <span>Direct Link</span>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="manual-instructions">
-                        <p><strong>Manual Payment:</strong> Send $${this.donationAmount} to any of the above accounts with the note "Website Donation"</p>
-                    </div>
+        // Use existing PayPal container system
+        const container = document.getElementById('paypal-donation-container');
+        if (container) {
+            container.style.display = 'block';
+            container.innerHTML = `
+                <h3>Complete Your Donation</h3>
+                <p>Donating $${this.donationAmount} to support Mac Wayne</p>
+                <div class="paypal-buttons-container" id="paypal-donation-buttons">
+                    <!-- PayPal buttons will render here -->
                 </div>
-                <button class="btn-close">Close</button>
-            </div>
-        `;
-
-        modal.querySelector('.btn-close').addEventListener('click', () => {
-            modal.remove();
-        });
-
-        document.body.appendChild(modal);
+            `;
+            container.scrollIntoView({ behavior: 'smooth' });
+        }
     }
 
     showFallbackDonation() {
@@ -215,7 +180,10 @@ class HelpBlindManEnhanced {
         this.showModal('Donation Options', message);
     }
 
-    // Removed fake payment processing - now shows real payment options only
+    processDonationPayment(amount) {
+        // Use existing PayPal system for donations
+        this.showPayPalDonation();
+    }
 
     showDonationSuccess() {
         const message = `
