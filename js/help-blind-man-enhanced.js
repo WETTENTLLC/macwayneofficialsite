@@ -101,10 +101,10 @@ class HelpBlindManEnhanced {
     updateDonateButton() {
         const donateBtn = document.getElementById('donate-btn');
         if (donateBtn && this.donationAmount > 0) {
-            donateBtn.innerHTML = `<i class=\"fas fa-heart\" aria-hidden=\"true\"></i>DONATE $${this.donationAmount}`;
+            donateBtn.innerHTML = `<i class="fas fa-heart" aria-hidden="true"></i>DONATE $${this.donationAmount}`;
             donateBtn.setAttribute('aria-label', `Donate ${this.donationAmount} dollars to support Mac Wayne`);
         } else if (donateBtn) {
-            donateBtn.innerHTML = `<i class=\"fas fa-heart\" aria-hidden=\"true\"></i>DONATE NOW`;
+            donateBtn.innerHTML = `<i class="fas fa-heart" aria-hidden="true"></i>DONATE NOW`;
             donateBtn.setAttribute('aria-label', 'Donate to support Mac Wayne');
         }
     }
@@ -184,15 +184,15 @@ class HelpBlindManEnhanced {
     showFallbackDonation() {
         // Fallback to direct payment methods
         const message = `
-            <div class=\"donation-fallback\">
+            <div class="donation-fallback">
                 <h4>Alternative Donation Methods</h4>
                 <p>Donate $${this.donationAmount} via:</p>
-                <div class=\"fallback-methods\">
-                    <a href=\"https://venmo.com/MacWayne425\" target=\"_blank\" class=\"payment-method venmo\">
-                        <i class=\"fab fa-venmo\"></i> Venmo: @MacWayne425
+                <div class="fallback-methods">
+                    <a href="https://venmo.com/MacWayne425" target="_blank" class="payment-method venmo">
+                        <i class="fab fa-venmo"></i> Venmo: @MacWayne425
                     </a>
-                    <a href=\"https://cash.app/$MacWayne425\" target=\"_blank\" class=\"payment-method cashapp\">
-                        <i class=\"fas fa-dollar-sign\"></i> Cash App: $MacWayne425
+                    <a href="https://cash.app/$MacWayne425" target="_blank" class="payment-method cashapp">
+                        <i class="fas fa-dollar-sign"></i> Cash App: $MacWayne425
                     </a>
                 </div>
             </div>
@@ -237,8 +237,8 @@ class HelpBlindManEnhanced {
 
     showDonationSuccess() {
         const message = `
-            <div class=\"donation-success\">
-                <i class=\"fas fa-heart\" style=\"color: #ff6b6b; font-size: 3rem; margin-bottom: 1rem;\"></i>
+            <div class="donation-success">
+                <i class="fas fa-heart" style="color: #ff6b6b; font-size: 3rem; margin-bottom: 1rem;"></i>
                 <h3>Thank You!</h3>
                 <p>Your $${this.donationAmount} donation helps keep Mac Wayne creating music and spreading awareness.</p>
                 <p>Every contribution makes a difference in his journey.</p>
@@ -311,7 +311,7 @@ class HelpBlindManEnhanced {
     async shareWebsite() {
         const shareData = {
             title: 'Mac Wayne - Blind Hip Hop Visionary',
-            text: 'Check out Mac Wayne\\'s incredible journey as a blind hip-hop artist breaking barriers through music and accessibility innovation.',
+            text: 'Check out Mac Wayne\'s incredible journey as a blind hip-hop artist breaking barriers through music and accessibility innovation.',
             url: window.location.href
         };
 
@@ -330,7 +330,7 @@ class HelpBlindManEnhanced {
 
     async shareStory() {
         const shareData = {
-            title: 'Mac Wayne\\'s Inspiring Journey',
+            title: 'Mac Wayne\'s Inspiring Journey',
             text: 'Mac Wayne lost his sight but never lost his vision. Discover how this blind hip-hop artist is changing the music industry through accessibility and innovation.',
             url: window.location.href + '#help-blind-man'
         };
@@ -353,23 +353,23 @@ class HelpBlindManEnhanced {
         const encodedUrl = encodeURIComponent(shareData.url);
         
         const shareOptions = `
-            <div class=\"share-options\">
+            <div class="share-options">
                 <h4>Share Mac Wayne's Story</h4>
-                <div class=\"share-buttons\">
-                    <a href=\"https://twitter.com/intent/tweet?text=${encodedText}&url=${encodedUrl}\" 
-                       target=\"_blank\" class=\"share-btn twitter\" onclick=\"helpBlindMan.trackSocialShare('twitter', 'manual')\">
-                        <i class=\"fab fa-twitter\"></i> Twitter
+                <div class="share-buttons">
+                    <a href="https://twitter.com/intent/tweet?text=${encodedText}&url=${encodedUrl}" 
+                       target="_blank" class="share-btn twitter" onclick="helpBlindMan.trackSocialShare('twitter', 'manual')">
+                        <i class="fab fa-twitter"></i> Twitter
                     </a>
-                    <a href=\"https://www.facebook.com/sharer/sharer.php?u=${encodedUrl}\" 
-                       target=\"_blank\" class=\"share-btn facebook\" onclick=\"helpBlindMan.trackSocialShare('facebook', 'manual')\">
-                        <i class=\"fab fa-facebook\"></i> Facebook
+                    <a href="https://www.facebook.com/sharer/sharer.php?u=${encodedUrl}" 
+                       target="_blank" class="share-btn facebook" onclick="helpBlindMan.trackSocialShare('facebook', 'manual')">
+                        <i class="fab fa-facebook"></i> Facebook
                     </a>
-                    <a href=\"https://www.linkedin.com/sharing/share-offsite/?url=${encodedUrl}\" 
-                       target=\"_blank\" class=\"share-btn linkedin\" onclick=\"helpBlindMan.trackSocialShare('linkedin', 'manual')\">
-                        <i class=\"fab fa-linkedin\"></i> LinkedIn
+                    <a href="https://www.linkedin.com/sharing/share-offsite/?url=${encodedUrl}" 
+                       target="_blank" class="share-btn linkedin" onclick="helpBlindMan.trackSocialShare('linkedin', 'manual')">
+                        <i class="fab fa-linkedin"></i> LinkedIn
                     </a>
-                    <button class=\"share-btn copy-link\" onclick=\"helpBlindMan.copyToClipboard('${shareData.url}')\">
-                        <i class=\"fas fa-link\"></i> Copy Link
+                    <button class="share-btn copy-link" onclick="helpBlindMan.copyToClipboard('${shareData.url}')">
+                        <i class="fas fa-link"></i> Copy Link
                     </button>
                 </div>
             </div>
@@ -472,12 +472,12 @@ class HelpBlindManEnhanced {
             modal.id = 'help-modal';
             modal.className = 'modal';
             modal.innerHTML = `
-                <div class=\"modal-content\">
-                    <div class=\"modal-header\">
-                        <h3 class=\"modal-title\"></h3>
-                        <button class=\"close-modal\" aria-label=\"Close modal\">&times;</button>
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h3 class="modal-title"></h3>
+                        <button class="close-modal" aria-label="Close modal">&times;</button>
                     </div>
-                    <div class=\"modal-body\"></div>
+                    <div class="modal-body"></div>
                 </div>
             `;
             document.body.appendChild(modal);
