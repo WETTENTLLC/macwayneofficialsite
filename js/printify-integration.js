@@ -51,7 +51,10 @@ class PrintifyStore {
         if (!productGrid) return;
 
         if (products.length === 0) {
-            productGrid.innerHTML = '<div class="no-products"><h3>Loading Printify Products...</h3><p>Connecting to your store...</p></div>';
+            productGrid.innerHTML = '<div class="no-products"><h3>No Products Yet</h3><p>Products will appear here once added to your Printify store.</p></div>';
+            // Show coming soon overlay if no products
+            const overlay = document.getElementById('coming-soon-overlay');
+            if (overlay) overlay.style.display = 'flex';
             return;
         }
 

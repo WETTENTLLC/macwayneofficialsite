@@ -10,8 +10,7 @@ class ShopComingSoon {
     }
     
     init() {
-        // Show overlay on page load
-        this.showOverlay();
+        // Don't auto-show overlay - let Printify integration control it
         
         // Bind events
         if (this.notifyForm) {
