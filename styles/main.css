@@ -996,6 +996,122 @@ body::before {
     }
 }
 
+/* Shows Section Styles */
+.no-shows-message {
+    text-align: center;
+    margin-bottom: 2rem;
+    padding: 2rem;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.coming-soon-icon {
+    font-size: 3rem;
+    color: var(--prison-orange);
+    margin-bottom: 1rem;
+}
+
+.no-shows-message h3 {
+    color: var(--text-white);
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+    font-family: var(--font-bebas);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.no-shows-message p {
+    color: var(--text-gray);
+    line-height: 1.6;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.notification-signup {
+    background: rgba(0, 0, 0, 0.6);
+    padding: 2rem;
+    border-radius: 10px;
+    border: 2px solid var(--prison-red);
+    text-align: center;
+}
+
+.notification-signup h4 {
+    color: var(--prison-orange);
+    font-size: 1.3rem;
+    margin-bottom: 0.5rem;
+    font-family: var(--font-bebas);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.notification-signup > p {
+    color: var(--text-gray);
+    margin-bottom: 1.5rem;
+}
+
+.notification-list {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 2rem 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.notification-list li {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--text-white);
+    font-weight: 500;
+}
+
+.notification-list i {
+    color: var(--prison-orange);
+    width: 20px;
+}
+
+.show-notification-form {
+    max-width: 500px;
+    margin: 0 auto;
+}
+
+.form-row {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 0.5rem;
+}
+
+.form-row input {
+    flex: 1;
+}
+
+.form-row button {
+    white-space: nowrap;
+}
+
+.form-note {
+    font-size: 0.85rem;
+    color: var(--text-gray);
+    font-style: italic;
+    margin: 0;
+}
+
+@media (max-width: 768px) {
+    .form-row {
+        flex-direction: column;
+    }
+    
+    .notification-list {
+        grid-template-columns: 1fr;
+        text-align: left;
+    }
+}
+
 /* Ensure body has top padding for fixed nav */
 body {
     padding-top: 70px;

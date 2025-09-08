@@ -137,6 +137,12 @@ function initializeNewsletterForm() {
     if (newsletterForm) {
         newsletterForm.addEventListener('submit', handleNewsletterSubmit);
     }
+    
+    // Show notification form handling
+    const showNotificationForm = document.querySelector('#show-notification-form');
+    if (showNotificationForm) {
+        showNotificationForm.addEventListener('submit', handleShowNotificationSubmit);
+    }
 }
 
 async function handleNewsletterSubmit(e) {
@@ -166,6 +172,39 @@ async function handleNewsletterSubmit(e) {
     } catch (error) {
         showNotification('Subscription failed. Please try again.', 'error');
         console.error('Newsletter subscription error:', error);
+    } finally {
+        submitBtn.textContent = originalBtnText;
+        submitBtn.disabled = false;
+    }
+}
+
+async function handleShowNotificationSubmit(e) {
+    e.preventDefault();
+    
+    const form = e.target;
+    const emailInput = form.querySelector('input[type="email"]');
+    const submitBtn = form.querySelector('button[type="submit"]');
+    const originalBtnText = submitBtn.textContent;
+    
+    // Basic email validation
+    if (!emailInput.value || !isValidEmail(emailInput.value)) {
+        showNotification('Please enter a valid email address', 'error');
+        return;
+    }
+    
+    // Show loading state
+    submitBtn.textContent = 'Signing Up...';
+    submitBtn.disabled = true;
+    
+    try {
+        // Simulate API call (replace with actual notification service)
+        await new Promise(resolve => setTimeout(resolve, 1000));
+        
+        showNotification('Successfully signed up for show notifications!', 'success');
+        form.reset();
+    } catch (error) {
+        showNotification('Sign up failed. Please try again.', 'error');
+        console.error('Show notification signup error:', error);
     } finally {
         submitBtn.textContent = originalBtnText;
         submitBtn.disabled = false;
