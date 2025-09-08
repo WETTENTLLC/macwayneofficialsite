@@ -18,13 +18,23 @@ class HelpBlindManEnhanced {
     }
 
     setupDonationForm() {
+        console.log('Setting up donation form...');
+        
         const amountInput = document.getElementById('donation-amount');
         const quickAmountBtns = document.querySelectorAll('.quick-amount-btn');
         const donateBtn = document.getElementById('donate-btn');
 
+        console.log('Found elements:', {
+            amountInput: !!amountInput,
+            quickAmountBtns: quickAmountBtns.length,
+            donateBtn: !!donateBtn
+        });
+
         // Quick amount button handlers
-        quickAmountBtns.forEach(btn => {
+        quickAmountBtns.forEach((btn, index) => {
+            console.log(`Setting up quick amount button ${index + 1}:`, btn.dataset.amount);
             btn.addEventListener('click', (e) => {
+                console.log('Quick amount clicked:', e.target.dataset.amount);
                 const amount = parseFloat(e.target.dataset.amount);
                 this.setDonationAmount(amount);
                 this.updateQuickAmountSelection(e.target);
@@ -33,32 +43,44 @@ class HelpBlindManEnhanced {
 
         // Custom amount input handler
         if (amountInput) {
+            console.log('Setting up amount input handler');
             amountInput.addEventListener('input', (e) => {
                 const amount = parseFloat(e.target.value) || 0;
+                console.log('Amount input changed:', amount);
                 this.setDonationAmount(amount);
                 this.clearQuickAmountSelection();
             });
 
             amountInput.addEventListener('keypress', (e) => {
                 if (e.key === 'Enter') {
+                    console.log('Enter pressed on amount input');
                     this.processDonation();
                 }
             });
+        } else {
+            console.error('Amount input not found!');
         }
 
         // Donate button handler
         if (donateBtn) {
-            donateBtn.addEventListener('click', () => {
+            console.log('Setting up donate button handler');
+            donateBtn.addEventListener('click', (e) => {
+                console.log('Donate button clicked');
+                e.preventDefault();
                 this.processDonation();
             });
+        } else {
+            console.error('Donate button not found!');
         }
     }
 
     setDonationAmount(amount) {
+        console.log('Setting donation amount:', amount);
         this.donationAmount = amount;
         const amountInput = document.getElementById('donation-amount');
         if (amountInput) {
             amountInput.value = amount;
+            console.log('Updated input value to:', amount);
         }
         this.updateDonateButton();
     }
@@ -99,19 +121,26 @@ class HelpBlindManEnhanced {
     }
 
     processDonation() {
+        console.log('Processing donation. Amount:', this.donationAmount);
+        
         if (this.donationAmount <= 0) {
+            console.log('No donation amount set');
             this.showDonationError('Please enter a donation amount');
             return;
         }
 
         if (this.donationAmount < 1) {
+            console.log('Donation amount too small:', this.donationAmount);
             this.showDonationError('Minimum donation amount is $1');
             return;
         }
 
+        console.log('PayPal loaded:', this.paypalLoaded);
         if (this.paypalLoaded) {
+            console.log('Showing PayPal donation modal');
             this.showPayPalDonation();
         } else {
+            console.log('Showing fallback donation options');
             this.showFallbackDonation();
         }
     }
@@ -517,10 +546,27 @@ class HelpBlindManEnhanced {
     }
 }
 
-// Initialize when DOM is loaded
+// Initialize when DOM is loaded with delay to ensure all elements are available
 document.addEventListener('DOMContentLoaded', () => {
-    window.helpBlindMan = new HelpBlindManEnhanced();
+    // Add small delay to ensure all elements are rendered
+    setTimeout(() => {
+        window.helpBlindMan = new HelpBlindManEnhanced();
+        console.log('Help Blind Man Enhanced system initialized');
+    }, 100);
 });
+
+// Fallback initialization if DOMContentLoaded already fired
+if (document.readyState === 'loading') {
+    // DOM is still loading
+} else {
+    // DOM is already loaded
+    setTimeout(() => {
+        if (!window.helpBlindMan) {
+            window.helpBlindMan = new HelpBlindManEnhanced();
+            console.log('Help Blind Man Enhanced system initialized (fallback)');
+        }
+    }, 100);
+}
 
 // Export for testing
 if (typeof module !== 'undefined' && module.exports) {
