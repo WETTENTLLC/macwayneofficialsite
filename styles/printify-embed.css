@@ -1,0 +1,19 @@
+.printify-embed-container {
+    width: 100%;
+    margin: 2rem 0;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.printify-embed-container iframe {
+    width: 100%;
+    min-height: 800px;
+    border: none;
+}
+
+@media (max-width: 768px) {
+    .printify-embed-container iframe {
+        min-height: 600px;
+    }
+}

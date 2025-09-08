@@ -75,6 +75,7 @@
     <link rel="stylesheet" href="styles/components.css">
     <link rel="stylesheet" href="styles/animations.css">
     <link rel="stylesheet" href="styles/download-system.css">
+    <link rel="stylesheet" href="styles/printify-embed.css">
     
     <!-- Favicon -->
     <link rel="icon" type="image/x-icon" href="favicon.ico">
@@ -172,7 +173,19 @@
 
     <!-- Products -->
     <section class="products-section">
-        <div class="container">            <div class="product-grid">
+        <div class="container">            <!-- Printify Store Embed -->
+            <div class="printify-embed-container">
+                <iframe 
+                    src="https://macwayneofficial.printify.me" 
+                    width="100%" 
+                    height="800" 
+                    frameborder="0" 
+                    title="Mac Wayne Official Store"
+                    style="border: none; border-radius: 8px;"
+                ></iframe>
+            </div>
+            
+            <div class="product-grid" style="display: none;">
                 <!-- Featured Album - Blind and Battered -->
                 <div class="product-card featured-album" data-product-id="blind-battered-digital" data-category="digital">
                     <div class="product-image">
