@@ -110,13 +110,64 @@ class HelpBlindManEnhanced {
     }
 
     async loadPayPalSDK() {
-        // Use the same PayPal system as existing purchase system
-        this.paypalLoaded = true;
+        if (document.querySelector('script[src*="paypal.com"]')) {
+            this.paypalLoaded = true;
+            this.initializePayPal();
+            return;
+        }
+
+        const script = document.createElement('script');
+        script.src = 'https://www.paypal.com/sdk/js?client-id=AQlP8Uy9H8k2lVhKzd7hF8k2lVhKzd7hF8k2lVhKzd7hF8k2lVhKzd7hF8k2lVhKzd7h&currency=USD';
+        script.onload = () => {
+            this.paypalLoaded = true;
+            this.initializePayPal();
+        };
+        script.onerror = () => {
+            console.error('Failed to load PayPal SDK');
+            this.paypalLoaded = false;
+        };
+        document.head.appendChild(script);
     }
 
     initializePayPal() {
-        // Integration with existing purchase system - no separate PayPal needed
-        this.paypalLoaded = true;
+        if (typeof paypal === 'undefined') {
+            console.error('PayPal SDK not loaded');
+            return;
+        }
+
+        // Initialize PayPal for donations
+        this.setupPayPalDonations();
+    }
+
+    setupPayPalDonations() {
+        const container = document.getElementById('paypal-donation-container');
+        if (!container) return;
+
+        // Clear existing buttons
+        container.innerHTML = '';
+
+        paypal.Buttons({
+            createOrder: (data, actions) => {
+                return actions.order.create({
+                    purchase_units: [{
+                        amount: {
+                            value: this.donationAmount.toString()
+                        },
+                        description: `Donation to support Mac Wayne - $${this.donationAmount}`
+                    }]
+                });
+            },
+            onApprove: (data, actions) => {
+                return actions.order.capture().then((details) => {
+                    this.showDonationSuccess();
+                    container.style.display = 'none';
+                });
+            },
+            onError: (err) => {
+                console.error('PayPal error:', err);
+                this.showDonationError('Payment failed. Please try again.');
+            }
+        }).render('#paypal-donation-container');
     }
 
     processDonation() {
@@ -145,17 +196,15 @@ class HelpBlindManEnhanced {
     }
 
     showPayPalDonation() {
-        // Use existing PayPal container system
         const container = document.getElementById('paypal-donation-container');
         if (container) {
             container.style.display = 'block';
-            container.innerHTML = `
-                <h3>Complete Your Donation</h3>
-                <p>Donating $${this.donationAmount} to support Mac Wayne</p>
-                <div class="paypal-buttons-container" id="paypal-donation-buttons">
-                    <!-- PayPal buttons will render here -->
-                </div>
-            `;
+            
+            // Use global PayPal integration
+            if (window.createPayPalDonation) {
+                window.createPayPalDonation(this.donationAmount);
+            }
+            
             container.scrollIntoView({ behavior: 'smooth' });
         }
     }
