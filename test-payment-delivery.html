@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment Delivery System Test - Mac Wayne</title>
+    <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="styles/payment-delivery.css">
+    <style>
+        .test-container {
+            max-width: 800px;
+            margin: 2rem auto;
+            padding: 2rem;
+            background: #1a1a1a;
+            border: 1px solid #444;
+            border-radius: 10px;
+        }
+        
+        .test-section {
+            margin-bottom: 2rem;
+            padding: 1rem;
+            border: 1px solid #333;
+            border-radius: 5px;
+        }
+        
+        .test-button {
+            background: #cc0000;
+            color: white;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            margin: 0.5rem;
+            border-radius: 5px;
+            cursor: pointer;
+            font-family: 'Bebas Neue', sans-serif;
+        }
+        
+        .test-button:hover {
+            background: #aa0000;
+        }
+        
+        .status-display {
+            background: #2a2a2a;
+            padding: 1rem;
+            border-radius: 5px;
+            margin: 1rem 0;
+        }
+        
+        .status-item {
+            display: flex;
+            justify-content: space-between;
+            margin: 0.5rem 0;
+        }
+        
+        .status-true {
+            color: #28a745;
+        }
+        
+        .status-false {
+            color: #dc3545;
+        }
+    </style>
+</head>
+<body class="strange-theme">
+    <div class="test-container">
+        <h1 style="color: #cc0000; font-family: 'Bebas Neue', sans-serif; text-align: center;">
+            Payment Delivery System Test
+        </h1>
+        
+        <div class="test-section">
+            <h3 style="color: #cc0000;">Current Status</h3>
+            <div class="status-display" id="status-display">
+                <div class="status-item">
+                    <span>Album Purchased:</span>
+                    <span id="album-status" class="status-false">❌ No</span>
+                </div>
+                <div class="status-item">
+                    <span>Streaming Access:</span>
+                    <span id="streaming-status" class="status-false">❌ No</span>
+                </div>
+                <div class="status-item">
+                    <span>Purchase History:</span>
+                    <span id="history-count">0 purchases</span>
+                </div>
+            </div>
+        </div>
+        
+        <div class="test-section">
+            <h3 style="color: #cc0000;">Test Payment Scenarios</h3>
+            <p style="color: #ccc;">Simulate different payment scenarios to test the delivery system:</p>
+            
+            <button class="test-button" onclick="simulateAlbumPurchase()">
+                🎵 Simulate Album Purchase ($14.99)
+            </button>
+            
+            <button class="test-button" onclick="simulateStreamingPurchase()">
+                📱 Simulate Streaming Purchase ($5.00)
+            </button>
+            
+            <button class="test-button" onclick="simulateFailedPayment()">
+                ❌ Simulate Failed Payment
+            </button>
+        </div>
+        
+        <div class="test-section">
+            <h3 style="color: #cc0000;">Test Delivery Features</h3>
+            <p style="color: #ccc;">Test the delivery and access features:</p>
+            
+            <button class="test-button" onclick="testDownloadCenter()">
+                📥 Test Download Center
+            </button>
+            
+            <button class="test-button" onclick="testStreamingAccess()">
+                🎵 Test Streaming Access
+            </button>
+            
+            <button class="test-button" onclick="testTrackDownload()">
+                📀 Test Track Download
+            </button>
+        </div>
+        
+        <div class="test-section">
+            <h3 style="color: #cc0000;">Reset & Clear</h3>
+            <p style="color: #ccc;">Reset the system to test from scratch:</p>
+            
+            <button class="test-button" onclick="clearAllData()">
+                🗑️ Clear All Purchase Data
+            </button>
+            
+            <button class="test-button" onclick="refreshStatus()">
+                🔄 Refresh Status
+            </button>
+        </div>
+        
+        <div class="test-section">
+            <h3 style="color: #cc0000;">Purchase History</h3>
+            <div id="purchase-history" style="color: #ccc;">
+                No purchases yet
+            </div>
+        </div>
+    </div>
+
+    <!-- Include the payment delivery system -->
+    <script src="js/payment-delivery-system.js"></script>
+    
+    <script>
+        // Test functions
+        function simulateAlbumPurchase() {
+            const mockPaymentDetails = {
+                id: 'TEST_ALBUM_' + Date.now(),
+                status: 'COMPLETED',
+                purchase_units: [{
+                    amount: { value: '14.99' }
+                }]
+            };
+            
+            if (window.paymentDeliverySystem) {
+                window.paymentDeliverySystem.processAlbumPurchase(mockPaymentDetails);
+                refreshStatus();
+            } else {
+                alert('Payment delivery system not loaded');
+            }
+        }
+        
+        function simulateStreamingPurchase() {
+            const mockPaymentDetails = {
+                id: 'TEST_STREAM_' + Date.now(),
+                status: 'COMPLETED',
+                purchase_units: [{
+                    amount: { value: '5.00' }
+                }]
+            };
+            
+            if (window.paymentDeliverySystem) {
+                window.paymentDeliverySystem.processStreamingPurchase(mockPaymentDetails);
+                refreshStatus();
+            } else {
+                alert('Payment delivery system not loaded');
+            }
+        }
+        
+        function simulateFailedPayment() {
+            alert('❌ Payment Failed: Insufficient funds or payment method declined');
+        }
+        
+        function testDownloadCenter() {
+            if (window.paymentDeliverySystem && window.paymentDeliverySystem.hasAlbumAccess()) {
+                window.paymentDeliverySystem.showDownloadCenter();
+            } else {
+                alert('❌ Album purchase required to access download center');
+            }
+        }
+        
+        function testStreamingAccess() {
+            if (window.paymentDeliverySystem && window.paymentDeliverySystem.hasStreamingAccess()) {
+                alert('✅ Streaming access confirmed! All tracks are available for streaming.');
+            } else {
+                alert('❌ Streaming access required');
+            }
+        }
+        
+        function testTrackDownload() {
+            if (window.paymentDeliverySystem && window.paymentDeliverySystem.hasAlbumAccess()) {
+                window.paymentDeliverySystem.downloadTrack('track-1');
+            } else {
+                alert('❌ Album purchase required to download tracks');
+            }
+        }
+        
+        function clearAllData() {
+            localStorage.removeItem('mac-wayne-album-purchased');
+            localStorage.removeItem('mac-wayne-streaming-access');
+            localStorage.removeItem('mac-wayne-purchases');
+            localStorage.removeItem('mac-wayne-download-package');
+            
+            // Reinitialize the system
+            if (window.paymentDeliverySystem) {
+                window.paymentDeliverySystem = new PaymentDeliverySystem();
+            }
+            
+            refreshStatus();
+            alert('✅ All purchase data cleared');
+        }
+        
+        function refreshStatus() {
+            if (!window.paymentDeliverySystem) return;
+            
+            const albumStatus = document.getElementById('album-status');
+            const streamingStatus = document.getElementById('streaming-status');
+            const historyCount = document.getElementById('history-count');
+            const purchaseHistory = document.getElementById('purchase-history');
+            
+            // Update status indicators
+            if (window.paymentDeliverySystem.hasAlbumAccess()) {
+                albumStatus.textContent = '✅ Yes';
+                albumStatus.className = 'status-true';
+            } else {
+                albumStatus.textContent = '❌ No';
+                albumStatus.className = 'status-false';
+            }
+            
+            if (window.paymentDeliverySystem.hasStreamingAccess()) {
+                streamingStatus.textContent = '✅ Yes';
+                streamingStatus.className = 'status-true';
+            } else {
+                streamingStatus.textContent = '❌ No';
+                streamingStatus.className = 'status-false';
+            }
+            
+            // Update purchase history
+            const history = window.paymentDeliverySystem.getPurchaseHistory();
+            historyCount.textContent = `${history.length} purchase${history.length !== 1 ? 's' : ''}`;
+            
+            if (history.length > 0) {
+                purchaseHistory.innerHTML = history.map(purchase => `
+                    <div style="background: #2a2a2a; padding: 1rem; margin: 0.5rem 0; border-radius: 5px;">
+                        <strong>${purchase.product}</strong><br>
+                        <small>
+                            ID: ${purchase.id}<br>
+                            Price: $${purchase.price}<br>
+                            Date: ${new Date(purchase.date).toLocaleString()}<br>
+                            Status: ${purchase.status}<br>
+                            Delivered: ${purchase.delivered ? '✅ Yes' : '❌ No'}
+                        </small>
+                    </div>
+                `).join('');
+            } else {
+                purchaseHistory.innerHTML = '<p style="color: #666;">No purchases yet</p>';
+            }
+        }
+        
+        // Initialize status on page load
+        document.addEventListener('DOMContentLoaded', () => {
+            setTimeout(() => {
+                refreshStatus();
+            }, 1000);
+        });
+        
+        // Auto-refresh status every 5 seconds
+        setInterval(refreshStatus, 5000);
+    </script>
+</body>
+</html>
