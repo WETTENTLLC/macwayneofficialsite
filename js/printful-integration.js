@@ -99,21 +99,40 @@ class PrintfulStore {
     }
 }
 
-// Initialize when DOM is ready - Force store display
+// Initialize when DOM is ready - Show store link
 document.addEventListener('DOMContentLoaded', () => {
-    // Immediately show Printful store embed
     const productGrid = document.querySelector('.product-grid');
     if (productGrid) {
         productGrid.innerHTML = `
-            <div class="printful-store-embed">
-                <iframe 
-                    src="https://macwayne.printful.me" 
-                    width="100%" 
-                    height="1000" 
-                    frameborder="0" 
-                    title="Mac Wayne Official Store"
-                    style="border: none; border-radius: 8px; background: #fff;"
-                ></iframe>
+            <div class="store-redirect">
+                <div class="store-message">
+                    <h3>🛍️ Mac Wayne Official Store</h3>
+                    <p>Browse and purchase official Mac Wayne merchandise directly from our secure Printful store.</p>
+                    <a href="https://macwayne.printful.me" target="_blank" class="store-link-btn">
+                        <i class="fas fa-external-link-alt"></i>
+                        Visit Official Store
+                    </a>
+                </div>
+                <div class="featured-products">
+                    <h4>Available Products:</h4>
+                    <div class="product-preview-grid">
+                        <div class="preview-item">
+                            <i class="fas fa-tshirt"></i>
+                            <span>Mac Wayne Classic Tee</span>
+                            <small>$24.99</small>
+                        </div>
+                        <div class="preview-item">
+                            <i class="fas fa-mask"></i>
+                            <span>1000 Crew Neck Gaiter</span>
+                            <small>$19.64</small>
+                        </div>
+                        <div class="preview-item">
+                            <i class="fas fa-hat-cowboy"></i>
+                            <span>Official Merchandise</span>
+                            <small>Various Prices</small>
+                        </div>
+                    </div>
+                </div>
             </div>
         `;
     }
