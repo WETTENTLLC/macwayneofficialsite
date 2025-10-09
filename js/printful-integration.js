@@ -51,7 +51,7 @@ class PrintfulStore {
 
         console.log('Rendering', products.length, 'Printful products');
 
-        // Embed full Printful store
+        // Show Printful store embed immediately
         productGrid.innerHTML = `
             <div class="printful-store-embed">
                 <iframe 
@@ -99,15 +99,22 @@ class PrintfulStore {
     }
 }
 
-// Initialize when DOM is ready
+// Initialize when DOM is ready - Force store display
 document.addEventListener('DOMContentLoaded', () => {
-    // You'll need to provide your Printful API token
-    const PRINTFUL_TOKEN = 'NjxCYiout11p0cbvyMOA7RaZxZJwUG6fLFofq8HC';
-    
-    if (PRINTFUL_TOKEN !== 'YOUR_PRINTFUL_TOKEN_HERE') {
-        const store = new PrintfulStore(PRINTFUL_TOKEN);
-        store.init();
-    } else {
-        console.log('Printful token not configured');
+    // Immediately show Printful store embed
+    const productGrid = document.querySelector('.product-grid');
+    if (productGrid) {
+        productGrid.innerHTML = `
+            <div class="printful-store-embed">
+                <iframe 
+                    src="https://macwayne.printful.me" 
+                    width="100%" 
+                    height="1000" 
+                    frameborder="0" 
+                    title="Mac Wayne Official Store"
+                    style="border: none; border-radius: 8px; background: #fff;"
+                ></iframe>
+            </div>
+        `;
     }
 });
