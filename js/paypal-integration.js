@@ -33,6 +33,9 @@ class PayPalIntegration {
         // Album purchase buttons
         this.setupAlbumPurchase();
         
+        // Streaming access buttons
+        this.setupStreamingAccess();
+        
         // Track purchase buttons
         this.setupTrackPurchase();
         
@@ -65,6 +68,33 @@ class PayPalIntegration {
                 alert('Payment failed. Please try again.');
             }
         }).render('#paypal-album-container');
+    }
+
+    setupStreamingAccess() {
+        const streamingContainer = document.getElementById('paypal-streaming-container');
+        if (!streamingContainer || !window.paypal) return;
+
+        window.paypal.Buttons({
+            createOrder: (data, actions) => {
+                return actions.order.create({
+                    purchase_units: [{
+                        amount: {
+                            value: '5.00'
+                        },
+                        description: 'Mac Wayne - Full Album Streaming Access'
+                    }]
+                });
+            },
+            onApprove: (data, actions) => {
+                return actions.order.capture().then((details) => {
+                    this.handleStreamingPurchaseSuccess(details);
+                });
+            },
+            onError: (err) => {
+                console.error('PayPal streaming purchase error:', err);
+                alert('Payment failed. Please try again.');
+            }
+        }).render('#paypal-streaming-container');
     }
 
     setupTrackPurchase() {
@@ -148,9 +178,51 @@ class PayPalIntegration {
         }
     }
 
+    handleStreamingPurchaseSuccess(details) {
+        // Save streaming access
+        localStorage.setItem('mac-wayne-streaming-access', 'true');
+        
+        // Show success message
+        alert('Thank you! You now have full album streaming access. All tracks are unlocked!');
+        
+        // Hide PayPal container
+        document.getElementById('paypal-streaming-container').style.display = 'none';
+        
+        // Enable full audio playback
+        this.enableStreamingMode();
+        
+        // Trigger streaming system update
+        if (window.enableStreamingAccess) {
+            window.enableStreamingAccess();
+        }
+    }
+
     handleTrackPurchaseSuccess(details) {
         alert('Thank you for your purchase! Your track download will begin shortly.');
         document.getElementById('paypal-track-container').style.display = 'none';
+    }
+
+    enableStreamingMode() {
+        // Update all track items to show streaming access
+        const trackItems = document.querySelectorAll('.track-item');
+        trackItems.forEach(item => {
+            const playBtn = item.querySelector('.mini-play-btn');
+            const trackStatus = item.querySelector('.track-status');
+            
+            if (playBtn && trackStatus) {
+                trackStatus.textContent = 'Full Track';
+                trackStatus.className = 'track-status full';
+                playBtn.textContent = '▶ Play Full';
+            }
+        });
+        
+        // Update purchase buttons
+        const streamingBtn = document.querySelector('.purchase-streaming');
+        if (streamingBtn) {
+            streamingBtn.innerHTML = '✓ Streaming Active';
+            streamingBtn.disabled = true;
+            streamingBtn.style.background = '#28a745';
+        }
     }
 
     handleDonationSuccess(details, amount) {
