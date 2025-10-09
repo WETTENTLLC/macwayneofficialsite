@@ -1,0 +1,105 @@
+.store-redirect {
+    text-align: center;
+    padding: 3rem 2rem;
+    background: linear-gradient(135deg, rgba(204, 0, 0, 0.1), rgba(0, 0, 0, 0.8));
+    border: 2px solid #cc0000;
+    border-radius: 10px;
+    margin: 2rem 0;
+}
+
+.store-message h3 {
+    color: #cc0000;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 2rem;
+    margin-bottom: 1rem;
+}
+
+.store-message p {
+    color: #fff;
+    font-size: 1.1rem;
+    margin-bottom: 2rem;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.store-link-btn {
+    display: inline-block;
+    background: linear-gradient(145deg, #cc0000, #990000);
+    color: white;
+    padding: 15px 30px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 1.1rem;
+    transition: all 0.3s ease;
+    margin-bottom: 3rem;
+}
+
+.store-link-btn:hover {
+    background: linear-gradient(145deg, #ee0000, #cc0000);
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(204, 0, 0, 0.4);
+}
+
+.store-link-btn i {
+    margin-right: 0.5rem;
+}
+
+.coming-soon-products h4 {
+    color: #fff;
+    margin-bottom: 1.5rem;
+    font-size: 1.3rem;
+}
+
+.preview-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.preview-item {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(204, 0, 0, 0.3);
+    border-radius: 8px;
+    padding: 1.5rem 1rem;
+    transition: all 0.3s ease;
+}
+
+.preview-item:hover {
+    border-color: #cc0000;
+    transform: translateY(-3px);
+}
+
+.preview-item i {
+    font-size: 2rem;
+    color: #cc0000;
+    margin-bottom: 0.5rem;
+    display: block;
+}
+
+.preview-item span {
+    color: #fff;
+    font-weight: bold;
+}
+
+@media (max-width: 768px) {
+    .store-redirect {
+        padding: 2rem 1rem;
+    }
+    
+    .store-message h3 {
+        font-size: 1.5rem;
+    }
+    
+    .preview-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 0.5rem;
+    }
+    
+    .preview-item {
+        padding: 1rem 0.5rem;
+    }
+}

@@ -51,11 +51,43 @@ class PrintfulStore {
 
         console.log('Rendering', products.length, 'Printful products');
 
-        if (products.length === 0) {
-            productGrid.innerHTML = '<div class="no-products"><h3>Loading Printful Products...</h3><p>Connecting to your store...</p></div>';
-            return;
-        }
+        // Show store link since API has CORS restrictions
+        productGrid.innerHTML = `
+            <div class="store-redirect">
+                <div class="store-message">
+                    <h3>🛍️ Mac Wayne Official Store</h3>
+                    <p>Browse and purchase official Mac Wayne merchandise directly from our secure Printful store.</p>
+                    <a href="https://macwayne.printful.me" target="_blank" class="store-link-btn">
+                        <i class="fas fa-external-link-alt"></i>
+                        Visit Official Store
+                    </a>
+                </div>
+                <div class="coming-soon-products">
+                    <h4>Coming Soon:</h4>
+                    <div class="preview-grid">
+                        <div class="preview-item">
+                            <i class="fas fa-tshirt"></i>
+                            <span>Mac Wayne T-Shirts</span>
+                        </div>
+                        <div class="preview-item">
+                            <i class="fas fa-hat-cowboy"></i>
+                            <span>Official Caps</span>
+                        </div>
+                        <div class="preview-item">
+                            <i class="fas fa-shopping-bag"></i>
+                            <span>Hoodies & Merch</span>
+                        </div>
+                        <div class="preview-item">
+                            <i class="fas fa-compact-disc"></i>
+                            <span>Music & Albums</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        `;
+        return;
 
+        // This won't run due to CORS, but keeping for future backend integration
         productGrid.innerHTML = products.map(product => {
             const image = product.image || 'images/macwayne-logo.png';
             const price = product.price || '0.00';
