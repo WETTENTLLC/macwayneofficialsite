@@ -244,6 +244,7 @@
 
 
     <!-- JavaScript Files -->
+    <script src="js/paypal-integration.js"></script>
     <script src="js/animations.js"></script>
     <script src="js/download-system.js"></script>
     <script>
@@ -283,17 +284,15 @@
 
         donateBtn.addEventListener('click', function() {
             if (selectedAmount > 0) {
-                // Use same PayPal container system as main site
-                const container = document.getElementById('paypal-donation-container');
-                container.style.display = 'block';
-                container.innerHTML = `
-                    <h3>Complete Your Donation</h3>
-                    <p>Donating $${selectedAmount} to support Battered Coin launch</p>
-                    <div class="paypal-buttons-container" id="paypal-donation-buttons">
-                        <!-- PayPal buttons will render here -->
-                    </div>
-                `;
-                container.scrollIntoView({ behavior: 'smooth' });
+                // Use global PayPal integration
+                if (window.createPayPalDonation) {
+                    const container = document.getElementById('paypal-donation-container');
+                    container.style.display = 'block';
+                    window.createPayPalDonation(selectedAmount);
+                    container.scrollIntoView({ behavior: 'smooth' });
+                } else {
+                    alert('Payment system loading. Please try again in a moment.');
+                }
             } else {
                 alert('Please select or enter a donation amount.');
             }

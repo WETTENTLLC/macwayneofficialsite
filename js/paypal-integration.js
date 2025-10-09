@@ -1,7 +1,7 @@
 // PayPal Integration for Mac Wayne Site
 class PayPalIntegration {
     constructor() {
-        this.clientId = 'AQlP8Uy9H8k2lVhKzd7hF8k2lVhKzd7hF8k2lVhKzd7hF8k2lVhKzd7hF8k2lVhKzd7h';
+        this.clientId = 'ATefxKUHVrxyBM7_sudRH';
         this.loaded = false;
         this.init();
     }
