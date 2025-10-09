@@ -51,43 +51,57 @@ class PrintfulStore {
 
         console.log('Rendering', products.length, 'Printful products');
 
-        // Show store link since API has CORS restrictions
-        productGrid.innerHTML = `
-            <div class="store-redirect">
-                <div class="store-message">
-                    <h3>🛍️ Mac Wayne Official Store</h3>
-                    <p>Browse and purchase official Mac Wayne merchandise directly from our secure Printful store.</p>
-                    <a href="https://macwayne.printful.me" target="_blank" class="store-link-btn">
-                        <i class="fas fa-external-link-alt"></i>
-                        Visit Official Store
-                    </a>
+        // Display sample products since API has CORS restrictions
+        const sampleProducts = [
+            {
+                id: 'mac-wayne-tshirt',
+                name: 'Mac Wayne Official T-Shirt',
+                price: '24.99',
+                image: 'images/macwayne-logo.png',
+                description: 'Official Mac Wayne branded t-shirt. High quality cotton blend.'
+            },
+            {
+                id: 'mac-wayne-hoodie',
+                name: 'Mac Wayne Hoodie',
+                price: '49.99',
+                image: 'images/macwayne-logo.png',
+                description: 'Comfortable hoodie with Mac Wayne logo. Perfect for any weather.'
+            },
+            {
+                id: 'mac-wayne-cap',
+                name: 'Mac Wayne Snapback Cap',
+                price: '29.99',
+                image: 'images/macwayne-logo.png',
+                description: 'Adjustable snapback cap with embroidered Mac Wayne logo.'
+            },
+            {
+                id: 'mac-wayne-album',
+                name: 'Blind & Battered Album',
+                price: '15.99',
+                image: 'images/macwayne-background.png',
+                description: 'Physical CD of the complete Blind & Battered album.'
+            }
+        ];
+        
+        productGrid.innerHTML = sampleProducts.map(product => `
+            <div class="product-card" data-product-id="${product.id}">
+                <div class="product-image">
+                    <img src="${product.image}" alt="${product.name}" onerror="this.src='images/macwayne-logo.png'">
+                    <div class="product-badge">Official</div>
                 </div>
-                <div class="coming-soon-products">
-                    <h4>Coming Soon:</h4>
-                    <div class="preview-grid">
-                        <div class="preview-item">
-                            <i class="fas fa-tshirt"></i>
-                            <span>Mac Wayne T-Shirts</span>
-                        </div>
-                        <div class="preview-item">
-                            <i class="fas fa-hat-cowboy"></i>
-                            <span>Official Caps</span>
-                        </div>
-                        <div class="preview-item">
-                            <i class="fas fa-shopping-bag"></i>
-                            <span>Hoodies & Merch</span>
-                        </div>
-                        <div class="preview-item">
-                            <i class="fas fa-compact-disc"></i>
-                            <span>Music & Albums</span>
-                        </div>
-                    </div>
+                <div class="product-info">
+                    <h3 class="product-name">${product.name}</h3>
+                    <p class="product-description">${product.description}</p>
+                    <p class="product-price">$${product.price}</p>
+                    <button class="add-to-cart" onclick="window.open('https://printful.com', '_blank')">
+                        Buy Now
+                    </button>
                 </div>
             </div>
-        `;
+        `).join('');
         return;
 
-        // This won't run due to CORS, but keeping for future backend integration
+        // Future API integration code (currently disabled due to CORS)
         productGrid.innerHTML = products.map(product => {
             const image = product.image || 'images/macwayne-logo.png';
             const price = product.price || '0.00';
