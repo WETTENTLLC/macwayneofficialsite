@@ -17,25 +17,47 @@ class StreamingSystem {
     }
 
     setupStreamingButtons() {
-        document.addEventListener('click', (e) => {
-            if (e.target.matches('.purchase-streaming')) {
-                e.preventDefault();
-                this.showStreamingPurchase();
+        // Use setTimeout to ensure DOM is ready
+        setTimeout(() => {
+            const streamingBtn = document.querySelector('.purchase-streaming');
+            if (streamingBtn) {
+                console.log('Streaming button found, adding click handler');
+                streamingBtn.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    console.log('Streaming button clicked');
+                    this.showStreamingPurchase();
+                });
+            } else {
+                console.log('Streaming button not found');
             }
-        });
+        }, 1000);
     }
 
     showStreamingPurchase() {
+        console.log('showStreamingPurchase called');
         const container = document.getElementById('paypal-streaming-container');
+        console.log('Container found:', !!container);
+        
         if (container) {
             container.style.display = 'block';
+            console.log('Container displayed');
             
             // Create PayPal button dynamically
-            if (window.paypalIntegration) {
+            if (window.paypalIntegration && window.paypalIntegration.createStreamingButton) {
+                console.log('Creating PayPal streaming button');
                 window.paypalIntegration.createStreamingButton();
+            } else {
+                console.log('PayPal integration not available');
+                // Fallback: show simple message
+                container.innerHTML = `
+                    <h3>Complete Streaming Access</h3>
+                    <p>PayPal integration loading... Please refresh the page and try again.</p>
+                `;
             }
             
             container.scrollIntoView({ behavior: 'smooth' });
+        } else {
+            console.log('PayPal streaming container not found');
         }
     }
 
