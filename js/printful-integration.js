@@ -7,19 +7,37 @@ class PrintfulStore {
 
     async fetchProducts() {
         try {
-            const response = await fetch(`${this.baseUrl}/catalog/products`, {
+            // Try v1 endpoint first since v2 might have CORS issues
+            const response = await fetch('https://api.printful.com/store/products', {
                 headers: {
                     'Authorization': `Bearer ${this.token}`,
                     'Content-Type': 'application/json'
                 }
             });
             
-            if (!response.ok) throw new Error('Failed to fetch products');
+            console.log('API Response status:', response.status);
+            
+            if (!response.ok) {
+                console.error('API Error:', response.status, response.statusText);
+                throw new Error(`API Error: ${response.status}`);
+            }
             
             const data = await response.json();
-            return data.data || [];
+            console.log('API Response data:', data);
+            return data.result || data.data || [];
         } catch (error) {
             console.error('Error fetching Printful products:', error);
+            // Show error message to user
+            const productGrid = document.querySelector('.product-grid');
+            if (productGrid) {
+                productGrid.innerHTML = `
+                    <div class="no-products">
+                        <h3>Store Connection Issue</h3>
+                        <p>Unable to load products. Please check console for details.</p>
+                        <p>Error: ${error.message}</p>
+                    </div>
+                `;
+            }
             return [];
         }
     }
