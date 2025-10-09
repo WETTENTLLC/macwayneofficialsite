@@ -1,0 +1,21 @@
+.printful-store-embed {
+    width: 100%;
+    margin: 2rem 0;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    background: #fff;
+}
+
+.printful-store-embed iframe {
+    width: 100%;
+    min-height: 1000px;
+    border: none;
+    display: block;
+}
+
+@media (max-width: 768px) {
+    .printful-store-embed iframe {
+        min-height: 800px;
+    }
+}
