@@ -71,8 +71,19 @@ class PayPalIntegration {
     }
 
     setupStreamingAccess() {
+        // Streaming PayPal buttons will be created dynamically when needed
+    }
+
+    createStreamingButton() {
         const streamingContainer = document.getElementById('paypal-streaming-container');
         if (!streamingContainer || !window.paypal) return;
+
+        // Clear existing content
+        streamingContainer.innerHTML = `
+            <h3>Complete Streaming Access</h3>
+            <p>Click the PayPal button below to get full album streaming access for $5.00</p>
+            <div id="paypal-streaming-buttons"></div>
+        `;
 
         window.paypal.Buttons({
             createOrder: (data, actions) => {
@@ -94,7 +105,7 @@ class PayPalIntegration {
                 console.error('PayPal streaming purchase error:', err);
                 alert('Payment failed. Please try again.');
             }
-        }).render('#paypal-streaming-container');
+        }).render('#paypal-streaming-buttons');
     }
 
     setupTrackPurchase() {

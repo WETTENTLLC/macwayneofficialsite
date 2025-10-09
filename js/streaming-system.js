@@ -29,6 +29,12 @@ class StreamingSystem {
         const container = document.getElementById('paypal-streaming-container');
         if (container) {
             container.style.display = 'block';
+            
+            // Create PayPal button dynamically
+            if (window.paypalIntegration) {
+                window.paypalIntegration.createStreamingButton();
+            }
+            
             container.scrollIntoView({ behavior: 'smooth' });
         }
     }
