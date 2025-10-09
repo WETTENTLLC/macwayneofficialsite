@@ -57,29 +57,33 @@ class PrintfulStore {
                 id: 'mac-wayne-tshirt',
                 name: 'Mac Wayne Official T-Shirt',
                 price: '24.99',
-                image: 'images/macwayne-logo.png',
-                description: 'Official Mac Wayne branded t-shirt. High quality cotton blend.'
+                image: 'https://via.placeholder.com/300x300/cc0000/ffffff?text=Mac+Wayne+T-Shirt',
+                description: 'Official Mac Wayne branded t-shirt. High quality cotton blend.',
+                buyUrl: 'https://macwayne.printful.me/product/tshirt'
             },
             {
                 id: 'mac-wayne-hoodie',
                 name: 'Mac Wayne Hoodie',
                 price: '49.99',
-                image: 'images/macwayne-logo.png',
-                description: 'Comfortable hoodie with Mac Wayne logo. Perfect for any weather.'
+                image: 'https://via.placeholder.com/300x300/990000/ffffff?text=Mac+Wayne+Hoodie',
+                description: 'Comfortable hoodie with Mac Wayne logo. Perfect for any weather.',
+                buyUrl: 'https://macwayne.printful.me/product/hoodie'
             },
             {
                 id: 'mac-wayne-cap',
                 name: 'Mac Wayne Snapback Cap',
                 price: '29.99',
-                image: 'images/macwayne-logo.png',
-                description: 'Adjustable snapback cap with embroidered Mac Wayne logo.'
+                image: 'https://via.placeholder.com/300x300/cc0000/ffffff?text=Mac+Wayne+Cap',
+                description: 'Adjustable snapback cap with embroidered Mac Wayne logo.',
+                buyUrl: 'https://macwayne.printful.me/product/cap'
             },
             {
                 id: 'mac-wayne-album',
                 name: 'Blind & Battered Album',
                 price: '15.99',
                 image: 'images/macwayne-background.png',
-                description: 'Physical CD of the complete Blind & Battered album.'
+                description: 'Physical CD of the complete Blind & Battered album.',
+                buyUrl: 'https://macwayne.printful.me/product/album'
             }
         ];
         
@@ -93,7 +97,7 @@ class PrintfulStore {
                     <h3 class="product-name">${product.name}</h3>
                     <p class="product-description">${product.description}</p>
                     <p class="product-price">$${product.price}</p>
-                    <button class="add-to-cart" onclick="window.open('https://printful.com', '_blank')">
+                    <button class="add-to-cart" onclick="window.open('${product.buyUrl}', '_blank')">
                         Buy Now
                     </button>
                 </div>
