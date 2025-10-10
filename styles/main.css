@@ -468,6 +468,30 @@ body::before {
   border: 1px solid var(--prison-orange);
 }
 
+.track-status.free {
+  display: inline-block;
+  background: rgba(0, 255, 0, 0.2);
+  color: #00ff00;
+  font-size: 0.75rem;
+  padding: 2px 8px;
+  border-radius: 12px;
+  margin-left: 8px;
+  border: 1px solid #00ff00;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+.track-status.preview {
+  display: inline-block;
+  background: rgba(255, 165, 0, 0.2);
+  color: var(--prison-orange);
+  font-size: 0.75rem;
+  padding: 2px 8px;
+  border-radius: 12px;
+  margin-left: 8px;
+  border: 1px solid var(--prison-orange);
+}
+
 .preview-line {
   position: absolute;
   top: 0;

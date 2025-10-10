@@ -39,10 +39,10 @@ class WorkingAudioSystem {
         }
 
         const trackId = trackItem.dataset.id;
-        const sampleSrc = trackItem.dataset.src;
+        const fullSrc = trackItem.dataset.fullSrc; // Use full track instead of sample
         const trackName = trackItem.querySelector('.track-name')?.textContent || 'Unknown Track';
 
-        console.log('Playing track:', trackName, 'Source:', sampleSrc);
+        console.log('Playing track:', trackName, 'Source:', fullSrc);
 
         // Stop current audio if playing
         this.stopCurrentAudio();
@@ -51,7 +51,7 @@ class WorkingAudioSystem {
         this.updatePlayButton(button, 'loading');
 
         // Create and play audio
-        this.playAudio(sampleSrc, trackName, button, trackItem);
+        this.playAudio(fullSrc, trackName, button, trackItem);
     }
 
     playAudio(src, trackName, button, trackItem) {
@@ -78,12 +78,7 @@ class WorkingAudioSystem {
                 this.updatePlayButton(button, 'playing');
                 trackItem.classList.add('playing');
                 
-                // Set preview timer
-                setTimeout(() => {
-                    if (this.currentAudio && !this.currentAudio.paused) {
-                        this.stopPreview(trackName);
-                    }
-                }, this.previewDuration * 1000);
+                // No preview timer - allow full track listening
             });
 
             this.currentAudio.addEventListener('pause', () => {
@@ -128,20 +123,7 @@ class WorkingAudioSystem {
         this.isPlaying = false;
     }
 
-    stopPreview(trackName) {
-        if (this.currentAudio) {
-            this.currentAudio.pause();
-            this.isPlaying = false;
-            
-            if (this.currentTrack) {
-                this.updatePlayButton(this.currentTrack.button, 'stopped');
-                this.currentTrack.trackItem.classList.remove('playing');
-            }
-            
-            // Show purchase prompt
-            this.showPurchasePrompt(trackName);
-        }
-    }
+
 
     updatePlayButton(button, state) {
         if (!button) return;
@@ -196,17 +178,7 @@ class WorkingAudioSystem {
         fallbackAudio.load();
     }
 
-    showPurchasePrompt(trackName) {
-        const message = `Preview ended for "${trackName}". Purchase the full track ($1.50) or complete album ($14.99) to hear the full song.`;
-        
-        if (confirm(message + '\n\nWould you like to see purchase options?')) {
-            // Scroll to purchase section
-            const purchaseSection = document.querySelector('#paypal-album-container');
-            if (purchaseSection) {
-                purchaseSection.scrollIntoView({ behavior: 'smooth' });
-            }
-        }
-    }
+
 
     // PayPal Integration
     initPayPal() {

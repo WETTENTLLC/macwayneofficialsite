@@ -1,0 +1,18 @@
+/* Free Streaming Model Styles */
+
+.track-status.free {
+    background: #28a745;
+    color: white;
+    padding: 0.25rem 0.5rem;
+    border-radius: 3px;
+    font-size: 0.8rem;
+}
+
+.preview-indicator {
+    color: #28a745 !important;
+}
+
+.album-description {
+    color: #28a745;
+    font-weight: bold;
+}
