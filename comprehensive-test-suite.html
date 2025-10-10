@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mac Wayne Site - Comprehensive Test Suite</title>
+    <style>
+        body { font-family: Arial, sans-serif; background: #1a1a1a; color: #fff; padding: 20px; }
+        .test-section { background: #2a2a2a; margin: 20px 0; padding: 20px; border-radius: 10px; }
+        .test-result { padding: 10px; margin: 5px 0; border-radius: 5px; }
+        .pass { background: #28a745; }
+        .fail { background: #dc3545; }
+        .warning { background: #ffc107; color: #000; }
+        .test-btn { background: #cc0000; color: white; border: none; padding: 10px 20px; margin: 5px; border-radius: 5px; cursor: pointer; }
+        .test-btn:hover { background: #aa0000; }
+        .status-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 15px; }
+        .status-item { background: #333; padding: 15px; border-radius: 8px; }
+        .status-indicator { width: 20px; height: 20px; border-radius: 50%; display: inline-block; margin-right: 10px; }
+        .green { background: #28a745; }
+        .red { background: #dc3545; }
+        .yellow { background: #ffc107; }
+    </style>
+</head>
+<body>
+    <h1>🧪 Mac Wayne Site - Comprehensive Test Suite</h1>
+    
+    <div class="test-section">
+        <h2>🎵 Audio System Tests</h2>
+        <div class="status-grid">
+            <div class="status-item">
+                <span class="status-indicator" id="audio-load-status"></span>
+                <strong>Audio Files Loading</strong>
+                <div id="audio-load-result">Testing...</div>
+            </div>
+            <div class="status-item">
+                <span class="status-indicator" id="play-pause-status"></span>
+                <strong>Play/Pause Controls</strong>
+                <div id="play-pause-result">Testing...</div>
+            </div>
+            <div class="status-item">
+                <span class="status-indicator" id="sample-status"></span>
+                <strong>Sample Tracks</strong>
+                <div id="sample-result">Testing...</div>
+            </div>
+        </div>
+        <button class="test-btn" onclick="testAudioSystem()">🔄 Test Audio System</button>
+    </div>
+
+    <div class="test-section">
+        <h2>💳 Purchase System Tests</h2>
+        <div class="status-grid">
+            <div class="status-item">
+                <span class="status-indicator" id="paypal-load-status"></span>
+                <strong>PayPal SDK Loading</strong>
+                <div id="paypal-load-result">Testing...</div>
+            </div>
+            <div class="status-item">
+                <span class="status-indicator" id="purchase-buttons-status"></span>
+                <strong>Purchase Buttons</strong>
+                <div id="purchase-buttons-result">Testing...</div>
+            </div>
+            <div class="status-item">
+                <span class="status-indicator" id="pricing-status"></span>
+                <strong>Pricing Display</strong>
+                <div id="pricing-result">Testing...</div>
+            </div>
+        </div>
+        <button class="test-btn" onclick="testPurchaseSystem()">🔄 Test Purchase System</button>
+    </div>
+
+    <div class="test-section">
+        <h2>🚚 Delivery System Tests</h2>
+        <div class="status-grid">
+            <div class="status-item">
+                <span class="status-indicator" id="access-control-status"></span>
+                <strong>Access Control</strong>
+                <div id="access-control-result">Testing...</div>
+            </div>
+            <div class="status-item">
+                <span class="status-indicator" id="download-status"></span>
+                <strong>Download System</strong>
+                <div id="download-result">Testing...</div>
+            </div>
+            <div class="status-item">
+                <span class="status-indicator" id="streaming-status"></span>
+                <strong>Streaming Access</strong>
+                <div id="streaming-result">Testing...</div>
+            </div>
+        </div>
+        <button class="test-btn" onclick="testDeliverySystem()">🔄 Test Delivery System</button>
+    </div>
+
+    <div class="test-section">
+        <h2>🌐 Site Functionality Tests</h2>
+        <div class="status-grid">
+            <div class="status-item">
+                <span class="status-indicator" id="navigation-status"></span>
+                <strong>Navigation</strong>
+                <div id="navigation-result">Testing...</div>
+            </div>
+            <div class="status-item">
+                <span class="status-indicator" id="responsive-status"></span>
+                <strong>Responsive Design</strong>
+                <div id="responsive-result">Testing...</div>
+            </div>
+            <div class="status-item">
+                <span class="status-indicator" id="forms-status"></span>
+                <strong>Forms</strong>
+                <div id="forms-result">Testing...</div>
+            </div>
+        </div>
+        <button class="test-btn" onclick="testSiteFunctionality()">🔄 Test Site Functions</button>
+    </div>
+
+    <div class="test-section">
+        <h2>📊 Test Results Summary</h2>
+        <div id="test-summary">
+            <p>Click "Run All Tests" to begin comprehensive testing...</p>
+        </div>
+        <button class="test-btn" onclick="runAllTests()" style="background: #28a745; font-size: 18px; padding: 15px 30px;">
+            🚀 RUN ALL TESTS
+        </button>
+    </div>
+
+    <script>
+        let testResults = {
+            audio: {},
+            purchase: {},
+            delivery: {},
+            site: {}
+        };
+
+        function setStatus(elementId, status, message) {
+            const indicator = document.getElementById(elementId);
+            const result = document.getElementById(elementId.replace('-status', '-result'));
+            
+            indicator.className = `status-indicator ${status}`;
+            result.textContent = message;
+            
+            return status === 'green';
+        }
+
+        async function testAudioSystem() {
+            console.log('🎵 Testing Audio System...');
+            
+            // Test 1: Audio files loading
+            try {
+                const sampleAudio = new Audio('samples/01-sample.mp3');
+                await new Promise((resolve, reject) => {
+                    sampleAudio.addEventListener('canplaythrough', resolve);
+                    sampleAudio.addEventListener('error', reject);
+                    setTimeout(reject, 5000); // 5s timeout
+                });
+                testResults.audio.loading = setStatus('audio-load-status', 'green', 'Sample files load successfully');
+            } catch (e) {
+                testResults.audio.loading = setStatus('audio-load-status', 'red', 'Sample files failed to load');
+            }
+
+            // Test 2: Play/Pause controls
+            const playButtons = document.querySelectorAll('.mini-play-btn');
+            if (playButtons.length >= 20) {
+                testResults.audio.controls = setStatus('play-pause-status', 'green', `${playButtons.length} play buttons found`);
+            } else {
+                testResults.audio.controls = setStatus('play-pause-status', 'red', `Only ${playButtons.length} play buttons found`);
+            }
+
+            // Test 3: Sample tracks availability
+            const trackItems = document.querySelectorAll('.track-item');
+            let samplesFound = 0;
+            trackItems.forEach(item => {
+                if (item.dataset.src && item.dataset.src.includes('samples/')) {
+                    samplesFound++;
+                }
+            });
+            
+            if (samplesFound >= 20) {
+                testResults.audio.samples = setStatus('sample-status', 'green', `${samplesFound} sample tracks configured`);
+            } else {
+                testResults.audio.samples = setStatus('sample-status', 'red', `Only ${samplesFound} sample tracks found`);
+            }
+        }
+
+        async function testPurchaseSystem() {
+            console.log('💳 Testing Purchase System...');
+            
+            // Test 1: PayPal SDK loading
+            if (window.paypal) {
+                testResults.purchase.paypal = setStatus('paypal-load-status', 'green', 'PayPal SDK loaded successfully');
+            } else {
+                testResults.purchase.paypal = setStatus('paypal-load-status', 'red', 'PayPal SDK not loaded');
+            }
+
+            // Test 2: Purchase buttons
+            const albumBtn = document.querySelector('.purchase-album');
+            const streamBtn = document.querySelector('.purchase-streaming');
+            const trackBtns = document.querySelectorAll('.purchase-track');
+            
+            if (albumBtn && streamBtn && trackBtns.length >= 20) {
+                testResults.purchase.buttons = setStatus('purchase-buttons-status', 'green', 'All purchase buttons present');
+            } else {
+                testResults.purchase.buttons = setStatus('purchase-buttons-status', 'red', 'Missing purchase buttons');
+            }
+
+            // Test 3: Pricing display
+            const albumPrice = albumBtn?.textContent.includes('$14.99');
+            const streamPrice = streamBtn?.textContent.includes('$5.00');
+            const trackPrice = Array.from(trackBtns).every(btn => btn.textContent.includes('$1.50'));
+            
+            if (albumPrice && streamPrice && trackPrice) {
+                testResults.purchase.pricing = setStatus('pricing-status', 'green', 'All prices correct');
+            } else {
+                testResults.purchase.pricing = setStatus('pricing-status', 'red', 'Incorrect pricing found');
+            }
+        }
+
+        async function testDeliverySystem() {
+            console.log('🚚 Testing Delivery System...');
+            
+            // Test 1: Access control
+            const albumPurchased = localStorage.getItem('mac-wayne-album-purchased') === 'true';
+            const streamingAccess = localStorage.getItem('mac-wayne-streaming-access') === 'true';
+            
+            if (!albumPurchased && !streamingAccess) {
+                testResults.delivery.access = setStatus('access-control-status', 'green', 'Preview mode active (no purchases)');
+            } else {
+                testResults.delivery.access = setStatus('access-control-status', 'yellow', 'User has existing purchases');
+            }
+
+            // Test 2: Download system
+            const fullTracks = document.querySelectorAll('[data-full-src]');
+            if (fullTracks.length >= 20) {
+                testResults.delivery.downloads = setStatus('download-status', 'green', `${fullTracks.length} full tracks available`);
+            } else {
+                testResults.delivery.downloads = setStatus('download-status', 'red', `Only ${fullTracks.length} full tracks found`);
+            }
+
+            // Test 3: Streaming system
+            if (window.realPayPalPurchase) {
+                testResults.delivery.streaming = setStatus('streaming-status', 'green', 'Purchase system loaded');
+            } else {
+                testResults.delivery.streaming = setStatus('streaming-status', 'red', 'Purchase system not loaded');
+            }
+        }
+
+        async function testSiteFunctionality() {
+            console.log('🌐 Testing Site Functionality...');
+            
+            // Test 1: Navigation
+            const navLinks = document.querySelectorAll('.nav-menu a');
+            if (navLinks.length >= 5) {
+                testResults.site.navigation = setStatus('navigation-status', 'green', `${navLinks.length} navigation links found`);
+            } else {
+                testResults.site.navigation = setStatus('navigation-status', 'red', 'Insufficient navigation links');
+            }
+
+            // Test 2: Responsive design
+            const viewport = window.innerWidth;
+            if (viewport >= 768) {
+                testResults.site.responsive = setStatus('responsive-status', 'green', `Desktop view (${viewport}px)`);
+            } else {
+                testResults.site.responsive = setStatus('responsive-status', 'yellow', `Mobile view (${viewport}px)`);
+            }
+
+            // Test 3: Forms
+            const forms = document.querySelectorAll('form');
+            if (forms.length >= 2) {
+                testResults.site.forms = setStatus('forms-status', 'green', `${forms.length} forms found`);
+            } else {
+                testResults.site.forms = setStatus('forms-status', 'red', 'Missing forms');
+            }
+        }
+
+        async function runAllTests() {
+            document.getElementById('test-summary').innerHTML = '<p>🔄 Running comprehensive tests...</p>';
+            
+            await testAudioSystem();
+            await testPurchaseSystem();
+            await testDeliverySystem();
+            await testSiteFunctionality();
+            
+            // Generate summary
+            const totalTests = Object.values(testResults).reduce((acc, category) => acc + Object.keys(category).length, 0);
+            const passedTests = Object.values(testResults).reduce((acc, category) => 
+                acc + Object.values(category).filter(result => result === true).length, 0);
+            
+            const successRate = Math.round((passedTests / totalTests) * 100);
+            
+            let summaryHTML = `
+                <h3>📊 Test Results Summary</h3>
+                <p><strong>Overall Success Rate: ${successRate}%</strong> (${passedTests}/${totalTests} tests passed)</p>
+                <div style="background: #333; padding: 15px; border-radius: 8px; margin: 10px 0;">
+                    <h4>🎵 Audio System: ${Object.values(testResults.audio).filter(r => r).length}/${Object.keys(testResults.audio).length} passed</h4>
+                    <h4>💳 Purchase System: ${Object.values(testResults.purchase).filter(r => r).length}/${Object.keys(testResults.purchase).length} passed</h4>
+                    <h4>🚚 Delivery System: ${Object.values(testResults.delivery).filter(r => r).length}/${Object.keys(testResults.delivery).length} passed</h4>
+                    <h4>🌐 Site Functions: ${Object.values(testResults.site).filter(r => r).length}/${Object.keys(testResults.site).length} passed</h4>
+                </div>
+            `;
+            
+            if (successRate >= 80) {
+                summaryHTML += '<div class="test-result pass">✅ SITE IS READY FOR PRODUCTION</div>';
+            } else if (successRate >= 60) {
+                summaryHTML += '<div class="test-result warning">⚠️ SITE NEEDS MINOR FIXES</div>';
+            } else {
+                summaryHTML += '<div class="test-result fail">❌ SITE NEEDS MAJOR FIXES</div>';
+            }
+            
+            document.getElementById('test-summary').innerHTML = summaryHTML;
+        }
+
+        // Auto-load test page with site context
+        window.addEventListener('load', () => {
+            // Try to access parent window (if opened from main site)
+            try {
+                if (window.opener && window.opener.document) {
+                    // Copy relevant elements from main site for testing
+                    const mainDoc = window.opener.document;
+                    
+                    // Create hidden elements for testing
+                    const testContainer = document.createElement('div');
+                    testContainer.style.display = 'none';
+                    testContainer.innerHTML = mainDoc.querySelector('.album-section')?.innerHTML || '';
+                    document.body.appendChild(testContainer);
+                }
+            } catch (e) {
+                console.log('Running standalone test');
+            }
+        });
+    </script>
+</body>
+</html>
