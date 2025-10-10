@@ -33,30 +33,47 @@ class PayPalIntegration {
     }
 
     setupPayPalButtons() {
-        // Album purchase buttons
-        this.setupAlbumPurchase();
-        
-        // Streaming access buttons
-        this.setupStreamingAccess();
-        
-        // Track purchase buttons
-        this.setupTrackPurchase();
-        
-        // Donation buttons
-        this.setupDonations();
+        // Add click handlers for purchase buttons
+        document.addEventListener('click', (e) => {
+            if (e.target.matches('.purchase-album')) {
+                e.preventDefault();
+                this.showAlbumPurchase();
+            }
+            if (e.target.matches('.purchase-streaming')) {
+                e.preventDefault();
+                this.showStreamingPurchase();
+            }
+            if (e.target.matches('.purchase-track')) {
+                e.preventDefault();
+                this.showTrackPurchase();
+            }
+        });
     }
 
-    setupAlbumPurchase() {
+    showAlbumPurchase() {
         const albumContainer = document.getElementById('paypal-album-container');
-        if (!albumContainer || !window.paypal) return;
-
+        if (!albumContainer) return;
+        
+        albumContainer.style.display = 'block';
+        albumContainer.scrollIntoView({ behavior: 'smooth' });
+        
+        if (!window.paypal) {
+            albumContainer.innerHTML = '<p>PayPal loading... Please refresh and try again.</p>';
+            return;
+        }
+        
+        // Clear and recreate PayPal button
+        albumContainer.innerHTML = `
+            <h3>Complete Album Purchase</h3>
+            <p>Click the PayPal button below to purchase the full album (20 tracks) for $14.99</p>
+            <div id="paypal-album-buttons"></div>
+        `;
+        
         window.paypal.Buttons({
             createOrder: (data, actions) => {
                 return actions.order.create({
                     purchase_units: [{
-                        amount: {
-                            value: '14.99'
-                        },
+                        amount: { value: '14.99' },
                         description: 'Mac Wayne - Blind & Battered Album (20 tracks)'
                     }]
                 });
@@ -70,18 +87,25 @@ class PayPalIntegration {
                 console.error('PayPal album purchase error:', err);
                 alert('Payment failed. Please try again.');
             }
-        }).render('#paypal-album-container');
+        }).render('#paypal-album-buttons');
     }
 
     setupStreamingAccess() {
         // Streaming PayPal buttons will be created dynamically when needed
     }
 
-    createStreamingButton() {
+    showStreamingPurchase() {
         const streamingContainer = document.getElementById('paypal-streaming-container');
-        if (!streamingContainer || !window.paypal) return;
-
-        // Clear existing content
+        if (!streamingContainer) return;
+        
+        streamingContainer.style.display = 'block';
+        streamingContainer.scrollIntoView({ behavior: 'smooth' });
+        
+        if (!window.paypal) {
+            streamingContainer.innerHTML = '<p>PayPal loading... Please refresh and try again.</p>';
+            return;
+        }
+        
         streamingContainer.innerHTML = `
             <h3>Complete Streaming Access</h3>
             <p>Click the PayPal button below to get full album streaming access for $5.00</p>
@@ -92,9 +116,7 @@ class PayPalIntegration {
             createOrder: (data, actions) => {
                 return actions.order.create({
                     purchase_units: [{
-                        amount: {
-                            value: '5.00'
-                        },
+                        amount: { value: '5.00' },
                         description: 'Mac Wayne - Full Album Streaming Access'
                     }]
                 });
@@ -110,18 +132,34 @@ class PayPalIntegration {
             }
         }).render('#paypal-streaming-buttons');
     }
+    
+    createStreamingButton() {
+        this.showStreamingPurchase();
+    }
 
-    setupTrackPurchase() {
+    showTrackPurchase() {
         const trackContainer = document.getElementById('paypal-track-container');
-        if (!trackContainer || !window.paypal) return;
+        if (!trackContainer) return;
+        
+        trackContainer.style.display = 'block';
+        trackContainer.scrollIntoView({ behavior: 'smooth' });
+        
+        if (!window.paypal) {
+            trackContainer.innerHTML = '<p>PayPal loading... Please refresh and try again.</p>';
+            return;
+        }
+        
+        trackContainer.innerHTML = `
+            <h3>Complete Track Purchase</h3>
+            <p>Click the PayPal button below to purchase this track for $1.50</p>
+            <div id="paypal-track-buttons"></div>
+        `;
 
         window.paypal.Buttons({
             createOrder: (data, actions) => {
                 return actions.order.create({
                     purchase_units: [{
-                        amount: {
-                            value: '1.50'
-                        },
+                        amount: { value: '1.50' },
                         description: 'Mac Wayne - Individual Track Purchase'
                     }]
                 });
@@ -135,7 +173,7 @@ class PayPalIntegration {
                 console.error('PayPal track purchase error:', err);
                 alert('Payment failed. Please try again.');
             }
-        }).render('#paypal-track-container');
+        }).render('#paypal-track-buttons');
     }
 
     setupDonations() {
