@@ -84,6 +84,7 @@ class RealPayPalPurchase {
                 return actions.order.capture().then((details) => {
                     modal.remove();
                     this.handleSuccessfulPayment(type, details, price);
+                    this.sendDownloadEmail(details, type, price);
                 });
             },
             onError: (err) => {
@@ -119,6 +120,46 @@ class RealPayPalPurchase {
 
         // Reload page to update UI
         location.reload();
+    }
+
+    async sendDownloadEmail(details, type, price) {
+        const customerEmail = details.payer.email_address;
+        const transactionId = details.id;
+        const customerName = details.payer.name.given_name + ' ' + details.payer.name.surname;
+        
+        // Email to customer
+        const customerEmailData = {
+            email: customerEmail,
+            subject: `Mac Wayne Track Purchase - Download Coming Soon`,
+            message: `Hi ${customerName},\n\nThank you for your Mac Wayne track purchase!\n\nTransaction ID: ${transactionId}\nAmount: $${price}\n\nYour download link will be sent within 24 hours.\n\nSupport: macwayneofficial.com\n\n- Mac Wayne Team`
+        };
+
+        // Email to you (notification)
+        const adminEmailData = {
+            email: 'admin@macwayneofficial.com',
+            subject: `NEW PURCHASE ALERT - ${customerName}`,
+            message: `NEW TRACK PURCHASE:\n\nCustomer: ${customerName}\nEmail: ${customerEmail}\nTransaction ID: ${transactionId}\nAmount: $${price}\nType: ${type}\nDate: ${new Date().toLocaleString()}\n\nSend download link manually to customer.`
+        };
+
+        try {
+            // Send customer email
+            await fetch('https://formspree.io/f/mldlyaln', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(customerEmailData)
+            });
+            
+            // Send admin notification
+            await fetch('https://formspree.io/f/mldlyaln', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(adminEmailData)
+            });
+            
+            console.log('Purchase notifications sent');
+        } catch (error) {
+            console.error('Email delivery failed:', error);
+        }
     }
 }
 
